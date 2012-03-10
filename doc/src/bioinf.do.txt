@@ -1,0 +1,731 @@
+
+# Preprocessor: Mako
+
+% if PRIMER_BOOK:
+======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
+
+#It is now time to summarize and further illustrate loops, `if` tests,
+#and functions in some compound examples. The chosen example area
+#is bioinformatics, where strings are heavily used, but the operations
+#on strings are very similar to the operations we have already learned on
+#lists.
+
+ % else:
+======= Basic Bioinformatics Examples in Python =======
+% endif
+
+idx{bioinformatics}
+idx{DNA}
+
+Life is definitely digital. The genetic code of all living organisms
+are represented by a long sequence of simple molecules called
+nucleotides, or bases, which makes up the Deoxyribonucleic acid,
+better known as DNA. There are only four such nucleotides, and the
+entire genetic code of a human can be seen as a simple, though 3
+billion long, string of the letters A, C, G, and T.  Analyzing DNA
+data to gain increased biological understanding is much about
+searching in (long) strings for certain string patterns involving the
+letters A, C, G, and T.  This is an integral part of *bioinformatics*,
+a scientific discipline addressing the use of computers to search
+for, explore, and use information about genes, nucleic acids, and
+proteins.
+
+
+Below are some simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, `if` tests, and functions.
+% if PRIMER_BOOK:
+We also give a glimpse of programming constructions that are
+covered much more in detail later in the book.
+% endif
+
+===== Counting Letters in DNA Strings =====
+label{bioinf:count}
+
+Given some string `dna` containing the letters `A`, `C`, `G`, or `T`,
+representing the bases that make up DNA, we ask the question: how
+many times does a certain base occur in the DNA string?
+For example, if `dna` is `ATGGCATTA` and we ask how many times the
+base `A` occur in this string, the answer is 3.
+
+A general Python implementation answering this problem can be done
+in many ways. Some solutions are presented below.
+
+=== List Iteration ===
+
+idx{list iteration}
+
+The most straightforward solution is to loop over the characters
+in the string, test if the current character equals the desired one,
+and if so, increase a counter. Looping over the characters is
+obvious if the characters are stored in a list. This is easily
+done by
+!bc ipy
+>>> list('ATGC')
+['A', 'T', 'G', 'C']
+!ec
+Our first solution becomes
+
+@@@CODE src-bioinf/count.py fromto: def count_v1\(@def count_v2\(dna
+
+=== String Iteration ===
+
+idx{string iteration}
+
+Python allows us to iterate directly over a string without converting
+it to a list:
+!bc ipy
+>>> for c in 'ATGC':
+...     print c
+A
+T
+G
+C
+!ec
+In fact, all objects in Python which contains a set of elements in
+a particular sequence allow a `for` loop construction of the
+type `for element in object`.
+#Examples of such objects are
+#lists, tuples, strings, arrays, files, dictionaries
+
+A slight improvement of our solution is therefore to iterate directly
+over the string:
+
+@@@CODE src-bioinf/count.py fromto: def count_v2\(dna@def count_v2_demo
+
+=== Program Flow ===
+
+For correct programming it is a fundamental importance to
+be able to simulate the program above by hand, statement by
+statement. Three tools are
+effective for helping you reach the required understanding for doing
+a manual simulation:
+(i) printing variables, (ii) using a debugger, and (iii) using an
+"online program flow tool": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize".
+
+Inserting `print` statements and examining the about help to demonstrate
+what is going on:
+
+@@@CODE src-bioinf/count.py fromto: def count_v2_demo@def count_v3
+
+idx{using a debugger}
+
+An efficient way to explore this program is to run it in a
+debugger where we can step through each statement and see what
+is printed out. Launch `ipython` and run the program with
+a debugger: `run -d programname.py`. Use `s` (for step) to
+step through each statement, or `n` (for next) for stepping
+without also stepping through functions.
+!bc ipy
+ipdb> s
+> /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
+1     1 def count_v1_demo(dna, base):
+----> 2     print 'dna:', dna
+      3     print 'base:', base
+
+ipdb> s
+dna: ATGCGGACCTAT
+> /some/disk/user/bioinf/src/count_v1.py(3)count_v2_demo()
+      2     print 'dna:', dna
+----> 3     print 'base:', base
+      4     i = 0 # counter
+!ec
+Observe the output of the `print` statement. One can also
+print a variable explicitly:
+!bc ipy
+ipdb> print base
+C
+!ec
+Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so
+whenever in doubt about any program flow, enter a debugger to establish
+confidence.
+
+idx{Python Online Tutor}
+
+The "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize" is, at least for small programs, a
+spendid alternative to debuggers. Go to the webpage, erase the sample
+code and paste in your own code. Press *Visual execution*, then *Forward*
+to execute statements one by one. To the right the status of variables
+are explained and the text field below the program shows the output.
+An example is shown in Figure ref{bioinf:fig:pot}.
+
+FIGURE: [figs-bioinf/python_online_tutor.jpg, width=500] Visual execution of a program using the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize". label{bioinf:fig:pot}
+
+=== Index Iteration ===
+
+Although it is natural in Python to iterate over the characters in a
+string (or more generally over elements in a sequence), programmers
+with experience from other languages (Fortran, C and Java are
+examples) are used to `for` loops with an integer counter running over
+a all indices in a string or array:
+
+@@@CODE src-bioinf/count.py fromto: def count_v3@def count_v4
+
+Python indices always start at 0 so the legal indices for our
+string become `0`, `1`, ...,
+`len(dna)-1`, where `len(dna)` is the number of characters in the
+string `dna`. The `range(x)` function returns a list of integers
+`0`, `1`, ..., `x-1`, implying that `range(len(dna))` generates
+all the legal indices for `dna`.
+
+=== While Loops ===
+
+The `while` loop equivalent to the last function reads
+
+@@@CODE src-bioinf/count.py fromto: def count_v4@def count_v5
+
+Correct indentation is here crucial: a common error is to fail
+indenting the `j += 1` line correctly.
+
+=== Summing a Boolean List ===
+
+The idea now is to create a list `m` where `m[i]` is `True` if
+`dna[i]` equals the character we search for (`base`).
+The number of `True` values in `m` is then the number of `base`
+characters in `dna`. We can use the `sum` function to find
+this number because doing arithmetics with boolean lists
+automatically interprets `True` as `1` and `False` as `0`.
+That is, `sum(m)` returns the number of `True` elements in `m`.
+A possible function doing this is
+
+@@@CODE src-bioinf/count.py fromto: def count_v5@def count_v6
+
+=== Inline If Test ===
+
+Shorter, more compact code is often a goal if the compactness
+enhances readability. The four-line `if` test in the previous
+function can be condensed to one line using the inline
+`if` construction: `if condition value1 else value2`.
+
+@@@CODE src-bioinf/count.py fromto: def count_v6@def count_v7
+
+=== Using Boolean Values Directly ===
+
+The inline `if` test is in fact redundant in the previous function
+because the value of the condition `c == base` can be used
+directly: it has the value `True` or `False`. This saves
+some typing and adds clarity, at least to Python programmers:
+
+@@@CODE src-bioinf/count.py fromto: def count_v7@def count_v8
+
+
+=== List Comprehensions ===
+
+idx{list comprehension} idx{`sum`}
+
+Building a list via a `for` loop can often be condensed to one line
+by using list comprehensions: `[expr for e in sequence]`, here
+`expr` is some expression normally involving the iteration variable
+`e`. In our example, we can introduce a list comprehension
+
+@@@CODE src-bioinf/count.py fromto: def count_v8@def count_v9
+
+Here it is tempting to reduce the function body to a single line:
+
+@@@CODE src-bioinf/count.py fromto: def count_v9@def count_v10
+
+=== Using a Sum Iterator ===
+
+idx{`sum` iterator}
+
+The DNA string is usually huge - 3 billion characters for the human
+specie. Making a boolean array with `True` and `False` values
+therefore increases the memory usage by a factor of two
+in our sample functions `count_v5` to `count_v9`.
+Summing without actually storing an extra list is desireable.
+Fortunately, `sum([x for x in s])` can be replaced
+`sum(x for x in s)`, where the latter sums the elements (`x`) in `s`
+as `x` visits the elements of `s` one by one. Removing the brackets
+therefore avoids first making a list and then applying `sum` on
+that list. This is a minor modification of the `count_v9` function:
+
+@@@CODE src-bioinf/count.py fromto: def count_v10@def count_v11
+
+=== Generating Random DNA Strings ===
+
+idx{random strings}
+
+It is obvious that function `count_v9` doubles the memory requirements
+compared with `count_v10`, since storage for both `dna` and `m` is
+required when using `count_v9`. But which one is the fastest?
+To answer the question we need some test data, which should be a
+huge string `dna`. We could write
+!bc pycod
+N = 1000000
+dna = 'A'*N
+!ec
+to make a string `'AAA...A` that is `N` characters long, and this would be
+sufficient for testing efficiency. Nevertheless, it is more exciting
+to work with a DNA string with characters from the whole alphabet A, C, G,
+and T. To make a DNA string with a random composition of the characters
+we can first make a list of random characters and then join all those
+characters to a string:
+!bc pycod
+import random
+alphabet = list('ATGC')
+dna = [random.choice(alphabet) for i in range(N)]
+dna = ''.join(dna)  # join the character elements to a string
+!ec
+The `random.choice(x)` function selects an element in the list
+`x` at random.
+
+Note that `N` is very often a large number. In Python version 2.x,
+`range(N)` generates a list of `N` integers. We can avoid this by
+using `xrange` which generates an integer at a time and not the whole
+list. In Python version 3.x, the `range` function is actually the
+`xrange` function in version 2.x.  Using `xrange`, combining the
+statements, and wrapping the construction of a random DNA string in a
+function, gives
+
+@@@CODE src-bioinf/count.py fromto: import random@import time
+
+The call `generate_string(10)` may generate something like `AATGGCAGAA`.
+
+=== Measuring Efficiency ===
+
+idx{CPU time measurements}
+
+Our next goal is to generate a very long string `dna` and
+see how much time the `count_v9` and `count_v10` functions spend
+on counting letters in that string. Measuring the time spent
+in a program can be done by the `time` module as follows:
+!bc pycod
+import time
+...
+t0 = time.clock()
+# do stuff
+t1 = time.clock()
+cpu_time = t1 - t0
+!ec
+The `time.clock` function returns the CPU time spent in the program since
+its start.
+
+Running through a set of functions and recording timings can be
+done by
+
+@@@CODE src-bioinf/count.py fromto: import time@for cpu_time
+
+In Python, functions are ordinary objects so making a list of
+functions is no more special than making a list of strings.
+
+We can now iterate over `timings` and `functions` simultaneously via `zip`
+to make a nice printout of the results:
+
+@@@CODE src-bioinf/count.py fromto: for cpu_time@# Time count
+
+Timings on a MacBook Air 11'' running Ubuntu showed that
+the functions using `list.append` required almost the double of
+the time of the functions that worked with list comprehensions.
+
+
+=== Extracting Indices ===
+
+Instead of making a boolean list with elements expressing whether
+a character matches the given `base` or not, we may collect all
+the indices of the matches. This can be done by adding an `if`
+test to the list comprehension:
+
+@@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
+
+A debugger or the Python Online Tutorial do not help so much to
+understand this compact code. A better approach is to examine
+the list comprehension in an interactive Python shell:
+!bc ipy
+>>> dna = 'AATGCTTA'
+>>> base = 'A'
+>>> indices = [i for i in range(len(dna)) if dna[i] == base]
+>>> indices
+[0, 1, 7]
+>>> print dna[0], dna[1], dna[7]  # check
+A A A
+!ec
+The element `i` in the list comprehension is only made when
+the corresponding character in `dna` equals `base`.
+
+
+=== Using Python's Library ===
+
+Very often when you set out to do a task in Python, there is already
+functionality for the task in the object itself, in the Python
+libraries, or in third-party libraries found on the Internet.
+Counting how many times a character (or substring) `base` appears in a
+string `dna` is simply done by `dna.count(base)`:
+
+@@@CODE src-bioinf/count.py fromto: def count_v12@import random
+
+A lesson learned is: google around before you start out to implement
+what seems to be a quite simple task. Others have probably already
+done it for you. And better: `dna.count(base)` runs over 30 times
+faster than the best of our handwritten Python functions!
+The reason is that the `for` loop needed to count in `dna.count(base)`
+is implemented in C and runs very much faster than loops in Python.
+
+#=== Testing with Real Data ===
+
+% if PRIMER_BOOK:
+% endif
+
+===== Computing Frequencies =====
+label{bioinf:freqm}
+
+idx{frequency matrix}
+
+Your genetic code is essentially the same from you are born until you
+die, and the same in your blood and your brain.  Which genes that are
+turned on and off make the difference between the cells. This
+regulation of genes is orchestrated by an immensely complex mechanism,
+which we have only started to understand. A central part of this
+mechanism consists of molecules called transcription factors that
+float around in the cell and attach to DNA, and in doing so turn
+nearby genes on or off. These molecules bind preferentially to
+specific DNA sequences, and this binding preference pattern can be
+represented by a table of frequencies of given symbols at each
+position of the pattern.  More precisely, each row in the table
+corresponds to the bases A, C, G, and T, while column j reflects how
+many times the base appears in position j in the DNA sequence.
+
+For example, if our set of DNA sequences are
+TAG, GGT, and GGG, the table becomes
+
+  |------------------|
+  | base | 0 | 1 | 2 |
+  |--l-----c---c---c-|
+  | A    | 0 | 1 | 0 |
+  | C    | 0 | 0 | 0 |
+  | G    | 2 | 2 | 2 |
+  | T    | 1 | 0 | 1 |
+  |------------------|
+
+From this table we can read base A appears once in index 1 in
+the DNA strings, base C does not appear at all, base G appears twice
+in all positions, and base T appears once in the beginning and
+end of the strings.
+
+In the following we shall present different data structures to
+hold such a table and different ways of computing them.
+The table is known as a *frequency matrix* in bioinformatics,
+and this is the term used below.
+
+
+=== Separate Frequency Lists ===
+
+Since we know that there are only four rows in the frequency matrix,
+an obvious data structure would be four lists, each holding
+a row. A function computing these lists may look like
+
+@@@CODE src-bioinf/freq.py fromto: def freq_lists@dna_list =
+
+We need to initialize the lists with the right length and a zero
+for each element, since each list element is to be used as a counter.
+Creating a list of length `n` with object `x` in all positions
+is done by `[x]*n`. Finding the proper length is here done by
+inspecting the length of the first element in `dna_list`, assuming
+that all elements have the same length.
+
+In the `for` loop we use the `enumerate` function which is used
+to extract both the element value and the element index when
+iterating over a sequence. For example,
+!bc ipy
+>>> for index, base in enumerate(['t', 'e', 's', 't']):
+...   print index, base
+...
+0 t
+1 e
+2 s
+3 t
+!ec
+
+Here is a call and printout of the results:
+!bc pycod
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+A, T, G, C = freq_lists(dna_list)
+print A
+print T
+print G
+print C
+!ec
+with output
+!bc dat
+[0, 0, 0, 2, 0]
+[3, 3, 0, 1, 1]
+[0, 0, 0, 0, 2]
+[0, 0, 3, 0, 0]
+!ec
+
+=== Nested List ===
+
+The frequency matrix can also be represented as a nested list `M`
+such that `M[i][j]` is the frequency of base `i` in position `j`
+in a DNA string. Here `i` is an integer, where 0 corresponds to A,
+1 to C, 2 to G, and 3 to T. The frequency is the number of times
+base `i` appears in position `j` in a set of DNA strings.
+Sometimes this number is divided by the number of DNA strings in
+the set so that the frequency is between 0 and 1. Note all
+the DNA strings must have the same length.
+
+The simplest way to make a nested list is to insert the
+`A`, `T`, `C`, and `G` lists into another list:
+!bc pycod
+>>> frequency_matrix = [A, T, G, C]
+>>> frequency_matrix[2][3]
+2
+>>> G[3]  # same element
+2
+!ec
+
+Nevertheless, we can illustrate how to compute this type of nested
+list directly:
+
+@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v1@frequency_matrix =
+
+As in the case with individual lists we need to initialize all elements
+in the nested list to zero.
+
+A call and printout,
+!bc pycod
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+frequency_matrix = freq_list_of_lists_v1(dna_list)
+print frequency_matrix
+!ec
+results in
+!bc dat
+[[0, 0, 0, 2, 0], [0, 0, 3, 0, 0], [3, 3, 0, 1, 1], [0, 0, 0, 0, 2]]
+!ec
+
+=== Dictionary for More Convenient Indexing ===
+
+idx{dictionary}
+
+The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersone,
+especially if want to extend the code to other bioinformatics problems
+where the alphabet is larger. What we want is a mapping from `base`,
+which is a character, to the corresponding index 0, 1, 2, or 3.
+A Python dictionary represents such mappings:
+!bc ipy
+>>> base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+>>> base2index['G']
+2
+!ec
+With the `base2index` dictionary we do not need the series of
+`if` tests and the alphabet `'ATGC'` could be much larger
+without affecting the length of the code.
+
+@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v2@import numpy
+
+=== Numerical Python Array ===
+
+As long as each sublist in a list of lists has the same length, a
+list of list can be replaced by a Numerical Python (`numpy`) array.
+Processing of such arrays is often much more efficient than
+processing of the nested list data structure.
+To initialize a two-dimensional `numpy` array we need to know its
+size, here 4 times `len(dna_list[0])`. Only the first line in the function
+`freq_list_of_lists_v2` needs to be changed in order to utilize
+a `numpy` array:
+
+@@@CODE src-bioinf/freq.py fromto: import numpy@def freq_dict_of_lists_v1
+
+The resulting `frequency_matrix` object can be indexed as
+`[b][i]` or `[b,i]`, with integers `b` and `i`. A typical
+indexing is `frequency_matrix[base2index['C'],i]`.
+
+=== Dictionary of Lists ===
+
+Instead of going from a character to an integer index via
+`base2index`, we may prefer to index `frequency_matrix` by, e.g.,
+`['C'][14]`.  This is the most natural syntax for a user of the
+frequency matrix.  The relevant Python data structure is then a
+dictionary of lists. That is, `frequency_matrix` is a dictionary with
+keys `'A'`, `'T'`, `'C'`, and `'G'`. The value for each key is a
+list. Let us now also extend the flexibility such that `dna_list` can
+have DNA strings of different lengths. The lists in `frequency_list`
+will have lengths equal to the longest DNA string.  A relevant
+function is
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v1@frequency_matrix = freq_dict_of_lists_v1\(
+
+Running
+
+@@@CODE src-bioinf/freq.py fromto: frequency_matrix = freq_dict_of_lists_v1@def freq_dict_of_lists_v2
+results in the output
+!bc dat
+{'A': [0, 0, 0, 2, 0],
+ 'C': [0, 0, 0, 0, 2],
+ 'G': [3, 3, 0, 1, 1],
+ 'T': [0, 0, 3, 0, 0]}
+!ec
+
+The initialization of `frequency_matrix` in the above code can
+be made more compact by using a dictionary comprehension:
+!bc pycod
+dict = {key: value for key in some_sequence}
+!ec
+Here,
+!bc pycod
+frequency_matrix = {base: [0]*n for base in 'ATGC'}
+!ec
+Adopting this construction in the `freq_dict_of_lists_v1` function
+leads to
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v2@def freq_dict_of_dicts_v1
+
+=== Dictionary of Dictionaries ===
+
+The dictionary of lists data structure can alternatively be replaced
+by a dictionary of dictionaries object, often just called
+a dict of dicts object. That is,
+`frequency_matrix[base]` is a dictionary with the index `i`
+as key and the added number of occurences of `base` in `dna[i]` for
+all `dna` strings in the list `dna_list`.
+The indexing `frequency_matrix['C'][i]` and the value are exactly
+as before; the only difference is whether `frequency_matrix['C']`
+is a list or dictionary.
+
+Our function working with `frequency_matrix` as a dict of dicts
+is written
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_dicts_v1@from collections import default
+
+=== Using Dictionaries with Default Values ===
+
+The manual initialization of each subdictionary to zero,
+!bc pycod
+    frequency_matrix = {base: {index: 0 for index in range(n)}
+                        for base in 'ATGC'}
+!ec
+can be simplified by using a dictionary with default values for any
+key. The construction `defaultdict(lambda: obj)`
+makes a dictionary with `obj` as default value.
+This construction simplifies the previous function a bit:
+
+@@@CODE src-bioinf/freq.py fromto: from collections import default@def find_consensus_v1
+
+===== Analyzing the Frequency Matrix =====
+
+Having built a frequency matrix out of a collection of DNA strings, it
+is time to use it for analysis.  A typical question is: for a given
+position in the DNA string, which of A, T, G, or C has the highest
+frequency (highest count)?  We can then build a new DNA string with
+the most frequent character for each position. This is in
+bioinformatics known as finding consensus from a frequency matrix.
+
+For example, if the frequency matrix looks like this (list of lists,
+with rows corresponding to A, T, G, and C),
+!bc dat
+[0, 0, 0, 2, 0]
+[3, 3, 0, 1, 1]
+[0, 0, 0, 0, 2]
+[0, 0, 3, 0, 0]
+!ec
+we see that for position 0, which corresponds to column 0 in the table,
+T has the highest frequency (3). The maximum frequencies for the
+other positions are seen to be T for position 1, A for position 2,
+and G for position 3. The consensus string is therefore
+TTAG.
+
+# This is an inline comment, can be turned on and off in the
+# final document:
+
+[hpl: This can be more precisely and better explained?]
+
+=== List of Lists Frequency Matrix ===
+
+Let `frequency_matrix` be a list of lists. For each position `i`
+we run through the "rows" in the frequency matrix and find
+and keep track of the maximum frequency value and the corresponding
+character. If two or more characters have the same frequency value
+we use a dash to indicate that this position in the consensus string
+is undetermined.
+
+The following function computes the consensus string:
+
+@@@CODE src-bioinf/freq.py fromto: def find_consensus_v1@def find_consensus_v2
+
+Since this code requires `frequency_matrix` to be a list of list
+we should insert a test on this and raise an exception if the
+type is wrong:
+!bc pycod
+def find_consensus_v1(frequency_matrix):
+    if isinstance(frequency_matrix, list) and \
+       isinstance(frequency_matrix[0], list):
+        pass # right type
+    else:
+        raise TypeError('frequency_matrix must be list of lists')
+...
+!ec
+
+=== Dict of Dicts Frequency Matrix ===
+
+How must the `find_consensus_v1` function be altered if `frequency_matrix`
+is a dict of dicts?
+
+  o The `base2index` dict is no longer needed.
+  o Access of sublist, `frequency_matrix[0]`, to test for type and
+    length of the strings, must be replaced
+    by `frequency_matrix['A']`.
+
+The updated function looks like
+
+@@@CODE src-bioinf/freq.py fromto: def find_consensus_v3@frequency_matrix = freq_dict_of_dicts_v1
+
+Here is a test:
+!bc pycod
+frequency_matrix = freq_dict_of_dicts_v1(dna_list)
+pprint.pprint(frequency_matrix)
+print find_consensus_v3(frequency_matrix)
+!ec
+with output
+!bc dat
+{'A': {0: 0, 1: 0, 2: 0, 3: 2, 4: 0},
+ 'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
+ 'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
+ 'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
+GGTAC
+!ec
+
+Let us try `find_consensus_v3` with the dict of defaultdicts
+as input (`freq_dicts_of_dicts_v2`). The code runs fine, but
+the output string is just `G`!
+This implies that `dna_length` is 1, and that the length of
+the `A` dict in `frequency_matrix` is 1.
+Printing out `frequency_matrix` yields
+!bc pycod
+{'A': defaultdict(X, {3: 2}),
+ 'C': defaultdict(X, {4: 2}),
+ 'G': defaultdict(X, {0: 3, 1: 3, 3: 1, 4: 1}),
+ 'T': defaultdict(X, {2: 3})}
+!ec
+where our `X` is a short form for  text like `<function <lambda> at 0xfaede8`.
+We see that the length of a defaultdict will only count the nonzero
+entries. Hence our function must get the length of the DNA string to
+build as extra argument:
+!bc pycod
+def find_consensus_v4(frequency_matrix, dna_length):
+    ...
+!ec
+
+======= Exercises =======
+
+===== Exercise: Find pairs of characters =====
+label{bioinf:exer:pairs1}
+file=count_pairs.py
+
+Write a function `count_pairs(dna, pair)` that returns the number of
+occurences of a pair of characters (`pair`) in a DNA string (`dna`).
+For example, `count_pairs('ACTGCTATCCATT', 'AT')` should return 2.
+
+# Note: dna.count(pair) works!
+
+===== Exercise: Count substrings =====
+label{bioinf:exer:substr1}
+file=count_substr.py
+
+This is an extension of Exercise ref{bioinf:exer:substr1}:
+count how many times a certain string appears in another string.
+For example, `count_substr('ACGTTACGGAACG', 'ACG')` should return 2.
+
+__Hint 1.__ For each match of the first character of the
+substring in the main string, check if the next `n` characters
+in the main string matches the substring, where `n` is the length
+of the substring. Use slices like `s[3:9]` to pick out a substring of `s`.
+

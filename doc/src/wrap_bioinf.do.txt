@@ -1,0 +1,7 @@
+TITLE: Illustrating Python via Examples from Bioinformatics
+AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing at Simula Research Laboratory and Department of Informatics at University of Oslo
+AUTHOR: Geir Kjetil Sandve at Department of Informatics at University of Oslo
+DATE: today
+
+<%include file="bioinf.do.txt"/>
+

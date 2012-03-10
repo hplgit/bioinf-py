@@ -1,0 +1,24 @@
+
+# Information about all exercises in the file bioinf.do.txt.
+# The information can be loaded into a Python list of dicts
+# by the code (f is an open filehandle to the current file):
+#
+# for i in range(7): f.readline()  # skip comments in the top
+# exer = eval(f.read())
+#
+[{'file': u'count_pairs.py',
+  'heading': u'=====',
+  'hint': {},
+  'label': u'bioinf:exer:pairs1',
+  'no': 1,
+  'text': u"Write a function `count_pairs(dna, pair)` that returns the number of\noccurences of a pair of characters (`pair`) in a DNA string (`dna`).\nFor example, `count_pairs('ACTGCTATCCATT', 'AT')` should return 2.\n\n# Note: dna.count(pair) works!",
+  'title': u'Find pairs of characters',
+  'type': u'Exercise'},
+ {'file': u'count_substr.py',
+  'heading': u'=====',
+  'hint': {1: u'__Hint 1.__ For each match of the first character of the\nsubstring in the main string, check if the next `n` characters\nin the main string matches the substring, where `n` is the length\nof the substring. Use slices like `s[3:9]` to pick out a substring of `s`.'},
+  'label': u'bioinf:exer:substr1',
+  'no': 2,
+  'text': u"This is an extension of Exercise ref{bioinf:exer:substr1}:\ncount how many times a certain string appears in another string.\nFor example, `count_substr('ACGTTACGGAACG', 'ACG')` should return 2.",
+  'title': u'Count substrings',
+  'type': u'Exercise'}]
