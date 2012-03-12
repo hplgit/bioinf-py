@@ -1,2 +1,2 @@
 #!/bin/sh
-rm -rf *~ yeast.txt
+rm -rf *~ *.txt *.tsv

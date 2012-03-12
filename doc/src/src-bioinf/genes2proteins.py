@@ -3,14 +3,15 @@ def simple_genetic_code_v1(filename):
     genetic_code = {}
     for line in infile:
         columns = line.split()
+        print columns
         genetic_code[columns[0]] = columns[1]
     return genetic_code
 
-import urllib
+import urllib, os
+urlbase = 'http://hplgit.github.com/bioinf-py/data/'
 genetic_code_file = 'genetic_code.tsv'
 if not os.path.isfile(genetic_code_file):
-    url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv'
+    url = urlbase + genetic_code_file
     urllib.urlretrieve(url, filename=genetic_code_file)
 
 code = simple_genetic_code_v1('genetic_code.tsv')
@@ -26,10 +27,10 @@ def complex_genetic_code_v1(filename):
     genetic_code = {}
     for line in open(filename, 'r'):
         columns = line.split()
-        genetic_code[cols[0]] = {}
-        genetic_code[cols[0]]['1-letter'] = cols[1]
-        genetic_code[cols[0]]['3-letter'] = cols[2]
-        genetic_code[cols[0]]['amino acid'] = cols[3]
+        genetic_code[columns[0]] = {}
+        genetic_code[columns[0]]['1-letter']   = columns[1]
+        genetic_code[columns[0]]['3-letter']   = columns[2]
+        genetic_code[columns[0]]['amino acid'] = columns[3]
     return genetic_code
 
 def complex_genetic_code_v2(filename):
@@ -59,12 +60,32 @@ def read_dnafile_v1(filename):
     return dna
 
 lactase_gene_file = 'lactase_gene.txt'
-if not os.path.isfile(lactase_code_file):
-    url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/lactase_gene.txt'
-    urllib.urlretrieve(url, filename=lactase_code_file)
+if not os.path.isfile(lactase_gene_file):
+    url = urlbase + lactase_gene_file
+    urllib.urlretrieve(url, filename=lactase_gene_file)
 
-lactase_gene - read_dnafile_v1(lactase_gene_file)
+lactase_gene = read_dnafile_v1(lactase_gene_file)
 print '10 first bases of the lactase gene: ', lactase_gene[:10]
 
+lactase_exon_file = 'lactase_exon.tsv'
+if not os.path.isfile(lactase_exon_file):
+    url = urlbase + lactase_exon_file
+    urllib.urlretrieve(url, filename=lactase_exon_file)
 
+def read_exon_positions_v1(filename):
+    positions = []
+    infile = open(filename, 'r')
+    for line in infile:
+        start, end = line.split()
+        start, end = int(start), int(end)
+        positions.append((start, end))
+    infile.close()
+    return positions
+
+def read_exon_positions_v2(filename):
+    return [tuple(int(x) for x in line.split())
+            for line in open(filename, 'r')]
+
+lactase_exon_positions = read_exon_positions_v2(lactase_exon_file)
+lactase_exon_positions1 = read_exon_positions_v1(lactase_exon_file)
+assert lactase_exon_positions == lactase_exon_positions1

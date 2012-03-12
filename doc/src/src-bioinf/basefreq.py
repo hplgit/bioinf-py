@@ -21,10 +21,10 @@ print "Base frequencies of sequence '%s':\n%s" % \
 
 # Real data
 import urllib, os
-yeast_file = 'yeast.txt'
+yeast_file = 'yeast_chr1.txt'
 if not os.path.isfile(yeast_file):
-    url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
+    url = 'http://hplgit.github.com/bioinf-py/doc/src/data/%s'\
+          % yeast_file
     urllib.urlretrieve(url, filename=yeast_file)
 
 def read_dnafile_v1(filename):
