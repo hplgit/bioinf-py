@@ -914,13 +914,20 @@ This function can then be used to compute the base frequencies:
 @@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies@dna = 'ACCAGAGT'
 A little test,
 
-@@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@
+@@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@# Real data
 
 gives the result
 !bc dat
 Base frequencies of sequence 'ACCAGAGT':
-'A': 0.375, 'C': 0.25, 'T': 0.125, 'G': 0.25
+A: 0.38, C: 0.25, T: 0.12, G: 0.25
 !ec
+The `print_frequencies` function was made for nice printout of
+the frequencies with 2 decimals. The one-line code is an effective
+combination of a dictionary, list comprehension, and the
+`join` functionality. The latter is used to get a comma correctly
+inserted between the items in the result. Lazy programmers would
+probably just do a `print frequencies` and live with the
+curly braces in the output and (in general) 16 decimals.
 
 idx{`urllib`}
 
@@ -931,11 +938,19 @@ http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt
 contains the DNA for yeast. We can download this file from
 the Internet by
 !bc pycod
-import urllib
-url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
-urllib.urlretrieve(url, filename=yeast.txt)
+urllib.urlretrieve(url, filename=name_of_local_file)
 !ec
+where `url` is the Internet address of the file and `name_of_local_file`
+is a string containing the name of the file on the computer where the
+file is downloaded.
+To avoid repeated downloads when the program is run multiple times,
+we insert a test on whether the local file exists or not. The
+call `os.path.isfile(f)` returns `True` if a file with name `f` exists
+in the current working folder.
+
+The appropriate download code then becomes
+
+@@@CODE src-bioinf/basefreq.py fromto: import urllib@lines = open\(yeast
 A copy of the file on the Internet is now in the current working folder
 under the name `yeast.txt`.
 ${primer_book_comment(r"""(See Chapter~\ref{sec:files:urllib} for
@@ -943,10 +958,84 @@ more information about \emp{urllib} and downloading files from
 the Internet.)""")}
 
 The `yeast.txt` files contains the DNA string split over many lines.
-We therefore need to read this file and join all the lines to
+We therefore need to read the lines in this file, strip each line to
+remove the trailing newline, and join all the stripped lines to
 recover the DNA string:
 
+@@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v1@def read_dnafile_v2
 
+As usual, an alternative programming solution can be devised as well:
+
+@@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v2@assert get_base_freq
+
+The output becomes
+!bc dat
+Base frequencies of yeast DNA (length 230208):
+A: 0.30, C: 0.19, T: 0.30, G: 0.20
+!ec
+This shows that A and T appears in the yeast DNA with 50 percent higher
+probability than C and G.
+[hpl: GK, can we say this, or more precisely, does the observation have any interpretation of significance?]
+
+======= Translating Genes into Proteins ========
+
+An important usage of DNA is for cells to store information on their arsenal of
+proteins. These proteins are what makes up the possible functional properties
+of a cell. Proteins are made based on the recipe found in genes. Genes are, in
+essence, only regions of the DNA. These are divided into exons, which are the
+coding regions of the gene, and introns, the regions in between. In order for a
+protein to be created, the exon regions are copied out of the DNA, joined
+together and then transcribed into mRNA. mRNA is messenger RNA, which is a
+small DNA-like sequence that is sent to the protein-creating machinery in the
+ribosomes, containing the recipe for a protein. One difference between the
+mRNA and the original DNA is that all T-bases (Thymine) are exchanged with
+U-bases (Uridine). In the ribosome, the mRNA is translated into proteins.
+Here, a genetic code is used to translate triplet of bases, or codons, into
+an amino acid. A protein is made up of a series of amino acids. Interestingly,
+the genetic code, which is the same for most forms of life, contains
+redundancy, i.e., that several codons code for the same aminoacids, as the 64
+possible codons are used to code for only 20 amino acids.
+
+Here is an example of using the genetic code to create the amino acid sequence
+of the Lactase protein (LPH), using the DNA sequence of the Lactase gene (LCT)
+as template. An important functional property of LPH is as a restriction
+enzyme to cleave the disaccaaride Lactose into two monsaccarides. Lactose is
+most notably found in milk. Organisms lacking the functionality of LPH will
+get digestive problems including elevated osmotic pressure in the intestine
+leading to diarea and referred to as lactose intolerance. Most mammals and
+humans lose their expression of LCT and therefore their ability to digest milk
+when they stop recieving breast milk.
+
+The file
+!bc
+http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
+!ec
+contains information on genetic codes. The file format takes the form
+!bc dat
+UUU     F       Phe     Phenylalanine
+UUC     F       Phe     Phenylalanine
+UUA     L       Leu     Leucine
+UUG     L       Leu     Leucine
+CUU     L       Leu     Leucine
+CUC     L       Leu     Leucine
+CUA     L       Leu     Leucine
+CUG     L       Leu     Leucine
+AUU     I       Ile     Isoleucine
+AUC     I       Ile     Isoleucine
+AUA     I       Ile     Isoleucine
+AUG     M       Met     Methionine (Start)
+!ec
+The four columns describe .... [hpl: Need to write a bit what the significance of the info is]
+
+[[[
+
+!bc dat
+0       651
+3990    4070
+7504    7588
+13177   13280
+15082   15161
+!ec
 ======= Exercises =======
 
 ===== Exercise: Find pairs of characters =====
@@ -972,3 +1061,22 @@ substring in the main string, check if the next `n` characters
 in the main string matches the substring, where `n` is the length
 of the substring. Use slices like `s[3:9]` to pick out a substring of `s`.
 
+===== Exercise: Make a function more robust =====
+label{bioinf:exer:get_base_counts2}
+file=get_base_counts2.py
+
+Consider the function `get_base_counts(dna)` which counts how
+many times `A`, `C`, `G`, and `T` appears in the string `dna`:
+
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies
+Unfortunately, this function crashes if other symbols appear in `dna`.
+Write an enhanced function `get_base_counts2` which solves this problem.
+
+# Hints: defaultdict or test on if base in counts: ... else counts[base]=1
+
+
+
+======= 2DO =======
+ o gh-pages index.html
+ o make.sh for sphinx, html, pdflatex
+ o more ex

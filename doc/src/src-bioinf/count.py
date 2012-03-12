@@ -94,8 +94,9 @@ dna = generate_string(6000000)
 
 import time
 timings = []
-functions = [count_v5, count_v6, count_v7, count_v8,
-             count_v9, count_v10]
+functions = [count_v1, count_v2, count_v3, count_v4,
+             count_v5, count_v6, count_v7, count_v8,
+             count_v9, count_v10, count_v11]
 for function in functions:
     t0 = time.clock()
     function(dna, 'A')
@@ -111,4 +112,8 @@ t0 = time.clock()
 for i in range(100):
     count_v12(dna, 'A')
 t1 = time.clock()
-print t1-t0
+print 'count_v12: %.4f' % ((t1-t0)/100.)
+
+exact = count_v12(dna, 'A')
+for f in functions:
+    assert f(dna, 'A') == exact
