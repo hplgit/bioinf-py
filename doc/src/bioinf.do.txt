@@ -1,6 +1,8 @@
 
 # Preprocessor: Mako
 
+<%page args="PRIMER_BOOK=False"/>
+
 ## primer_book_comment allows easy insertion of comments when this
 ## text is used in the book A Primer for Scientific Programming with Python.
 ## Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
@@ -13,6 +15,10 @@ def primer_book_comment(text):
         return text
 %>
 
+TITLE: Illustrating Python via Examples from Bioinformatics
+AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing, Simula Research Laboratory and Department of Informatics, University of Oslo
+AUTHOR: Geir Kjetil Sandve at Department of Informatics, University of Oslo
+DATE: today
 
 % if PRIMER_BOOK:
 ======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
@@ -122,13 +128,17 @@ what is going on:
 
 idx{using a debugger}
 
+# Note: do not use !bc ipy for debugging sessions since
+# sphinx treats ipy as interactive sessions and therefore
+# drops any environment (it is automatically handled)
+
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
 is printed out. Launch `ipython` and run the program with
 a debugger: `run -d programname.py`. Use `s` (for step) to
 step through each statement, or `n` (for next) for stepping
 without also stepping through functions.
-!bc ipy
+!bc cod
 ipdb> s
 > /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
 1     1 def count_v1_demo(dna, base):
@@ -144,7 +154,7 @@ dna: ATGCGGACCTAT
 !ec
 Observe the output of the `print` statement. One can also
 print a variable explicitly:
-!bc ipy
+!bc cod
 ipdb> print base
 C
 !ec
@@ -155,14 +165,21 @@ confidence.
 
 idx{Python Online Tutor}
 
-The "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize" is, at least for small programs, a
-spendid alternative to debuggers. Go to the webpage, erase the sample
-code and paste in your own code. Press *Visual execution*, then *Forward*
-to execute statements one by one. To the right the status of variables
-are explained and the text field below the program shows the output.
-An example is shown in Figure ref{bioinf:fig:pot}.
+The "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"
+% if PRIMER_BOOK:
+at
+!bc
+http://people.csail.mit.edu/pgbovine/python/tutor.html
+!ec
+% endif
+is, at least for small programs, a spendid alternative to
+debuggers. Go to the webpage, erase the sample code and paste in your
+own code. Press *Visual execution*, then *Forward* to execute
+statements one by one. To the right the status of variables are
+explained and the text field below the program shows the output.  An
+example is shown in Figure ref{bioinf:fig:pot}.
 
-FIGURE: [figs-bioinf/python_online_tutor.jpg, width=500] Visual execution of a program using the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize". label{bioinf:fig:pot}
+FIGURE: [figs-bioinf/python_online_tutor.jpg, width=500] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
 
 === Index Iteration ===
 
@@ -767,7 +784,7 @@ print probabilitiesList
 !ec
 
 
-======= Dot Plots from Pair of DNA Sequences =======
+===== Dot Plots from Pair of DNA Sequences =====
 label{bioinf:dotplot}
 
 [hpl: terminology: DNA strings or sequences? Maybe sequences is
@@ -861,11 +878,11 @@ could be made so that each step can be examined:
 @@@CODE src-bioinf/dotplot.py fromto: def make_string_expanded@# end of testing join operations in detail
 
 Unless the join operation as used here is well understood, it is highly
-recommended to paste the above ode into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize", step
+recommended to paste the above ode into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html", step
 through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [figs-bioinf/pot_join.jpg, width=500] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize"). label{bioinf:fig:pot2}
+FIGURE: [figs-bioinf/pot_join.jpg, width=500] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
@@ -878,7 +895,7 @@ is well suited as data structure to hold a dot plot.
 string.]
 
 
-======= Finding Base Frequencies =======
+===== Finding Base Frequencies =====
 
 DNA consists of four molecules called nucleotides, or bases, and can
 be represented as a string of the letters A, C, G, and T. But this
@@ -977,7 +994,7 @@ This shows that A and T appears in the yeast DNA with 50 percent higher
 probability than C and G.
 [hpl: GK, can we say this, or more precisely, does the observation have any interpretation of significance?]
 
-======= Translating Genes into Proteins ========
+===== Translating Genes into Proteins ======
 
 An important usage of DNA is for cells to store information on their arsenal of
 proteins. These proteins are what makes up the possible functional properties

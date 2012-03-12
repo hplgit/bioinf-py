@@ -3,5 +3,6 @@ AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing at Simula Rese
 AUTHOR: Geir Kjetil Sandve at Department of Informatics at University of Oslo
 DATE: today
 
+## Does not work, have to debug...
 <%include file="bioinf.do.txt"/>
 

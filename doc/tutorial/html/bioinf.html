@@ -1,0 +1,1493 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Illustrating Python via Examples from Bioinformatics &mdash; Illustrating Python via Bioinformatics Examples 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Illustrating Python via Bioinformatics Examples 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Illustrating Python via Bioinformatics Examples" href="index.html" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" href="_static/ie6.css" type="text/css" media="screen" charset="utf-8" />
+<![endif]-->
+
+  </head>
+  <body>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Illustrating Python via Bioinformatics Examples"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Illustrating Python via Bioinformatics Examples 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="illustrating-python-via-examples-from-bioinformatics">
+<h1>Illustrating Python via Examples from Bioinformatics<a class="headerlink" href="#illustrating-python-via-examples-from-bioinformatics" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Hans Petter Langtangen, Geir Kjetil Sandve</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Mar 12, 2012</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="basic-bioinformatics-examples-in-python">
+<h1>Basic Bioinformatics Examples in Python<a class="headerlink" href="#basic-bioinformatics-examples-in-python" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="index-0"></span><p id="index-1">Life is definitely digital. The genetic code of all living organisms
+are represented by a long sequence of simple molecules called
+nucleotides, or bases, which makes up the Deoxyribonucleic acid,
+better known as DNA. There are only four such nucleotides, and the
+entire genetic code of a human can be seen as a simple, though 3
+billion long, string of the letters A, C, G, and T.  Analyzing DNA
+data to gain increased biological understanding is much about
+searching in (long) strings for certain string patterns involving the
+letters A, C, G, and T.  This is an integral part of <em>bioinformatics</em>,
+a scientific discipline addressing the use of computers to search
+for, explore, and use information about genes, nucleic acids, and
+proteins.</p>
+<p>Below are some simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, <tt class="docutils literal"><span class="pre">if</span></tt> tests, and functions.</p>
+<div class="section" id="counting-letters-in-dna-strings">
+<span id="bioinf-count"></span><h2>Counting Letters in DNA Strings<a class="headerlink" href="#counting-letters-in-dna-strings" title="Permalink to this headline">¶</a></h2>
+<p>Given some string <tt class="docutils literal"><span class="pre">dna</span></tt> containing the letters <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt>, <tt class="docutils literal"><span class="pre">G</span></tt>, or <tt class="docutils literal"><span class="pre">T</span></tt>,
+representing the bases that make up DNA, we ask the question: how
+many times does a certain base occur in the DNA string?
+For example, if <tt class="docutils literal"><span class="pre">dna</span></tt> is <tt class="docutils literal"><span class="pre">ATGGCATTA</span></tt> and we ask how many times the
+base <tt class="docutils literal"><span class="pre">A</span></tt> occur in this string, the answer is 3.</p>
+<p>A general Python implementation answering this problem can be done
+in many ways. Some solutions are presented below.</p>
+<div class="section" id="list-iteration">
+<h3>List Iteration<a class="headerlink" href="#list-iteration" title="Permalink to this headline">¶</a></h3>
+<p id="index-2">The most straightforward solution is to loop over the characters
+in the string, test if the current character equals the desired one,
+and if so, increase a counter. Looping over the characters is
+obvious if the characters are stored in a list. This is easily
+done by</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="s">&#39;ATGC&#39;</span><span class="p">)</span>
+<span class="go">[&#39;A&#39;, &#39;T&#39;, &#39;G&#39;, &#39;C&#39;]</span>
+</pre></div>
+</div>
+<p>Our first solution becomes</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v1</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>  <span class="c"># convert string to list of characters</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c"># counter</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="string-iteration">
+<h3>String Iteration<a class="headerlink" href="#string-iteration" title="Permalink to this headline">¶</a></h3>
+<p id="index-3">Python allows us to iterate directly over a string without converting
+it to a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="n">c</span>
+<span class="go">A</span>
+<span class="go">T</span>
+<span class="go">G</span>
+<span class="go">C</span>
+</pre></div>
+</div>
+<p>In fact, all objects in Python which contains a set of elements in
+a particular sequence allow a <tt class="docutils literal"><span class="pre">for</span></tt> loop construction of the
+type <tt class="docutils literal"><span class="pre">for</span> <span class="pre">element</span> <span class="pre">in</span> <span class="pre">object</span></tt>.
+.. Examples of such objects are</p>
+<p>A slight improvement of our solution is therefore to iterate directly
+over the string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v2</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># counter</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ATGCGGACCTAT&#39;</span>
+<span class="n">base</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">count_v2</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> appears </span><span class="si">%d</span><span class="s"> times in </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">dna</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="program-flow">
+<h3>Program Flow<a class="headerlink" href="#program-flow" title="Permalink to this headline">¶</a></h3>
+<p>For correct programming it is a fundamental importance to
+be able to simulate the program above by hand, statement by
+statement. Three tools are
+effective for helping you reach the required understanding for doing
+a manual simulation:
+(i) printing variables, (ii) using a debugger, and (iii) using an
+<a class="reference external" href="http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize">online program flow tool</a>.</p>
+<p>Inserting <tt class="docutils literal"><span class="pre">print</span></tt> statements and examining the about help to demonstrate
+what is going on:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v2_demo</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;dna:&#39;</span><span class="p">,</span> <span class="n">dna</span>
+    <span class="k">print</span> <span class="s">&#39;base:&#39;</span><span class="p">,</span> <span class="n">base</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># counter</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;c:&#39;</span><span class="p">,</span> <span class="n">c</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39;True if test&#39;</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">count_v2_demo</span><span class="p">(</span><span class="s">&#39;ATGCGGACCTAT&#39;</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<span class="target" id="index-4"></span><p>An efficient way to explore this program is to run it in a
+debugger where we can step through each statement and see what
+is printed out. Launch <tt class="docutils literal"><span class="pre">ipython</span></tt> and run the program with
+a debugger: <tt class="docutils literal"><span class="pre">run</span> <span class="pre">-d</span> <span class="pre">programname.py</span></tt>. Use <tt class="docutils literal"><span class="pre">s</span></tt> (for step) to
+step through each statement, or <tt class="docutils literal"><span class="pre">n</span></tt> (for next) for stepping
+without also stepping through functions.</p>
+<div class="highlight-python"><pre>ipdb&gt; s
+&gt; /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
+1     1 def count_v1_demo(dna, base):
+----&gt; 2     print 'dna:', dna
+      3     print 'base:', base
+
+ipdb&gt; s
+dna: ATGCGGACCTAT
+&gt; /some/disk/user/bioinf/src/count_v1.py(3)count_v2_demo()
+      2     print 'dna:', dna
+----&gt; 3     print 'base:', base
+      4     i = 0 # counter</pre>
+</div>
+<p>Observe the output of the <tt class="docutils literal"><span class="pre">print</span></tt> statement. One can also
+print a variable explicitly:</p>
+<div class="highlight-python"><pre>ipdb&gt; print base
+C</pre>
+</div>
+<p>Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so
+whenever in doubt about any program flow, enter a debugger to establish
+confidence.</p>
+<p id="index-5">The <a class="reference external" href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>
+is, at least for small programs, a spendid alternative to
+debuggers. Go to the webpage, erase the sample code and paste in your
+own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
+statements one by one. To the right the status of variables are
+explained and the text field below the program shows the output.  An
+example is shown in Figure <a class="reference internal" href="#bioinf-fig-pot"><em>Visual execution of a program using the Python Online Tutor</em></a>.</p>
+<div class="figure" id="bioinf-fig-pot">
+<img alt="_images/python_online_tutor.jpg" src="_images/python_online_tutor.jpg" style="width: 500px;" />
+<p class="caption"><em>Visual execution of a program using the Python Online Tutor</em></p>
+</div>
+</div>
+<div class="section" id="index-iteration">
+<h3>Index Iteration<a class="headerlink" href="#index-iteration" title="Permalink to this headline">¶</a></h3>
+<p>Although it is natural in Python to iterate over the characters in a
+string (or more generally over elements in a sequence), programmers
+with experience from other languages (Fortran, C and Java are
+examples) are used to <tt class="docutils literal"><span class="pre">for</span></tt> loops with an integer counter running over
+a all indices in a string or array:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v3</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># counter</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">dna</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+</pre></div>
+</div>
+<p>Python indices always start at 0 so the legal indices for our
+string become <tt class="docutils literal"><span class="pre">0</span></tt>, <tt class="docutils literal"><span class="pre">1</span></tt>, ...,
+<tt class="docutils literal"><span class="pre">len(dna)-1</span></tt>, where <tt class="docutils literal"><span class="pre">len(dna)</span></tt> is the number of characters in the
+string <tt class="docutils literal"><span class="pre">dna</span></tt>. The <tt class="docutils literal"><span class="pre">range(x)</span></tt> function returns a list of integers
+<tt class="docutils literal"><span class="pre">0</span></tt>, <tt class="docutils literal"><span class="pre">1</span></tt>, ..., <tt class="docutils literal"><span class="pre">x-1</span></tt>, implying that <tt class="docutils literal"><span class="pre">range(len(dna))</span></tt> generates
+all the legal indices for <tt class="docutils literal"><span class="pre">dna</span></tt>.</p>
+</div>
+<div class="section" id="while-loops">
+<h3>While Loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">while</span></tt> loop equivalent to the last function reads</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v4</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># counter</span>
+    <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># string index</span>
+    <span class="k">while</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">dna</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">j</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">i</span>
+</pre></div>
+</div>
+<p>Correct indentation is here crucial: a common error is to fail
+indenting the <tt class="docutils literal"><span class="pre">j</span> <span class="pre">+=</span> <span class="pre">1</span></tt> line correctly.</p>
+</div>
+<div class="section" id="summing-a-boolean-list">
+<h3>Summing a Boolean List<a class="headerlink" href="#summing-a-boolean-list" title="Permalink to this headline">¶</a></h3>
+<p>The idea now is to create a list <tt class="docutils literal"><span class="pre">m</span></tt> where <tt class="docutils literal"><span class="pre">m[i]</span></tt> is <tt class="docutils literal"><span class="pre">True</span></tt> if
+<tt class="docutils literal"><span class="pre">dna[i]</span></tt> equals the character we search for (<tt class="docutils literal"><span class="pre">base</span></tt>).
+The number of <tt class="docutils literal"><span class="pre">True</span></tt> values in <tt class="docutils literal"><span class="pre">m</span></tt> is then the number of <tt class="docutils literal"><span class="pre">base</span></tt>
+characters in <tt class="docutils literal"><span class="pre">dna</span></tt>. We can use the <tt class="docutils literal"><span class="pre">sum</span></tt> function to find
+this number because doing arithmetics with boolean lists
+automatically interprets <tt class="docutils literal"><span class="pre">True</span></tt> as <tt class="docutils literal"><span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> as <tt class="docutils literal"><span class="pre">0</span></tt>.
+That is, <tt class="docutils literal"><span class="pre">sum(m)</span></tt> returns the number of <tt class="docutils literal"><span class="pre">True</span></tt> elements in <tt class="docutils literal"><span class="pre">m</span></tt>.
+A possible function doing this is</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v5</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># matches for base in dna: m[i]=True if dna[i]==base</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">base</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="inline-if-test">
+<h3>Inline If Test<a class="headerlink" href="#inline-if-test" title="Permalink to this headline">¶</a></h3>
+<p>Shorter, more compact code is often a goal if the compactness
+enhances readability. The four-line <tt class="docutils literal"><span class="pre">if</span></tt> test in the previous
+function can be condensed to one line using the inline
+<tt class="docutils literal"><span class="pre">if</span></tt> construction: <tt class="docutils literal"><span class="pre">if</span> <span class="pre">condition</span> <span class="pre">value1</span> <span class="pre">else</span> <span class="pre">value2</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v6</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># matches for base in dna: m[i]=True if dna[i]==base</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">True</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">else</span> <span class="bp">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-boolean-values-directly">
+<h3>Using Boolean Values Directly<a class="headerlink" href="#using-boolean-values-directly" title="Permalink to this headline">¶</a></h3>
+<p>The inline <tt class="docutils literal"><span class="pre">if</span></tt> test is in fact redundant in the previous function
+because the value of the condition <tt class="docutils literal"><span class="pre">c</span> <span class="pre">==</span> <span class="pre">base</span></tt> can be used
+directly: it has the value <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>. This saves
+some typing and adds clarity, at least to Python programmers:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v7</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># matches for base in dna: m[i]=True if dna[i]==base</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="n">m</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-comprehensions">
+<h3>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="index-6"></span><p id="index-7">Building a list via a <tt class="docutils literal"><span class="pre">for</span></tt> loop can often be condensed to one line
+by using list comprehensions: <tt class="docutils literal"><span class="pre">[expr</span> <span class="pre">for</span> <span class="pre">e</span> <span class="pre">in</span> <span class="pre">sequence]</span></tt>, here
+<tt class="docutils literal"><span class="pre">expr</span></tt> is some expression normally involving the iteration variable
+<tt class="docutils literal"><span class="pre">e</span></tt>. In our example, we can introduce a list comprehension</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v8</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here it is tempting to reduce the function body to a single line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v9</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-a-sum-iterator">
+<h3>Using a Sum Iterator<a class="headerlink" href="#using-a-sum-iterator" title="Permalink to this headline">¶</a></h3>
+<p id="index-8">The DNA string is usually huge - 3 billion characters for the human
+specie. Making a boolean array with <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values
+therefore increases the memory usage by a factor of two
+in our sample functions <tt class="docutils literal"><span class="pre">count_v5</span></tt> to <tt class="docutils literal"><span class="pre">count_v9</span></tt>.
+Summing without actually storing an extra list is desireable.
+Fortunately, <tt class="docutils literal"><span class="pre">sum([x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s])</span></tt> can be replaced
+<tt class="docutils literal"><span class="pre">sum(x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s)</span></tt>, where the latter sums the elements (<tt class="docutils literal"><span class="pre">x</span></tt>) in <tt class="docutils literal"><span class="pre">s</span></tt>
+as <tt class="docutils literal"><span class="pre">x</span></tt> visits the elements of <tt class="docutils literal"><span class="pre">s</span></tt> one by one. Removing the brackets
+therefore avoids first making a list and then applying <tt class="docutils literal"><span class="pre">sum</span></tt> on
+that list. This is a minor modification of the <tt class="docutils literal"><span class="pre">count_v9</span></tt> function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v10</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-random-dna-strings">
+<h3>Generating Random DNA Strings<a class="headerlink" href="#generating-random-dna-strings" title="Permalink to this headline">¶</a></h3>
+<p id="index-9">It is obvious that function <tt class="docutils literal"><span class="pre">count_v9</span></tt> doubles the memory requirements
+compared with <tt class="docutils literal"><span class="pre">count_v10</span></tt>, since storage for both <tt class="docutils literal"><span class="pre">dna</span></tt> and <tt class="docutils literal"><span class="pre">m</span></tt> is
+required when using <tt class="docutils literal"><span class="pre">count_v9</span></tt>. But which one is the fastest?
+To answer the question we need some test data, which should be a
+huge string <tt class="docutils literal"><span class="pre">dna</span></tt>. We could write</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">N</span> <span class="o">=</span> <span class="mi">1000000</span>
+<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;A&#39;</span><span class="o">*</span><span class="n">N</span>
+</pre></div>
+</div>
+<p>to make a string <tt class="docutils literal"><span class="pre">'AAA...A</span></tt> that is <tt class="docutils literal"><span class="pre">N</span></tt> characters long, and this would be
+sufficient for testing efficiency. Nevertheless, it is more exciting
+to work with a DNA string with characters from the whole alphabet A, C, G,
+and T. To make a DNA string with a random composition of the characters
+we can first make a list of random characters and then join all those
+characters to a string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
+<span class="n">alphabet</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s">&#39;ATGC&#39;</span><span class="p">)</span>
+<span class="n">dna</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
+<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>  <span class="c"># join the character elements to a string</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">random.choice(x)</span></tt> function selects an element in the list
+<tt class="docutils literal"><span class="pre">x</span></tt> at random.</p>
+<p>Note that <tt class="docutils literal"><span class="pre">N</span></tt> is very often a large number. In Python version 2.x,
+<tt class="docutils literal"><span class="pre">range(N)</span></tt> generates a list of <tt class="docutils literal"><span class="pre">N</span></tt> integers. We can avoid this by
+using <tt class="docutils literal"><span class="pre">xrange</span></tt> which generates an integer at a time and not the whole
+list. In Python version 3.x, the <tt class="docutils literal"><span class="pre">range</span></tt> function is actually the
+<tt class="docutils literal"><span class="pre">xrange</span></tt> function in version 2.x.  Using <tt class="docutils literal"><span class="pre">xrange</span></tt>, combining the
+statements, and wrapping the construction of a random DNA string in a
+function, gives</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">generate_string</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s">&#39;ATCG&#39;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+
+<span class="n">dna</span> <span class="o">=</span> <span class="n">generate_string</span><span class="p">(</span><span class="mi">6000000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The call <tt class="docutils literal"><span class="pre">generate_string(10)</span></tt> may generate something like <tt class="docutils literal"><span class="pre">AATGGCAGAA</span></tt>.</p>
+</div>
+<div class="section" id="measuring-efficiency">
+<h3>Measuring Efficiency<a class="headerlink" href="#measuring-efficiency" title="Permalink to this headline">¶</a></h3>
+<p id="index-10">Our next goal is to generate a very long string <tt class="docutils literal"><span class="pre">dna</span></tt> and
+see how much time the <tt class="docutils literal"><span class="pre">count_v9</span></tt> and <tt class="docutils literal"><span class="pre">count_v10</span></tt> functions spend
+on counting letters in that string. Measuring the time spent
+in a program can be done by the <tt class="docutils literal"><span class="pre">time</span></tt> module as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
+<span class="o">...</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="c"># do stuff</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">cpu_time</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span>
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">time.clock</span></tt> function returns the CPU time spent in the program since
+its start.</p>
+<p>Running through a set of functions and recording timings can be
+done by</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
+<span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_v1</span><span class="p">,</span> <span class="n">count_v2</span><span class="p">,</span> <span class="n">count_v3</span><span class="p">,</span> <span class="n">count_v4</span><span class="p">,</span>
+             <span class="n">count_v5</span><span class="p">,</span> <span class="n">count_v6</span><span class="p">,</span> <span class="n">count_v7</span><span class="p">,</span> <span class="n">count_v8</span><span class="p">,</span>
+             <span class="n">count_v9</span><span class="p">,</span> <span class="n">count_v10</span><span class="p">,</span> <span class="n">count_v11</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
+    <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+    <span class="n">function</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+    <span class="n">cpu_time</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span>
+    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpu_time</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In Python, functions are ordinary objects so making a list of
+functions is no more special than making a list of strings.</p>
+<p>We can now iterate over <tt class="docutils literal"><span class="pre">timings</span></tt> and <tt class="docutils literal"><span class="pre">functions</span></tt> simultaneously via <tt class="docutils literal"><span class="pre">zip</span></tt>
+to make a nice printout of the results:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">cpu_time</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">timings</span><span class="p">,</span> <span class="n">functions</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%.1f</span><span class="s"> s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">function</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="n">cpu_time</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Timings on a MacBook Air 11&#8217;&#8217; running Ubuntu showed that
+the functions using <tt class="docutils literal"><span class="pre">list.append</span></tt> required almost the double of
+the time of the functions that worked with list comprehensions.</p>
+</div>
+<div class="section" id="extracting-indices">
+<h3>Extracting Indices<a class="headerlink" href="#extracting-indices" title="Permalink to this headline">¶</a></h3>
+<p>Instead of making a boolean list with elements expressing whether
+a character matches the given <tt class="docutils literal"><span class="pre">base</span></tt> or not, we may collect all
+the indices of the matches. This can be done by adding an <tt class="docutils literal"><span class="pre">if</span></tt>
+test to the list comprehension:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v11</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">))</span> <span class="k">if</span> <span class="n">dna</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">base</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>A debugger or the Python Online Tutorial do not help so much to
+understand this compact code. A better approach is to examine
+the list comprehension in an interactive Python shell:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;AATGCTTA&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base</span> <span class="o">=</span> <span class="s">&#39;A&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">))</span> <span class="k">if</span> <span class="n">dna</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">base</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span>
+<span class="go">[0, 1, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">dna</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dna</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dna</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>  <span class="c"># check</span>
+<span class="go">A A A</span>
+</pre></div>
+</div>
+<p>The element <tt class="docutils literal"><span class="pre">i</span></tt> in the list comprehension is only made when
+the corresponding character in <tt class="docutils literal"><span class="pre">dna</span></tt> equals <tt class="docutils literal"><span class="pre">base</span></tt>.</p>
+</div>
+<div class="section" id="using-python-s-library">
+<h3>Using Python&#8217;s Library<a class="headerlink" href="#using-python-s-library" title="Permalink to this headline">¶</a></h3>
+<p>Very often when you set out to do a task in Python, there is already
+functionality for the task in the object itself, in the Python
+libraries, or in third-party libraries found on the Internet.
+Counting how many times a character (or substring) <tt class="docutils literal"><span class="pre">base</span></tt> appears in a
+string <tt class="docutils literal"><span class="pre">dna</span></tt> is simply done by <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A lesson learned is: google around before you start out to implement
+what seems to be a quite simple task. Others have probably already
+done it for you. And better: <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt> runs over 30 times
+faster than the best of our handwritten Python functions!
+The reason is that the <tt class="docutils literal"><span class="pre">for</span></tt> loop needed to count in <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>
+is implemented in C and runs very much faster than loops in Python.</p>
+</div>
+</div>
+<div class="section" id="computing-frequencies">
+<span id="bioinf-freqm"></span><h2>Computing Frequencies<a class="headerlink" href="#computing-frequencies" title="Permalink to this headline">¶</a></h2>
+<p id="index-11">Your genetic code is essentially the same from you are born until you
+die, and the same in your blood and your brain.  Which genes that are
+turned on and off make the difference between the cells. This
+regulation of genes is orchestrated by an immensely complex mechanism,
+which we have only started to understand. A central part of this
+mechanism consists of molecules called transcription factors that
+float around in the cell and attach to DNA, and in doing so turn
+nearby genes on or off. These molecules bind preferentially to
+specific DNA sequences, and this binding preference pattern can be
+represented by a table of frequencies of given symbols at each
+position of the pattern.  More precisely, each row in the table
+corresponds to the bases A, C, G, and T, while column j reflects how
+many times the base appears in position j in the DNA sequence.</p>
+<p>For example, if our set of DNA sequences are
+TAG, GGT, and GGG, the table becomes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">base</th>
+<th class="head">0</th>
+<th class="head">1</th>
+<th class="head">2</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>A</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="row-odd"><td>C</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="row-even"><td>G</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="row-odd"><td>T</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>From this table we can read base A appears once in index 1 in
+the DNA strings, base C does not appear at all, base G appears twice
+in all positions, and base T appears once in the beginning and
+end of the strings.</p>
+<p>In the following we shall present different data structures to
+hold such a table and different ways of computing them.
+The table is known as a <em>frequency matrix</em> in bioinformatics,
+and this is the term used below.</p>
+<div class="section" id="separate-frequency-lists">
+<h3>Separate Frequency Lists<a class="headerlink" href="#separate-frequency-lists" title="Permalink to this headline">¶</a></h3>
+<p>Since we know that there are only four rows in the frequency matrix,
+an obvious data structure would be four lists, each holding
+a row. A function computing these lists may look like</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_lists</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
+                <span class="n">G</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">C</span>
+</pre></div>
+</div>
+<p>We need to initialize the lists with the right length and a zero
+for each element, since each list element is to be used as a counter.
+Creating a list of length <tt class="docutils literal"><span class="pre">n</span></tt> with object <tt class="docutils literal"><span class="pre">x</span></tt> in all positions
+is done by <tt class="docutils literal"><span class="pre">[x]*n</span></tt>. Finding the proper length is here done by
+inspecting the length of the first element in <tt class="docutils literal"><span class="pre">dna_list</span></tt>, assuming
+that all elements have the same length.</p>
+<p>In the <tt class="docutils literal"><span class="pre">for</span></tt> loop we use the <tt class="docutils literal"><span class="pre">enumerate</span></tt> function which is used
+to extract both the element value and the element index when
+iterating over a sequence. For example,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s">&#39;t&#39;</span><span class="p">,</span> <span class="s">&#39;e&#39;</span><span class="p">,</span> <span class="s">&#39;s&#39;</span><span class="p">,</span> <span class="s">&#39;t&#39;</span><span class="p">]):</span>
+<span class="gp">... </span>  <span class="k">print</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span>
+<span class="gp">...</span>
+<span class="go">0 t</span>
+<span class="go">1 e</span>
+<span class="go">2 s</span>
+<span class="go">3 t</span>
+</pre></div>
+</div>
+<p>Here is a call and printout of the results:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dna_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;GGTAG&#39;</span><span class="p">,</span> <span class="s">&#39;GGTAC&#39;</span><span class="p">,</span> <span class="s">&#39;GGTGC&#39;</span><span class="p">]</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="n">freq_lists</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">A</span>
+<span class="k">print</span> <span class="n">T</span>
+<span class="k">print</span> <span class="n">G</span>
+<span class="k">print</span> <span class="n">C</span>
+</pre></div>
+</div>
+<p>with output</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="nested-list">
+<h3>Nested List<a class="headerlink" href="#nested-list" title="Permalink to this headline">¶</a></h3>
+<p>The frequency matrix can also be represented as a nested list <tt class="docutils literal"><span class="pre">M</span></tt>
+such that <tt class="docutils literal"><span class="pre">M[i][j]</span></tt> is the frequency of base <tt class="docutils literal"><span class="pre">i</span></tt> in position <tt class="docutils literal"><span class="pre">j</span></tt>
+in a DNA string. Here <tt class="docutils literal"><span class="pre">i</span></tt> is an integer, where 0 corresponds to A,
+1 to C, 2 to G, and 3 to T. The frequency is the number of times
+base <tt class="docutils literal"><span class="pre">i</span></tt> appears in position <tt class="docutils literal"><span class="pre">j</span></tt> in a set of DNA strings.
+Sometimes this number is divided by the number of DNA strings in
+the set so that the frequency is between 0 and 1. Note all
+the DNA strings must have the same length.</p>
+<p>The simplest way to make a nested list is to insert the
+<tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">T</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt>, and <tt class="docutils literal"><span class="pre">G</span></tt> lists into another list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">C</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>  <span class="c"># same element</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>Nevertheless, we can illustrate how to compute this type of nested
+list directly:</p>
+<div class="highlight-python"><pre>def freq_list_of_lists_v1(dna_list):
+    # Create empty frequency_matrix[i][j] = 0
+    # i=0,1,2,3 corresponds to A,T,G,C
+    # j=0,...,length of dna_list[0]</pre>
+</div>
+<p>As in the case with individual lists we need to initialize all elements
+in the nested list to zero.</p>
+<p>A call and printout,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dna_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;GGTAG&#39;</span><span class="p">,</span> <span class="s">&#39;GGTAC&#39;</span><span class="p">,</span> <span class="s">&#39;GGTGC&#39;</span><span class="p">]</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_list_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+<p>results in</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dictionary-for-more-convenient-indexing">
+<h3>Dictionary for More Convenient Indexing<a class="headerlink" href="#dictionary-for-more-convenient-indexing" title="Permalink to this headline">¶</a></h3>
+<p id="index-12">The <tt class="docutils literal"><span class="pre">if</span></tt> tests in the <tt class="docutils literal"><span class="pre">freq_list_of_lists_v1</span></tt> are somewhat cumbersone,
+especially if want to extend the code to other bioinformatics problems
+where the alphabet is larger. What we want is a mapping from <tt class="docutils literal"><span class="pre">base</span></tt>,
+which is a character, to the corresponding index 0, 1, 2, or 3.
+A Python dictionary represents such mappings:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">base2index</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span>
+<span class="go">2</span>
+</pre></div>
+</div>
+<p>With the <tt class="docutils literal"><span class="pre">base2index</span></tt> dictionary we do not need the series of
+<tt class="docutils literal"><span class="pre">if</span></tt> tests and the alphabet <tt class="docutils literal"><span class="pre">'ATGC'</span></tt> could be much larger
+without affecting the length of the code.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_list_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">]</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="numerical-python-array">
+<h3>Numerical Python Array<a class="headerlink" href="#numerical-python-array" title="Permalink to this headline">¶</a></h3>
+<p>As long as each sublist in a list of lists has the same length, a
+list of list can be replaced by a Numerical Python (<tt class="docutils literal"><span class="pre">numpy</span></tt>) array.
+Processing of such arrays is often much more efficient than
+processing of the nested list data structure.
+To initialize a two-dimensional <tt class="docutils literal"><span class="pre">numpy</span></tt> array we need to know its
+size, here 4 times <tt class="docutils literal"><span class="pre">len(dna_list[0])</span></tt>. Only the first line in the function
+<tt class="docutils literal"><span class="pre">freq_list_of_lists_v2</span></tt> needs to be changed in order to utilize
+a <tt class="docutils literal"><span class="pre">numpy</span></tt> array:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">freq_numpy</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+<p>The resulting <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> object can be indexed as
+<tt class="docutils literal"><span class="pre">[b][i]</span></tt> or <tt class="docutils literal"><span class="pre">[b,i]</span></tt>, with integers <tt class="docutils literal"><span class="pre">b</span></tt> and <tt class="docutils literal"><span class="pre">i</span></tt>. A typical
+indexing is <tt class="docutils literal"><span class="pre">frequency_matrix[base2index['C'],i]</span></tt>.</p>
+</div>
+<div class="section" id="dictionary-of-lists">
+<h3>Dictionary of Lists<a class="headerlink" href="#dictionary-of-lists" title="Permalink to this headline">¶</a></h3>
+<p>Instead of going from a character to an integer index via
+<tt class="docutils literal"><span class="pre">base2index</span></tt>, we may prefer to index <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> by, e.g.,
+<tt class="docutils literal"><span class="pre">['C'][14]</span></tt>.  This is the most natural syntax for a user of the
+frequency matrix.  The relevant Python data structure is then a
+dictionary of lists. That is, <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> is a dictionary with
+keys <tt class="docutils literal"><span class="pre">'A'</span></tt>, <tt class="docutils literal"><span class="pre">'T'</span></tt>, <tt class="docutils literal"><span class="pre">'C'</span></tt>, and <tt class="docutils literal"><span class="pre">'G'</span></tt>. The value for each key is a
+list. Let us now also extend the flexibility such that <tt class="docutils literal"><span class="pre">dna_list</span></tt> can
+have DNA strings of different lengths. The lists in <tt class="docutils literal"><span class="pre">frequency_list</span></tt>
+will have lengths equal to the longest DNA string.  A relevant
+function is</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_dict_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+<p>Running</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pprint</span>   <span class="c"># for nice printout of nested data structures</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>results in the output</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+ <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+ <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+ <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>The initialization of <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> in the above code can
+be made more compact by using a dictionary comprehension:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">some_sequence</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Here,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Adopting this construction in the <tt class="docutils literal"><span class="pre">freq_dict_of_lists_v1</span></tt> function
+leads to</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_dict_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dictionary-of-dictionaries">
+<h3>Dictionary of Dictionaries<a class="headerlink" href="#dictionary-of-dictionaries" title="Permalink to this headline">¶</a></h3>
+<p>The dictionary of lists data structure can alternatively be replaced
+by a dictionary of dictionaries object, often just called
+a dict of dicts object. That is,
+<tt class="docutils literal"><span class="pre">frequency_matrix[base]</span></tt> is a dictionary with the index <tt class="docutils literal"><span class="pre">i</span></tt>
+as key and the added number of occurences of <tt class="docutils literal"><span class="pre">base</span></tt> in <tt class="docutils literal"><span class="pre">dna[i]</span></tt> for
+all <tt class="docutils literal"><span class="pre">dna</span></tt> strings in the list <tt class="docutils literal"><span class="pre">dna_list</span></tt>.
+The indexing <tt class="docutils literal"><span class="pre">frequency_matrix['C'][i]</span></tt> and the value are exactly
+as before; the only difference is whether <tt class="docutils literal"><span class="pre">frequency_matrix['C']</span></tt>
+is a list or dictionary.</p>
+<p>Our function working with <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> as a dict of dicts
+is written</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-dictionaries-with-default-values">
+<h3>Using Dictionaries with Default Values<a class="headerlink" href="#using-dictionaries-with-default-values" title="Permalink to this headline">¶</a></h3>
+<p>The manual initialization of each subdictionary to zero,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+                    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>can be simplified by using a dictionary with default values for any
+key. The construction <tt class="docutils literal"><span class="pre">defaultdict(lambda:</span> <span class="pre">obj)</span></tt>
+makes a dictionary with <tt class="docutils literal"><span class="pre">obj</span></tt> as default value.
+This construction simplifies the previous function a bit:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_dicts_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_list_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><em>Remark.</em> Dictionary comprehensions were new in Python 2.7 and 3.1, but can be
+simulated in earlier versions by making (key, value) tuples via
+list comprehensions. A dictionary comprehension</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>is then constructed as</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="analyzing-the-frequency-matrix">
+<h2>Analyzing the Frequency Matrix<a class="headerlink" href="#analyzing-the-frequency-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Having built a frequency matrix out of a collection of DNA strings, it
+is time to use it for analysis.  A typical question is: for a given
+position in the DNA string, which of A, T, G, or C has the highest
+frequency (highest count)?  We can then build a new DNA string with
+the most frequent character for each position. This is in
+bioinformatics known as finding consensus from a frequency matrix.</p>
+<p>For example, if the frequency matrix looks like this (list of lists,
+with rows corresponding to A, T, G, and C),</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>we see that for position 0, which corresponds to column 0 in the table,
+T has the highest frequency (3). The maximum frequencies for the
+other positions are seen to be T for position 1, A for position 2,
+and G for position 3. The consensus string is therefore
+TTAG.</p>
+<p>(<strong>hpl</strong>: This can be more precisely and better explained?)</p>
+<div class="section" id="list-of-lists-frequency-matrix">
+<h3>List of Lists Frequency Matrix<a class="headerlink" href="#list-of-lists-frequency-matrix" title="Permalink to this headline">¶</a></h3>
+<p>Let <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> be a list of lists. For each position <tt class="docutils literal"><span class="pre">i</span></tt>
+we run through the &#8220;rows&#8221; in the frequency matrix and find
+and keep track of the maximum frequency value and the corresponding
+character. If two or more characters have the same frequency value
+we use a dash to indicate that this position in the consensus string
+is undetermined.</p>
+<p>The following function computes the consensus string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_consensus_v1</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dna_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+</pre></div>
+</div>
+<p>Since this code requires <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> to be a list of list
+we should insert a test on this and raise an exception if the
+type is wrong:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_consensus_v1</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span>        <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c"># right type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be list of lists&#39;</span><span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dict-of-dicts-frequency-matrix">
+<h3>Dict of Dicts Frequency Matrix<a class="headerlink" href="#dict-of-dicts-frequency-matrix" title="Permalink to this headline">¶</a></h3>
+<p>How must the <tt class="docutils literal"><span class="pre">find_consensus_v1</span></tt> function be altered if <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt>
+is a dict of dicts?</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The <tt class="docutils literal"><span class="pre">base2index</span></tt> dict is no longer needed.</li>
+<li>Access of sublist, <tt class="docutils literal"><span class="pre">frequency_matrix[0]</span></tt>, to test for type and
+length of the strings, must be replaced
+by <tt class="docutils literal"><span class="pre">frequency_matrix['A']</span></tt>.</li>
+</ol>
+</div></blockquote>
+<p>The updated function looks like</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_consensus_v3</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> \
+       <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c"># right type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be dict of dicts&#39;</span><span class="p">)</span>
+
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dna_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+</pre></div>
+</div>
+<p>Here is a test:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_consensus_v3</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>with output</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+ <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+ <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+ <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
+<span class="n">GGTAC</span>
+</pre></div>
+</div>
+<p>Let us try <tt class="docutils literal"><span class="pre">find_consensus_v3</span></tt> with the dict of defaultdicts
+as input (<tt class="docutils literal"><span class="pre">freq_dicts_of_dicts_v2</span></tt>). The code runs fine, but
+the output string is just <tt class="docutils literal"><span class="pre">G</span></tt>!
+This implies that <tt class="docutils literal"><span class="pre">dna_length</span></tt> is 1, and that the length of
+the <tt class="docutils literal"><span class="pre">A</span></tt> dict in <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> is 1.
+Printing out <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> yields</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">{</span><span class="mi">3</span><span class="p">:</span> <span class="mi">2</span><span class="p">}),</span>
+ <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">{</span><span class="mi">4</span><span class="p">:</span> <span class="mi">2</span><span class="p">}),</span>
+ <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">}),</span>
+ <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="p">{</span><span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">})}</span>
+</pre></div>
+</div>
+<p>where our <tt class="docutils literal"><span class="pre">X</span></tt> is a short form for text like</p>
+<div class="highlight-python"><pre>`&lt;function &lt;lambda&gt; at 0xfaede8&gt;`</pre>
+</div>
+<p>We see that the length of a defaultdict will only count the nonzero
+entries. Hence our function must get the length of the DNA string to
+build as extra argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">find_consensus_v4</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="n">dna_length</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>(<strong>hpl</strong>: Make a unified function that can handle lists of lists,
+dict of lists, dict of dicts, and dicts of defaultdicts? Could
+be cool.)</p>
+</div>
+</div>
+<div class="section" id="probability-matrix">
+<h2>Probability Matrix<a class="headerlink" href="#probability-matrix" title="Permalink to this headline">¶</a></h2>
+<p><em>UNFINISHED!</em></p>
+<p>(<strong>hpl</strong>: I didn&#8217;t understand this example, i.e., I see that a
+probability matrix is given for strings of a certain length,
+then we pick out every substring of this length of DNA,
+and computes the probability of the sequence of characters in
+the substring. But what is it good for?)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">DNA</span><span class="o">=</span><span class="s">&#39;ATCTGATCAA&#39;</span>
+<span class="n">probabilityMatrix</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
+                  <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
+                  <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+                  <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}}</span>
+
+<span class="n">len_window</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">probabilityMatrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
+
+<span class="n">probabilitiesList</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">DNA</span><span class="p">)</span><span class="o">-</span><span class="n">len_window</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">substring</span><span class="o">=</span><span class="n">DNA</span><span class="p">[</span><span class="n">num</span><span class="p">:</span><span class="n">num</span><span class="o">+</span><span class="n">len_window</span><span class="p">]</span>
+
+    <span class="n">prob_value</span><span class="o">=</span><span class="mi">1</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">substring</span><span class="p">):</span>
+       <span class="n">prob_value</span> <span class="o">*=</span><span class="n">probabilityMatrix</span><span class="p">[</span><span class="n">value</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="n">probabilitiesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prob_value</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">probabilitiesList</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dot-plots-from-pair-of-dna-sequences">
+<span id="bioinf-dotplot"></span><h2>Dot Plots from Pair of DNA Sequences<a class="headerlink" href="#dot-plots-from-pair-of-dna-sequences" title="Permalink to this headline">¶</a></h2>
+<p>(<strong>hpl</strong>: terminology: DNA strings or sequences? Maybe sequences is
+better from a pedagogical point of view since it implicitly
+says that strings are sequences, and if sequences are interpreted
+as Python sequences, it helps the programming :-))</p>
+<p>Dot plots are commonly used to visualize the similarity between two protein or
+nucleic acid sequences. They compare two sequences, say <tt class="docutils literal"><span class="pre">d1</span></tt> and <tt class="docutils literal"><span class="pre">d2</span></tt>,
+by organizing <tt class="docutils literal"><span class="pre">d1</span></tt>
+along the x-axis and <tt class="docutils literal"><span class="pre">d2</span></tt> along the y-axis of a plot.
+When <tt class="docutils literal"><span class="pre">d1[i]</span> <span class="pre">==</span> <span class="pre">d2[j]</span></tt> we mark this by drawing a dot at location
+<tt class="docutils literal"><span class="pre">i,j</span></tt> in the plot. The coordinates along the axes are the integers
+0, 1, 2, and so forth.</p>
+<p>(<strong>hpl</strong>: Insert example here! Show plot.)</p>
+<p>(<strong>hpl</strong>: The &#8220;y string&#8221; goes downards while the &#8220;x string&#8221; goes to the right...
+when we print it, since we print row by row...But we can join the rows
+in reverse order to what I would expect - both strings starting in the
+origin and then increasing to the right and upwards.)</p>
+<p>In our forthcoming examples, a dot is represented by 1. No presence at
+a given location is represented by 0. A dot plot can be manually read
+to find common patterns between two sequences that has undergone
+several insertions and deletions, and it serves as a conceptual basis
+for algorithms that align two sequences in order to find evolutionary
+origin or shared functional parts. Such alignment of biological
+sequences is a particular variant of finding the edit distance between
+strings, which is a general technique, also used for, e.g., spell
+correction in search engines.</p>
+<p>The dot plot data structure must mimic a table.  The &#8220;x&#8221; direction is
+along rows, while the &#8220;y&#8221; direction is along columns. First we need to
+initialize the whole data structure with zeros. Then, for each for
+each position in the &#8220;x string&#8221; we run through all positions in the &#8220;y
+string&#8221; and mark those where the characters match with 1.
+The algorithm will be clear when presented with specific Python code.</p>
+<div class="section" id="using-lists-of-lists">
+<h3>Using Lists of Lists<a class="headerlink" href="#using-lists-of-lists" title="Permalink to this headline">¶</a></h3>
+<p>Since the plot is essentially a table, a list of lists is therefore
+a natural data structure. The following function creates the
+list of lists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">):</span>
+    <span class="n">dotplot_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;0&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dna_x</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">dna_y</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x_index</span><span class="p">,</span> <span class="n">x_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x_value</span> <span class="o">==</span> <span class="n">y_value</span><span class="p">:</span>
+                <span class="n">dotplot_matrix</span><span class="p">[</span><span class="n">y_index</span><span class="p">][</span><span class="n">x_index</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;1&#39;</span>
+    <span class="k">return</span> <span class="n">dotplot_matrix</span>
+</pre></div>
+</div>
+<p>To view the dot plot we need to print out the list of lists. Here
+is a possible way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dna_x</span> <span class="o">=</span> <span class="s">&#39;TAATGCCTGAAT&#39;</span>
+<span class="n">dna_y</span> <span class="o">=</span> <span class="s">&#39;CTCTATGCC&#39;</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_x</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">M</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">column</span><span class="p">,</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<p>The output becomes</p>
+<div class="highlight-python"><pre>1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1</pre>
+</div>
+<p>Note that the &#8220;y string&#8221; <tt class="docutils literal"><span class="pre">dna_y</span></tt> has its first index at the top, with
+indices growing downward, while the &#8220;x string&#8221; <tt class="docutils literal"><span class="pre">dna_x</span></tt> has its indices
+growing to the right.</p>
+<p>One can, alternatively, translate the list of lists to a multi-line string
+containing the whole plot as a string object.
+This implies joining all the characters in each row and then joining
+all the rows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">rows</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dotplot_matrix</span><span class="p">]</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+<span class="c"># or combined</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dotplot_matrix</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The construction <tt class="docutils literal"><span class="pre">'d'.join(l)</span></tt> joints all the string elements of the
+list <tt class="docutils literal"><span class="pre">l</span></tt> and inserts <tt class="docutils literal"><span class="pre">d</span></tt> as delimiter: <tt class="docutils literal"><span class="pre">'x'.join(['A','B','C']</span></tt>
+becomes <tt class="docutils literal"><span class="pre">'AxBxC'</span></tt>. We use a space as delimiter
+among the characters in a row since this gives a nice layout when
+printing the string. All rows are joined with newline as delimiter
+such that the rows appear on separate lines when printing the string.
+To really understand what is going on, a more comprehensive code
+could be made so that each step can be examined:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">make_string_expanded</span><span class="p">(</span><span class="n">dotplot_matrix</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dotplot_matrix</span><span class="p">:</span>
+        <span class="n">row_string</span> <span class="o">=</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_string</span><span class="p">)</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plot</span>
+
+<span class="n">M2</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">]]</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">make_string_expanded</span><span class="p">(</span><span class="n">M2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Unless the join operation as used here is well understood, it is highly
+recommended to paste the above ode into the <a class="reference external" href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>, step
+through the code, and watch how variables change their content.
+Figure <a class="reference internal" href="#bioinf-fig-pot2"><em>Illustration of how join operations work (`Python Online Tutor &lt;http://people.csail.mit.edu/pgbovine/python/tutor.html&gt;`_)</em></a> shows a snapshot of this type of code investigation.</p>
+<div class="figure" id="bioinf-fig-pot2">
+<img alt="_images/pot_join.jpg" src="_images/pot_join.jpg" style="width: 500px;" />
+<p class="caption"><em>Illustration of how join operations work (`Python Online Tutor &lt;http://people.csail.mit.edu/pgbovine/python/tutor.html&gt;`_)</em></p>
+</div>
+</div>
+<div class="section" id="using-numerical-python-arrays">
+<h3>Using Numerical Python Arrays<a class="headerlink" href="#using-numerical-python-arrays" title="Permalink to this headline">¶</a></h3>
+<p>A Numerical Python array, with integer elements that equal 0 or 1,
+is well suited as data structure to hold a dot plot.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">dotplot_numpy</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">):</span>
+    <span class="n">dotplot_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">dna_y</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_x</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x_index</span><span class="p">,</span> <span class="n">x_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x_value</span> <span class="o">==</span> <span class="n">y_value</span><span class="p">:</span>
+                <span class="n">dotplot_matrix</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span><span class="n">x_index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">dotplot_matrix</span>
+
+<span class="k">print</span> <span class="n">dotplot_numpy</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<strong>hpl</strong>: we should have a real plot with matplotlib here for a somewhat large
+string.)</p>
+</div>
+</div>
+<div class="section" id="finding-base-frequencies">
+<h2>Finding Base Frequencies<a class="headerlink" href="#finding-base-frequencies" title="Permalink to this headline">¶</a></h2>
+<p>DNA consists of four molecules called nucleotides, or bases, and can
+be represented as a string of the letters A, C, G, and T. But this
+does not mean that all four nucleotides need to be similarly
+frequent. Are some nucleotides more frequent than others, say in
+yeast, as represented by the first chromosome of yeast? Also, DNA is
+really not a single thread, but two threads wound together.  This
+wounding is based on an A from one thread binding to a T of the other
+thread, and C binding to G (that is, A will only bind with T, not with
+C or G).  Could this fact force groups of the four symbol frequencies
+to be equal?  The answer is that the A-T and G-C binding does not in principle
+force certain frequencies to be equal, but in practice they usually
+become so because of evolutionary factors related to this pairing.</p>
+<p>The first task is to compute the frequencies of the bases
+A, C, G, and T. That is, the number of times each base occurs
+in the DNA string, divided by the length of the string.
+For example, if the DNA string is ACGGAAA, the length is 7, A appears
+4 times with frequency 4/7, C appears once with frequency 1/7,
+G appears twice with frequency 2/7, and T does not appear so the
+frequency is 0.</p>
+<p>From a coding perspective we may create a function for counting how
+many times A, C, G, and T appears in the string and then another
+function for computing the frequencies. In both cases we want
+dictionaries such that we can index with the character and get the
+count or the frequency out.
+Counting is done by</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_base_counts</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">base</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counts</span>
+</pre></div>
+</div>
+<p>This function can then be used to compute the base frequencies:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">get_base_counts</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">count</span><span class="o">*</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+<span class="n">frequencies</span> <span class="o">=</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_frequencies</span><span class="p">(</span><span class="n">frequencies</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">base</span><span class="p">])</span>
+                      <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">])</span>
+
+<span class="k">print</span> <span class="s">&quot;Base frequencies of sequence &#39;</span><span class="si">%s</span><span class="s">&#39;:</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+      <span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">print_frequencies</span><span class="p">(</span><span class="n">frequencies</span><span class="p">))</span>
+
+<span class="c"># Real data</span>
+<span class="kn">import</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">os</span>
+<span class="n">yeast_file</span> <span class="o">=</span> <span class="s">&#39;yeast.txt&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> \
+<span class="s">&#39;http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt&#39;</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">yeast_file</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">read_dnafile_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="c"># Remove newlines in each line and join</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dna</span>
+
+<span class="k">def</span> <span class="nf">read_dnafile_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
+        <span class="n">dna</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dna</span>
+
+<span class="n">dna</span> <span class="o">=</span> <span class="n">read_dnafile_v2</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">)</span>
+<span class="n">yeast_freq</span> <span class="o">=</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Base frequencies of yeast DNA (length </span><span class="si">%d</span><span class="s">):</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+      <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">),</span> <span class="n">print_frequencies</span><span class="p">(</span><span class="n">yeast_freq</span><span class="p">))</span>
+
+<span class="k">assert</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">read_dnafile_v1</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">))</span> <span class="o">==</span> \
+       <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">read_dnafile_v2</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>A little test,</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ACCAGAGT&#39;</span>
+<span class="n">frequencies</span> <span class="o">=</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_frequencies</span><span class="p">(</span><span class="n">frequencies</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">base</span><span class="p">])</span>
+                      <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">])</span>
+
+<span class="k">print</span> <span class="s">&quot;Base frequencies of sequence &#39;</span><span class="si">%s</span><span class="s">&#39;:</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+      <span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">print_frequencies</span><span class="p">(</span><span class="n">frequencies</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>gives the result</p>
+<div class="highlight-python"><pre>Base frequencies of sequence 'ACCAGAGT':
+A: 0.38, C: 0.25, T: 0.12, G: 0.25</pre>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">print_frequencies</span></tt> function was made for nice printout of
+the frequencies with 2 decimals. The one-line code is an effective
+combination of a dictionary, list comprehension, and the
+<tt class="docutils literal"><span class="pre">join</span></tt> functionality. The latter is used to get a comma correctly
+inserted between the items in the result. Lazy programmers would
+probably just do a <tt class="docutils literal"><span class="pre">print</span> <span class="pre">frequencies</span></tt> and live with the
+curly braces in the output and (in general) 16 decimals.</p>
+<p id="index-13">We can try the frequency computation on real data. The file</p>
+<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt</pre>
+</div>
+<p>contains the DNA for yeast. We can download this file from
+the Internet by</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">name_of_local_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">url</span></tt> is the Internet address of the file and <tt class="docutils literal"><span class="pre">name_of_local_file</span></tt>
+is a string containing the name of the file on the computer where the
+file is downloaded.
+To avoid repeated downloads when the program is run multiple times,
+we insert a test on whether the local file exists or not. The
+call <tt class="docutils literal"><span class="pre">os.path.isfile(f)</span></tt> returns <tt class="docutils literal"><span class="pre">True</span></tt> if a file with name <tt class="docutils literal"><span class="pre">f</span></tt> exists
+in the current working folder.</p>
+<p>The appropriate download code then becomes</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">os</span>
+<span class="n">yeast_file</span> <span class="o">=</span> <span class="s">&#39;yeast.txt&#39;</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> \
+<span class="s">&#39;http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt&#39;</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">yeast_file</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">read_dnafile_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="c"># Remove newlines in each line and join</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dna</span>
+
+<span class="k">def</span> <span class="nf">read_dnafile_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
+        <span class="n">dna</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dna</span>
+
+<span class="n">dna</span> <span class="o">=</span> <span class="n">read_dnafile_v2</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">)</span>
+<span class="n">yeast_freq</span> <span class="o">=</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Base frequencies of yeast DNA (length </span><span class="si">%d</span><span class="s">):</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+      <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">),</span> <span class="n">print_frequencies</span><span class="p">(</span><span class="n">yeast_freq</span><span class="p">))</span>
+
+<span class="k">assert</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">read_dnafile_v1</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">))</span> <span class="o">==</span> \
+       <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">read_dnafile_v2</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>A copy of the file on the Internet is now in the current working folder
+under the name <tt class="docutils literal"><span class="pre">yeast.txt</span></tt>.
+None</p>
+<p>The <tt class="docutils literal"><span class="pre">yeast.txt</span></tt> files contains the DNA string split over many lines.
+We therefore need to read the lines in this file, strip each line to
+remove the trailing newline, and join all the stripped lines to
+recover the DNA string:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">read_dnafile_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="c"># Remove newlines in each line and join</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">dna</span>
+</pre></div>
+</div>
+<p>As usual, an alternative programming solution can be devised as well:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">read_dnafile_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
+        <span class="n">dna</span> <span class="o">+=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dna</span>
+
+<span class="n">dna</span> <span class="o">=</span> <span class="n">read_dnafile_v2</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">)</span>
+<span class="n">yeast_freq</span> <span class="o">=</span> <span class="n">get_base_frequencies</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Base frequencies of yeast DNA (length </span><span class="si">%d</span><span class="s">):</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> \
+      <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">),</span> <span class="n">print_frequencies</span><span class="p">(</span><span class="n">yeast_freq</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The output becomes</p>
+<div class="highlight-python"><pre>Base frequencies of yeast DNA (length 230208):
+A: 0.30, C: 0.19, T: 0.30, G: 0.20</pre>
+</div>
+<p>This shows that A and T appears in the yeast DNA with 50 percent higher
+probability than C and G.
+(<strong>hpl</strong>: GK, can we say this, or more precisely, does the observation have any interpretation of significance?)</p>
+</div>
+<div class="section" id="translating-genes-into-proteins">
+<h2>Translating Genes into Proteins<a class="headerlink" href="#translating-genes-into-proteins" title="Permalink to this headline">¶</a></h2>
+<p>An important usage of DNA is for cells to store information on their arsenal of
+proteins. These proteins are what makes up the possible functional properties
+of a cell. Proteins are made based on the recipe found in genes. Genes are, in
+essence, only regions of the DNA. These are divided into exons, which are the
+coding regions of the gene, and introns, the regions in between. In order for a
+protein to be created, the exon regions are copied out of the DNA, joined
+together and then transcribed into mRNA. mRNA is messenger RNA, which is a
+small DNA-like sequence that is sent to the protein-creating machinery in the
+ribosomes, containing the recipe for a protein. One difference between the
+mRNA and the original DNA is that all T-bases (Thymine) are exchanged with
+U-bases (Uridine). In the ribosome, the mRNA is translated into proteins.
+Here, a genetic code is used to translate triplet of bases, or codons, into
+an amino acid. A protein is made up of a series of amino acids. Interestingly,
+the genetic code, which is the same for most forms of life, contains
+redundancy, i.e., that several codons code for the same aminoacids, as the 64
+possible codons are used to code for only 20 amino acids.</p>
+<p>Here is an example of using the genetic code to create the amino acid sequence
+of the Lactase protein (LPH), using the DNA sequence of the Lactase gene (LCT)
+as template. An important functional property of LPH is as a restriction
+enzyme to cleave the disaccaaride Lactose into two monsaccarides. Lactose is
+most notably found in milk. Organisms lacking the functionality of LPH will
+get digestive problems including elevated osmotic pressure in the intestine
+leading to diarea and referred to as lactose intolerance. Most mammals and
+humans lose their expression of LCT and therefore their ability to digest milk
+when they stop recieving breast milk.</p>
+<p>The file</p>
+<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv</pre>
+</div>
+<p>contains information on genetic codes. The file format takes the form</p>
+<div class="highlight-python"><pre>UUU     F       Phe     Phenylalanine
+UUC     F       Phe     Phenylalanine
+UUA     L       Leu     Leucine
+UUG     L       Leu     Leucine
+CUU     L       Leu     Leucine
+CUC     L       Leu     Leucine
+CUA     L       Leu     Leucine
+CUG     L       Leu     Leucine
+AUU     I       Ile     Isoleucine
+AUC     I       Ile     Isoleucine
+AUA     I       Ile     Isoleucine
+AUG     M       Met     Methionine (Start)</pre>
+</div>
+<p>The four columns describe .... (<strong>hpl</strong>: Need to write a bit what the significance of the info is)</p>
+<p>[[[</p>
+<div class="highlight-python"><pre>0       651
+3990    4070
+7504    7588
+13177   13280
+15082   15161</pre>
+</div>
+</div>
+</div>
+<div class="section" id="exercises">
+<h1>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="find-pairs-of-characters">
+<span id="bioinf-exer-pairs1"></span><h2>Find pairs of characters<a class="headerlink" href="#find-pairs-of-characters" title="Permalink to this headline">¶</a></h2>
+<p>Write a function <tt class="docutils literal"><span class="pre">count_pairs(dna,</span> <span class="pre">pair)</span></tt> that returns the number of
+occurences of a pair of characters (<tt class="docutils literal"><span class="pre">pair</span></tt>) in a DNA string (<tt class="docutils literal"><span class="pre">dna</span></tt>).
+For example, <tt class="docutils literal"><span class="pre">count_pairs('ACTGCTATCCATT',</span> <span class="pre">'AT')</span></tt> should return 2.</p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_pairs.py</span></tt></p>
+</div>
+<div class="section" id="count-substrings">
+<span id="bioinf-exer-substr1"></span><h2>Count substrings<a class="headerlink" href="#count-substrings" title="Permalink to this headline">¶</a></h2>
+<p>This is an extension of Exercise <a class="reference internal" href="#bioinf-exer-substr1"><em>Count substrings</em></a>:
+count how many times a certain string appears in another string.
+For example, <tt class="docutils literal"><span class="pre">count_substr('ACGTTACGGAACG',</span> <span class="pre">'ACG')</span></tt> should return 2.</p>
+<p><em>Hint 1.</em> For each match of the first character of the
+substring in the main string, check if the next <tt class="docutils literal"><span class="pre">n</span></tt> characters
+in the main string matches the substring, where <tt class="docutils literal"><span class="pre">n</span></tt> is the length
+of the substring. Use slices like <tt class="docutils literal"><span class="pre">s[3:9]</span></tt> to pick out a substring of <tt class="docutils literal"><span class="pre">s</span></tt>.</p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_substr.py</span></tt></p>
+</div>
+<div class="section" id="make-a-function-more-robust">
+<span id="bioinf-exer-get-base-counts2"></span><h2>Make a function more robust<a class="headerlink" href="#make-a-function-more-robust" title="Permalink to this headline">¶</a></h2>
+<p>Consider the function <tt class="docutils literal"><span class="pre">get_base_counts(dna)</span></tt> which counts how
+many times <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt>, <tt class="docutils literal"><span class="pre">G</span></tt>, and <tt class="docutils literal"><span class="pre">T</span></tt> appears in the string <tt class="docutils literal"><span class="pre">dna</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">get_base_counts</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
+        <span class="n">counts</span><span class="p">[</span><span class="n">base</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">counts</span>
+</pre></div>
+</div>
+<p>Unfortunately, this function crashes if other symbols appear in <tt class="docutils literal"><span class="pre">dna</span></tt>.
+Write an enhanced function <tt class="docutils literal"><span class="pre">get_base_counts2</span></tt> which solves this problem.</p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">get_base_counts2.py</span></tt></p>
+</div>
+</div>
+<div class="section" id="do">
+<h1>2DO<a class="headerlink" href="#do" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>gh-pages index.html</li>
+<li>make.sh for sphinx, html, pdflatex</li>
+<li>more ex</li>
+</ol>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Illustrating Python via Examples from Bioinformatics</a></li>
+<li><a class="reference internal" href="#basic-bioinformatics-examples-in-python">Basic Bioinformatics Examples in Python</a><ul>
+<li><a class="reference internal" href="#counting-letters-in-dna-strings">Counting Letters in DNA Strings</a><ul>
+<li><a class="reference internal" href="#list-iteration">List Iteration</a></li>
+<li><a class="reference internal" href="#string-iteration">String Iteration</a></li>
+<li><a class="reference internal" href="#program-flow">Program Flow</a></li>
+<li><a class="reference internal" href="#index-iteration">Index Iteration</a></li>
+<li><a class="reference internal" href="#while-loops">While Loops</a></li>
+<li><a class="reference internal" href="#summing-a-boolean-list">Summing a Boolean List</a></li>
+<li><a class="reference internal" href="#inline-if-test">Inline If Test</a></li>
+<li><a class="reference internal" href="#using-boolean-values-directly">Using Boolean Values Directly</a></li>
+<li><a class="reference internal" href="#list-comprehensions">List Comprehensions</a></li>
+<li><a class="reference internal" href="#using-a-sum-iterator">Using a Sum Iterator</a></li>
+<li><a class="reference internal" href="#generating-random-dna-strings">Generating Random DNA Strings</a></li>
+<li><a class="reference internal" href="#measuring-efficiency">Measuring Efficiency</a></li>
+<li><a class="reference internal" href="#extracting-indices">Extracting Indices</a></li>
+<li><a class="reference internal" href="#using-python-s-library">Using Python&#8217;s Library</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#computing-frequencies">Computing Frequencies</a><ul>
+<li><a class="reference internal" href="#separate-frequency-lists">Separate Frequency Lists</a></li>
+<li><a class="reference internal" href="#nested-list">Nested List</a></li>
+<li><a class="reference internal" href="#dictionary-for-more-convenient-indexing">Dictionary for More Convenient Indexing</a></li>
+<li><a class="reference internal" href="#numerical-python-array">Numerical Python Array</a></li>
+<li><a class="reference internal" href="#dictionary-of-lists">Dictionary of Lists</a></li>
+<li><a class="reference internal" href="#dictionary-of-dictionaries">Dictionary of Dictionaries</a></li>
+<li><a class="reference internal" href="#using-dictionaries-with-default-values">Using Dictionaries with Default Values</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#analyzing-the-frequency-matrix">Analyzing the Frequency Matrix</a><ul>
+<li><a class="reference internal" href="#list-of-lists-frequency-matrix">List of Lists Frequency Matrix</a></li>
+<li><a class="reference internal" href="#dict-of-dicts-frequency-matrix">Dict of Dicts Frequency Matrix</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#probability-matrix">Probability Matrix</a></li>
+<li><a class="reference internal" href="#dot-plots-from-pair-of-dna-sequences">Dot Plots from Pair of DNA Sequences</a><ul>
+<li><a class="reference internal" href="#using-lists-of-lists">Using Lists of Lists</a></li>
+<li><a class="reference internal" href="#using-numerical-python-arrays">Using Numerical Python Arrays</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#finding-base-frequencies">Finding Base Frequencies</a></li>
+<li><a class="reference internal" href="#translating-genes-into-proteins">Translating Genes into Proteins</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercises">Exercises</a><ul>
+<li><a class="reference internal" href="#find-pairs-of-characters">Find pairs of characters</a></li>
+<li><a class="reference internal" href="#count-substrings">Count substrings</a></li>
+<li><a class="reference internal" href="#make-a-function-more-robust">Make a function more robust</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#do">2DO</a></li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Illustrating Python via Bioinformatics Examples</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Illustrating Python via Bioinformatics Examples"
+             >previous</a> |</li>
+        <li><a href="index.html">Illustrating Python via Bioinformatics Examples 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, 0.1.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+    </div>
+  </body>
+</html>

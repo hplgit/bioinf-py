@@ -1,0 +1,1825 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Automatically generated HTML file from Doconce source
+(http://code.google.com/p/doconce/)
+-->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Doconce: http://code.google.com/p/doconce/" />
+</head>
+
+<body bgcolor="white">
+    
+<P>
+<!-- Preprocessor: Mako -->
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+<title>Illustrating Python via Examples from Bioinformatics</title>
+<center><h1>Illustrating Python via Examples from Bioinformatics</h1></center>
+<center>
+<b>Hans Petter Langtangen</b> [1, 2]
+</center>
+
+<center>
+<b>Geir Kjetil Sandve</b> [2]
+</center>
+
+<p>
+<center>[1] <b>Center for Biomedical Computing, Simula Research Laboratory</b></center>
+<center>[2] <b>Department of Informatics, University of Oslo</b></center>
+
+
+<center><h3>Mar 12, 2012</h3></center>
+<P>
+<h2>Basic Bioinformatics Examples in Python</h2>
+<P>
+
+<P>
+Life is definitely digital. The genetic code of all living organisms
+are represented by a long sequence of simple molecules called
+nucleotides, or bases, which makes up the Deoxyribonucleic acid,
+better known as DNA. There are only four such nucleotides, and the
+entire genetic code of a human can be seen as a simple, though 3
+billion long, string of the letters A, C, G, and T.  Analyzing DNA
+data to gain increased biological understanding is much about
+searching in (long) strings for certain string patterns involving the
+letters A, C, G, and T.  This is an integral part of <em>bioinformatics</em>,
+a scientific discipline addressing the use of computers to search
+for, explore, and use information about genes, nucleic acids, and
+proteins.
+
+<P>
+
+<P>
+Below are some simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, <tt>if</tt> tests, and functions.
+
+<P>
+<h3>Counting Letters in DNA Strings <a name="bioinf:count"></A></h3>
+<P>
+
+<P>
+Given some string <tt>dna</tt> containing the letters <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, or <tt>T</tt>,
+representing the bases that make up DNA, we ask the question: how
+many times does a certain base occur in the DNA string?
+For example, if <tt>dna</tt> is <tt>ATGGCATTA</tt> and we ask how many times the
+base <tt>A</tt> occur in this string, the answer is 3.
+
+<P>
+A general Python implementation answering this problem can be done
+in many ways. Some solutions are presented below.
+
+<P>
+<h4>List Iteration</h4>
+<P>
+
+<P>
+The most straightforward solution is to loop over the characters
+in the string, test if the current character equals the desired one,
+and if so, increase a counter. Looping over the characters is
+obvious if the characters are stored in a list. This is easily
+done by
+<blockquote>    <!-- begin verbatim block   ipy-->
+<pre>
+&gt;&gt;&gt; list('ATGC')
+['A', 'T', 'G', 'C']
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Our first solution becomes
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v1(dna, base):
+    dna = list(dna)  # convert string to list of characters
+    i = 0            # counter
+    for c in dna:
+        if c == base:
+            i += 1
+    return i
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>String Iteration</h4>
+<P>
+
+<P>
+Python allows us to iterate directly over a string without converting
+it to a list:
+<blockquote>    <!-- begin verbatim block   ipy-->
+<pre>
+&gt;&gt;&gt; for c in 'ATGC':
+...     print c
+A
+T
+G
+C
+</pre>
+</blockquote>   <! -- end verbatim block -->
+In fact, all objects in Python which contains a set of elements in
+a particular sequence allow a <tt>for</tt> loop construction of the
+type <tt>for element in object</tt>.
+<!-- Examples of such objects are -->
+<!-- lists, tuples, strings, arrays, files, dictionaries -->
+
+<P>
+A slight improvement of our solution is therefore to iterate directly
+over the string:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v2(dna, base):
+    i = 0 # counter
+    for c in dna:
+        if c == base:
+            i += 1
+    return i
+
+dna = 'ATGCGGACCTAT'
+base = 'C'
+n = count_v2(dna, base)
+print '%s appears %d times in %s' % (base, n, dna)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Program Flow</h4>
+<P>
+For correct programming it is a fundamental importance to
+be able to simulate the program above by hand, statement by
+statement. Three tools are
+effective for helping you reach the required understanding for doing
+a manual simulation:
+(i) printing variables, (ii) using a debugger, and (iii) using an
+<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize">online program flow tool</a>.
+
+<P>
+Inserting <tt>print</tt> statements and examining the about help to demonstrate
+what is going on:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v2_demo(dna, base):
+    print 'dna:', dna
+    print 'base:', base
+    i = 0 # counter
+    for c in dna:
+        print 'c:', c
+        if c == base:
+            print 'True if test'
+            i += 1
+    return i
+
+n = count_v2_demo('ATGCGGACCTAT', 'C')
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+
+<P>
+<!-- Note: do not use !bc ipy for debugging sessions since -->
+<!-- sphinx treats ipy as interactive sessions and therefore -->
+<!-- drops any environment (it is automatically handled) -->
+
+<P>
+An efficient way to explore this program is to run it in a
+debugger where we can step through each statement and see what
+is printed out. Launch <tt>ipython</tt> and run the program with
+a debugger: <tt>run -d programname.py</tt>. Use <tt>s</tt> (for step) to
+step through each statement, or <tt>n</tt> (for next) for stepping
+without also stepping through functions.
+<blockquote>    <!-- begin verbatim block   cod-->
+<pre>
+ipdb&gt; s
+&gt; /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
+1     1 def count_v1_demo(dna, base):
+----&gt; 2     print 'dna:', dna
+      3     print 'base:', base
+
+ipdb&gt; s
+dna: ATGCGGACCTAT
+&gt; /some/disk/user/bioinf/src/count_v1.py(3)count_v2_demo()
+      2     print 'dna:', dna
+----&gt; 3     print 'base:', base
+      4     i = 0 # counter
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Observe the output of the <tt>print</tt> statement. One can also
+print a variable explicitly:
+<blockquote>    <!-- begin verbatim block   cod-->
+<pre>
+ipdb&gt; print base
+C
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so
+whenever in doubt about any program flow, enter a debugger to establish
+confidence.
+
+<P>
+
+<P>
+The <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>
+is, at least for small programs, a spendid alternative to
+debuggers. Go to the webpage, erase the sample code and paste in your
+own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
+statements one by one. To the right the status of variables are
+explained and the text field below the program shows the output.  An
+example is shown in Figure <a href="#bioinf:fig:pot">bioinf:fig:pot</a>.
+
+<P>
+<center><hr>
+<caption><i>Visual execution of a program using the Python Online Tutor. <a name="bioinf:fig:pot"></A></i></caption>
+<p><img src="figs-bioinf/python_online_tutor.jpg" align="bottom" width=500></p>
+</center>
+
+<P>
+<h4>Index Iteration</h4>
+<P>
+Although it is natural in Python to iterate over the characters in a
+string (or more generally over elements in a sequence), programmers
+with experience from other languages (Fortran, C and Java are
+examples) are used to <tt>for</tt> loops with an integer counter running over
+a all indices in a string or array:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v3(dna, base):
+    i = 0 # counter
+    for j in range(len(dna)):
+        if dna[j] == base:
+            i += 1
+    return i
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Python indices always start at 0 so the legal indices for our
+string become <tt>0</tt>, <tt>1</tt>, ...,
+<tt>len(dna)-1</tt>, where <tt>len(dna)</tt> is the number of characters in the
+string <tt>dna</tt>. The <tt>range(x)</tt> function returns a list of integers
+<tt>0</tt>, <tt>1</tt>, ..., <tt>x-1</tt>, implying that <tt>range(len(dna))</tt> generates
+all the legal indices for <tt>dna</tt>.
+
+<P>
+<h4>While Loops</h4>
+<P>
+The <tt>while</tt> loop equivalent to the last function reads
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v4(dna, base):
+    i = 0 # counter
+    j = 0 # string index
+    while j &lt; len(dna):
+        if dna[j] == base:
+            i += 1
+        j += 1
+    return i
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Correct indentation is here crucial: a common error is to fail
+indenting the <tt>j += 1</tt> line correctly.
+
+<P>
+<h4>Summing a Boolean List</h4>
+<P>
+The idea now is to create a list <tt>m</tt> where <tt>m[i]</tt> is <tt>True</tt> if
+<tt>dna[i]</tt> equals the character we search for (<tt>base</tt>).
+The number of <tt>True</tt> values in <tt>m</tt> is then the number of <tt>base</tt>
+characters in <tt>dna</tt>. We can use the <tt>sum</tt> function to find
+this number because doing arithmetics with boolean lists
+automatically interprets <tt>True</tt> as <tt>1</tt> and <tt>False</tt> as <tt>0</tt>.
+That is, <tt>sum(m)</tt> returns the number of <tt>True</tt> elements in <tt>m</tt>.
+A possible function doing this is
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v5(dna, base):
+    m = []   # matches for base in dna: m[i]=True if dna[i]==base
+    for c in dna:
+        if c == base:
+            m.append(True)
+        else:
+            m.append(False)
+    return sum(m)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Inline If Test</h4>
+<P>
+Shorter, more compact code is often a goal if the compactness
+enhances readability. The four-line <tt>if</tt> test in the previous
+function can be condensed to one line using the inline
+<tt>if</tt> construction: <tt>if condition value1 else value2</tt>.
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v6(dna, base):
+    m = []   # matches for base in dna: m[i]=True if dna[i]==base
+    for c in dna:
+        m.append(True if c == base else False)
+    return sum(m)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Using Boolean Values Directly</h4>
+<P>
+The inline <tt>if</tt> test is in fact redundant in the previous function
+because the value of the condition <tt>c == base</tt> can be used
+directly: it has the value <tt>True</tt> or <tt>False</tt>. This saves
+some typing and adds clarity, at least to Python programmers:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v7(dna, base):
+    m = []   # matches for base in dna: m[i]=True if dna[i]==base
+    for c in dna:
+        m.append(c == base)
+    return sum(m)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+
+<P>
+<h4>List Comprehensions</h4>
+<P>
+
+<P>
+Building a list via a <tt>for</tt> loop can often be condensed to one line
+by using list comprehensions: <tt>[expr for e in sequence]</tt>, here
+<tt>expr</tt> is some expression normally involving the iteration variable
+<tt>e</tt>. In our example, we can introduce a list comprehension
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v8(dna, base):
+    m = [c == base for c in dna]
+    return sum(m)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Here it is tempting to reduce the function body to a single line:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v9(dna, base):
+    return sum([c == base for c in dna])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Using a Sum Iterator</h4>
+<P>
+
+<P>
+The DNA string is usually huge - 3 billion characters for the human
+specie. Making a boolean array with <tt>True</tt> and <tt>False</tt> values
+therefore increases the memory usage by a factor of two
+in our sample functions <tt>count_v5</tt> to <tt>count_v9</tt>.
+Summing without actually storing an extra list is desireable.
+Fortunately, <tt>sum([x for x in s])</tt> can be replaced
+<tt>sum(x for x in s)</tt>, where the latter sums the elements (<tt>x</tt>) in <tt>s</tt>
+as <tt>x</tt> visits the elements of <tt>s</tt> one by one. Removing the brackets
+therefore avoids first making a list and then applying <tt>sum</tt> on
+that list. This is a minor modification of the <tt>count_v9</tt> function:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v10(dna, base):
+    return sum(c == base for c in dna)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Generating Random DNA Strings</h4>
+<P>
+
+<P>
+It is obvious that function <tt>count_v9</tt> doubles the memory requirements
+compared with <tt>count_v10</tt>, since storage for both <tt>dna</tt> and <tt>m</tt> is
+required when using <tt>count_v9</tt>. But which one is the fastest?
+To answer the question we need some test data, which should be a
+huge string <tt>dna</tt>. We could write
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+N = 1000000
+dna = 'A'*N
+</pre>
+</blockquote>   <! -- end verbatim block -->
+to make a string <tt>'AAA...A</tt> that is <tt>N</tt> characters long, and this would be
+sufficient for testing efficiency. Nevertheless, it is more exciting
+to work with a DNA string with characters from the whole alphabet A, C, G,
+and T. To make a DNA string with a random composition of the characters
+we can first make a list of random characters and then join all those
+characters to a string:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import random
+alphabet = list('ATGC')
+dna = [random.choice(alphabet) for i in range(N)]
+dna = ''.join(dna)  # join the character elements to a string
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The <tt>random.choice(x)</tt> function selects an element in the list
+<tt>x</tt> at random.
+
+<P>
+Note that <tt>N</tt> is very often a large number. In Python version 2.x,
+<tt>range(N)</tt> generates a list of <tt>N</tt> integers. We can avoid this by
+using <tt>xrange</tt> which generates an integer at a time and not the whole
+list. In Python version 3.x, the <tt>range</tt> function is actually the
+<tt>xrange</tt> function in version 2.x.  Using <tt>xrange</tt>, combining the
+statements, and wrapping the construction of a random DNA string in a
+function, gives
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+import random
+
+def generate_string(N, alphabet='ATCG'):
+    return ''.join([random.choice(alphabet) for i in xrange(N)])
+
+dna = generate_string(6000000)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The call <tt>generate_string(10)</tt> may generate something like <tt>AATGGCAGAA</tt>.
+
+<P>
+<h4>Measuring Efficiency</h4>
+<P>
+
+<P>
+Our next goal is to generate a very long string <tt>dna</tt> and
+see how much time the <tt>count_v9</tt> and <tt>count_v10</tt> functions spend
+on counting letters in that string. Measuring the time spent
+in a program can be done by the <tt>time</tt> module as follows:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import time
+...
+t0 = time.clock()
+# do stuff
+t1 = time.clock()
+cpu_time = t1 - t0
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The <tt>time.clock</tt> function returns the CPU time spent in the program since
+its start.
+
+<P>
+Running through a set of functions and recording timings can be
+done by
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+import time
+timings = []
+functions = [count_v1, count_v2, count_v3, count_v4,
+             count_v5, count_v6, count_v7, count_v8,
+             count_v9, count_v10, count_v11]
+for function in functions:
+    t0 = time.clock()
+    function(dna, 'A')
+    t1 = time.clock()
+    cpu_time = t1 - t0
+    timings.append(cpu_time)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+In Python, functions are ordinary objects so making a list of
+functions is no more special than making a list of strings.
+
+<P>
+We can now iterate over <tt>timings</tt> and <tt>functions</tt> simultaneously via <tt>zip</tt>
+to make a nice printout of the results:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+for cpu_time, function in zip(timings, functions):
+    print '%s: %.1f s' % (function.func_name, cpu_time)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Timings on a MacBook Air 11'' running Ubuntu showed that
+the functions using <tt>list.append</tt> required almost the double of
+the time of the functions that worked with list comprehensions.
+
+<P>
+
+<P>
+<h4>Extracting Indices</h4>
+<P>
+Instead of making a boolean list with elements expressing whether
+a character matches the given <tt>base</tt> or not, we may collect all
+the indices of the matches. This can be done by adding an <tt>if</tt>
+test to the list comprehension:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v11(dna, base):
+    return len([i for i in range(len(dna)) if dna[i] == base])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+A debugger or the Python Online Tutorial do not help so much to
+understand this compact code. A better approach is to examine
+the list comprehension in an interactive Python shell:
+<blockquote>    <!-- begin verbatim block   ipy-->
+<pre>
+&gt;&gt;&gt; dna = 'AATGCTTA'
+&gt;&gt;&gt; base = 'A'
+&gt;&gt;&gt; indices = [i for i in range(len(dna)) if dna[i] == base]
+&gt;&gt;&gt; indices
+[0, 1, 7]
+&gt;&gt;&gt; print dna[0], dna[1], dna[7]  # check
+A A A
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The element <tt>i</tt> in the list comprehension is only made when
+the corresponding character in <tt>dna</tt> equals <tt>base</tt>.
+
+<P>
+
+<P>
+<h4>Using Python's Library</h4>
+<P>
+Very often when you set out to do a task in Python, there is already
+functionality for the task in the object itself, in the Python
+libraries, or in third-party libraries found on the Internet.
+Counting how many times a character (or substring) <tt>base</tt> appears in a
+string <tt>dna</tt> is simply done by <tt>dna.count(base)</tt>:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def count_v12(dna, base):
+    return dna.count(base)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+A lesson learned is: google around before you start out to implement
+what seems to be a quite simple task. Others have probably already
+done it for you. And better: <tt>dna.count(base)</tt> runs over 30 times
+faster than the best of our handwritten Python functions!
+The reason is that the <tt>for</tt> loop needed to count in <tt>dna.count(base)</tt>
+is implemented in C and runs very much faster than loops in Python.
+
+<P>
+<!-- === Testing with Real Data === -->
+
+<P>
+
+<P>
+<h3>Computing Frequencies <a name="bioinf:freqm"></A></h3>
+<P>
+
+<P>
+
+<P>
+Your genetic code is essentially the same from you are born until you
+die, and the same in your blood and your brain.  Which genes that are
+turned on and off make the difference between the cells. This
+regulation of genes is orchestrated by an immensely complex mechanism,
+which we have only started to understand. A central part of this
+mechanism consists of molecules called transcription factors that
+float around in the cell and attach to DNA, and in doing so turn
+nearby genes on or off. These molecules bind preferentially to
+specific DNA sequences, and this binding preference pattern can be
+represented by a table of frequencies of given symbols at each
+position of the pattern.  More precisely, each row in the table
+corresponds to the bases A, C, G, and T, while column j reflects how
+many times the base appears in position j in the DNA sequence.
+
+<P>
+For example, if our set of DNA sequences are
+TAG, GGT, and GGG, the table becomes
+
+<P>
+<table border="1">
+<tr><td align="center"><b>base</b></td> <td align="center"><b> 0  </b></td> <td align="center"><b> 1  </b></td> <td align="center"><b> 2  </b></td> </tr>
+<tr><td align="left">   A       </td> <td align="center">   0       </td> <td align="center">   1       </td> <td align="center">   0       </td> </tr>
+<tr><td align="left">   C       </td> <td align="center">   0       </td> <td align="center">   0       </td> <td align="center">   0       </td> </tr>
+<tr><td align="left">   G       </td> <td align="center">   2       </td> <td align="center">   2       </td> <td align="center">   2       </td> </tr>
+<tr><td align="left">   T       </td> <td align="center">   1       </td> <td align="center">   0       </td> <td align="center">   1       </td> </tr>
+</table>
+<P>
+From this table we can read base A appears once in index 1 in
+the DNA strings, base C does not appear at all, base G appears twice
+in all positions, and base T appears once in the beginning and
+end of the strings.
+
+<P>
+In the following we shall present different data structures to
+hold such a table and different ways of computing them.
+The table is known as a <em>frequency matrix</em> in bioinformatics,
+and this is the term used below.
+
+<P>
+
+<P>
+<h4>Separate Frequency Lists</h4>
+<P>
+Since we know that there are only four rows in the frequency matrix,
+an obvious data structure would be four lists, each holding
+a row. A function computing these lists may look like
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_lists(dna_list):
+    n = len(dna_list[0])
+    A = [0]*n
+    T = [0]*n
+    G = [0]*n
+    C = [0]*n
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            if base == 'A':
+                A[index] += 1
+            elif base == 'T':
+                T[index] += 1
+            elif base == 'G':
+                G[index] += 1
+            elif base == 'C':
+                C[index] += 1
+    return A, T, G, C
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+We need to initialize the lists with the right length and a zero
+for each element, since each list element is to be used as a counter.
+Creating a list of length <tt>n</tt> with object <tt>x</tt> in all positions
+is done by <tt>[x]*n</tt>. Finding the proper length is here done by
+inspecting the length of the first element in <tt>dna_list</tt>, assuming
+that all elements have the same length.
+
+<P>
+In the <tt>for</tt> loop we use the <tt>enumerate</tt> function which is used
+to extract both the element value and the element index when
+iterating over a sequence. For example,
+<blockquote>    <!-- begin verbatim block   ipy-->
+<pre>
+&gt;&gt;&gt; for index, base in enumerate(['t', 'e', 's', 't']):
+...   print index, base
+...
+0 t
+1 e
+2 s
+3 t
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Here is a call and printout of the results:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+A, T, G, C = freq_lists(dna_list)
+print A
+print T
+print G
+print C
+</pre>
+</blockquote>   <! -- end verbatim block -->
+with output
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+[0, 0, 0, 2, 0]
+[3, 3, 0, 1, 1]
+[0, 0, 0, 0, 2]
+[0, 0, 3, 0, 0]
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Nested List</h4>
+<P>
+The frequency matrix can also be represented as a nested list <tt>M</tt>
+such that <tt>M[i][j]</tt> is the frequency of base <tt>i</tt> in position <tt>j</tt>
+in a DNA string. Here <tt>i</tt> is an integer, where 0 corresponds to A,
+1 to C, 2 to G, and 3 to T. The frequency is the number of times
+base <tt>i</tt> appears in position <tt>j</tt> in a set of DNA strings.
+Sometimes this number is divided by the number of DNA strings in
+the set so that the frequency is between 0 and 1. Note all
+the DNA strings must have the same length.
+
+<P>
+The simplest way to make a nested list is to insert the
+<tt>A</tt>, <tt>T</tt>, <tt>C</tt>, and <tt>G</tt> lists into another list:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+&gt;&gt;&gt; frequency_matrix = [A, T, G, C]
+&gt;&gt;&gt; frequency_matrix[2][3]
+2
+&gt;&gt;&gt; G[3]  # same element
+2
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Nevertheless, we can illustrate how to compute this type of nested
+list directly:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_list_of_lists_v1(dna_list):
+    # Create empty frequency_matrix[i][j] = 0
+    # i=0,1,2,3 corresponds to A,T,G,C
+    # j=0,...,length of dna_list[0]
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+As in the case with individual lists we need to initialize all elements
+in the nested list to zero.
+
+<P>
+A call and printout,
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+frequency_matrix = freq_list_of_lists_v1(dna_list)
+print frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+results in
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+[[0, 0, 0, 2, 0], [0, 0, 3, 0, 0], [3, 3, 0, 1, 1], [0, 0, 0, 0, 2]]
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Dictionary for More Convenient Indexing</h4>
+<P>
+
+<P>
+The <tt>if</tt> tests in the <tt>freq_list_of_lists_v1</tt> are somewhat cumbersone,
+especially if want to extend the code to other bioinformatics problems
+where the alphabet is larger. What we want is a mapping from <tt>base</tt>,
+which is a character, to the corresponding index 0, 1, 2, or 3.
+A Python dictionary represents such mappings:
+<blockquote>    <!-- begin verbatim block   ipy-->
+<pre>
+&gt;&gt;&gt; base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+&gt;&gt;&gt; base2index['G']
+2
+</pre>
+</blockquote>   <! -- end verbatim block -->
+With the <tt>base2index</tt> dictionary we do not need the series of
+<tt>if</tt> tests and the alphabet <tt>'ATGC'</tt> could be much larger
+without affecting the length of the code.
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_list_of_lists_v2(dna_list):
+    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ATGC']
+    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base2index[base]][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Numerical Python Array</h4>
+<P>
+As long as each sublist in a list of lists has the same length, a
+list of list can be replaced by a Numerical Python (<tt>numpy</tt>) array.
+Processing of such arrays is often much more efficient than
+processing of the nested list data structure.
+To initialize a two-dimensional <tt>numpy</tt> array we need to know its
+size, here 4 times <tt>len(dna_list[0])</tt>. Only the first line in the function
+<tt>freq_list_of_lists_v2</tt> needs to be changed in order to utilize
+a <tt>numpy</tt> array:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+import numpy as np
+
+def freq_numpy(dna_list):
+    frequency_matrix = np.zeros((4, len(dna_list[0])), dtype=np.int)
+    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base2index[base]][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The resulting <tt>frequency_matrix</tt> object can be indexed as
+<tt>[b][i]</tt> or <tt>[b,i]</tt>, with integers <tt>b</tt> and <tt>i</tt>. A typical
+indexing is <tt>frequency_matrix[base2index['C'],i]</tt>.
+
+<P>
+<h4>Dictionary of Lists</h4>
+<P>
+Instead of going from a character to an integer index via
+<tt>base2index</tt>, we may prefer to index <tt>frequency_matrix</tt> by, e.g.,
+<tt>['C'][14]</tt>.  This is the most natural syntax for a user of the
+frequency matrix.  The relevant Python data structure is then a
+dictionary of lists. That is, <tt>frequency_matrix</tt> is a dictionary with
+keys <tt>'A'</tt>, <tt>'T'</tt>, <tt>'C'</tt>, and <tt>'G'</tt>. The value for each key is a
+list. Let us now also extend the flexibility such that <tt>dna_list</tt> can
+have DNA strings of different lengths. The lists in <tt>frequency_list</tt>
+will have lengths equal to the longest DNA string.  A relevant
+function is
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_dict_of_lists_v1(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {
+        'A': [0]*n,
+        'T': [0]*n,
+        'G': [0]*n,
+        'C': [0]*n,
+        }
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Running
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+frequency_matrix = freq_dict_of_lists_v1(dna_list)
+import pprint   # for nice printout of nested data structures
+pprint.pprint(frequency_matrix)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+results in the output
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+{'A': [0, 0, 0, 2, 0],
+ 'C': [0, 0, 0, 0, 2],
+ 'G': [3, 3, 0, 1, 1],
+ 'T': [0, 0, 3, 0, 0]}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The initialization of <tt>frequency_matrix</tt> in the above code can
+be made more compact by using a dictionary comprehension:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+dict = {key: value for key in some_sequence}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Here,
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+frequency_matrix = {base: [0]*n for base in 'ATGC'}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Adopting this construction in the <tt>freq_dict_of_lists_v1</tt> function
+leads to
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_dict_of_lists_v2(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {base: [0]*n for base in 'ATGC'}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Dictionary of Dictionaries</h4>
+<P>
+The dictionary of lists data structure can alternatively be replaced
+by a dictionary of dictionaries object, often just called
+a dict of dicts object. That is,
+<tt>frequency_matrix[base]</tt> is a dictionary with the index <tt>i</tt>
+as key and the added number of occurences of <tt>base</tt> in <tt>dna[i]</tt> for
+all <tt>dna</tt> strings in the list <tt>dna_list</tt>.
+The indexing <tt>frequency_matrix['C'][i]</tt> and the value are exactly
+as before; the only difference is whether <tt>frequency_matrix['C']</tt>
+is a list or dictionary.
+
+<P>
+Our function working with <tt>frequency_matrix</tt> as a dict of dicts
+is written
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def freq_dict_of_dicts_v1(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {base: {index: 0 for index in range(n)}
+                        for base in 'ATGC'}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Using Dictionaries with Default Values</h4>
+<P>
+The manual initialization of each subdictionary to zero,
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    frequency_matrix = {base: {index: 0 for index in range(n)}
+                        for base in 'ATGC'}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+can be simplified by using a dictionary with default values for any
+key. The construction <tt>defaultdict(lambda: obj)</tt>
+makes a dictionary with <tt>obj</tt> as default value.
+This construction simplifies the previous function a bit:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+from collections import defaultdict
+
+def freq_dict_of_dicts_v2(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {base: defaultdict(lambda: 0)
+                        for base in 'ATGC'}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base][index] += 1
+
+    return frequency_matrix
+
+frequency_matrix = freq_list_of_lists_v2(dna_list)
+pprint.pprint(frequency_matrix)
+frequency_matrix = freq_dict_of_dicts_v1(dna_list)
+pprint.pprint(frequency_matrix)
+frequency_matrix = freq_dict_of_dicts_v2(dna_list)
+pprint.pprint(frequency_matrix)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<b>Remark.</b> Dictionary comprehensions were new in Python 2.7 and 3.1, but can be
+simulated in earlier versions by making (key, value) tuples via
+list comprehensions. A dictionary comprehension
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+d = {key: value for key in sequence}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+is then constructed as
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+d = dict([(key, value) for key in sequence])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h3>Analyzing the Frequency Matrix</h3>
+<P>
+Having built a frequency matrix out of a collection of DNA strings, it
+is time to use it for analysis.  A typical question is: for a given
+position in the DNA string, which of A, T, G, or C has the highest
+frequency (highest count)?  We can then build a new DNA string with
+the most frequent character for each position. This is in
+bioinformatics known as finding consensus from a frequency matrix.
+
+<P>
+For example, if the frequency matrix looks like this (list of lists,
+with rows corresponding to A, T, G, and C),
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+[0, 0, 0, 2, 0]
+[3, 3, 0, 1, 1]
+[0, 0, 0, 0, 2]
+[0, 0, 3, 0, 0]
+</pre>
+</blockquote>   <! -- end verbatim block -->
+we see that for position 0, which corresponds to column 0 in the table,
+T has the highest frequency (3). The maximum frequencies for the
+other positions are seen to be T for position 1, A for position 2,
+and G for position 3. The consensus string is therefore
+TTAG.
+
+<P>
+<!-- This is an inline comment, can be turned on and off in the -->
+<!-- final document: -->
+
+<P>
+[<b>hpl</b>: <em>This can be more precisely and better explained?</em>]
+
+<P>
+<h4>List of Lists Frequency Matrix</h4>
+<P>
+Let <tt>frequency_matrix</tt> be a list of lists. For each position <tt>i</tt>
+we run through the "rows" in the frequency matrix and find
+and keep track of the maximum frequency value and the corresponding
+character. If two or more characters have the same frequency value
+we use a dash to indicate that this position in the consensus string
+is undetermined.
+
+<P>
+The following function computes the consensus string:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def find_consensus_v1(frequency_matrix):
+    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    consensus = ''
+    dna_length = len(frequency_matrix[0])
+
+    for i in range(dna_length):  # loop over positions in string
+        max_freq = -1            # holds the max freq. for this i
+        max_freq_base = None     # holds the corresponding base
+
+        for base in 'ATGC':
+            if frequency_matrix[base2index[base]][i] &gt; max_freq:
+                max_freq = frequency_matrix[base2index[base]][i]
+                max_freq_base = base
+            elif frequency_matrix[base2index[base]][i] == max_freq:
+                max_freq_base = '-' # more than one base as max
+
+        consensus += max_freq_base  # add new base with max freq
+    return consensus
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Since this code requires <tt>frequency_matrix</tt> to be a list of list
+we should insert a test on this and raise an exception if the
+type is wrong:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def find_consensus_v1(frequency_matrix):
+    if isinstance(frequency_matrix, list) and        isinstance(frequency_matrix[0], list):
+        pass # right type
+    else:
+        raise TypeError('frequency_matrix must be list of lists')
+...
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Dict of Dicts Frequency Matrix</h4>
+<P>
+How must the <tt>find_consensus_v1</tt> function be altered if <tt>frequency_matrix</tt>
+is a dict of dicts?
+
+<P>
+
+<ol>
+ <li> The <tt>base2index</tt> dict is no longer needed.
+ <li> Access of sublist, <tt>frequency_matrix[0]</tt>, to test for type and
+    length of the strings, must be replaced
+    by <tt>frequency_matrix['A']</tt>.
+</ol>
+
+The updated function looks like
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def find_consensus_v3(frequency_matrix):
+    if isinstance(frequency_matrix, dict) and \
+       isinstance(frequency_matrix['A'], dict):
+        pass # right type
+    else:
+        raise TypeError('frequency_matrix must be dict of dicts')
+
+    consensus = ''
+    dna_length = len(frequency_matrix['A'])
+
+    for i in range(dna_length):  # loop over positions in string
+        max_freq = -1            # holds the max freq. for this i
+        max_freq_base = None     # holds the corresponding base
+
+        for base in 'ATGC':
+            if frequency_matrix[base][i] &gt; max_freq:
+                max_freq = frequency_matrix[base][i]
+                max_freq_base = base
+            elif frequency_matrix[base][i] == max_freq:
+                max_freq_base = '-' # more than one base as max
+
+        consensus += max_freq_base  # add new base with max freq
+    return consensus
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Here is a test:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+frequency_matrix = freq_dict_of_dicts_v1(dna_list)
+pprint.pprint(frequency_matrix)
+print find_consensus_v3(frequency_matrix)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+with output
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+{'A': {0: 0, 1: 0, 2: 0, 3: 2, 4: 0},
+ 'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
+ 'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
+ 'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
+GGTAC
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Let us try <tt>find_consensus_v3</tt> with the dict of defaultdicts
+as input (<tt>freq_dicts_of_dicts_v2</tt>). The code runs fine, but
+the output string is just <tt>G</tt>!
+This implies that <tt>dna_length</tt> is 1, and that the length of
+the <tt>A</tt> dict in <tt>frequency_matrix</tt> is 1.
+Printing out <tt>frequency_matrix</tt> yields
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+{'A': defaultdict(X, {3: 2}),
+ 'C': defaultdict(X, {4: 2}),
+ 'G': defaultdict(X, {0: 3, 1: 3, 3: 1, 4: 1}),
+ 'T': defaultdict(X, {2: 3})}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+where our <tt>X</tt> is a short form for text like
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+`&lt;function &lt;lambda&gt; at 0xfaede8&gt;`
+</pre>
+</blockquote>   <! -- end verbatim block -->
+We see that the length of a defaultdict will only count the nonzero
+entries. Hence our function must get the length of the DNA string to
+build as extra argument:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def find_consensus_v4(frequency_matrix, dna_length):
+    ...
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+[<b>hpl</b>: <em>Make a unified function that can handle lists of lists,
+dict of lists, dict of dicts, and dicts of defaultdicts? Could
+be cool.</em>]
+
+<P>
+<h3>Probability Matrix</h3>
+<P>
+<em>UNFINISHED!</em>
+
+<P>
+[<b>hpl</b>: <em>I didn't understand this example, i.e., I see that a
+probability matrix is given for strings of a certain length,
+then we pick out every substring of this length of DNA,
+and computes the probability of the sequence of characters in
+the substring. But what is it good for?</em>]
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+DNA='ATCTGATCAA'
+probabilityMatrix={'A': {0: 0.2, 1: 0.2, 2: 0.6, 3: 0.2, 4: 0.2},
+                  'C': {0: 0.2, 1: 0.4, 2: 0.0, 3: 0.0, 4: 0.8},
+                  'T': {0: 0.2, 1: 0.0, 2: 0.2, 3: 0.6, 4: 0.0},
+                  'G': {0: 0.4, 1: 0.4, 2: 0.2, 3: 0.2, 4: 0.0}}
+
+len_window=len(probabilityMatrix['A'])
+
+probabilitiesList=[]
+for num in range(len(DNA)-len_window+1):
+    substring=DNA[num:num+len_window]
+
+    prob_value=1
+    for index, value in enumerate(substring):
+       prob_value *=probabilityMatrix[value][index]
+
+    probabilitiesList.append(prob_value)
+
+print probabilitiesList
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+
+<P>
+<h3>Dot Plots from Pair of DNA Sequences <a name="bioinf:dotplot"></A></h3>
+<P>
+
+<P>
+[<b>hpl</b>: <em>terminology: DNA strings or sequences? Maybe sequences is
+better from a pedagogical point of view since it implicitly
+says that strings are sequences, and if sequences are interpreted
+as Python sequences, it helps the programming :-)</em>]
+
+<P>
+Dot plots are commonly used to visualize the similarity between two protein or
+nucleic acid sequences. They compare two sequences, say <tt>d1</tt> and <tt>d2</tt>,
+by organizing <tt>d1</tt>
+along the x-axis and <tt>d2</tt> along the y-axis of a plot.
+When <tt>d1[i] == d2[j]</tt> we mark this by drawing a dot at location
+<tt>i,j</tt> in the plot. The coordinates along the axes are the integers
+0, 1, 2, and so forth.
+
+<P>
+[<b>hpl</b>: <em>Insert example here! Show plot.</em>]
+
+<P>
+[<b>hpl</b>: <em>The "y string" goes downards while the "x string" goes to the right...
+when we print it, since we print row by row...But we can join the rows
+in reverse order to what I would expect - both strings starting in the
+origin and then increasing to the right and upwards.</em>]
+
+<P>
+In our forthcoming examples, a dot is represented by 1. No presence at
+a given location is represented by 0. A dot plot can be manually read
+to find common patterns between two sequences that has undergone
+several insertions and deletions, and it serves as a conceptual basis
+for algorithms that align two sequences in order to find evolutionary
+origin or shared functional parts. Such alignment of biological
+sequences is a particular variant of finding the edit distance between
+strings, which is a general technique, also used for, e.g., spell
+correction in search engines.
+
+<P>
+The dot plot data structure must mimic a table.  The "x" direction is
+along rows, while the "y" direction is along columns. First we need to
+initialize the whole data structure with zeros. Then, for each for
+each position in the "x string" we run through all positions in the "y
+string" and mark those where the characters match with 1.
+The algorithm will be clear when presented with specific Python code.
+
+<P>
+<h4>Using Lists of Lists</h4>
+<P>
+Since the plot is essentially a table, a list of lists is therefore
+a natural data structure. The following function creates the
+list of lists:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def dotplot_list_of_lists(dna_x, dna_y):
+    dotplot_matrix = [['0' for x in dna_x] for y in dna_y]
+    for x_index, x_value in enumerate(dna_x):
+        for y_index, y_value in enumerate(dna_y):
+            if x_value == y_value:
+                dotplot_matrix[y_index][x_index] = '1'
+    return dotplot_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+To view the dot plot we need to print out the list of lists. Here
+is a possible way:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+dna_x = 'TAATGCCTGAAT'
+dna_y = 'CTCTATGCC'
+
+M = dotplot_list_of_lists(dna_x, dna_x)
+for row in M:
+    for column in row:
+        print column,
+    print
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The output becomes
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Note that the "y string" <tt>dna_y</tt> has its first index at the top, with
+indices growing downward, while the "x string" <tt>dna_x</tt> has its indices
+growing to the right.
+
+<P>
+One can, alternatively, translate the list of lists to a multi-line string
+containing the whole plot as a string object.
+This implies joining all the characters in each row and then joining
+all the rows:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+rows = [' '.join(row) for row in dotplot_matrix]
+plot = '\n'.join(rows)
+# or combined
+plot = '\n'.join([' '.join(row) for row in dotplot_matrix])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The construction <tt>'d'.join(l)</tt> joints all the string elements of the
+list <tt>l</tt> and inserts <tt>d</tt> as delimiter: <tt>'x'.join(['A','B','C']</tt>
+becomes <tt>'AxBxC'</tt>. We use a space as delimiter
+among the characters in a row since this gives a nice layout when
+printing the string. All rows are joined with newline as delimiter
+such that the rows appear on separate lines when printing the string.
+To really understand what is going on, a more comprehensive code
+could be made so that each step can be examined:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def make_string_expanded(dotplot_matrix):
+    rows = []
+    for row in dotplot_matrix:
+        row_string = ' '.join(row)
+        rows.append(row_string)
+    plot = '\n'.join(rows)
+    return plot
+
+M2 = [['1', '1', '0', '1'],
+     ['1', '1', '1', '1'],
+     ['0', '0', '1', '0'],
+     ['0', '0', '0', '1']]
+
+s = make_string_expanded(M2)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Unless the join operation as used here is well understood, it is highly
+recommended to paste the above ode into the <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>, step
+through the code, and watch how variables change their content.
+Figure <a href="#bioinf:fig:pot2">bioinf:fig:pot2</a> shows a snapshot of this type of code investigation.
+
+<P>
+<center><hr>
+<caption><i>Illustration of how join operations work (<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>). <a name="bioinf:fig:pot2"></A></i></caption>
+<p><img src="figs-bioinf/pot_join.jpg" align="bottom" width=500></p>
+</center>
+
+<P>
+<h4>Using Numerical Python Arrays</h4>
+<P>
+A Numerical Python array, with integer elements that equal 0 or 1,
+is well suited as data structure to hold a dot plot.
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def dotplot_numpy(dna_x, dna_y):
+    dotplot_matrix = np.zeros((len(dna_y), len(dna_x)), np.int)
+    for x_index, x_value in enumerate(dna_x):
+        for y_index, y_value in enumerate(dna_y):
+            if x_value == y_value:
+                dotplot_matrix[y_index,x_index] = 1
+    return dotplot_matrix
+
+print dotplot_numpy(dna_x, dna_y)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+[<b>hpl</b>: <em>we should have a real plot with matplotlib here for a somewhat large
+string.</em>]
+
+<P>
+
+<P>
+<h3>Finding Base Frequencies</h3>
+<P>
+DNA consists of four molecules called nucleotides, or bases, and can
+be represented as a string of the letters A, C, G, and T. But this
+does not mean that all four nucleotides need to be similarly
+frequent. Are some nucleotides more frequent than others, say in
+yeast, as represented by the first chromosome of yeast? Also, DNA is
+really not a single thread, but two threads wound together.  This
+wounding is based on an A from one thread binding to a T of the other
+thread, and C binding to G (that is, A will only bind with T, not with
+C or G).  Could this fact force groups of the four symbol frequencies
+to be equal?  The answer is that the A-T and G-C binding does not in principle
+force certain frequencies to be equal, but in practice they usually
+become so because of evolutionary factors related to this pairing.
+
+<P>
+The first task is to compute the frequencies of the bases
+A, C, G, and T. That is, the number of times each base occurs
+in the DNA string, divided by the length of the string.
+For example, if the DNA string is ACGGAAA, the length is 7, A appears
+4 times with frequency 4/7, C appears once with frequency 1/7,
+G appears twice with frequency 2/7, and T does not appear so the
+frequency is 0.
+
+<P>
+From a coding perspective we may create a function for counting how
+many times A, C, G, and T appears in the string and then another
+function for computing the frequencies. In both cases we want
+dictionaries such that we can index with the character and get the
+count or the frequency out.
+Counting is done by
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def get_base_counts(dna):
+    counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
+    for base in dna:
+        counts[base] += 1
+    return counts
+</pre>
+</blockquote>   <! -- end verbatim block -->
+This function can then be used to compute the base frequencies:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def get_base_frequencies(dna):
+    counts = get_base_counts(dna)
+    return {base: count*1.0/len(dna)
+            for base, count in counts.items()}
+
+frequencies = get_base_frequencies(dna)
+
+def print_frequencies(frequencies):
+    return ', '.join(['%s: %.2f' % (base, frequencies[base])
+                      for base in frequencies])
+
+print "Base frequencies of sequence '%s':\n%s" % \
+      (dna, print_frequencies(frequencies))
+
+# Real data
+import urllib, os
+yeast_file = 'yeast.txt'
+if not os.path.isfile(yeast_file):
+    url = \
+'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
+    urllib.urlretrieve(url, filename=yeast_file)
+
+def read_dnafile_v1(filename):
+    lines = open(filename, 'r').readlines()
+    # Remove newlines in each line and join
+    dna = ''.join([line.strip() for line in lines])
+    return dna
+
+def read_dnafile_v2(filename):
+    dna = ''
+    for line in open(filename, 'r'):
+        dna += line.strip()
+    return dna
+
+dna = read_dnafile_v2(yeast_file)
+yeast_freq = get_base_frequencies(dna)
+print "Base frequencies of yeast DNA (length %d):\n%s" % \
+      (len(dna), print_frequencies(yeast_freq))
+
+assert get_base_frequencies(read_dnafile_v1(yeast_file)) == \
+       get_base_frequencies(read_dnafile_v2(yeast_file))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+A little test,
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+dna = 'ACCAGAGT'
+frequencies = get_base_frequencies(dna)
+
+def print_frequencies(frequencies):
+    return ', '.join(['%s: %.2f' % (base, frequencies[base])
+                      for base in frequencies])
+
+print "Base frequencies of sequence '%s':\n%s" % \
+      (dna, print_frequencies(frequencies))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+gives the result
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+Base frequencies of sequence 'ACCAGAGT':
+A: 0.38, C: 0.25, T: 0.12, G: 0.25
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The <tt>print_frequencies</tt> function was made for nice printout of
+the frequencies with 2 decimals. The one-line code is an effective
+combination of a dictionary, list comprehension, and the
+<tt>join</tt> functionality. The latter is used to get a comma correctly
+inserted between the items in the result. Lazy programmers would
+probably just do a <tt>print frequencies</tt> and live with the
+curly braces in the output and (in general) 16 decimals.
+
+<P>
+
+<P>
+We can try the frequency computation on real data. The file
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt
+</pre>
+</blockquote>   <! -- end verbatim block -->
+contains the DNA for yeast. We can download this file from
+the Internet by
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+urllib.urlretrieve(url, filename=name_of_local_file)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+where <tt>url</tt> is the Internet address of the file and <tt>name_of_local_file</tt>
+is a string containing the name of the file on the computer where the
+file is downloaded.
+To avoid repeated downloads when the program is run multiple times,
+we insert a test on whether the local file exists or not. The
+call <tt>os.path.isfile(f)</tt> returns <tt>True</tt> if a file with name <tt>f</tt> exists
+in the current working folder.
+
+<P>
+The appropriate download code then becomes
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+import urllib, os
+yeast_file = 'yeast.txt'
+if not os.path.isfile(yeast_file):
+    url = \
+'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
+    urllib.urlretrieve(url, filename=yeast_file)
+
+def read_dnafile_v1(filename):
+    lines = open(filename, 'r').readlines()
+    # Remove newlines in each line and join
+    dna = ''.join([line.strip() for line in lines])
+    return dna
+
+def read_dnafile_v2(filename):
+    dna = ''
+    for line in open(filename, 'r'):
+        dna += line.strip()
+    return dna
+
+dna = read_dnafile_v2(yeast_file)
+yeast_freq = get_base_frequencies(dna)
+print "Base frequencies of yeast DNA (length %d):\n%s" % \
+      (len(dna), print_frequencies(yeast_freq))
+
+assert get_base_frequencies(read_dnafile_v1(yeast_file)) == \
+       get_base_frequencies(read_dnafile_v2(yeast_file))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+A copy of the file on the Internet is now in the current working folder
+under the name <tt>yeast.txt</tt>.
+None
+
+<P>
+The <tt>yeast.txt</tt> files contains the DNA string split over many lines.
+We therefore need to read the lines in this file, strip each line to
+remove the trailing newline, and join all the stripped lines to
+recover the DNA string:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def read_dnafile_v1(filename):
+    lines = open(filename, 'r').readlines()
+    # Remove newlines in each line and join
+    dna = ''.join([line.strip() for line in lines])
+    return dna
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+As usual, an alternative programming solution can be devised as well:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def read_dnafile_v2(filename):
+    dna = ''
+    for line in open(filename, 'r'):
+        dna += line.strip()
+    return dna
+
+dna = read_dnafile_v2(yeast_file)
+yeast_freq = get_base_frequencies(dna)
+print "Base frequencies of yeast DNA (length %d):\n%s" % \
+      (len(dna), print_frequencies(yeast_freq))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The output becomes
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+Base frequencies of yeast DNA (length 230208):
+A: 0.30, C: 0.19, T: 0.30, G: 0.20
+</pre>
+</blockquote>   <! -- end verbatim block -->
+This shows that A and T appears in the yeast DNA with 50 percent higher
+probability than C and G.
+[<b>hpl</b>: <em>GK, can we say this, or more precisely, does the observation have any interpretation of significance?</em>]
+
+<P>
+<h3>Translating Genes into Proteins</h3>
+<P>
+An important usage of DNA is for cells to store information on their arsenal of
+proteins. These proteins are what makes up the possible functional properties
+of a cell. Proteins are made based on the recipe found in genes. Genes are, in
+essence, only regions of the DNA. These are divided into exons, which are the
+coding regions of the gene, and introns, the regions in between. In order for a
+protein to be created, the exon regions are copied out of the DNA, joined
+together and then transcribed into mRNA. mRNA is messenger RNA, which is a
+small DNA-like sequence that is sent to the protein-creating machinery in the
+ribosomes, containing the recipe for a protein. One difference between the
+mRNA and the original DNA is that all T-bases (Thymine) are exchanged with
+U-bases (Uridine). In the ribosome, the mRNA is translated into proteins.
+Here, a genetic code is used to translate triplet of bases, or codons, into
+an amino acid. A protein is made up of a series of amino acids. Interestingly,
+the genetic code, which is the same for most forms of life, contains
+redundancy, i.e., that several codons code for the same aminoacids, as the 64
+possible codons are used to code for only 20 amino acids.
+
+<P>
+Here is an example of using the genetic code to create the amino acid sequence
+of the Lactase protein (LPH), using the DNA sequence of the Lactase gene (LCT)
+as template. An important functional property of LPH is as a restriction
+enzyme to cleave the disaccaaride Lactose into two monsaccarides. Lactose is
+most notably found in milk. Organisms lacking the functionality of LPH will
+get digestive problems including elevated osmotic pressure in the intestine
+leading to diarea and referred to as lactose intolerance. Most mammals and
+humans lose their expression of LCT and therefore their ability to digest milk
+when they stop recieving breast milk.
+
+<P>
+The file
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
+</pre>
+</blockquote>   <! -- end verbatim block -->
+contains information on genetic codes. The file format takes the form
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+UUU     F       Phe     Phenylalanine
+UUC     F       Phe     Phenylalanine
+UUA     L       Leu     Leucine
+UUG     L       Leu     Leucine
+CUU     L       Leu     Leucine
+CUC     L       Leu     Leucine
+CUA     L       Leu     Leucine
+CUG     L       Leu     Leucine
+AUU     I       Ile     Isoleucine
+AUC     I       Ile     Isoleucine
+AUA     I       Ile     Isoleucine
+AUG     M       Met     Methionine (Start)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The four columns describe .... [<b>hpl</b>: <em>Need to write a bit what the significance of the info is</em>]
+
+<P>
+[[[
+
+<P>
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+0       651
+3990    4070
+7504    7588
+13177   13280
+15082   15161
+</pre>
+</blockquote>   <! -- end verbatim block -->
+<h2>Exercises</h2>
+<P>
+<h3>Find pairs of characters <a name="bioinf:exer:pairs1"></A></h3>
+<P>
+
+<P>
+Write a function <tt>count_pairs(dna, pair)</tt> that returns the number of
+occurences of a pair of characters (<tt>pair</tt>) in a DNA string (<tt>dna</tt>).
+For example, <tt>count_pairs('ACTGCTATCCATT', 'AT')</tt> should return 2.
+
+<P>
+<!-- Note: dna.count(pair) works! -->
+
+<P>
+<em>Filename</em>: <tt>count_pairs.py</tt>
+
+<P>
+<h3>Count substrings <a name="bioinf:exer:substr1"></A></h3>
+<P>
+
+<P>
+This is an extension of Exercise <a href="#bioinf:exer:substr1">Count substrings</a>:
+count how many times a certain string appears in another string.
+For example, <tt>count_substr('ACGTTACGGAACG', 'ACG')</tt> should return 2.
+
+<P>
+<b>Hint 1.</b> For each match of the first character of the
+substring in the main string, check if the next <tt>n</tt> characters
+in the main string matches the substring, where <tt>n</tt> is the length
+of the substring. Use slices like <tt>s[3:9]</tt> to pick out a substring of <tt>s</tt>.
+
+<P>
+<em>Filename</em>: <tt>count_substr.py</tt>
+
+<P>
+<h3>Make a function more robust <a name="bioinf:exer:get_base_counts2"></A></h3>
+<P>
+
+<P>
+Consider the function <tt>get_base_counts(dna)</tt> which counts how
+many times <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and <tt>T</tt> appears in the string <tt>dna</tt>:
+
+<P>
+<blockquote>    <!-- begin verbatim block  -->
+<pre>
+def get_base_counts(dna):
+    counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
+    for base in dna:
+        counts[base] += 1
+    return counts
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Unfortunately, this function crashes if other symbols appear in <tt>dna</tt>.
+Write an enhanced function <tt>get_base_counts2</tt> which solves this problem.
+
+<P>
+<!-- Hints: defaultdict or test on if base in counts: ... else counts[base]=1 -->
+
+<P>
+<em>Filename</em>: <tt>get_base_counts2.py</tt>
+
+<P>
+<h2>2DO</h2>
+<ol>
+<li> gh-pages index.html
+<li> make.sh for sphinx, html, pdflatex
+<li> more ex
+</ol>
+
+</body>
+</html>
+    
