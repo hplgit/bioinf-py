@@ -1,54 +1,26 @@
+## List all required mako arguments and provide default values:
 <%page args="PRIMER_BOOK=False, EBOOK=False"/>
 
+<%doc>
+PRIMER_BOOK: text to be included in the "Primer" book.
+EBOOK: PDF version of the "Primer" book with hyperlinks (href command).
+not PRIMER_BOOK means that this file is a stand-alone document.
+</%doc>
 
-<%
-# This is Python code block
+## Import functions for writing to "Primer" book, sphinx,
+## latex PDF w/hyperlinkes, etc.
+##<%namespace file="defs.mako" import="*"/>
+## Problem: these defs introduce blank linkes, much better to
+## use Python functions in pydefs.mako
 
-# primer_book_comment allows easy insertion of comments when this
-# text is used in the book A Primer for Scientific Programming with Python.
-# Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
-# result in text if PRIMER_BOOK is true, otherwise no text comes out.
-#
-# A companion function, not_primer_book_comment(text) can be used
-# for printing text that will occur when parts of this document
-# is not included in the Primer book.
+# #include "pydefs.mako"
 
-
-def primer_book_comment(text):
-    """A comment to appear in the Primer book only."""
-    return text if PRIMER_BOOK else ''
-
-def primer_pbook_comment(text):
-    """A comment to appear in the Primer book only."""
-    return text if PRIMER_BOOK and not EBOOK else ''
-
-def primer_ebook_comment(text):
-    """A comment to appear in the Primer book only."""
-    return text if PRIMER_BOOK and EBOOK else ''
-
-def not_primer_book_comment(text):
-    """A comment to appear when the text is not included in the Primer book."""
-    return text if not PRIMER_BOOK else ''
-
-
-def link(filename, primer_src_dir=None):
-    """
-    Generate text for link to a source code file.
-    Primer book: filename. (primer_src_dir is given early in the chapter.)
-    Primer ebook: link to _static/filename and info on filename.
-    Else: link to _static/filename.
-    """
-    # typical text: "...can be found in the file ${link('file', 'dir')}.
-    urlbase = 'http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/'
-    #s = not_primer_book_comment('"%s": "%s"' % (filename, '_static/' + filename))
-    #s = not_primer_book_comment('"%s": "%s"' % (filename, urlbase + filename))
-    s = not_primer_book_comment('`%s` ("download": "%s" or "online viewing": "%s")' % (filename, urlbase + filename, urlbase + filename + '.html'))
-    s += primer_pbook_comment(filename)
-    s += primer_ebook_comment('"%s": "%s"' % (filename, urlbase + filename))
-    return s
-
-%>
-
+<%doc>
+"Commenting out" large portions of text can be done by these
+mako multi-line comments, or alternatively by if tests, either in
+the preprocess stage (# #ifdef ...) or in the mako stage
+(if some_variable:).
+</%doc>
 
 % if PRIMER_BOOK:
 ======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
@@ -95,10 +67,10 @@ Given some string `dna` containing the letters A, C, G, or T,
 representing the bases that make up DNA, we ask the question: how
 many times does a certain base occur in the DNA string?
 For example, if `dna` is ATGGCATTA and we ask how many times the
-base A occur in this string. The answer is 3.
+base A occur in this string, the answer is 3.
 
 A general Python implementation answering this problem can be done
-in many ways. Some solutions are presented below.
+in many ways. Several possible solutions are presented below.
 
 === List Iteration ===
 
@@ -108,7 +80,7 @@ The most straightforward solution is to loop over the letters
 in the string, test if the current letter equals the desired one,
 and if so, increase a counter. Looping over the letters is
 obvious if the letters are stored in a list. This is easily
-done by
+done by converting a string to a list:
 !bc ipy
 >>> list('ATGC')
 ['A', 'T', 'G', 'C']
@@ -131,7 +103,7 @@ T
 G
 C
 !ec
-In fact, all objects in Python which contains a set of elements in
+In fact, all built-in objects in Python which contain a set of elements in
 a particular sequence allow a `for` loop construction of the
 type `for element in object`.
 #Examples of such objects are
@@ -142,17 +114,22 @@ over the string:
 
 @@@CODE src-bioinf/count.py fromto: def count_v2\(dna@def count_v2_demo
 
+We have illustrated two alternative ways of writing out text
+where the value of variables are to be inserted in "slots" in the
+string.
+
 === Program Flow ===
 
-For correct programming it is a fundamental importance to
-be able to simulate the program above by hand, statement by
+It is fundamental for correct programming to understand how
+to simulate a program by hand, statement by
 statement. Three tools are
-effective for helping you reach the required understanding for doing
-a manual simulation:
+effective for helping you reach the required understanding of performing
+a simulation by hand:
 (i) printing variables, (ii) using a debugger, and (iii) using an
 "online program flow tool": "http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize".
 
-Inserting `print` statements and examining the about help to demonstrate
+Inserting `print` statements and examining the about is the
+simplest approach to investigating
 what is going on:
 
 @@@CODE src-bioinf/count.py fromto: def count_v2_demo@def count_v3
@@ -165,25 +142,26 @@ idx{using a debugger}
 
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
-is printed out. Launch `ipython` and run the program with
-a debugger: `run -d programname.py`. Use `s` (for step) to
-step through each statement, or `n` (for next) for stepping
-without also stepping through functions.
+is printed out. Start `ipython` in a terminal window and run the
+program ${link("count_v2_demo.py")} with
+a debugger: `run -d count_v2_demo.py`. Use `s` (for step) to
+step through each statement, or `n` (for next) for proceeding to the
+next statement without stepping through a function that is called.
 !bc cod
 ipdb> s
-> /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
+> /some/disk/user/bioinf/src/count_v2_demo.py(2)count_v2_demo()
 1     1 def count_v1_demo(dna, base):
 ----> 2     print 'dna:', dna
       3     print 'base:', base
 
 ipdb> s
 dna: ATGCGGACCTAT
-> /some/disk/user/bioinf/src/count_v1.py(3)count_v2_demo()
+> /some/disk/user/bioinf/src/count_v2_demo.py(3)count_v2_demo()
       2     print 'dna:', dna
 ----> 3     print 'base:', base
       4     i = 0 # counter
 !ec
-Observe the output of the `print` statement. One can also
+Observe the output of the `print` statements. One can also
 print a variable explicitly:
 !bc cod
 ipdb> print base
@@ -203,14 +181,14 @@ at
 http://people.csail.mit.edu/pgbovine/python/tutor.html
 !ec
 % endif
-is, at least for small programs, a spendid alternative to
+is, at least for small programs, a splendid alternative to
 debuggers. Go to the webpage, erase the sample code and paste in your
 own code. Press *Visual execution*, then *Forward* to execute
-statements one by one. To the right the status of variables are
-explained and the text field below the program shows the output.  An
-example is shown in Figure ref{bioinf:fig:pot}.
+statements one by one. The status of variables are
+explained to the right, and the text field below the program shows the output
+from `print` statements.  An example is shown in Figure ref{bioinf:fig:pot}.
 
-FIGURE: [figs-bioinf/python_online_tutor.jpg, width=500] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
+FIGURE: [figs-bioinf/python_online_tutor.jpg, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
 
 === Index Iteration ===
 
@@ -235,7 +213,7 @@ The `while` loop equivalent to the last function reads
 
 @@@CODE src-bioinf/count.py fromto: def count_v4@def count_v5
 
-Correct indentation is here crucial: a common error is to fail
+Correct indentation is here crucial: a typical error is to fail
 indenting the `j += 1` line correctly.
 
 === Summing a Boolean List ===
@@ -275,13 +253,14 @@ some typing and adds clarity, at least to Python programmers:
 idx{list comprehension} idx{`sum`}
 
 Building a list via a `for` loop can often be condensed to one line
-by using list comprehensions: `[expr for e in sequence]`, here
+by using list comprehensions: `[expr for e in sequence]`, where
 `expr` is some expression normally involving the iteration variable
-`e`. In our example, we can introduce a list comprehension
+`e`. In our last example, we can introduce a list comprehension
 
 @@@CODE src-bioinf/count.py fromto: def count_v8@def count_v9
 
-Here it is tempting to reduce the function body to a single line:
+Here it is tempting to get rid of the `m` variable and
+reduce the function body to a single line:
 
 @@@CODE src-bioinf/count.py fromto: def count_v9@def count_v10
 
@@ -302,13 +281,40 @@ that list. This is a minor modification of the `count_v9` function:
 
 @@@CODE src-bioinf/count.py fromto: def count_v10@def count_v11
 
+Below we shall measure the impact of the various program constructs
+on the CPU time.
+
+=== Extracting Indices ===
+
+Instead of making a boolean list with elements expressing whether
+a character matches the given `base` or not, we may collect all
+the indices of the matches. This can be done by adding an `if`
+test to the list comprehension:
+
+@@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
+
+A debugger or the Python Online Tutorial do not help so much to
+understand this compact code. A better approach is to examine
+the list comprehension in an interactive Python shell:
+!bc ipy
+>>> dna = 'AATGCTTA'
+>>> base = 'A'
+>>> indices = [i for i in range(len(dna)) if dna[i] == base]
+>>> indices
+[0, 1, 7]
+>>> print dna[0], dna[1], dna[7]  # check
+A A A
+!ec
+The element `i` in the list comprehension is only made when
+`dna[i] == base`.
+
+
 === Generating Random DNA Strings ===
 
 idx{random strings}
 
-It is obvious that function `count_v9` doubles the memory requirements
-compared with `count_v10`, since storage for both `dna` and `m` is
-required when using `count_v9`. But which one is the fastest?
+Now we have 11 different versions of how to count the occurences
+of a letter in a string. Which one of these implementations is the fastest?
 To answer the question we need some test data, which should be a
 huge string `dna`. We could write
 !bc pycod
@@ -346,10 +352,10 @@ The call `generate_string(10)` may generate something like `AATGGCAGAA`.
 
 idx{CPU time measurements}
 
-Our next goal is to generate a very long string `dna` and
-see how much time the `count_v9` and `count_v10` functions spend
-on counting letters in that string. Measuring the time spent
-in a program can be done by the `time` module as follows:
+Our next goal is to see how much time the `count_v9` and `count_v10`
+functions spend on counting letters in a huge string as generated
+above. Measuring the time spent in a program can be done by the `time`
+module:
 !bc pycod
 import time
 ...
@@ -358,50 +364,28 @@ t0 = time.clock()
 t1 = time.clock()
 cpu_time = t1 - t0
 !ec
-The `time.clock` function returns the CPU time spent in the program since
-its start.
+The `time.clock()` function returns the CPU time spent in the program since
+its start. If the interest is in the total time, also including reading
+and writing files, `time.time()` is the appropriate function to call.
 
-Running through a set of functions and recording timings can be
+Running through all our functions made so far and recording timings can be
 done by
 
 @@@CODE src-bioinf/count.py fromto: import time@for cpu_time
 
 In Python, functions are ordinary objects so making a list of
-functions is no more special than making a list of strings.
+functions is no more special than making a list of strings or numbers.
 
 We can now iterate over `timings` and `functions` simultaneously via `zip`
 to make a nice printout of the results:
 
 @@@CODE src-bioinf/count.py fromto: for cpu_time@# Time count
 
-Timings on a MacBook Air 11'' running Ubuntu showed that
-the functions using `list.append` required almost the double of
-the time of the functions that worked with list comprehensions.
+Timings on a MacBook Air 11 running Ubuntu showed that
+the functions using `list.append` require almost the double of
+the time of the functions that work with list comprehensions.
+Even faster is the simple iteration over the string.
 
-
-=== Extracting Indices ===
-
-Instead of making a boolean list with elements expressing whether
-a character matches the given `base` or not, we may collect all
-the indices of the matches. This can be done by adding an `if`
-test to the list comprehension:
-
-@@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
-
-A debugger or the Python Online Tutorial do not help so much to
-understand this compact code. A better approach is to examine
-the list comprehension in an interactive Python shell:
-!bc ipy
->>> dna = 'AATGCTTA'
->>> base = 'A'
->>> indices = [i for i in range(len(dna)) if dna[i] == base]
->>> indices
-[0, 1, 7]
->>> print dna[0], dna[1], dna[7]  # check
-A A A
-!ec
-The element `i` in the list comprehension is only made when
-the corresponding character in `dna` equals `base`.
 
 
 === Using Python's Library ===
@@ -410,12 +394,13 @@ Very often when you set out to do a task in Python, there is already
 functionality for the task in the object itself, in the Python
 libraries, or in third-party libraries found on the Internet.
 Counting how many times a character (or substring) `base` appears in a
-string `dna` is simply done by `dna.count(base)`:
+string `dna` is obviously a very common task so Python supports
+it by `dna.count(base)`:
 
 @@@CODE src-bioinf/count.py fromto: def count_v12@import random
 
 A lesson learned is: google around before you start out to implement
-what seems to be a quite simple task. Others have probably already
+what seems to be a quite common task. Others have probably already
 done it for you. And better: `dna.count(base)` runs over 30 times
 faster than the best of our handwritten Python functions!
 The reason is that the `for` loop needed to count in `dna.count(base)`
@@ -458,15 +443,15 @@ TAG, GGT, and GGG, the table becomes
   | T    | 1 | 0 | 1 |
   |------------------|
 
-From this table we can read base A appears once in index 1 in
-the DNA strings, base C does not appear at all, base G appears twice
-in all positions, and base T appears once in the beginning and
-end of the strings.
+From this table we can read that base A appears once in index 1 in the
+DNA strings, base C does not appear at all, base G appears twice in
+all positions, and base T appears once in the beginning and end of the
+strings.
 
 In the following we shall present different data structures to
 hold such a table and different ways of computing them.
 The table is known as a *frequency matrix* in bioinformatics,
-and this is the term used below.
+and this is the term used here too.
 
 
 === Separate Frequency Lists ===
@@ -480,12 +465,12 @@ a row. A function computing these lists may look like
 We need to initialize the lists with the right length and a zero
 for each element, since each list element is to be used as a counter.
 Creating a list of length `n` with object `x` in all positions
-is done by `[x]*n`. Finding the proper length is here done by
+is done by `[x]*n`. Finding the proper length is here carried out by
 inspecting the length of the first element in `dna_list`, assuming
 that all elements have the same length.
 
 In the `for` loop we use the `enumerate` function which is used
-to extract both the element value and the element index when
+to extract both the element value *and* the element index when
 iterating over a sequence. For example,
 !bc ipy
 >>> for index, base in enumerate(['t', 'e', 's', 't']):
@@ -920,7 +905,7 @@ recommended to paste the above ode into the "Python Online Tutor": "http://peopl
 through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [figs-bioinf/pot_join.jpg, width=650] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
+FIGURE: [figs-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
@@ -1017,7 +1002,7 @@ The appropriate download code then becomes
 @@@CODE src-bioinf/basefreq.py fromto: import urllib@def read_dnafile_v1
 A copy of the file on the Internet is now in the current working folder
 under the name `yeast_chr1.txt`.
-${primer_book_comment(r"""(See Chapter~\ref{sec:files:urllib} for
+${primer_book_comment(r"""(See Chapter ref{sec:files:urllib} for
 more information about \emp{urllib} and downloading files from
 the Internet.)""")}
 

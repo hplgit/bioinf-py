@@ -16,7 +16,13 @@ def count_v2(dna, base):
 dna = 'ATGCGGACCTAT'
 base = 'C'
 n = count_v2(dna, base)
+
+# printf-style formatting
 print '%s appears %d times in %s' % (base, n, dna)
+
+# or (new) format string syntax
+print '{base} appears {n} times in {dna}'.format(
+    base=base, n=n, dna=dna)
 
 def count_v2_demo(dna, base):
     print 'dna:', dna
@@ -90,13 +96,15 @@ import random
 def generate_string(N, alphabet='ATCG'):
     return ''.join([random.choice(alphabet) for i in xrange(N)])
 
-dna = generate_string(6000000)
+dna = generate_string(600000)
+#dna = generate_string(6000000)
 
 import time
-timings = []
 functions = [count_v1, count_v2, count_v3, count_v4,
              count_v5, count_v6, count_v7, count_v8,
              count_v9, count_v10, count_v11]
+timings = []  # timings[i] holds CPU time for functions[i]
+
 for function in functions:
     t0 = time.clock()
     function(dna, 'A')
@@ -105,15 +113,18 @@ for function in functions:
     timings.append(cpu_time)
 
 for cpu_time, function in zip(timings, functions):
-    print '%s: %.1f s' % (function.func_name, cpu_time)
+    print '{f:<9s}: {cpu:.2f} s'.format(
+        f=function.func_name, cpu=cpu_time)
 
 # Time count_v12, but repeat 100 times because it's so fast
 t0 = time.clock()
 for i in range(100):
     count_v12(dna, 'A')
 t1 = time.clock()
-print 'count_v12: %.4f' % ((t1-t0)/100.)
+print '{f:<9s}: {cpu:.2e} s'.format(
+    f='count_v12', cpu=(t1-t0)/100.)
 
+dna = 'ATTTGCGGTCCAAA'
 exact = count_v12(dna, 'A')
 for f in functions:
     assert f(dna, 'A') == exact

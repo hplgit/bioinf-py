@@ -4,8 +4,8 @@ AUTHOR: Geir Kjetil Sandve at Department of Informatics, University of Oslo
 DATE: today
 
 
-## Preprocessor: Mako
+## Preprocessor: first preprocess for includes, then mako for more fancy stuff
 ## Set PRIMER_BOOK and EBOOK on the command line
 
-<%include file="bioinf.do.txt"/>
+# #include "bioinf.do.txt"
 

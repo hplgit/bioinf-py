@@ -1,4 +1,4 @@
-def count_v1_demo(dna, base):
+def count_v2_demo(dna, base):
     print 'dna:', dna
     print 'base:', base
     i = 0 # counter
@@ -9,5 +9,6 @@ def count_v1_demo(dna, base):
             i += 1
     return i
 
-count_v1_demo('ATGCGGACCTAT', 'C')
+n = count_v2_demo('ATGCGGACCTAT', 'C')
+print n
 
