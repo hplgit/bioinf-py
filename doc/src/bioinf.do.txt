@@ -1,27 +1,24 @@
-TITLE: Illustrating Python via Examples from Bioinformatics
-AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing, Simula Research Laboratory and Department of Informatics, University of Oslo
-AUTHOR: Geir Kjetil Sandve at Department of Informatics, University of Oslo
-DATE: today
-
-
-## Preprocessor: Mako
-
-##<%page args="PRIMER_BOOK=False, EBOOK=False"/>
-
-## primer_book_comment allows easy insertion of comments when this
-## text is used in the book A Primer for Scientific Programming with Python.
-## Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
-## result in text if PRIMER_BOOK is true, otherwise no text comes out.
-##
-## A companion function, not_primer_book_comment(text) can be used
-## for printing text that will occur when parts of this document
-## is not included in the Primer book.
+<%page args="PRIMER_BOOK=False, EBOOK=False"/>
 
 
 <%
 # This is Python code block
 
+# primer_book_comment allows easy insertion of comments when this
+# text is used in the book A Primer for Scientific Programming with Python.
+# Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
+# result in text if PRIMER_BOOK is true, otherwise no text comes out.
+#
+# A companion function, not_primer_book_comment(text) can be used
+# for printing text that will occur when parts of this document
+# is not included in the Primer book.
+
+
 def primer_book_comment(text):
+    """A comment to appear in the Primer book only."""
+    return text if PRIMER_BOOK else ''
+
+def primer_pbook_comment(text):
     """A comment to appear in the Primer book only."""
     return text if PRIMER_BOOK and not EBOOK else ''
 
@@ -42,9 +39,12 @@ def link(filename, primer_src_dir=None):
     Else: link to _static/filename.
     """
     # typical text: "...can be found in the file ${link('file', 'dir')}.
-    s = not_primer_book_comment('"%s": "%s"' % (filename, '_static/' + filename))
-    s += primer_book_comment(filename)
-    s += primer_ebook_comment('"%s": "%s"' % (filename, '_static/' + filename))
+    urlbase = 'http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/'
+    #s = not_primer_book_comment('"%s": "%s"' % (filename, '_static/' + filename))
+    #s = not_primer_book_comment('"%s": "%s"' % (filename, urlbase + filename))
+    s = not_primer_book_comment('`%s` ("download": "%s" or "online viewing": "%s")' % (filename, urlbase + filename, urlbase + filename + '.html'))
+    s += primer_pbook_comment(filename)
+    s += primer_ebook_comment('"%s": "%s"' % (filename, urlbase + filename))
     return s
 
 %>
@@ -52,17 +52,14 @@ def link(filename, primer_src_dir=None):
 
 % if PRIMER_BOOK:
 ======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
-label{bioinf:basics}
 
 #It is now time to summarize and further illustrate loops, `if` tests,
 #and functions in some compound examples. The chosen example area
 #is bioinformatics, where strings are heavily used, but the operations
 #on strings are very similar to the operations we have already learned on
 #lists.
-
- % else:
-======= Basic Bioinformatics Examples in Python =======
 % endif
+
 
 idx{bioinformatics}
 idx{DNA}
@@ -80,22 +77,25 @@ a scientific discipline addressing the use of computers to search
 for, explore, and use information about genes, nucleic acids, and
 proteins.
 
-
-Below are some simple examples on DNA analysis that brings together
-basic building blocks in programming: loops, `if` tests, and functions.
-% if PRIMER_BOOK:
-We also give a glimpse of programming constructions that are
-covered much more in detail later in the book.
+% if not PRIMER_BOOK:
+======= Basic Bioinformatics Examples in Python =======
 % endif
+
+label{bioinf:basics}
+
+Below are some very simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, `if` tests, and functions.
+${primer_book_comment("""We also give a glimpse of programming
+constructions that are covered much more in detail later in the book.""")}
 
 ===== Counting Letters in DNA Strings =====
 label{bioinf:count}
 
-Given some string `dna` containing the letters `A`, `C`, `G`, or `T`,
+Given some string `dna` containing the letters A, C, G, or T,
 representing the bases that make up DNA, we ask the question: how
 many times does a certain base occur in the DNA string?
-For example, if `dna` is `ATGGCATTA` and we ask how many times the
-base `A` occur in this string, the answer is 3.
+For example, if `dna` is ATGGCATTA and we ask how many times the
+base A occur in this string. The answer is 3.
 
 A general Python implementation answering this problem can be done
 in many ways. Some solutions are presented below.
@@ -920,7 +920,7 @@ recommended to paste the above ode into the "Python Online Tutor": "http://peopl
 through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [figs-bioinf/pot_join.jpg, width=500] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
+FIGURE: [figs-bioinf/pot_join.jpg, width=650] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
@@ -976,11 +976,10 @@ of counting how many times the letter `base` appears in the string `dna`,
 we can write a faster and simpler function for computing all the base
 frequencies:
 
-@@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies_v2@dna = 'ACCAGAGT'
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_frequencies_v2@dna = 'ACCAGAGT'
 A little test,
 
 @@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@assert get_base_frequencies_v1
-
 gives the result
 !bc dat
 Base frequencies of sequence 'ACCAGAGT':
@@ -1015,7 +1014,7 @@ in the current working folder.
 
 The appropriate download code then becomes
 
-@@@CODE src-bioinf/basefreq.py fromto: import urllib@lines = open\(yeast
+@@@CODE src-bioinf/basefreq.py fromto: import urllib@def read_dnafile_v1
 A copy of the file on the Internet is now in the current working folder
 under the name `yeast_chr1.txt`.
 ${primer_book_comment(r"""(See Chapter~\ref{sec:files:urllib} for
@@ -1468,6 +1467,7 @@ functions when implementing the class.
 
 The selection of functions include
 
+ * `generate_string` for generating a random string from some alphabet
  * `download` and `read_dnafile`
    (which is `read_dnafile_v1` from Section ref{bioinf:basefreq})
    for downloading data from the Internet and reading from file

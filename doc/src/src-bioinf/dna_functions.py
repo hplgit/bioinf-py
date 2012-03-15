@@ -1,6 +1,9 @@
 """Functions for DNA analysis."""
 
-import urllib, os
+import urllib, os, random
+
+def generate_string(N, alphabet='ATCG'):
+    return ''.join([random.choice(alphabet) for i in xrange(N)])
 
 def download(urlbase, filename):
     if not os.path.isfile(filename):
