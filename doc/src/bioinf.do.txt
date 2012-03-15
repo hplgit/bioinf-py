@@ -1,27 +1,58 @@
-
-# Preprocessor: Mako
-
-<%page args="PRIMER_BOOK=False"/>
-
-## primer_book_comment allows easy insertion of comments when this
-## text is used in the book A Primer for Scientific Programming with Python.
-## Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
-## result in text if PRIMER_BOOK is true, otherwise no text comes out.
-
-<%
-# This is Python code block
-def primer_book_comment(text):
-    if PRIMER_BOOK:
-        return text
-%>
-
 TITLE: Illustrating Python via Examples from Bioinformatics
 AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing, Simula Research Laboratory and Department of Informatics, University of Oslo
 AUTHOR: Geir Kjetil Sandve at Department of Informatics, University of Oslo
 DATE: today
 
+
+## Preprocessor: Mako
+
+##<%page args="PRIMER_BOOK=False, EBOOK=False"/>
+
+## primer_book_comment allows easy insertion of comments when this
+## text is used in the book A Primer for Scientific Programming with Python.
+## Inserting ${primer_book_comment('(see Chapter~\ref{foo:bar})')} will
+## result in text if PRIMER_BOOK is true, otherwise no text comes out.
+##
+## A companion function, not_primer_book_comment(text) can be used
+## for printing text that will occur when parts of this document
+## is not included in the Primer book.
+
+
+<%
+# This is Python code block
+
+def primer_book_comment(text):
+    """A comment to appear in the Primer book only."""
+    return text if PRIMER_BOOK and not EBOOK else ''
+
+def primer_ebook_comment(text):
+    """A comment to appear in the Primer book only."""
+    return text if PRIMER_BOOK and EBOOK else ''
+
+def not_primer_book_comment(text):
+    """A comment to appear when the text is not included in the Primer book."""
+    return text if not PRIMER_BOOK else ''
+
+
+def link(filename, primer_src_dir=None):
+    """
+    Generate text for link to a source code file.
+    Primer book: filename. (primer_src_dir is given early in the chapter.)
+    Primer ebook: link to _static/filename and info on filename.
+    Else: link to _static/filename.
+    """
+    # typical text: "...can be found in the file ${link('file', 'dir')}.
+    s = not_primer_book_comment('"%s": "%s"' % (filename, '_static/' + filename))
+    s += primer_book_comment(filename)
+    s += primer_ebook_comment('"%s": "%s"' % (filename, '_static/' + filename))
+    return s
+
+%>
+
+
 % if PRIMER_BOOK:
 ======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
+label{bioinf:basics}
 
 #It is now time to summarize and further illustrate loops, `if` tests,
 #and functions in some compound examples. The chosen example area
@@ -73,10 +104,10 @@ in many ways. Some solutions are presented below.
 
 idx{list iteration}
 
-The most straightforward solution is to loop over the characters
-in the string, test if the current character equals the desired one,
-and if so, increase a counter. Looping over the characters is
-obvious if the characters are stored in a list. This is easily
+The most straightforward solution is to loop over the letters
+in the string, test if the current letter equals the desired one,
+and if so, increase a counter. Looping over the letters is
+obvious if the letters are stored in a list. This is easily
 done by
 !bc ipy
 >>> list('ATGC')
@@ -183,7 +214,7 @@ FIGURE: [figs-bioinf/python_online_tutor.jpg, width=500] Visual execution of a p
 
 === Index Iteration ===
 
-Although it is natural in Python to iterate over the characters in a
+Although it is natural in Python to iterate over the letters in a
 string (or more generally over elements in a sequence), programmers
 with experience from other languages (Fortran, C and Java are
 examples) are used to `for` loops with an integer counter running over
@@ -193,7 +224,7 @@ a all indices in a string or array:
 
 Python indices always start at 0 so the legal indices for our
 string become `0`, `1`, ...,
-`len(dna)-1`, where `len(dna)` is the number of characters in the
+`len(dna)-1`, where `len(dna)` is the number of letters in the
 string `dna`. The `range(x)` function returns a list of integers
 `0`, `1`, ..., `x-1`, implying that `range(len(dna))` generates
 all the legal indices for `dna`.
@@ -210,9 +241,9 @@ indenting the `j += 1` line correctly.
 === Summing a Boolean List ===
 
 The idea now is to create a list `m` where `m[i]` is `True` if
-`dna[i]` equals the character we search for (`base`).
+`dna[i]` equals the letter we search for (`base`).
 The number of `True` values in `m` is then the number of `base`
-characters in `dna`. We can use the `sum` function to find
+letters in `dna`. We can use the `sum` function to find
 this number because doing arithmetics with boolean lists
 automatically interprets `True` as `1` and `False` as `0`.
 That is, `sum(m)` returns the number of `True` elements in `m`.
@@ -258,7 +289,7 @@ Here it is tempting to reduce the function body to a single line:
 
 idx{`sum` iterator}
 
-The DNA string is usually huge - 3 billion characters for the human
+The DNA string is usually huge - 3 billion letters for the human
 specie. Making a boolean array with `True` and `False` values
 therefore increases the memory usage by a factor of two
 in our sample functions `count_v5` to `count_v9`.
@@ -286,7 +317,7 @@ dna = 'A'*N
 !ec
 to make a string `'AAA...A` that is `N` characters long, and this would be
 sufficient for testing efficiency. Nevertheless, it is more exciting
-to work with a DNA string with characters from the whole alphabet A, C, G,
+to work with a DNA string with letters from the whole alphabet A, C, G,
 and T. To make a DNA string with a random composition of the characters
 we can first make a list of random characters and then join all those
 characters to a string:
@@ -389,6 +420,9 @@ done it for you. And better: `dna.count(base)` runs over 30 times
 faster than the best of our handwritten Python functions!
 The reason is that the `for` loop needed to count in `dna.count(base)`
 is implemented in C and runs very much faster than loops in Python.
+
+All the functions presented above can be found in the file
+${link('count.py')}.
 
 #=== Testing with Real Data ===
 
@@ -641,12 +675,13 @@ d = dict([(key, value) for key in sequence])
 !ec
 
 ===== Analyzing the Frequency Matrix =====
+label{bioinf:freq:analysis}
 
 Having built a frequency matrix out of a collection of DNA strings, it
 is time to use it for analysis.  A typical question is: for a given
 position in the DNA string, which of A, T, G, or C has the highest
 frequency (highest count)?  We can then build a new DNA string with
-the most frequent character for each position. This is in
+the most frequent letter for each position. This is in
 bioinformatics known as finding consensus from a frequency matrix.
 
 For example, if the frequency matrix looks like this (list of lists,
@@ -750,6 +785,9 @@ def find_consensus_v4(frequency_matrix, dna_length):
 [hpl: Make a unified function that can handle lists of lists,
 dict of lists, dict of dicts, and dicts of defaultdicts? Could
 be cool.]
+
+All functions making and using the frequency matrix are found
+in the file ${link('freq.py')}.
 
 ===== Probability Matrix =====
 
@@ -894,8 +932,11 @@ is well suited as data structure to hold a dot plot.
 [hpl: we should have a real plot with matplotlib here for a somewhat large
 string.]
 
+The two dot plot functions are available
+in the file ${link('dotplot.py')}.
 
 ===== Finding Base Frequencies =====
+label{bioinf:basefreq}
 
 DNA consists of four molecules called nucleotides, or bases, and can
 be represented as a string of the letters A, C, G, and T. But this
@@ -925,20 +966,27 @@ dictionaries such that we can index with the character and get the
 count or the frequency out.
 Counting is done by
 
-@@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies_v1
 This function can then be used to compute the base frequencies:
 
-@@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies@dna = 'ACCAGAGT'
+@@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies_v1@get_base_frequencies_v2
+Since we learned in at the end of Section ref{bioinf:count} that
+`dna.count(base)` was much faster than the various manual implementations
+of counting how many times the letter `base` appears in the string `dna`,
+we can write a faster and simpler function for computing all the base
+frequencies:
+
+@@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies_v2@dna = 'ACCAGAGT'
 A little test,
 
-@@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@# Real data
+@@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@assert get_base_frequencies_v1
 
 gives the result
 !bc dat
 Base frequencies of sequence 'ACCAGAGT':
 A: 0.38, C: 0.25, T: 0.12, G: 0.25
 !ec
-The `print_frequencies` function was made for nice printout of
+The `format_frequencies` function was made for nice printout of
 the frequencies with 2 decimals. The one-line code is an effective
 combination of a dictionary, list comprehension, and the
 `join` functionality. The latter is used to get a comma correctly
@@ -969,12 +1017,12 @@ The appropriate download code then becomes
 
 @@@CODE src-bioinf/basefreq.py fromto: import urllib@lines = open\(yeast
 A copy of the file on the Internet is now in the current working folder
-under the name `yeast.txt`.
+under the name `yeast_chr1.txt`.
 ${primer_book_comment(r"""(See Chapter~\ref{sec:files:urllib} for
 more information about \emp{urllib} and downloading files from
 the Internet.)""")}
 
-The `yeast.txt` files contains the DNA string split over many lines.
+The `yeast_chr1.txt` files contains the DNA string split over many lines.
 We therefore need to read the lines in this file, strip each line to
 remove the trailing newline, and join all the stripped lines to
 recover the DNA string:
@@ -994,7 +1042,11 @@ This shows that A and T appears in the yeast DNA with 50 percent higher
 probability than C and G.
 [hpl: GK, can we say this, or more precisely, does the observation have any interpretation of significance?]
 
+The functions computing base frequencies are available
+in the file ${link('basefreq.py')}.
+
 ===== Translating Genes into Proteins ======
+label{bioinf:gene2protein}
 
 An important usage of DNA is for cells to store information on their arsenal of
 proteins. These proteins are what makes up the possible functional properties
@@ -1027,7 +1079,8 @@ The file
 !bc
 http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
 !ec
-contains information on genetic codes. The file format takes the form
+contains a mapping of genetic codes to amino acids.
+The file format takes the form
 !bc dat
 UUU     F       Phe     Phenylalanine
 UUC     F       Phe     Phenylalanine
@@ -1042,10 +1095,54 @@ AUC     I       Ile     Isoleucine
 AUA     I       Ile     Isoleucine
 AUG     M       Met     Methionine (Start)
 !ec
-The four columns describe .... [hpl: Need to write a bit what the significance of the info is]
+The first column is the genetic code, while the other columns represent
+various ways of expressing the corresponding amino acod:
+1-letter name, a 3-letter name, and the full name.
+[hpl: Is this correct? I'm guessing...]
 
-[[[
+We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column).  Downloading the
+file, reading it and making the dictionary are done by
 
+@@@CODE src-bioinf/genes2proteins.py fromto: urlbase = @def simple_genetic_code_v2
+
+Not surprisingly, the `simple_genetic_code_v1` can be made much shorter
+by collecting the first two columns as list of 2-lists and then
+converting the 2-lists to key-value pairs in a dictionary:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def simple_genetic_code_v2@code2 =
+
+Creating a mapping of the code onto all the three variants of the amino
+acid name is
+also of interest. For example, we would like to make look ups like
+`['CUU']['3-letter']` or `['CUU']['amino acid']`. This requires
+a dictionary of dictionaries:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def complex_genetic_code_v1@def complex_genetic_code_v2
+
+[hpl: Why the names `complex_` and `simple_` `genetic_code`? I would say `simple_genetic_code_mapping` and `complete_genetic_code_mapping`, or??]
+
+An alternative way of writing the last function is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def complex_genetic_code_v2@code = complex_genetic_code_v1
+
+To form mRNA, we need to grab the exon regions of the lactase gene.
+These regions are substrings of the lactase gene dna string,
+corresponding to the start and end positions of the exon regions.
+Then we must replace T by U, and combine all the substrings to build
+mRNA.
+
+Two straightforward subtasks are to load the lactase gene and its exon
+positions into variables.  The file `lactase_gene.txt`, at the same
+Internet location as the other files, stores lactase gene. The file
+has the same format as `yeast_chr1.txt`. Using previous code segments,
+we can easily download the file and read it (`read_dnafile_v1`) into
+`lactase_gene`.
+
+The exon regions are described in a file `lactase_exon.tsv`, again
+found at the same Internet site as the other files. The file is
+easily downloaded by calling the previously shown `download` function.
+The file format is simple in that each line holds the start and end positions of an exon region:
 !bc dat
 0       651
 3990    4070
@@ -1053,6 +1150,488 @@ The four columns describe .... [hpl: Need to write a bit what the significance o
 13177   13280
 15082   15161
 !ec
+We want to have this information available in a list of (start,end)
+tuples. The following function does the job:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_exon_regions_v1@def read_exon_regions_v2
+Readers favoring compact code will appreciate this alternative version
+of the function:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_exon_regions_v2@print 'Start and end position
+
+For simplicity's sake, we shall consider mRNA as the concatenation of exons,
+although in reality, additional base pairs are added to each end.
+Having the lactase gene as a string and the exon regions as a list of
+(start,end) tuples, it is straightforward to extract the regions
+as substrings, replace T by U, and add all the substrings together:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_mRNA@print '10 last
+
+We would like to store the mRNA string in a file, using the same
+format as `lactase_gene.txt` and `yeast_chr1.txt`, i.e.,
+the string is split on multiple lines with, e.g., 70 characters per line.
+An appropriate function doing this is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def tofile_with_line_sep@output_folder =
+
+[hpl: I changed the file writing a bit: instead of xrange(len(text)/...), I simply used a step size in xrange(0,len(text),...), which I found easier to read.]
+
+It might be convenient to have a separate folder for files that we create.
+Python has good support for testing if a folder exists, and if not,
+make a folder:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: output_folder =@def
+create_protein\(
+Python's term for folder is directory, which explains why `isdir` is
+the function name for testing on a folder existence. Observe
+especially that the combination of a folder and a filename is done via
+`os.path.join` rather than just inserting a forward slash, or backward
+slash on Windows: `os.path.join` will insert the right slsah, forward
+or backward, depending on the current operating system.
+
+To create the protein, we replace the triplets of the mRNA strings
+by the corresponding 1-letter name as specified in the
+`genetic_code.tsv` file.
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein\(@lactase_protein\.txt
+
+
+Unfortunately, this first try to simulate this translation process is
+incorrect. The problem is that the translation always begins with the
+amino acid Methionine, code AUG, and ends when one of the stop codons
+is met. We must thus check for the correct start and stop criterias.
+A fix is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein_fixed@congential_lactase_deficiency
+The output, needed below for comparison, becomes
+!bc dat
+10 last amino acids of the correct lactase protein:  QQELSPVSSF
+Lenght of the correct protein:  1927
+!ec
+
+===== Some Humans Can Drink Milk, While Others Cannot ======
+label{bioinf:lactase:milk}
+
+One type of lactose intolerance is called *Congenital lactase deficiency*.
+This is a rare genetic disorder that causes lactose intolerance from birth,
+and is particularly common in Finland. The disease is caused by a mutation of
+the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
+A. Our goal is to check what happens to the protein if this base is mutated.
+This is a simple task using the previously developed tools:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein_fixed@
+
+The output, to be compared with the non-mutated gene above, is now
+!bc dat
+10 last amino acids of the mutated lactase protein: GFIWSAASAA
+Lenght of the mutated lactase protein: 1389
+!ec
+As we can see, the translation stops prematurely, creating a much smaller
+protein, which will not have the required characteristics of the lactase
+protein.
+
+A couple of mutations in a region for LCT located in front of LCT (actually in
+the introns of another gene) is the reason for the common lactose intolerance.
+That is, the one that sets in for adults only. These mutations control the
+expression of the LCT gene, i.e., whether that the gene is turned on or off.
+Interestingly, different mutations have evolved in different regions of the
+world, e.g., Africa and Northern Europe. This is an example of convergent
+evolution: the acquisition of the same biological trait in unrelated
+lineages. The prevalence of lactose intolerance varies widely, from around 5%
+in northern Europe, to close to 100% in south-east Asia.
+
+[hpl: Very attractive example!]
+
+The functions analyzing the lactase gene are found
+in the file ${link('genes2proteins.py')}.
+
+
+===== Random Mutations of Genes ======
+label{bioinf:random}
+
+${primer_book_comment("""
+A fundamental principle of biological evolution is that DNA undergoes
+mutation. Since DNA can be represented as a string consisting of the
+letters A, C, G, and T, as explained in Section ref{bioinf:basics},
+mutation of DNA""")}
+${not_primer_book_comment("""Mutation of genes""")}
+is easily modeled by replacing the letter in a randomly
+chosen position of the DNA by a randomly chosen letter.
+${not_primer_book_comment("""Python's `random` module can be used
+to generate random numbers. Selecting a random position means
+generating a random index in the DNA string, and the function
+`random.randint(a, b)` generates random integers between `a` and
+`b` (both included). Generating a random
+letter is easiest done by having a list of the actual letters
+and using `random.choice(list)` to pick an arbitrary element from
+`list`.""")}
+A function for replacing the letter in a randomly selected position (index)
+by a random letter among A, C, G, and T is most straightforwardly
+implemented by converting the DNA string to a list of letters:
+
+@@@CODE src-bioinf/mutate.py fromto: import random@def get_base_frequencies_v2
+
+Using the functions `get_base_frequencies_v2` and `format_frequencies`
+from Section ref{bioinf:basefreq}, we can easily mutate a gene a number
+of times and see how the frequencies of the bases A, C, G, and T change:
+
+@@@CODE src-bioinf/mutate.py fromto: dna = 'AC@def create_markov
+
+Here is the output from a run:
+!bc dat
+Starting DNA: ACGGAGATTTCGGTATGCAT
+A: 0.25, C: 0.15, T: 0.30, G: 0.30
+DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
+A: 0.35, C: 0.25, T: 0.10, G: 0.30
+!ec
+
+The observed rate at which mutations occur at a given position in the
+genome depends on the nucleotide (base) at the position, but maybe
+more importantly at the surrounding sequence context. There are a
+number of reasons why the observed mutation rates betwen different
+nucleotides vary. One is that there are different mechansism
+generating transitions from one base to another. Another is that the
+efficiency of the repair mechanism, which is an extensive process in
+living dividing cells, varies for different nucleotides. The
+surrounding context of the position determines to what degree there is
+a working selection pressure. If the position is in a region that
+excerts a function there will be a selective pressure. [hpl:
+"selective pressure" should be better explained.]
+
+Here, we only look at the nucleotide transitions, and not the
+surrounding context.  The mutations of single nucleotides may be
+modeled using a probability for the transition from one nucleotide to
+another. For example, the probability of replacing A by C is
+prescribed as (say) 0.2. In total we need $4\times 4$|$4x4$
+probabilities since each nucleotide can transform into itself (no
+change) or three others. The sum of all four transition probabilities
+for a given nucleotide must sum up to one.  Such statistical
+evolution, based on probabilities for transitioning from one state to
+another, is known as a Markov process or Markov chain.
+
+First we need to set up the probability matrix, i.e., the
+$4\times4$|$4x4$ table of probabilities where each row corresponds to the
+transition of A, C, G, or T into A, C, G, or T. Say the probability
+transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
+and from A to T is 0.4. To select a random transiton based on these
+probabilities we divide the interval $[0,1]$ into slices whose lengths
+correspond to the given probabilities. In this example this means $0,
+0.2, 0.3, 0.6, 1$. Then we draw a random number in $[0,1]$ and
+determine which interval between the slices it lies in. The
+probability of hitting an interval equals the transition probability
+for the transition corresponding to that interval. For example, if the
+random number is 0.33, it belongs to the interval $(0.3, 0.6]$, which
+corresponds to the transiton from A to G.
+
+Let us generate random transition probabilities. That is,
+we generate three random numbers to divide the interval $[0,1]$ into
+four intervals corresponding to the four possible transitions.
+The interval limits, 0, 1, and three random numbers must be sorted
+in ascending order to form the intervals. We use the function
+`random.random()` to generate random numbers in $[0,1)$:
+!bc pycod
+slice_points = sorted(
+    [0] + [random.random() for i in range(3)] + [1])
+transition_probabilities = [slice_points[i+1] - slice_points[i]
+                            for i in range(4)]
+!ec
+The transition probabilities are handy to have available as a dictionary:
+!bc pycod
+markov_chain['A'] = {'A': ..., 'C': ..., 'G': ..., 'T': ...}
+!ec
+which can be computed by
+!bc pycod
+markov_chain['A'] = {base: p for base, p in
+                     zip('ATGC', transition_probabilities)}
+!ec
+To select a transition, the following `transition` function computes
+the interval limits based on the probabilities and checks in which
+interval a random number falls:
+
+@@@CODE src-bioinf/mutate.py fromto: def transition@# Should never reach
+
+The `transition_probabilities` argument is a dictionary of the
+transition probabilities for a given base.
+
+A complete function creating all the transition probabilities and
+storing them in a dictionary of dictionaries takes the form
+
+@@@CODE src-bioinf/mutate.py fromto: def create_markov@def check_transition
+
+It is natural to develop a function for checking that the generated
+probabilities are consistent, i.e., that they sum up to 1 for each
+base:
+
+@@@CODE src-bioinf/mutate.py fromto: def check_transition@probabilities\(mc
+
+Having the transition probability matrix `mc` we can randomly generate
+some transitions:
+!bc pycod
+for i in range(N):
+    print 'from A to', transition(mc['A'])
+!ec
+
+Now we have all the tools needed to run this Markov chain of
+transitions for a randomly selected position in a DNA sequence:
+
+@@@CODE src-bioinf/mutate.py fromto: def mutate_via@dna = 'TTACGGAGATTTCGGTATGCAT'
+Exercise ref{bioinf:exer:Markov:chain:eff} suggests some efficiency
+enhancements of simulating mutations via these functions.
+
+Here is a simulation of mutations using the method based on Markov chains:
+
+@@@CODE src-bioinf/mutate.py fromto: dna = 'TTACGGAGATTTCGGTATGCAT'@def transition_into
+
+The output may read
+!bc dat
+Starting DNA: TTACGGAGATTTCGGTATGCAT
+A: 0.23, C: 0.14, T: 0.36, G: 0.27
+Transition probabilities:
+{'A': {'A': 0.4288890546751146,
+       'C': 0.4219086988655296,
+       'G': 0.00668870644455688,
+       'T': 0.14251354001479888},
+ 'C': {'A': 0.24999667668640035,
+       'C': 0.04718309085408834,
+       'G': 0.6250440975238185,
+       'T': 0.0777761349356928},
+ 'G': {'A': 0.16022955651881965,
+       'C': 0.34652746609882423,
+       'G': 0.1328031742612512,
+       'T': 0.3604398031211049},
+ 'T': {'A': 0.20609823213950174,
+       'C': 0.17641112746655452,
+       'G': 0.010267621176125452,
+       'T': 0.6072230192178183}}
+DNA after 10000 mutations (Markov chain): GGTTTAAGTCAGCTATGATTCT
+A: 0.23, C: 0.14, T: 0.41, G: 0.23
+!ec
+One should see that the mutated DNA should contain more nucleotides of the
+type where the total probability of transitioning into that particular
+nucleotide is largest. This total probability is computed by summing
+up the columns of the transition probability matrix and dividing by 4:
+
+@@@CODE src-bioinf/mutate.py fromto: def transition_into@
+
+These probabilities corresponding to the example run above reads
+!bc dat
+{'A': 0.26, 'C': 0.25, 'T': 0.30, 'G': 0.19}
+!ec
+Transition into T has greatest probability (0.3) and this is also
+confirmed by the greatest frequency (0.41).
+
+The functions performing mutations are located
+in the file ${link('mutate.py')}.
+
+===== Classes for DNA Analysis =====
+label{bioinf:oo}
+
+We shall here exemplify the use of classes for performing
+DNA analysis as explained
+${primer_book_comment("""in Sections ref{bioinf:count}, ref{bioinf:freqm},
+ref{bioinf:freq:analysis}, ref{bioinf:dotplot}, ref{bioinf:basefreq},
+ref{bioinf:gene2protein}, ref{bioinf:lactase:milk}, and ref{bioinf:random}.
+""")}
+${not_primer_book_comment(""" in the previous text.""")}
+Basically, we create a class `Gene` to represent a DNA sequence (string)
+and a class `Region` to represent a subsequence (substring), typically an
+exon or intron.
+
+=== Class Region ===
+
+The class for representing a region of a DNA string is quite simple:
+
+@@@CODE src-bioinf/dna_classes.py fromto: class Region@class Gene
+Besides storing the substring and giving access to it through `get_dna`,
+we have also included the possibility to
+
+  * say `len(r)` if `r` is a `Region` instance
+  * check if two `Region` instances are equal
+  * write `r1 + r2` for two instances `r1` and `r2` of type `Region`
+  * perform `r1 += r2`
+
+The latter two operations are convenient for making one large string out
+of all exon or intron regions.
+
+=== Class Gene ===
+
+The class for gene will be longer and more complex. We already have a
+bunch of functions performing various types of analysis. The idea of
+the `Gene` class is that these functions are methods in the class
+operating on the DNA string and the exon regions stored in the class.
+Rather than recoding all the functions as methods in the class we
+shall just let the class "wrap" the functions. That is, the class
+methods calls up the functions we already have.  This approach has two
+advantages: users can either choose the function-based or the
+class-based interface, and the programmer can reuse all the ready-made
+functions when implementing the class.
+
+The selection of functions include
+
+ * `download` and `read_dnafile`
+   (which is `read_dnafile_v1` from Section ref{bioinf:basefreq})
+   for downloading data from the Internet and reading from file
+ * `read_exon_regions` (which is `read_exon_regions_v2` from
+   Section ref{bioinf:gene2protein}) for reading exon regions from file
+ * `tofile_with_line_sep` for writing DNA strings to file
+ * `simple_genetic_code` and `complex_genetic_code` for loading
+   mappings from genetic codes to different type of names for amino acids
+ * `get_base_frequencies` for finding frequencies of each base
+ * `format_frequencies` for formatting base frequencies with two decimals
+ * `create_mRNA` for computing an mRNA string from DNA and exon regions
+ * `mutate` for mutating a base at a random position
+ * `create_markov_chain`, `transition`, and `mutate_via_markov_chain`
+   for mutating a base at a random position according to randomly
+   generated transition probabilities
+ * `create_protein_fixed` for proper creation of a protein sequence (string)
+
+The set of plain functions for DNA analysis is found
+in the file ${link('dna_functions.py')}, while
+${link('dna_classes.py')} contains the implementations
+of classes `Gene` and `Region`.
+
+Class `Gene` is supposed to hold the DNA sequence and
+the associated exon regions. A simple constructor and a few
+methods may take the following form:
+!bc pycod
+from dna_functions import *
+
+class Gene:
+    def __init__(self, dna, exon_regions):
+        self._dna = dna
+
+        self._exon_regions = exon_regions
+        self._exons = []
+        for start, end in exon_regions:
+            self._exons.append(Region(dna, start, end))
+
+        # Compute the introns (regions between the exons)
+        self._introns = []
+        prev_end = 0
+        for start, end in exon_regions:
+            self._introns.append(Region(dna, prev_end, start))
+            prev_end = end
+        self._introns.append(Region(dna, end, len(dna)))
+
+    def write(self, filename, chars_per_line=70):
+        """Write DNA sequence to file with name filename."""
+        tofile_with_line_sep(self._dna, filename, chars_per_line)
+
+    def count(self, base):
+        """Return no of occurences of base in DNA."""
+        return self._dna.count(base)
+
+    def get_base_frequencies(self):
+        """Return dict of base frequencies in DNA."""
+        return get_base_frequencies(self._dna)
+
+    def format_base_frequencies(self):
+        """Return base frequencies formatted with two decimals."""
+        return format_base_frequencies(
+            self.get_base_frequencies(self._dna))
+!ec
+Observe how the methods just call up existing functions in
+`dna_functions.py`.
+
+The constructor can be made more flexible. First, the exon regions
+may not be known so we should allow `None` as value and in fact
+use that as default value. Second, the data for the DNA string and
+the exon regions can either be passed or downloaded and read.
+That is,
+!bc pycod
+g1 = Gene(dna, exon_regions)  # user has read data from file
+g2 = Gene((urlbase, dna_file), (urlbase, exon_file))  # download
+!ec
+If the files are already at the computer one can pass `None` for
+`urlbase`. The flexible constructor has, not surprisingly, longer
+code than the first version:
+
+@@@CODE src-bioinf/dna_classes.py fromto: class Gene@def create_mRNA
+
+Note that we perform quite detailed testing of the object type
+of the data structures supplied as the `dna` and `exon_regions`
+arguments. This should be done to ensure safe use also when there is only
+one allowed type per argument.
+
+A `create_mRNA` method, returning the mRNA as a string, can be coded as
+
+@@@CODE src-bioinf/dna_classes.py fromto: def create_mRNA@def write
+
+Also here we rely on calling an already implemented function, but include
+some testing if asking for mRNA is appropriate.
+
+Methods for creating a mutated gene are also included:
+
+@@@CODE src-bioinf/dna_classes.py fromto: def mutate_pos@def get_dna
+
+Some "get" methods that give access to the fundamental attributes
+of the class are included:
+
+@@@CODE src-bioinf/dna_classes.py fromto: def get_dna@def __len
+Alternatively, one could access the attributes directly: `gene._dna`,
+`gene._exons`, etc. In that case we should remove the underscore as
+this underscore signifies to the user of the class that these
+attributes are considered "private", i.e., not to be directly accessed
+by the user. The "protection" in "get" functions is more mental
+than actual since we return the data structures as they are to the user.
+
+## Note that copying from __len__ interferes with copying from
+## the same method in class Region. Hence, we have copied the
+## relevant code directly in here.
+
+Special methods for the length of a gene, adding genes, checking if
+two genes are identical, and printing of compact gene information
+are relevant to add:
+!bc pycod
+    def __len__(self):
+        return len(self._dna)
+
+    def __add__(self, other):
+        """Add Gene instances: self + other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            return self._dna + other._dna
+        else:
+            raise ValueError(
+                'cannot do Gene + Gene with exon regions')
+
+    def __iadd__(self, other):
+        """Increment Gene instance: self += other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            self._dna += other._dna
+            return self
+        else:
+            raise ValueError(
+                'cannot do Gene += Gene with exon regions')
+
+    def __eq__(self, other):
+        """Check if two Gene instances are equal."""
+        return self._dna == other._dna and \
+               self._exons == other._exons
+
+    def __str__(self):
+        """Pretty print (condensed info)."""
+        s = 'Gene: ' + self._dna[:6] + '...' + self._dna[-6:] + \
+            ', length=%d' % len(self._dna)
+        if self._exons is not None:
+            s += ', %d exon regions' % len(self._exons)
+        return s
+!ec
+
+=== Subclasses ===
+
+We add a `get_product` method in class `Gene`, which will be
+implemented in subclasses:
+
+@@@CODE src-bioinf/dna_classes.py fromto: def get_product@class Noncoding
+
+For a non-coding gene the product is the mRNA, while a protein-coding
+gene has the product defined as the corresponding protein:
+
+@@@CODE src-bioinf/dna_classes.py fromto: class Noncoding@def _test
+
+
 ======= Exercises =======
 
 ===== Exercise: Find pairs of characters =====
@@ -1082,14 +1661,47 @@ of the substring. Use slices like `s[3:9]` to pick out a substring of `s`.
 label{bioinf:exer:get_base_counts2}
 file=get_base_counts2.py
 
-Consider the function `get_base_counts(dna)` which counts how
-many times `A`, `C`, `G`, and `T` appears in the string `dna`:
+Consider the function `get_base_counts(dna)`
+(from Section ref{bioinf:basefreq}),
+which counts how many times `A`, `C`, `G`, and
+`T` appears in the string `dna`:
 
 @@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies
 Unfortunately, this function crashes if other symbols appear in `dna`.
 Write an enhanced function `get_base_counts2` which solves this problem.
 
 # Hints: defaultdict or test on if base in counts: ... else counts[base]=1
+
+===== Exercise: Find proportion of bases inside/outside exons =====
+label{bioinf:exer:Ainsouts:exons}
+file=prop_A_exons.py
+
+Consider the lactase gene as described in
+Sections ref{bioinf:gene2protein} and {bioinf:lactase:milk}.
+What is the proportion of base A inside and outside exons of
+the lactase gene? Write a function `get_exons`, which returns
+all the substrings of the exon regions concatenated,
+and a function `get_introns`, which
+returns all the substrings between the exon regions concatenated.
+The function `get_base_frequencies` from Section ref{bioinf:basefreq}
+can then be used to analyze the frequencies of bases A, C, G, and T
+in the two strings.
+
+
+===== Exercise: Speed up Markov chain mutation =====
+label{bioinf:exer:Markov:chain:eff}
+file=markov_chain_mutation2.py
+
+The functions `transition` and `mutate_via_markov_chain` from Section
+ref{bioinf:random} were made for being easy to read and understand.  Upon
+closer inspection, we realize that the `transition` function
+constructs the `interval_limits` every time a random transition is to
+be computed, and we want to run a large number of transitions.  By (i)
+merging the two functions, (ii) pre-computing interval limits for each
+`from_base`, and (iii) adding a loop over `N` mutations, one can
+reduce the computation of interval limits to a minimum. Perform such
+an efficiency enhancement.  Measure the CPU time of this new function
+versus the `mutate_via_markov_chain` function for 1 million mutations.
 
 
 

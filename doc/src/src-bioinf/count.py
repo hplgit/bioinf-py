@@ -1,5 +1,5 @@
 def count_v1(dna, base):
-    dna = list(dna)  # convert string to list of characters
+    dna = list(dna)  # convert string to list of letters
     i = 0            # counter
     for c in dna:
         if c == base:

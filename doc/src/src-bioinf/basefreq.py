@@ -4,27 +4,33 @@ def get_base_counts(dna):
         counts[base] += 1
     return counts
 
-def get_base_frequencies(dna):
+def get_base_frequencies_v1(dna):
     counts = get_base_counts(dna)
     return {base: count*1.0/len(dna)
             for base, count in counts.items()}
 
-dna = 'ACCAGAGT'
-frequencies = get_base_frequencies(dna)
+def get_base_frequencies_v2(dna):
+        return {base: dna.count(base)/float(len(dna))
+                for base in 'ATGC'}
 
-def print_frequencies(frequencies):
+dna = 'ACCAGAGT'
+frequencies = get_base_frequencies_v2(dna)
+
+def format_frequencies(frequencies):
     return ', '.join(['%s: %.2f' % (base, frequencies[base])
                       for base in frequencies])
 
 print "Base frequencies of sequence '%s':\n%s" % \
-      (dna, print_frequencies(frequencies))
+      (dna, format_frequencies(frequencies))
+
+assert get_base_frequencies_v1(dna) == get_base_frequencies_v2(dna)
 
 # Real data
 import urllib, os
+urlbase = 'http://hplgit.github.com/bioinf-py/doc/src/data/'
 yeast_file = 'yeast_chr1.txt'
 if not os.path.isfile(yeast_file):
-    url = 'http://hplgit.github.com/bioinf-py/doc/src/data/%s'\
-          % yeast_file
+    url = urlbase + yeast_file
     urllib.urlretrieve(url, filename=yeast_file)
 
 def read_dnafile_v1(filename):
@@ -40,9 +46,9 @@ def read_dnafile_v2(filename):
     return dna
 
 dna = read_dnafile_v2(yeast_file)
-yeast_freq = get_base_frequencies(dna)
+yeast_freq = get_base_frequencies_v2(dna)
 print "Base frequencies of yeast DNA (length %d):\n%s" % \
-      (len(dna), print_frequencies(yeast_freq))
+      (len(dna), format_frequencies(yeast_freq))
 
-assert get_base_frequencies(read_dnafile_v1(yeast_file)) == \
-       get_base_frequencies(read_dnafile_v2(yeast_file))
+assert get_base_frequencies_v2(read_dnafile_v1(yeast_file)) == \
+       get_base_frequencies_v2(read_dnafile_v2(yeast_file))
