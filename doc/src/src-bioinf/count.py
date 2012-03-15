@@ -102,7 +102,7 @@ dna = generate_string(600000)
 import time
 functions = [count_v1, count_v2, count_v3, count_v4,
              count_v5, count_v6, count_v7, count_v8,
-             count_v9, count_v10, count_v11]
+             count_v9, count_v10, count_v11, count_v12]
 timings = []  # timings[i] holds CPU time for functions[i]
 
 for function in functions:
@@ -116,7 +116,7 @@ for cpu_time, function in zip(timings, functions):
     print '{f:<9s}: {cpu:.2f} s'.format(
         f=function.func_name, cpu=cpu_time)
 
-# Time count_v12, but repeat 100 times because it's so fast
+# Time count_v12 better: repeat 100 times because it's so fast
 t0 = time.clock()
 for i in range(100):
     count_v12(dna, 'A')

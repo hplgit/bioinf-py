@@ -3,9 +3,12 @@ AUTHOR: Hans Petter Langtangen at Center for Biomedical Computing, Simula Resear
 AUTHOR: Geir Kjetil Sandve at Department of Informatics, University of Oslo
 DATE: today
 
+## Format: doconce, but the files are preprocessed, first by preprocess
+## for includes and then by mako for more control of formatting.
 
-## Preprocessor: first preprocess for includes, then mako for more fancy stuff
-## Set PRIMER_BOOK and EBOOK on the command line
+## Parameters: PRIMER_BOOK and EBOOK on the command line
+## Provide default values: (mako will see this big file with all included)
+<%page args="PRIMER_BOOK=False, EBOOK=False"/>
 
 # #include "bioinf.do.txt"
 

@@ -4,3 +4,4 @@ sh clean.sh
 cd ..
 
 doconce clean
+rm -rf ch*.p.tex

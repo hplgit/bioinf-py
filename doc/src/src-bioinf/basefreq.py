@@ -35,7 +35,7 @@ if not os.path.isfile(yeast_file):
 
 def read_dnafile_v1(filename):
     lines = open(filename, 'r').readlines()
-    # Remove newlines in each line and join
+    # Remove newlines in each line (line.strip()) and join
     dna = ''.join([line.strip() for line in lines])
     return dna
 

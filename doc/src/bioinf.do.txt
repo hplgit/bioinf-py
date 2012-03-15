@@ -1,12 +1,3 @@
-## List all required mako arguments and provide default values:
-<%page args="PRIMER_BOOK=False, EBOOK=False"/>
-
-<%doc>
-PRIMER_BOOK: text to be included in the "Primer" book.
-EBOOK: PDF version of the "Primer" book with hyperlinks (href command).
-not PRIMER_BOOK means that this file is a stand-alone document.
-</%doc>
-
 ## Import functions for writing to "Primer" book, sphinx,
 ## latex PDF w/hyperlinkes, etc.
 ##<%namespace file="defs.mako" import="*"/>
@@ -21,6 +12,13 @@ mako multi-line comments, or alternatively by if tests, either in
 the preprocess stage (# #ifdef ...) or in the mako stage
 (if some_variable:).
 </%doc>
+
+<%doc>
+PRIMER_BOOK: text to be included in the "Primer" book.
+EBOOK: PDF version of the "Primer" book with hyperlinks (href command).
+not PRIMER_BOOK means that this file is a stand-alone document.
+</%doc>
+
 
 % if PRIMER_BOOK:
 ======= Mixing Loops, Branching, and Functions in Bioinformatics Examples =======
@@ -308,25 +306,42 @@ A A A
 The element `i` in the list comprehension is only made when
 `dna[i] == base`.
 
+=== Using Python's Library ===
+
+Very often when you set out to do a task in Python, there is already
+functionality for the task in the object itself, in the Python
+libraries, or in third-party libraries found on the Internet.
+Counting how many times a character (or substring) `base` appears in a
+string `dna` is obviously a very common task so Python supports
+it by `dna.count(base)`:
+
+@@@CODE src-bioinf/count.py fromto: def count_v12@import random
+
+
+===== Efficiency Assessment =====
+label{bioinf:count:cpu}
+
+Now we have 11 different versions of how to count the occurences
+of a letter in a string. Which one of these implementations is the fastest?
+To answer the question we need some test data, which should be a
+huge string `dna`.
 
 === Generating Random DNA Strings ===
 
 idx{random strings}
 
-Now we have 11 different versions of how to count the occurences
-of a letter in a string. Which one of these implementations is the fastest?
-To answer the question we need some test data, which should be a
-huge string `dna`. We could write
+The simplest way of generating a long string is to repeat a
+character a large number of times:
 !bc pycod
 N = 1000000
 dna = 'A'*N
 !ec
-to make a string `'AAA...A` that is `N` characters long, and this would be
-sufficient for testing efficiency. Nevertheless, it is more exciting
-to work with a DNA string with letters from the whole alphabet A, C, G,
-and T. To make a DNA string with a random composition of the characters
-we can first make a list of random characters and then join all those
-characters to a string:
+The resulting string is just `'AAA...A`, of length `N`, which is fine
+for testing the efficiency of Python functions. Nevertheless, it is
+more exciting to work with a DNA string with letters from the whole
+alphabet A, C, G, and T. To make a DNA string with a random
+composition of the characters we can first make a list of random
+characters and then join all those characters to a string:
 !bc pycod
 import random
 alphabet = list('ATGC')
@@ -348,7 +363,7 @@ function, gives
 
 The call `generate_string(10)` may generate something like `AATGGCAGAA`.
 
-=== Measuring Efficiency ===
+=== Measuring CPU Time ===
 
 idx{CPU time measurements}
 
@@ -381,36 +396,35 @@ to make a nice printout of the results:
 
 @@@CODE src-bioinf/count.py fromto: for cpu_time@# Time count
 
-Timings on a MacBook Air 11 running Ubuntu showed that
+Timings on a MacBook Air 11 running Ubuntu show that
 the functions using `list.append` require almost the double of
 the time of the functions that work with list comprehensions.
 Even faster is the simple iteration over the string.
-
-
-
-=== Using Python's Library ===
-
-Very often when you set out to do a task in Python, there is already
-functionality for the task in the object itself, in the Python
-libraries, or in third-party libraries found on the Internet.
-Counting how many times a character (or substring) `base` appears in a
-string `dna` is obviously a very common task so Python supports
-it by `dna.count(base)`:
-
-@@@CODE src-bioinf/count.py fromto: def count_v12@import random
-
-A lesson learned is: google around before you start out to implement
-what seems to be a quite common task. Others have probably already
-done it for you. And better: `dna.count(base)` runs over 30 times
-faster than the best of our handwritten Python functions!
+However, the built-in count functionality of strings
+(`dna.count(base)`) runs over 30 times faster than the best of our
+handwritten Python functions!
 The reason is that the `for` loop needed to count in `dna.count(base)`
 is implemented in C and runs very much faster than loops in Python.
 
-All the functions presented above can be found in the file
-${link('count.py')}.
+A clear lesson learned is: google around before you start out to implement
+what seems to be a quite common task. Others have probably already
+done it for you, and most likely is their solution much better than what
+you can (easily) come up with.
+
+All the functions presented above, including the timings,
+can be found in the file ${link('count.py')}.
 
 #=== Testing with Real Data ===
 
+% if PRIMER_BOOK:
+======= Examples from Analyzing DNA =======
+
+We shall here continue the bioinformatics applications started
+in Chapter ref{bioinf:basics}. Analysis of DNA sequences is
+conveniently done in Python, much with the aid of lists, dictionaries,
+string manipulation, and file handling. This will be illustrated
+through a series of examples.
+% endif
 
 ===== Computing Frequencies =====
 label{bioinf:freqm}
@@ -469,7 +483,7 @@ is done by `[x]*n`. Finding the proper length is here carried out by
 inspecting the length of the first element in `dna_list`, assuming
 that all elements have the same length.
 
-In the `for` loop we use the `enumerate` function which is used
+In the `for` loop we apply the `enumerate` function which is used
 to extract both the element value *and* the element index when
 iterating over a sequence. For example,
 !bc ipy
@@ -503,8 +517,8 @@ with output
 
 The frequency matrix can also be represented as a nested list `M`
 such that `M[i][j]` is the frequency of base `i` in position `j`
-in a DNA string. Here `i` is an integer, where 0 corresponds to A,
-1 to C, 2 to G, and 3 to T. The frequency is the number of times
+in the set of DNA strings. Here `i` is an integer, where 0 corresponds to A,
+1 to T, 2 to G, and 3 to C. The frequency is the number of times
 base `i` appears in position `j` in a set of DNA strings.
 Sometimes this number is divided by the number of DNA strings in
 the set so that the frequency is between 0 and 1. Note all
@@ -523,7 +537,7 @@ The simplest way to make a nested list is to insert the
 Nevertheless, we can illustrate how to compute this type of nested
 list directly:
 
-@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v1@frequency_matrix =
+@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v1@frequency_matrix = freq_list_of_lists_v1\(
 
 As in the case with individual lists we need to initialize all elements
 in the nested list to zero.
@@ -579,8 +593,9 @@ indexing is `frequency_matrix[base2index['C'],i]`.
 === Dictionary of Lists ===
 
 Instead of going from a character to an integer index via
-`base2index`, we may prefer to index `frequency_matrix` by, e.g.,
-`['C'][14]`.  This is the most natural syntax for a user of the
+`base2index`, we may prefer to index `frequency_matrix` by the base name
+and the position index directly: like in`['C'][14]`.
+This is the most natural syntax for a user of the
 frequency matrix.  The relevant Python data structure is then a
 dictionary of lists. That is, `frequency_matrix` is a dictionary with
 keys `'A'`, `'T'`, `'C'`, and `'G'`. The value for each key is a
@@ -612,21 +627,20 @@ Here,
 frequency_matrix = {base: [0]*n for base in 'ATGC'}
 !ec
 Adopting this construction in the `freq_dict_of_lists_v1` function
-leads to
+leads to a slightly more compact version,
 
 @@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v2@def freq_dict_of_dicts_v1
 
 === Dictionary of Dictionaries ===
 
 The dictionary of lists data structure can alternatively be replaced
-by a dictionary of dictionaries object, often just called
-a dict of dicts object. That is,
-`frequency_matrix[base]` is a dictionary with the index `i`
-as key and the added number of occurences of `base` in `dna[i]` for
-all `dna` strings in the list `dna_list`.
-The indexing `frequency_matrix['C'][i]` and the value are exactly
-as before; the only difference is whether `frequency_matrix['C']`
-is a list or dictionary.
+by a dictionary of dictionaries object, often just called a dict of
+dicts object. That is, `frequency_matrix[base]` is a dictionary with
+key `i` and value equal to the added number of occurences of `base` in
+`dna[i]` for all `dna` strings in the list `dna_list`.  The indexing
+`frequency_matrix['C'][i]` and the values are exactly as in the last
+example; the only difference is whether `frequency_matrix['C']` is a
+list or dictionary.
 
 Our function working with `frequency_matrix` as a dict of dicts
 is written
@@ -645,7 +659,7 @@ key. The construction `defaultdict(lambda: obj)`
 makes a dictionary with `obj` as default value.
 This construction simplifies the previous function a bit:
 
-@@@CODE src-bioinf/freq.py fromto: from collections import default@def find_consensus_v1
+@@@CODE src-bioinf/freq.py fromto: from collections import default@_matrix = freq_list_of_lists_v2
 
 __Remark.__
 Dictionary comprehensions were new in Python 2.7 and 3.1, but can be
@@ -686,16 +700,15 @@ TTAG.
 # This is an inline comment, can be turned on and off in the
 # final document:
 
-[hpl: This can be more precisely and better explained?]
+[hpl: Can we explain this better? Some example on application or conclusion that can be drawn from a consensus string?]
 
 === List of Lists Frequency Matrix ===
 
-Let `frequency_matrix` be a list of lists. For each position `i`
-we run through the "rows" in the frequency matrix and find
-and keep track of the maximum frequency value and the corresponding
-character. If two or more characters have the same frequency value
-we use a dash to indicate that this position in the consensus string
-is undetermined.
+Let `frequency_matrix` be a list of lists. For each position `i` we
+run through the "rows" in the frequency matrix and keep track of the
+maximum frequency value and the corresponding letter. If two or
+more letters have the same frequency value we use a dash to
+indicate that this position in the consensus string is undetermined.
 
 The following function computes the consensus string:
 
@@ -740,13 +753,13 @@ with output
  'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
  'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
  'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
-GGTAC
+Consensus string: GGTAC
 !ec
 
 Let us try `find_consensus_v3` with the dict of defaultdicts
 as input (`freq_dicts_of_dicts_v2`). The code runs fine, but
 the output string is just `G`!
-This implies that `dna_length` is 1, and that the length of
+The reason is that `dna_length` is 1, and therefore that the length of
 the `A` dict in `frequency_matrix` is 1.
 Printing out `frequency_matrix` yields
 !bc pycod
@@ -760,18 +773,18 @@ where our `X` is a short form for text like
 `<function <lambda> at 0xfaede8>`
 !ec
 We see that the length of a defaultdict will only count the nonzero
-entries. Hence our function must get the length of the DNA string to
-build as extra argument:
+entries. Hence, to use a defaultdict our function must get the length of the DNA string to
+build as an extra argument:
 !bc pycod
 def find_consensus_v4(frequency_matrix, dna_length):
     ...
 !ec
 
-[hpl: Make a unified function that can handle lists of lists,
-dict of lists, dict of dicts, and dicts of defaultdicts? Could
-be cool.]
+Exercise ref{bioinf:exer:freq:fargs} suggest to make a unified
+`find_consensus` function which works with all of the different
+representation of `frequency_matrix` that we have used.
 
-All functions making and using the frequency matrix are found
+The functions making and using the frequency matrix are found
 in the file ${link('freq.py')}.
 
 ===== Probability Matrix =====
@@ -810,27 +823,37 @@ print probabilitiesList
 ===== Dot Plots from Pair of DNA Sequences =====
 label{bioinf:dotplot}
 
-[hpl: terminology: DNA strings or sequences? Maybe sequences is
-better from a pedagogical point of view since it implicitly
-says that strings are sequences, and if sequences are interpreted
-as Python sequences, it helps the programming :-)]
+[hpl: I don't get what dot plots are good for. Even when comparing two
+identical strings the dots don't show a strong correlation (because
+there are just 4 letters to choose among the chances of having
+the same letter in pos i and j of the two strings is significant.
+There should be something visual here.]
 
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say `d1` and `d2`,
 by organizing `d1`
 along the x-axis and `d2` along the y-axis of a plot.
 When `d1[i] == d2[j]` we mark this by drawing a dot at location
-`i,j` in the plot. The coordinates along the axes are the integers
-0, 1, 2, and so forth.
+`i,j` in the plot. An example is
+!bc dat
+1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+!ec
+The origin is in the upper left corner, which means that the
+first string has its indices running to the right 0, 1, 2, and so forth,
+while the second string has its indices running down, row by row.
 
-[hpl: Insert example here! Show plot.]
-
-[hpl: The "y string" goes downards while the "x string" goes to the right...
-when we print it, since we print row by row...But we can join the rows
-in reverse order to what I would expect - both strings starting in the
-origin and then increasing to the right and upwards.]
-
-In our forthcoming examples, a dot is represented by 1. No presence at
+In the forthcoming examples, a dot is represented by 1. No presence at
 a given location is represented by 0. A dot plot can be manually read
 to find common patterns between two sequences that has undergone
 several insertions and deletions, and it serves as a conceptual basis
@@ -861,7 +884,7 @@ is a possible way:
 @@@CODE src-bioinf/dotplot.py fromto: dna_x = 'T@def make_string
 
 The output becomes
-!bc pycod
+!bc dat
 1 0 0 1 0 0 0 1 0 0 0 1
 0 1 1 0 0 0 0 0 0 1 1 0
 0 1 1 0 0 0 0 0 0 1 1 0
@@ -875,9 +898,6 @@ The output becomes
 0 1 1 0 0 0 0 0 0 1 1 0
 1 0 0 1 0 0 0 1 0 0 0 1
 !ec
-Note that the "y string" `dna_y` has its first index at the top, with
-indices growing downward, while the "x string" `dna_x` has its indices
-growing to the right.
 
 One can, alternatively, translate the list of lists to a multi-line string
 containing the whole plot as a string object.
@@ -889,19 +909,20 @@ plot = '\n'.join(rows)
 # or combined
 plot = '\n'.join([' '.join(row) for row in dotplot_matrix])
 !ec
-The construction `'d'.join(l)` joints all the string elements of the
-list `l` and inserts `d` as delimiter: `'x'.join(['A','B','C']`
-becomes `'AxBxC'`. We use a space as delimiter
-among the characters in a row since this gives a nice layout when
-printing the string. All rows are joined with newline as delimiter
-such that the rows appear on separate lines when printing the string.
-To really understand what is going on, a more comprehensive code
-could be made so that each step can be examined:
+${not_primer_book("""The construction `'d'.join(l)` joints
+all the string elements of the
+list `l` and inserts `d` as delimiter: `'x'.join(['A','B','C'])`
+becomes `'AxBxC'`.""")}
+We use a space as delimiter among the characters in a row since this
+gives a nice layout when printing the string. All rows are joined with
+newline as delimiter such that the rows appear on separate lines when
+printing the string.  To really understand what is going on, a more
+comprehensive code could be made so that each step can be examined:
 
 @@@CODE src-bioinf/dotplot.py fromto: def make_string_expanded@# end of testing join operations in detail
 
 Unless the join operation as used here is well understood, it is highly
-recommended to paste the above ode into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html", step
+recommended to paste the above code into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html", step
 through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
@@ -915,7 +936,7 @@ is well suited as data structure to hold a dot plot.
 @@@CODE src-bioinf/dotplot.py fromto: def dotplot_numpy@dna_x = 'ATT
 
 [hpl: we should have a real plot with matplotlib here for a somewhat large
-string.]
+string. I have the code, but need a good illustrative example...]
 
 The two dot plot functions are available
 in the file ${link('dotplot.py')}.
@@ -955,11 +976,10 @@ Counting is done by
 This function can then be used to compute the base frequencies:
 
 @@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies_v1@get_base_frequencies_v2
-Since we learned in at the end of Section ref{bioinf:count} that
-`dna.count(base)` was much faster than the various manual implementations
-of counting how many times the letter `base` appears in the string `dna`,
-we can write a faster and simpler function for computing all the base
-frequencies:
+Since we learned at the end of Section ref{bioinf:count:cpu} that
+`dna.count(base)` was much faster than the various manual
+implementations of counting, we can write a faster and simpler
+function for computing all the base frequencies:
 
 @@@CODE src-bioinf/basefreq.py fromto: def get_base_frequencies_v2@dna = 'ACCAGAGT'
 A little test,
@@ -976,7 +996,7 @@ combination of a dictionary, list comprehension, and the
 `join` functionality. The latter is used to get a comma correctly
 inserted between the items in the result. Lazy programmers would
 probably just do a `print frequencies` and live with the
-curly braces in the output and (in general) 16 decimals.
+curly braces in the output and (in general) 16 disturbing decimals.
 
 idx{`urllib`}
 
@@ -1013,7 +1033,7 @@ recover the DNA string:
 
 @@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v1@def read_dnafile_v2
 
-As usual, an alternative programming solution can be devised as well:
+As usual, an alternative programming solution can be devised:
 
 @@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v2@assert get_base_freq
 
@@ -1031,6 +1051,8 @@ in the file ${link('basefreq.py')}.
 
 ===== Translating Genes into Proteins ======
 label{bioinf:gene2protein}
+
+[hpl: I have not yet read this...]
 
 An important usage of DNA is for cells to store information on their arsenal of
 proteins. These proteins are what makes up the possible functional properties
@@ -1203,7 +1225,7 @@ the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
 A. Our goal is to check what happens to the protein if this base is mutated.
 This is a simple task using the previously developed tools:
 
-@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein_fixed@
+@@@CODE src-bioinf/genes2proteins.py fromto: def congential_lactase_d@
 
 The output, to be compared with the non-mutated gene above, is now
 !bc dat
@@ -1337,6 +1359,8 @@ interval a random number falls:
 The `transition_probabilities` argument is a dictionary of the
 transition probabilities for a given base.
 
+[hpl: the transition function was made somewhat different from what you had. I just understand my version better as this is the way I draw according to a discrete prob distr. ;-) ]
+
 A complete function creating all the transition probabilities and
 storing them in a dictionary of dictionaries takes the form
 
@@ -1366,7 +1390,7 @@ Here is a simulation of mutations using the method based on Markov chains:
 
 @@@CODE src-bioinf/mutate.py fromto: dna = 'TTACGGAGATTTCGGTATGCAT'@def transition_into
 
-The output may read
+The output can be like
 !bc dat
 Starting DNA: TTACGGAGATTTCGGTATGCAT
 A: 0.23, C: 0.14, T: 0.36, G: 0.27
@@ -1390,7 +1414,8 @@ Transition probabilities:
 DNA after 10000 mutations (Markov chain): GGTTTAAGTCAGCTATGATTCT
 A: 0.23, C: 0.14, T: 0.41, G: 0.23
 !ec
-One should see that the mutated DNA should contain more nucleotides of the
+% if not PRIMER_BOOK:
+Note that the mutated DNA should contain more nucleotides of the
 type where the total probability of transitioning into that particular
 nucleotide is largest. This total probability is computed by summing
 up the columns of the transition probability matrix and dividing by 4:
@@ -1403,6 +1428,7 @@ These probabilities corresponding to the example run above reads
 !ec
 Transition into T has greatest probability (0.3) and this is also
 confirmed by the greatest frequency (0.41).
+% endif
 
 The functions performing mutations are located
 in the file ${link('mutate.py')}.
@@ -1413,10 +1439,9 @@ label{bioinf:oo}
 We shall here exemplify the use of classes for performing
 DNA analysis as explained
 ${primer_book_comment("""in Sections ref{bioinf:count}, ref{bioinf:freqm},
-ref{bioinf:freq:analysis}, ref{bioinf:dotplot}, ref{bioinf:basefreq},
+ref{bioinf:freq:analysis}, ref{bioinf:basefreq},
 ref{bioinf:gene2protein}, ref{bioinf:lactase:milk}, and ref{bioinf:random}.
-""")}
-${not_primer_book_comment(""" in the previous text.""")}
+""")} ${not_primer_book_comment(""" in the previous text.""")}
 Basically, we create a class `Gene` to represent a DNA sequence (string)
 and a class `Region` to represent a subsequence (substring), typically an
 exon or intron.
@@ -1426,7 +1451,7 @@ exon or intron.
 The class for representing a region of a DNA string is quite simple:
 
 @@@CODE src-bioinf/dna_classes.py fromto: class Region@class Gene
-Besides storing the substring and giving access to it through `get_dna`,
+Besides storing the substring and giving access to it through `get_region`,
 we have also included the possibility to
 
   * say `len(r)` if `r` is a `Region` instance
@@ -1439,29 +1464,31 @@ of all exon or intron regions.
 
 === Class Gene ===
 
-The class for gene will be longer and more complex. We already have a
-bunch of functions performing various types of analysis. The idea of
-the `Gene` class is that these functions are methods in the class
-operating on the DNA string and the exon regions stored in the class.
-Rather than recoding all the functions as methods in the class we
-shall just let the class "wrap" the functions. That is, the class
-methods calls up the functions we already have.  This approach has two
-advantages: users can either choose the function-based or the
-class-based interface, and the programmer can reuse all the ready-made
-functions when implementing the class.
+The class for gene will be longer and more complex than class
+`Region`. We already have a bunch of functions performing various
+types of analysis. The idea of the `Gene` class is that these
+functions are methods in the class operating on the DNA string and the
+exon regions stored in the class.  Rather than recoding all the
+functions as methods in the class we shall just let the class "wrap"
+the functions. That is, the class methods calls up the functions we
+already have.  This approach has two advantages: users can either
+choose the function-based or the class-based interface, and the
+programmer can reuse all the ready-made functions when implementing
+the class.
 
 The selection of functions include
 
  * `generate_string` for generating a random string from some alphabet
  * `download` and `read_dnafile`
-   (which is `read_dnafile_v1` from Section ref{bioinf:basefreq})
+   (version `read_dnafile_v1`)
    for downloading data from the Internet and reading from file
- * `read_exon_regions` (which is `read_exon_regions_v2` from
-   Section ref{bioinf:gene2protein}) for reading exon regions from file
+ * `read_exon_regions` (version `read_exon_regions_v2`)
+   for reading exon regions from file
  * `tofile_with_line_sep` for writing DNA strings to file
  * `simple_genetic_code` and `complex_genetic_code` for loading
    mappings from genetic codes to different type of names for amino acids
- * `get_base_frequencies` for finding frequencies of each base
+ * `get_base_frequencies` (version `get_base_frequencies_v2`)
+   for finding frequencies of each base
  * `format_frequencies` for formatting base frequencies with two decimals
  * `create_mRNA` for computing an mRNA string from DNA and exon regions
  * `mutate` for mutating a base at a random position
@@ -1529,13 +1556,15 @@ g2 = Gene((urlbase, dna_file), (urlbase, exon_file))  # download
 !ec
 If the files are already at the computer one can pass `None` for
 `urlbase`. The flexible constructor has, not surprisingly, longer
-code than the first version:
+code than the first version (but illustrates well how the
+concept of overloaded constructors in other languages, like C++ and Java,
+are dealt with in Python):
 
 @@@CODE src-bioinf/dna_classes.py fromto: class Gene@def create_mRNA
 
 Note that we perform quite detailed testing of the object type
 of the data structures supplied as the `dna` and `exon_regions`
-arguments. This should be done to ensure safe use also when there is only
+arguments. This can well be done to ensure safe use also when there is only
 one allowed type per argument.
 
 A `create_mRNA` method, returning the mRNA as a string, can be coded as
@@ -1543,22 +1572,23 @@ A `create_mRNA` method, returning the mRNA as a string, can be coded as
 @@@CODE src-bioinf/dna_classes.py fromto: def create_mRNA@def write
 
 Also here we rely on calling an already implemented function, but include
-some testing if asking for mRNA is appropriate.
+some testing whether asking for mRNA is appropriate.
 
 Methods for creating a mutated gene are also included:
 
 @@@CODE src-bioinf/dna_classes.py fromto: def mutate_pos@def get_dna
 
 Some "get" methods that give access to the fundamental attributes
-of the class are included:
+of the class can be included:
 
 @@@CODE src-bioinf/dna_classes.py fromto: def get_dna@def __len
 Alternatively, one could access the attributes directly: `gene._dna`,
-`gene._exons`, etc. In that case we should remove the underscore as
+`gene._exons`, etc. In that case we should remove the leading underscore as
 this underscore signifies to the user of the class that these
-attributes are considered "private", i.e., not to be directly accessed
+attributes are considered "protected", i.e., not to be directly accessed
 by the user. The "protection" in "get" functions is more mental
-than actual since we return the data structures as they are to the user.
+than actual since we anyway give the data structures in the hands of
+the user.
 
 ## Note that copying from __len__ interferes with copying from
 ## the same method in class Region. Hence, we have copied the
@@ -1606,8 +1636,10 @@ are relevant to add:
 
 === Subclasses ===
 
-We add a `get_product` method in class `Gene`, which will be
+We can add a `get_product` method in class `Gene`, which will be
 implemented in subclasses:
+
+[hpl: what does this functionality mean?]
 
 @@@CODE src-bioinf/dna_classes.py fromto: def get_product@class Noncoding
 
@@ -1641,6 +1673,18 @@ __Hint 1.__ For each match of the first character of the
 substring in the main string, check if the next `n` characters
 in the main string matches the substring, where `n` is the length
 of the substring. Use slices like `s[3:9]` to pick out a substring of `s`.
+
+===== Exercise: Allow different types for a function argument =====
+label{bioinf:exer:freq:fargs}
+file=find_consensus.py
+
+Consider the family of `find_consensus_v*` functions from
+Section ref{bioinf:freq:analysis}. The different versions work on
+different representations of the frequency matrix. Make a unified
+`find_consensus` function which accepts different data structures
+for the `frequency_matrix`. Test on the type of data structure and
+perform the necessary actions.
+
 
 ===== Exercise: Make a function more robust =====
 label{bioinf:exer:get_base_counts2}
@@ -1688,9 +1732,3 @@ reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the `mutate_via_markov_chain` function for 1 million mutations.
 
-
-
-======= 2DO =======
- o gh-pages index.html
- o make.sh for sphinx, html, pdflatex
- o more ex

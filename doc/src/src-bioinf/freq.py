@@ -199,7 +199,7 @@ def find_consensus_v3(frequency_matrix):
 
 frequency_matrix = freq_dict_of_dicts_v1(dna_list)
 pprint.pprint(frequency_matrix)
-print find_consensus_v3(frequency_matrix)
+print 'Consensus string:', find_consensus_v3(frequency_matrix)
 
 # Does not work with defaultdict because 0 is not counted
 # when doing len(frequency_matrix)
