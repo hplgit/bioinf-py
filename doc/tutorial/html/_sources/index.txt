@@ -9,7 +9,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   bioinf
+   wrap_bioinf
 
 
 Indices and tables

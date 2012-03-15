@@ -11,22 +11,7 @@ Automatically generated HTML file from Doconce source
 </head>
 
 <body bgcolor="white">
-    
-<P>
-<!-- Preprocessor: Mako -->
-
-<P>
-
-<P>
-
-<P>
-
-<P>
-
-<P>
-
-<P>
-<title>Illustrating Python via Examples from Bioinformatics</title>
+    <title>Illustrating Python via Examples from Bioinformatics</title>
 <center><h1>Illustrating Python via Examples from Bioinformatics</h1></center>
 <center>
 <b>Hans Petter Langtangen</b> [1, 2]
@@ -41,9 +26,35 @@ Automatically generated HTML file from Doconce source
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 
 
-<center><h3>Mar 12, 2012</h3></center>
+<center><h3>Mar 15, 2012</h3></center>
 <P>
-<h2>Basic Bioinformatics Examples in Python</h2>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
+<P>
+
 <P>
 
 <P>
@@ -61,36 +72,42 @@ for, explore, and use information about genes, nucleic acids, and
 proteins.
 
 <P>
+<h2>Basic Bioinformatics Examples in Python <a name="bioinf:basics"></A></h2>
+<P>
 
 <P>
-Below are some simple examples on DNA analysis that brings together
+
+<P>
+Below are some very simple examples on DNA analysis that brings together
 basic building blocks in programming: loops, <tt>if</tt> tests, and functions.
+
+<P>
 
 <P>
 <h3>Counting Letters in DNA Strings <a name="bioinf:count"></A></h3>
 <P>
 
 <P>
-Given some string <tt>dna</tt> containing the letters <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, or <tt>T</tt>,
+Given some string <tt>dna</tt> containing the letters A, C, G, or T,
 representing the bases that make up DNA, we ask the question: how
 many times does a certain base occur in the DNA string?
-For example, if <tt>dna</tt> is <tt>ATGGCATTA</tt> and we ask how many times the
-base <tt>A</tt> occur in this string, the answer is 3.
+For example, if <tt>dna</tt> is ATGGCATTA and we ask how many times the
+base A occur in this string, the answer is 3.
 
 <P>
 A general Python implementation answering this problem can be done
-in many ways. Some solutions are presented below.
+in many ways. Several possible solutions are presented below.
 
 <P>
 <h4>List Iteration</h4>
 <P>
 
 <P>
-The most straightforward solution is to loop over the characters
-in the string, test if the current character equals the desired one,
-and if so, increase a counter. Looping over the characters is
-obvious if the characters are stored in a list. This is easily
-done by
+The most straightforward solution is to loop over the letters
+in the string, test if the current letter equals the desired one,
+and if so, increase a counter. Looping over the letters is
+obvious if the letters are stored in a list. This is easily
+done by converting a string to a list:
 <blockquote>    <!-- begin verbatim block   ipy-->
 <pre>
 &gt;&gt;&gt; list('ATGC')
@@ -100,10 +117,10 @@ done by
 Our first solution becomes
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v1(dna, base):
-    dna = list(dna)  # convert string to list of characters
+    dna = list(dna)  # convert string to list of letters
     i = 0            # counter
     for c in dna:
         if c == base:
@@ -129,7 +146,7 @@ G
 C
 </pre>
 </blockquote>   <! -- end verbatim block -->
-In fact, all objects in Python which contains a set of elements in
+In fact, all built-in objects in Python which contain a set of elements in
 a particular sequence allow a <tt>for</tt> loop construction of the
 type <tt>for element in object</tt>.
 <!-- Examples of such objects are -->
@@ -140,7 +157,7 @@ A slight improvement of our solution is therefore to iterate directly
 over the string:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v2(dna, base):
     i = 0 # counter
@@ -152,27 +169,39 @@ def count_v2(dna, base):
 dna = 'ATGCGGACCTAT'
 base = 'C'
 n = count_v2(dna, base)
+
+# printf-style formatting
 print '%s appears %d times in %s' % (base, n, dna)
+
+# or (new) format string syntax
+print '{base} appears {n} times in {dna}'.format(
+    base=base, n=n, dna=dna)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
 <P>
+We have illustrated two alternative ways of writing out text
+where the value of variables are to be inserted in "slots" in the
+string.
+
+<P>
 <h4>Program Flow</h4>
 <P>
-For correct programming it is a fundamental importance to
-be able to simulate the program above by hand, statement by
+It is fundamental for correct programming to understand how
+to simulate a program by hand, statement by
 statement. Three tools are
-effective for helping you reach the required understanding for doing
-a manual simulation:
+effective for helping you reach the required understanding of performing
+a simulation by hand:
 (i) printing variables, (ii) using a debugger, and (iii) using an
 <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize">online program flow tool</a>.
 
 <P>
-Inserting <tt>print</tt> statements and examining the about help to demonstrate
+Inserting <tt>print</tt> statements and examining the about is the
+simplest approach to investigating
 what is going on:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v2_demo(dna, base):
     print 'dna:', dna
@@ -199,27 +228,28 @@ n = count_v2_demo('ATGCGGACCTAT', 'C')
 <P>
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
-is printed out. Launch <tt>ipython</tt> and run the program with
-a debugger: <tt>run -d programname.py</tt>. Use <tt>s</tt> (for step) to
-step through each statement, or <tt>n</tt> (for next) for stepping
-without also stepping through functions.
+is printed out. Start <tt>ipython</tt> in a terminal window and run the
+program <tt>count_v2_demo.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/count_v2_demo.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/count_v2_demo.py.html">online viewing</a>) with
+a debugger: <tt>run -d count_v2_demo.py</tt>. Use <tt>s</tt> (for step) to
+step through each statement, or <tt>n</tt> (for next) for proceeding to the
+next statement without stepping through a function that is called.
 <blockquote>    <!-- begin verbatim block   cod-->
 <pre>
 ipdb&gt; s
-&gt; /some/disk/user/bioinf/src/count_v1.py(2)count_v2_demo()
+&gt; /some/disk/user/bioinf/src/count_v2_demo.py(2)count_v2_demo()
 1     1 def count_v1_demo(dna, base):
 ----&gt; 2     print 'dna:', dna
       3     print 'base:', base
 
 ipdb&gt; s
 dna: ATGCGGACCTAT
-&gt; /some/disk/user/bioinf/src/count_v1.py(3)count_v2_demo()
+&gt; /some/disk/user/bioinf/src/count_v2_demo.py(3)count_v2_demo()
       2     print 'dna:', dna
 ----&gt; 3     print 'base:', base
       4     i = 0 # counter
 </pre>
 </blockquote>   <! -- end verbatim block -->
-Observe the output of the <tt>print</tt> statement. One can also
+Observe the output of the <tt>print</tt> statements. One can also
 print a variable explicitly:
 <blockquote>    <!-- begin verbatim block   cod-->
 <pre>
@@ -236,30 +266,30 @@ confidence.
 
 <P>
 The <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>
-is, at least for small programs, a spendid alternative to
+is, at least for small programs, a splendid alternative to
 debuggers. Go to the webpage, erase the sample code and paste in your
 own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
-statements one by one. To the right the status of variables are
-explained and the text field below the program shows the output.  An
-example is shown in Figure <a href="#bioinf:fig:pot">bioinf:fig:pot</a>.
+statements one by one. The status of variables are
+explained to the right, and the text field below the program shows the output
+from <tt>print</tt> statements.  An example is shown in Figure <a href="#bioinf:fig:pot">bioinf:fig:pot</a>.
 
 <P>
 <center><hr>
 <caption><i>Visual execution of a program using the Python Online Tutor. <a name="bioinf:fig:pot"></A></i></caption>
-<p><img src="figs-bioinf/python_online_tutor.jpg" align="bottom" width=500></p>
+<p><img src="figs-bioinf/python_online_tutor.jpg" align="bottom" width=600></p>
 </center>
 
 <P>
 <h4>Index Iteration</h4>
 <P>
-Although it is natural in Python to iterate over the characters in a
+Although it is natural in Python to iterate over the letters in a
 string (or more generally over elements in a sequence), programmers
 with experience from other languages (Fortran, C and Java are
 examples) are used to <tt>for</tt> loops with an integer counter running over
 a all indices in a string or array:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v3(dna, base):
     i = 0 # counter
@@ -273,7 +303,7 @@ def count_v3(dna, base):
 <P>
 Python indices always start at 0 so the legal indices for our
 string become <tt>0</tt>, <tt>1</tt>, ...,
-<tt>len(dna)-1</tt>, where <tt>len(dna)</tt> is the number of characters in the
+<tt>len(dna)-1</tt>, where <tt>len(dna)</tt> is the number of letters in the
 string <tt>dna</tt>. The <tt>range(x)</tt> function returns a list of integers
 <tt>0</tt>, <tt>1</tt>, ..., <tt>x-1</tt>, implying that <tt>range(len(dna))</tt> generates
 all the legal indices for <tt>dna</tt>.
@@ -284,7 +314,7 @@ all the legal indices for <tt>dna</tt>.
 The <tt>while</tt> loop equivalent to the last function reads
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v4(dna, base):
     i = 0 # counter
@@ -298,23 +328,23 @@ def count_v4(dna, base):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-Correct indentation is here crucial: a common error is to fail
+Correct indentation is here crucial: a typical error is to fail
 indenting the <tt>j += 1</tt> line correctly.
 
 <P>
 <h4>Summing a Boolean List</h4>
 <P>
 The idea now is to create a list <tt>m</tt> where <tt>m[i]</tt> is <tt>True</tt> if
-<tt>dna[i]</tt> equals the character we search for (<tt>base</tt>).
+<tt>dna[i]</tt> equals the letter we search for (<tt>base</tt>).
 The number of <tt>True</tt> values in <tt>m</tt> is then the number of <tt>base</tt>
-characters in <tt>dna</tt>. We can use the <tt>sum</tt> function to find
+letters in <tt>dna</tt>. We can use the <tt>sum</tt> function to find
 this number because doing arithmetics with boolean lists
 automatically interprets <tt>True</tt> as <tt>1</tt> and <tt>False</tt> as <tt>0</tt>.
 That is, <tt>sum(m)</tt> returns the number of <tt>True</tt> elements in <tt>m</tt>.
 A possible function doing this is
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v5(dna, base):
     m = []   # matches for base in dna: m[i]=True if dna[i]==base
@@ -336,7 +366,7 @@ function can be condensed to one line using the inline
 <tt>if</tt> construction: <tt>if condition value1 else value2</tt>.
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v6(dna, base):
     m = []   # matches for base in dna: m[i]=True if dna[i]==base
@@ -355,7 +385,7 @@ directly: it has the value <tt>True</tt> or <tt>False</tt>. This saves
 some typing and adds clarity, at least to Python programmers:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v7(dna, base):
     m = []   # matches for base in dna: m[i]=True if dna[i]==base
@@ -373,12 +403,12 @@ def count_v7(dna, base):
 
 <P>
 Building a list via a <tt>for</tt> loop can often be condensed to one line
-by using list comprehensions: <tt>[expr for e in sequence]</tt>, here
+by using list comprehensions: <tt>[expr for e in sequence]</tt>, where
 <tt>expr</tt> is some expression normally involving the iteration variable
-<tt>e</tt>. In our example, we can introduce a list comprehension
+<tt>e</tt>. In our last example, we can introduce a list comprehension
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v8(dna, base):
     m = [c == base for c in dna]
@@ -387,10 +417,11 @@ def count_v8(dna, base):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-Here it is tempting to reduce the function body to a single line:
+Here it is tempting to get rid of the <tt>m</tt> variable and
+reduce the function body to a single line:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v9(dna, base):
     return sum([c == base for c in dna])
@@ -402,7 +433,7 @@ def count_v9(dna, base):
 <P>
 
 <P>
-The DNA string is usually huge - 3 billion characters for the human
+The DNA string is usually huge - 3 billion letters for the human
 specie. Making a boolean array with <tt>True</tt> and <tt>False</tt> values
 therefore increases the memory usage by a factor of two
 in our sample functions <tt>count_v5</tt> to <tt>count_v9</tt>.
@@ -414,7 +445,7 @@ therefore avoids first making a list and then applying <tt>sum</tt> on
 that list. This is a minor modification of the <tt>count_v9</tt> function:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v10(dna, base):
     return sum(c == base for c in dna)
@@ -422,127 +453,8 @@ def count_v10(dna, base):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-<h4>Generating Random DNA Strings</h4>
-<P>
-
-<P>
-It is obvious that function <tt>count_v9</tt> doubles the memory requirements
-compared with <tt>count_v10</tt>, since storage for both <tt>dna</tt> and <tt>m</tt> is
-required when using <tt>count_v9</tt>. But which one is the fastest?
-To answer the question we need some test data, which should be a
-huge string <tt>dna</tt>. We could write
-<blockquote>    <!-- begin verbatim block   pycod-->
-<pre>
-N = 1000000
-dna = 'A'*N
-</pre>
-</blockquote>   <! -- end verbatim block -->
-to make a string <tt>'AAA...A</tt> that is <tt>N</tt> characters long, and this would be
-sufficient for testing efficiency. Nevertheless, it is more exciting
-to work with a DNA string with characters from the whole alphabet A, C, G,
-and T. To make a DNA string with a random composition of the characters
-we can first make a list of random characters and then join all those
-characters to a string:
-<blockquote>    <!-- begin verbatim block   pycod-->
-<pre>
-import random
-alphabet = list('ATGC')
-dna = [random.choice(alphabet) for i in range(N)]
-dna = ''.join(dna)  # join the character elements to a string
-</pre>
-</blockquote>   <! -- end verbatim block -->
-The <tt>random.choice(x)</tt> function selects an element in the list
-<tt>x</tt> at random.
-
-<P>
-Note that <tt>N</tt> is very often a large number. In Python version 2.x,
-<tt>range(N)</tt> generates a list of <tt>N</tt> integers. We can avoid this by
-using <tt>xrange</tt> which generates an integer at a time and not the whole
-list. In Python version 3.x, the <tt>range</tt> function is actually the
-<tt>xrange</tt> function in version 2.x.  Using <tt>xrange</tt>, combining the
-statements, and wrapping the construction of a random DNA string in a
-function, gives
-
-<P>
-<blockquote>    <!-- begin verbatim block  -->
-<pre>
-import random
-
-def generate_string(N, alphabet='ATCG'):
-    return ''.join([random.choice(alphabet) for i in xrange(N)])
-
-dna = generate_string(6000000)
-</pre>
-</blockquote>   <! -- end verbatim block -->
-
-<P>
-The call <tt>generate_string(10)</tt> may generate something like <tt>AATGGCAGAA</tt>.
-
-<P>
-<h4>Measuring Efficiency</h4>
-<P>
-
-<P>
-Our next goal is to generate a very long string <tt>dna</tt> and
-see how much time the <tt>count_v9</tt> and <tt>count_v10</tt> functions spend
-on counting letters in that string. Measuring the time spent
-in a program can be done by the <tt>time</tt> module as follows:
-<blockquote>    <!-- begin verbatim block   pycod-->
-<pre>
-import time
-...
-t0 = time.clock()
-# do stuff
-t1 = time.clock()
-cpu_time = t1 - t0
-</pre>
-</blockquote>   <! -- end verbatim block -->
-The <tt>time.clock</tt> function returns the CPU time spent in the program since
-its start.
-
-<P>
-Running through a set of functions and recording timings can be
-done by
-
-<P>
-<blockquote>    <!-- begin verbatim block  -->
-<pre>
-import time
-timings = []
-functions = [count_v1, count_v2, count_v3, count_v4,
-             count_v5, count_v6, count_v7, count_v8,
-             count_v9, count_v10, count_v11]
-for function in functions:
-    t0 = time.clock()
-    function(dna, 'A')
-    t1 = time.clock()
-    cpu_time = t1 - t0
-    timings.append(cpu_time)
-</pre>
-</blockquote>   <! -- end verbatim block -->
-
-<P>
-In Python, functions are ordinary objects so making a list of
-functions is no more special than making a list of strings.
-
-<P>
-We can now iterate over <tt>timings</tt> and <tt>functions</tt> simultaneously via <tt>zip</tt>
-to make a nice printout of the results:
-
-<P>
-<blockquote>    <!-- begin verbatim block  -->
-<pre>
-for cpu_time, function in zip(timings, functions):
-    print '%s: %.1f s' % (function.func_name, cpu_time)
-</pre>
-</blockquote>   <! -- end verbatim block -->
-
-<P>
-Timings on a MacBook Air 11'' running Ubuntu showed that
-the functions using <tt>list.append</tt> required almost the double of
-the time of the functions that worked with list comprehensions.
-
-<P>
+Below we shall measure the impact of the various program constructs
+on the CPU time.
 
 <P>
 <h4>Extracting Indices</h4>
@@ -553,7 +465,7 @@ the indices of the matches. This can be done by adding an <tt>if</tt>
 test to the list comprehension:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v11(dna, base):
     return len([i for i in range(len(dna)) if dna[i] == base])
@@ -576,9 +488,7 @@ A A A
 </pre>
 </blockquote>   <! -- end verbatim block -->
 The element <tt>i</tt> in the list comprehension is only made when
-the corresponding character in <tt>dna</tt> equals <tt>base</tt>.
-
-<P>
+<tt>dna[i] == base</tt>.
 
 <P>
 <h4>Using Python's Library</h4>
@@ -587,10 +497,11 @@ Very often when you set out to do a task in Python, there is already
 functionality for the task in the object itself, in the Python
 libraries, or in third-party libraries found on the Internet.
 Counting how many times a character (or substring) <tt>base</tt> appears in a
-string <tt>dna</tt> is simply done by <tt>dna.count(base)</tt>:
+string <tt>dna</tt> is obviously a very common task so Python supports
+it by <tt>dna.count(base)</tt>:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def count_v12(dna, base):
     return dna.count(base)
@@ -598,12 +509,154 @@ def count_v12(dna, base):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-A lesson learned is: google around before you start out to implement
-what seems to be a quite simple task. Others have probably already
-done it for you. And better: <tt>dna.count(base)</tt> runs over 30 times
-faster than the best of our handwritten Python functions!
+
+<P>
+<h3>Efficiency Assessment <a name="bioinf:count:cpu"></A></h3>
+<P>
+
+<P>
+Now we have 11 different versions of how to count the occurences
+of a letter in a string. Which one of these implementations is the fastest?
+To answer the question we need some test data, which should be a
+huge string <tt>dna</tt>.
+
+<P>
+<h4>Generating Random DNA Strings</h4>
+<P>
+
+<P>
+The simplest way of generating a long string is to repeat a
+character a large number of times:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+N = 1000000
+dna = 'A'*N
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The resulting string is just <tt>'AAA...A</tt>, of length <tt>N</tt>, which is fine
+for testing the efficiency of Python functions. Nevertheless, it is
+more exciting to work with a DNA string with letters from the whole
+alphabet A, C, G, and T. To make a DNA string with a random
+composition of the characters we can first make a list of random
+characters and then join all those characters to a string:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import random
+alphabet = list('ATGC')
+dna = [random.choice(alphabet) for i in range(N)]
+dna = ''.join(dna)  # join the character elements to a string
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The <tt>random.choice(x)</tt> function selects an element in the list
+<tt>x</tt> at random.
+
+<P>
+Note that <tt>N</tt> is very often a large number. In Python version 2.x,
+<tt>range(N)</tt> generates a list of <tt>N</tt> integers. We can avoid this by
+using <tt>xrange</tt> which generates an integer at a time and not the whole
+list. In Python version 3.x, the <tt>range</tt> function is actually the
+<tt>xrange</tt> function in version 2.x.  Using <tt>xrange</tt>, combining the
+statements, and wrapping the construction of a random DNA string in a
+function, gives
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import random
+
+def generate_string(N, alphabet='ATCG'):
+    return ''.join([random.choice(alphabet) for i in xrange(N)])
+
+dna = generate_string(600000)
+#dna = generate_string(6000000)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The call <tt>generate_string(10)</tt> may generate something like <tt>AATGGCAGAA</tt>.
+
+<P>
+<h4>Measuring CPU Time</h4>
+<P>
+
+<P>
+Our next goal is to see how much time the <tt>count_v9</tt> and <tt>count_v10</tt>
+functions spend on counting letters in a huge string as generated
+above. Measuring the time spent in a program can be done by the <tt>time</tt>
+module:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import time
+...
+t0 = time.clock()
+# do stuff
+t1 = time.clock()
+cpu_time = t1 - t0
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The <tt>time.clock()</tt> function returns the CPU time spent in the program since
+its start. If the interest is in the total time, also including reading
+and writing files, <tt>time.time()</tt> is the appropriate function to call.
+
+<P>
+Running through all our functions made so far and recording timings can be
+done by
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import time
+functions = [count_v1, count_v2, count_v3, count_v4,
+             count_v5, count_v6, count_v7, count_v8,
+             count_v9, count_v10, count_v11, count_v12]
+timings = []  # timings[i] holds CPU time for functions[i]
+
+for function in functions:
+    t0 = time.clock()
+    function(dna, 'A')
+    t1 = time.clock()
+    cpu_time = t1 - t0
+    timings.append(cpu_time)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+In Python, functions are ordinary objects so making a list of
+functions is no more special than making a list of strings or numbers.
+
+<P>
+We can now iterate over <tt>timings</tt> and <tt>functions</tt> simultaneously via <tt>zip</tt>
+to make a nice printout of the results:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+for cpu_time, function in zip(timings, functions):
+    print '{f:&lt;9s}: {cpu:.2f} s'.format(
+        f=function.func_name, cpu=cpu_time)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Timings on a MacBook Air 11 running Ubuntu show that
+the functions using <tt>list.append</tt> require almost the double of
+the time of the functions that work with list comprehensions.
+Even faster is the simple iteration over the string.
+However, the built-in count functionality of strings
+(<tt>dna.count(base)</tt>) runs over 30 times faster than the best of our
+handwritten Python functions!
 The reason is that the <tt>for</tt> loop needed to count in <tt>dna.count(base)</tt>
 is implemented in C and runs very much faster than loops in Python.
+
+<P>
+A clear lesson learned is: google around before you start out to implement
+what seems to be a quite common task. Others have probably already
+done it for you, and most likely is their solution much better than what
+you can (easily) come up with.
+
+<P>
+All the functions presented above, including the timings,
+can be found in the file <tt>count.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/count.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/count.py.html">online viewing</a>).
 
 <P>
 <!-- === Testing with Real Data === -->
@@ -644,16 +697,16 @@ TAG, GGT, and GGG, the table becomes
 <tr><td align="left">   T       </td> <td align="center">   1       </td> <td align="center">   0       </td> <td align="center">   1       </td> </tr>
 </table>
 <P>
-From this table we can read base A appears once in index 1 in
-the DNA strings, base C does not appear at all, base G appears twice
-in all positions, and base T appears once in the beginning and
-end of the strings.
+From this table we can read that base A appears once in index 1 in the
+DNA strings, base C does not appear at all, base G appears twice in
+all positions, and base T appears once in the beginning and end of the
+strings.
 
 <P>
 In the following we shall present different data structures to
 hold such a table and different ways of computing them.
 The table is known as a <em>frequency matrix</em> in bioinformatics,
-and this is the term used below.
+and this is the term used here too.
 
 <P>
 
@@ -665,7 +718,7 @@ an obvious data structure would be four lists, each holding
 a row. A function computing these lists may look like
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_lists(dna_list):
     n = len(dna_list[0])
@@ -691,13 +744,13 @@ def freq_lists(dna_list):
 We need to initialize the lists with the right length and a zero
 for each element, since each list element is to be used as a counter.
 Creating a list of length <tt>n</tt> with object <tt>x</tt> in all positions
-is done by <tt>[x]*n</tt>. Finding the proper length is here done by
+is done by <tt>[x]*n</tt>. Finding the proper length is here carried out by
 inspecting the length of the first element in <tt>dna_list</tt>, assuming
 that all elements have the same length.
 
 <P>
-In the <tt>for</tt> loop we use the <tt>enumerate</tt> function which is used
-to extract both the element value and the element index when
+In the <tt>for</tt> loop we apply the <tt>enumerate</tt> function which is used
+to extract both the element value <em>and</em> the element index when
 iterating over a sequence. For example,
 <blockquote>    <!-- begin verbatim block   ipy-->
 <pre>
@@ -738,8 +791,8 @@ with output
 <P>
 The frequency matrix can also be represented as a nested list <tt>M</tt>
 such that <tt>M[i][j]</tt> is the frequency of base <tt>i</tt> in position <tt>j</tt>
-in a DNA string. Here <tt>i</tt> is an integer, where 0 corresponds to A,
-1 to C, 2 to G, and 3 to T. The frequency is the number of times
+in the set of DNA strings. Here <tt>i</tt> is an integer, where 0 corresponds to A,
+1 to T, 2 to G, and 3 to C. The frequency is the number of times
 base <tt>i</tt> appears in position <tt>j</tt> in a set of DNA strings.
 Sometimes this number is divided by the number of DNA strings in
 the set so that the frequency is between 0 and 1. Note all
@@ -763,12 +816,26 @@ Nevertheless, we can illustrate how to compute this type of nested
 list directly:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_list_of_lists_v1(dna_list):
     # Create empty frequency_matrix[i][j] = 0
     # i=0,1,2,3 corresponds to A,T,G,C
     # j=0,...,length of dna_list[0]
+    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ATGC']
+
+    for dna in dna_list:
+      for index, base in enumerate(dna):
+          if base == 'A':
+              frequency_matrix[0][index] +=1
+          elif base == 'T':
+              frequency_matrix[1][index] +=1
+          elif base == 'G':
+              frequency_matrix[2][index] +=1
+          elif base == 'C':
+              frequency_matrix[3][index] +=1
+
+    return frequency_matrix
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -814,7 +881,7 @@ With the <tt>base2index</tt> dictionary we do not need the series of
 without affecting the length of the code.
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_list_of_lists_v2(dna_list):
     frequency_matrix = [[0 for v in dna_list[0]] for x in 'ATGC']
@@ -840,7 +907,7 @@ size, here 4 times <tt>len(dna_list[0])</tt>. Only the first line in the functio
 a <tt>numpy</tt> array:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 import numpy as np
 
@@ -864,8 +931,9 @@ indexing is <tt>frequency_matrix[base2index['C'],i]</tt>.
 <h4>Dictionary of Lists</h4>
 <P>
 Instead of going from a character to an integer index via
-<tt>base2index</tt>, we may prefer to index <tt>frequency_matrix</tt> by, e.g.,
-<tt>['C'][14]</tt>.  This is the most natural syntax for a user of the
+<tt>base2index</tt>, we may prefer to index <tt>frequency_matrix</tt> by the base name
+and the position index directly: like in`['C'][14]`.
+This is the most natural syntax for a user of the
 frequency matrix.  The relevant Python data structure is then a
 dictionary of lists. That is, <tt>frequency_matrix</tt> is a dictionary with
 keys <tt>'A'</tt>, <tt>'T'</tt>, <tt>'C'</tt>, and <tt>'G'</tt>. The value for each key is a
@@ -875,7 +943,7 @@ will have lengths equal to the longest DNA string.  A relevant
 function is
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_dict_of_lists_v1(dna_list):
     n = max([len(dna) for dna in dna_list])
@@ -897,7 +965,7 @@ def freq_dict_of_lists_v1(dna_list):
 Running
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 frequency_matrix = freq_dict_of_lists_v1(dna_list)
 import pprint   # for nice printout of nested data structures
@@ -929,10 +997,10 @@ frequency_matrix = {base: [0]*n for base in 'ATGC'}
 </pre>
 </blockquote>   <! -- end verbatim block -->
 Adopting this construction in the <tt>freq_dict_of_lists_v1</tt> function
-leads to
+leads to a slightly more compact version,
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_dict_of_lists_v2(dna_list):
     n = max([len(dna) for dna in dna_list])
@@ -949,21 +1017,20 @@ def freq_dict_of_lists_v2(dna_list):
 <h4>Dictionary of Dictionaries</h4>
 <P>
 The dictionary of lists data structure can alternatively be replaced
-by a dictionary of dictionaries object, often just called
-a dict of dicts object. That is,
-<tt>frequency_matrix[base]</tt> is a dictionary with the index <tt>i</tt>
-as key and the added number of occurences of <tt>base</tt> in <tt>dna[i]</tt> for
-all <tt>dna</tt> strings in the list <tt>dna_list</tt>.
-The indexing <tt>frequency_matrix['C'][i]</tt> and the value are exactly
-as before; the only difference is whether <tt>frequency_matrix['C']</tt>
-is a list or dictionary.
+by a dictionary of dictionaries object, often just called a dict of
+dicts object. That is, <tt>frequency_matrix[base]</tt> is a dictionary with
+key <tt>i</tt> and value equal to the added number of occurences of <tt>base</tt> in
+<tt>dna[i]</tt> for all <tt>dna</tt> strings in the list <tt>dna_list</tt>.  The indexing
+<tt>frequency_matrix['C'][i]</tt> and the values are exactly as in the last
+example; the only difference is whether <tt>frequency_matrix['C']</tt> is a
+list or dictionary.
 
 <P>
 Our function working with <tt>frequency_matrix</tt> as a dict of dicts
 is written
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_dict_of_dicts_v1(dna_list):
     n = max([len(dna) for dna in dna_list])
@@ -993,7 +1060,7 @@ makes a dictionary with <tt>obj</tt> as default value.
 This construction simplifies the previous function a bit:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 from collections import defaultdict
 
@@ -1006,13 +1073,6 @@ def freq_dict_of_dicts_v2(dna_list):
             frequency_matrix[base][index] += 1
 
     return frequency_matrix
-
-frequency_matrix = freq_list_of_lists_v2(dna_list)
-pprint.pprint(frequency_matrix)
-frequency_matrix = freq_dict_of_dicts_v1(dna_list)
-pprint.pprint(frequency_matrix)
-frequency_matrix = freq_dict_of_dicts_v2(dna_list)
-pprint.pprint(frequency_matrix)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -1033,13 +1093,15 @@ d = dict([(key, value) for key in sequence])
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-<h3>Analyzing the Frequency Matrix</h3>
+<h3>Analyzing the Frequency Matrix <a name="bioinf:freq:analysis"></A></h3>
+<P>
+
 <P>
 Having built a frequency matrix out of a collection of DNA strings, it
 is time to use it for analysis.  A typical question is: for a given
 position in the DNA string, which of A, T, G, or C has the highest
 frequency (highest count)?  We can then build a new DNA string with
-the most frequent character for each position. This is in
+the most frequent letter for each position. This is in
 bioinformatics known as finding consensus from a frequency matrix.
 
 <P>
@@ -1064,23 +1126,22 @@ TTAG.
 <!-- final document: -->
 
 <P>
-[<b>hpl</b>: <em>This can be more precisely and better explained?</em>]
+[<b>hpl</b>: <em>Can we explain this better? Some example on application or conclusion that can be drawn from a consensus string?</em>]
 
 <P>
 <h4>List of Lists Frequency Matrix</h4>
 <P>
-Let <tt>frequency_matrix</tt> be a list of lists. For each position <tt>i</tt>
-we run through the "rows" in the frequency matrix and find
-and keep track of the maximum frequency value and the corresponding
-character. If two or more characters have the same frequency value
-we use a dash to indicate that this position in the consensus string
-is undetermined.
+Let <tt>frequency_matrix</tt> be a list of lists. For each position <tt>i</tt> we
+run through the "rows" in the frequency matrix and keep track of the
+maximum frequency value and the corresponding letter. If two or
+more letters have the same frequency value we use a dash to
+indicate that this position in the consensus string is undetermined.
 
 <P>
 The following function computes the consensus string:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def find_consensus_v1(frequency_matrix):
     base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
@@ -1110,7 +1171,8 @@ type is wrong:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def find_consensus_v1(frequency_matrix):
-    if isinstance(frequency_matrix, list) and        isinstance(frequency_matrix[0], list):
+    if isinstance(frequency_matrix, list) and \ 
+       isinstance(frequency_matrix[0], list):
         pass # right type
     else:
         raise TypeError('frequency_matrix must be list of lists')
@@ -1136,10 +1198,10 @@ is a dict of dicts?
 The updated function looks like
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def find_consensus_v3(frequency_matrix):
-    if isinstance(frequency_matrix, dict) and \
+    if isinstance(frequency_matrix, dict) and \ 
        isinstance(frequency_matrix['A'], dict):
         pass # right type
     else:
@@ -1180,7 +1242,7 @@ with output
  'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
  'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
  'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
-GGTAC
+Consensus string: GGTAC
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -1188,7 +1250,7 @@ GGTAC
 Let us try <tt>find_consensus_v3</tt> with the dict of defaultdicts
 as input (<tt>freq_dicts_of_dicts_v2</tt>). The code runs fine, but
 the output string is just <tt>G</tt>!
-This implies that <tt>dna_length</tt> is 1, and that the length of
+The reason is that <tt>dna_length</tt> is 1, and therefore that the length of
 the <tt>A</tt> dict in <tt>frequency_matrix</tt> is 1.
 Printing out <tt>frequency_matrix</tt> yields
 <blockquote>    <!-- begin verbatim block   pycod-->
@@ -1206,8 +1268,8 @@ where our <tt>X</tt> is a short form for text like
 </pre>
 </blockquote>   <! -- end verbatim block -->
 We see that the length of a defaultdict will only count the nonzero
-entries. Hence our function must get the length of the DNA string to
-build as extra argument:
+entries. Hence, to use a defaultdict our function must get the length of the DNA string to
+build as an extra argument:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def find_consensus_v4(frequency_matrix, dna_length):
@@ -1216,9 +1278,13 @@ def find_consensus_v4(frequency_matrix, dna_length):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-[<b>hpl</b>: <em>Make a unified function that can handle lists of lists,
-dict of lists, dict of dicts, and dicts of defaultdicts? Could
-be cool.</em>]
+Exercise <a href="#bioinf:exer:freq:fargs">Allow different types for a function argument</a> suggest to make a unified
+<tt>find_consensus</tt> function which works with all of the different
+representation of <tt>frequency_matrix</tt> that we have used.
+
+<P>
+The functions making and using the frequency matrix are found
+in the file <tt>freq.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/freq.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/freq.py.html">online viewing</a>).
 
 <P>
 <h3>Probability Matrix</h3>
@@ -1264,10 +1330,11 @@ print probabilitiesList
 <P>
 
 <P>
-[<b>hpl</b>: <em>terminology: DNA strings or sequences? Maybe sequences is
-better from a pedagogical point of view since it implicitly
-says that strings are sequences, and if sequences are interpreted
-as Python sequences, it helps the programming :-)</em>]
+[<b>hpl</b>: <em>I don't get what dot plots are good for. Even when comparing two
+identical strings the dots don't show a strong correlation (because
+there are just 4 letters to choose among the chances of having
+the same letter in pos i and j of the two strings is significant.
+There should be something visual here.</em>]
 
 <P>
 Dot plots are commonly used to visualize the similarity between two protein or
@@ -1275,20 +1342,29 @@ nucleic acid sequences. They compare two sequences, say <tt>d1</tt> and <tt>d2</
 by organizing <tt>d1</tt>
 along the x-axis and <tt>d2</tt> along the y-axis of a plot.
 When <tt>d1[i] == d2[j]</tt> we mark this by drawing a dot at location
-<tt>i,j</tt> in the plot. The coordinates along the axes are the integers
-0, 1, 2, and so forth.
+<tt>i,j</tt> in the plot. An example is
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The origin is in the upper left corner, which means that the
+first string has its indices running to the right 0, 1, 2, and so forth,
+while the second string has its indices running down, row by row.
 
 <P>
-[<b>hpl</b>: <em>Insert example here! Show plot.</em>]
-
-<P>
-[<b>hpl</b>: <em>The "y string" goes downards while the "x string" goes to the right...
-when we print it, since we print row by row...But we can join the rows
-in reverse order to what I would expect - both strings starting in the
-origin and then increasing to the right and upwards.</em>]
-
-<P>
-In our forthcoming examples, a dot is represented by 1. No presence at
+In the forthcoming examples, a dot is represented by 1. No presence at
 a given location is represented by 0. A dot plot can be manually read
 to find common patterns between two sequences that has undergone
 several insertions and deletions, and it serves as a conceptual basis
@@ -1314,7 +1390,7 @@ a natural data structure. The following function creates the
 list of lists:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def dotplot_list_of_lists(dna_x, dna_y):
     dotplot_matrix = [['0' for x in dna_x] for y in dna_y]
@@ -1331,7 +1407,7 @@ To view the dot plot we need to print out the list of lists. Here
 is a possible way:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 dna_x = 'TAATGCCTGAAT'
 dna_y = 'CTCTATGCC'
@@ -1346,7 +1422,7 @@ for row in M:
 
 <P>
 The output becomes
-<blockquote>    <!-- begin verbatim block   pycod-->
+<blockquote>    <!-- begin verbatim block   dat-->
 <pre>
 1 0 0 1 0 0 0 1 0 0 0 1
 0 1 1 0 0 0 0 0 0 1 1 0
@@ -1362,9 +1438,6 @@ The output becomes
 1 0 0 1 0 0 0 1 0 0 0 1
 </pre>
 </blockquote>   <! -- end verbatim block -->
-Note that the "y string" <tt>dna_y</tt> has its first index at the top, with
-indices growing downward, while the "x string" <tt>dna_x</tt> has its indices
-growing to the right.
 
 <P>
 One can, alternatively, translate the list of lists to a multi-line string
@@ -1379,17 +1452,18 @@ plot = '\n'.join(rows)
 plot = '\n'.join([' '.join(row) for row in dotplot_matrix])
 </pre>
 </blockquote>   <! -- end verbatim block -->
-The construction <tt>'d'.join(l)</tt> joints all the string elements of the
-list <tt>l</tt> and inserts <tt>d</tt> as delimiter: <tt>'x'.join(['A','B','C']</tt>
-becomes <tt>'AxBxC'</tt>. We use a space as delimiter
-among the characters in a row since this gives a nice layout when
-printing the string. All rows are joined with newline as delimiter
-such that the rows appear on separate lines when printing the string.
-To really understand what is going on, a more comprehensive code
-could be made so that each step can be examined:
+The construction <tt>'d'.join(l)</tt> joints
+all the string elements of the
+list <tt>l</tt> and inserts <tt>d</tt> as delimiter: <tt>'x'.join(['A','B','C'])</tt>
+becomes <tt>'AxBxC'</tt>.
+We use a space as delimiter among the characters in a row since this
+gives a nice layout when printing the string. All rows are joined with
+newline as delimiter such that the rows appear on separate lines when
+printing the string.  To really understand what is going on, a more
+comprehensive code could be made so that each step can be examined:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def make_string_expanded(dotplot_matrix):
     rows = []
@@ -1410,14 +1484,14 @@ s = make_string_expanded(M2)
 
 <P>
 Unless the join operation as used here is well understood, it is highly
-recommended to paste the above ode into the <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>, step
+recommended to paste the above code into the <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>, step
 through the code, and watch how variables change their content.
 Figure <a href="#bioinf:fig:pot2">bioinf:fig:pot2</a> shows a snapshot of this type of code investigation.
 
 <P>
 <center><hr>
 <caption><i>Illustration of how join operations work (<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>). <a name="bioinf:fig:pot2"></A></i></caption>
-<p><img src="figs-bioinf/pot_join.jpg" align="bottom" width=500></p>
+<p><img src="figs-bioinf/pot_join.jpg" align="bottom" width=850></p>
 </center>
 
 <P>
@@ -1427,7 +1501,7 @@ A Numerical Python array, with integer elements that equal 0 or 1,
 is well suited as data structure to hold a dot plot.
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def dotplot_numpy(dna_x, dna_y):
     dotplot_matrix = np.zeros((len(dna_y), len(dna_x)), np.int)
@@ -1443,12 +1517,16 @@ print dotplot_numpy(dna_x, dna_y)
 
 <P>
 [<b>hpl</b>: <em>we should have a real plot with matplotlib here for a somewhat large
-string.</em>]
+string. I have the code, but need a good illustrative example...</em>]
 
 <P>
+The two dot plot functions are available
+in the file <tt>dotplot.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dotplot.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dotplot.py.html">online viewing</a>).
 
 <P>
-<h3>Finding Base Frequencies</h3>
+<h3>Finding Base Frequencies <a name="bioinf:basefreq"></A></h3>
+<P>
+
 <P>
 DNA consists of four molecules called nucleotides, or bases, and can
 be represented as a string of the letters A, C, G, and T. But this
@@ -1481,7 +1559,7 @@ count or the frequency out.
 Counting is done by
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def get_base_counts(dna):
     counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
@@ -1493,69 +1571,43 @@ def get_base_counts(dna):
 This function can then be used to compute the base frequencies:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def get_base_frequencies(dna):
+def get_base_frequencies_v1(dna):
     counts = get_base_counts(dna)
     return {base: count*1.0/len(dna)
             for base, count in counts.items()}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Since we learned at the end of the section <a href="#bioinf:count:cpu">Efficiency Assessment</a> that
+<tt>dna.count(base)</tt> was much faster than the various manual
+implementations of counting, we can write a faster and simpler
+function for computing all the base frequencies:
 
-frequencies = get_base_frequencies(dna)
-
-def print_frequencies(frequencies):
-    return ', '.join(['%s: %.2f' % (base, frequencies[base])
-                      for base in frequencies])
-
-print "Base frequencies of sequence '%s':\n%s" % \
-      (dna, print_frequencies(frequencies))
-
-# Real data
-import urllib, os
-yeast_file = 'yeast.txt'
-if not os.path.isfile(yeast_file):
-    url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
-    urllib.urlretrieve(url, filename=yeast_file)
-
-def read_dnafile_v1(filename):
-    lines = open(filename, 'r').readlines()
-    # Remove newlines in each line and join
-    dna = ''.join([line.strip() for line in lines])
-    return dna
-
-def read_dnafile_v2(filename):
-    dna = ''
-    for line in open(filename, 'r'):
-        dna += line.strip()
-    return dna
-
-dna = read_dnafile_v2(yeast_file)
-yeast_freq = get_base_frequencies(dna)
-print "Base frequencies of yeast DNA (length %d):\n%s" % \
-      (len(dna), print_frequencies(yeast_freq))
-
-assert get_base_frequencies(read_dnafile_v1(yeast_file)) == \
-       get_base_frequencies(read_dnafile_v2(yeast_file))
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def get_base_frequencies_v2(dna):
+        return {base: dna.count(base)/float(len(dna))
+                for base in 'ATGC'}
 </pre>
 </blockquote>   <! -- end verbatim block -->
 A little test,
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 dna = 'ACCAGAGT'
-frequencies = get_base_frequencies(dna)
+frequencies = get_base_frequencies_v2(dna)
 
-def print_frequencies(frequencies):
+def format_frequencies(frequencies):
     return ', '.join(['%s: %.2f' % (base, frequencies[base])
                       for base in frequencies])
 
-print "Base frequencies of sequence '%s':\n%s" % \
-      (dna, print_frequencies(frequencies))
+print "Base frequencies of sequence '%s':\n%s" % \ 
+      (dna, format_frequencies(frequencies))
 </pre>
 </blockquote>   <! -- end verbatim block -->
-
-<P>
 gives the result
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
@@ -1563,13 +1615,13 @@ Base frequencies of sequence 'ACCAGAGT':
 A: 0.38, C: 0.25, T: 0.12, G: 0.25
 </pre>
 </blockquote>   <! -- end verbatim block -->
-The <tt>print_frequencies</tt> function was made for nice printout of
+The <tt>format_frequencies</tt> function was made for nice printout of
 the frequencies with 2 decimals. The one-line code is an effective
 combination of a dictionary, list comprehension, and the
 <tt>join</tt> functionality. The latter is used to get a comma correctly
 inserted between the items in the result. Lazy programmers would
 probably just do a <tt>print frequencies</tt> and live with the
-curly braces in the output and (in general) 16 decimals.
+curly braces in the output and (in general) 16 disturbing decimals.
 
 <P>
 
@@ -1599,62 +1651,43 @@ in the current working folder.
 The appropriate download code then becomes
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 import urllib, os
-yeast_file = 'yeast.txt'
+urlbase = 'http://hplgit.github.com/bioinf-py/doc/src/data/'
+yeast_file = 'yeast_chr1.txt'
 if not os.path.isfile(yeast_file):
-    url = \
-'http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt'
+    url = urlbase + yeast_file
     urllib.urlretrieve(url, filename=yeast_file)
-
-def read_dnafile_v1(filename):
-    lines = open(filename, 'r').readlines()
-    # Remove newlines in each line and join
-    dna = ''.join([line.strip() for line in lines])
-    return dna
-
-def read_dnafile_v2(filename):
-    dna = ''
-    for line in open(filename, 'r'):
-        dna += line.strip()
-    return dna
-
-dna = read_dnafile_v2(yeast_file)
-yeast_freq = get_base_frequencies(dna)
-print "Base frequencies of yeast DNA (length %d):\n%s" % \
-      (len(dna), print_frequencies(yeast_freq))
-
-assert get_base_frequencies(read_dnafile_v1(yeast_file)) == \
-       get_base_frequencies(read_dnafile_v2(yeast_file))
 </pre>
 </blockquote>   <! -- end verbatim block -->
 A copy of the file on the Internet is now in the current working folder
-under the name <tt>yeast.txt</tt>.
-None
+under the name <tt>yeast_chr1.txt</tt>.
 
 <P>
-The <tt>yeast.txt</tt> files contains the DNA string split over many lines.
+
+<P>
+The <tt>yeast_chr1.txt</tt> files contains the DNA string split over many lines.
 We therefore need to read the lines in this file, strip each line to
 remove the trailing newline, and join all the stripped lines to
 recover the DNA string:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def read_dnafile_v1(filename):
     lines = open(filename, 'r').readlines()
-    # Remove newlines in each line and join
+    # Remove newlines in each line (line.strip()) and join
     dna = ''.join([line.strip() for line in lines])
     return dna
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-As usual, an alternative programming solution can be devised as well:
+As usual, an alternative programming solution can be devised:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def read_dnafile_v2(filename):
     dna = ''
@@ -1663,9 +1696,9 @@ def read_dnafile_v2(filename):
     return dna
 
 dna = read_dnafile_v2(yeast_file)
-yeast_freq = get_base_frequencies(dna)
-print "Base frequencies of yeast DNA (length %d):\n%s" % \
-      (len(dna), print_frequencies(yeast_freq))
+yeast_freq = get_base_frequencies_v2(dna)
+print "Base frequencies of yeast DNA (length %d):\n%s" % \ 
+      (len(dna), format_frequencies(yeast_freq))
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -1682,7 +1715,16 @@ probability than C and G.
 [<b>hpl</b>: <em>GK, can we say this, or more precisely, does the observation have any interpretation of significance?</em>]
 
 <P>
-<h3>Translating Genes into Proteins</h3>
+The functions computing base frequencies are available
+in the file <tt>basefreq.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/basefreq.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/basefreq.py.html">online viewing</a>).
+
+<P>
+<h3>Translating Genes into Proteins <a name="bioinf:gene2protein"></A></h3>
+<P>
+
+<P>
+[<b>hpl</b>: <em>I have not yet read this...</em>]
+
 <P>
 An important usage of DNA is for cells to store information on their arsenal of
 proteins. These proteins are what makes up the possible functional properties
@@ -1719,7 +1761,8 @@ The file
 http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
 </pre>
 </blockquote>   <! -- end verbatim block -->
-contains information on genetic codes. The file format takes the form
+contains a mapping of genetic codes to amino acids.
+The file format takes the form
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
 UUU     F       Phe     Phenylalanine
@@ -1736,12 +1779,100 @@ AUA     I       Ile     Isoleucine
 AUG     M       Met     Methionine (Start)
 </pre>
 </blockquote>   <! -- end verbatim block -->
-The four columns describe .... [<b>hpl</b>: <em>Need to write a bit what the significance of the info is</em>]
+The first column is the genetic code, while the other columns represent
+various ways of expressing the corresponding amino acod:
+1-letter name, a 3-letter name, and the full name.
+[<b>hpl</b>: <em>Is this correct? I'm guessing...</em>]
 
 <P>
-[[[
+We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column).  Downloading the
+file, reading it and making the dictionary are done by
 
 <P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+urlbase = 'http://hplgit.github.com/bioinf-py/data/'
+genetic_code_file = 'genetic_code.tsv'
+download(urlbase, genetic_code_file)
+code = simple_genetic_code_v1(genetic_code_file)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Not surprisingly, the <tt>simple_genetic_code_v1</tt> can be made much shorter
+by collecting the first two columns as list of 2-lists and then
+converting the 2-lists to key-value pairs in a dictionary:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def simple_genetic_code_v2(filename):
+    return dict([line.split()[0:2] for line in open(filename, 'r')])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Creating a mapping of the code onto all the three variants of the amino
+acid name is
+also of interest. For example, we would like to make look ups like
+<tt>['CUU']['3-letter']</tt> or <tt>['CUU']['amino acid']</tt>. This requires
+a dictionary of dictionaries:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def complex_genetic_code_v1(filename):
+    genetic_code = {}
+    for line in open(filename, 'r'):
+        columns = line.split()
+        genetic_code[columns[0]] = {}
+        genetic_code[columns[0]]['1-letter']   = columns[1]
+        genetic_code[columns[0]]['3-letter']   = columns[2]
+        genetic_code[columns[0]]['amino acid'] = columns[3]
+    return genetic_code
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+[<b>hpl</b>: <em>Why the names complex and simple in genetic code? I would say simple genetic code mapping and complete genetic codemapping, or??</em>]
+
+<P>
+An alternative way of writing the last function is
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def complex_genetic_code_v2(filename):
+    genetic_code = {}
+    for line in open(filename, 'r'):
+        c = line.split()
+        genetic_code[c[0]] = {
+            '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
+    return genetic_code
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+To form mRNA, we need to grab the exon regions of the lactase gene.
+These regions are substrings of the lactase gene dna string,
+corresponding to the start and end positions of the exon regions.
+Then we must replace T by U, and combine all the substrings to build
+mRNA.
+
+<P>
+Two straightforward subtasks are to load the lactase gene and its exon
+positions into variables.  The file <tt>lactase_gene.txt</tt>, at the same
+Internet location as the other files, stores lactase gene. The file
+has the same format as <tt>yeast_chr1.txt</tt>. Using previous code segments,
+we can easily download the file and read it (<tt>read_dnafile_v1</tt>) into
+<tt>lactase_gene</tt>.
+
+<P>
+The exon regions are described in a file <tt>lactase_exon.tsv</tt>, again
+found at the same Internet site as the other files. The file is
+easily downloaded by calling the previously shown <tt>download</tt> function.
+The file format is simple in that each line holds the start and end positions of an exon region:
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
 0       651
@@ -1751,6 +1882,962 @@ The four columns describe .... [<b>hpl</b>: <em>Need to write a bit what the sig
 15082   15161
 </pre>
 </blockquote>   <! -- end verbatim block -->
+We want to have this information available in a list of (start,end)
+tuples. The following function does the job:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def read_exon_regions_v1(filename):
+    positions = []
+    infile = open(filename, 'r')
+    for line in infile:
+        start, end = line.split()
+        start, end = int(start), int(end)
+        positions.append((start, end))
+    infile.close()
+    return positions
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Readers favoring compact code will appreciate this alternative version
+of the function:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def read_exon_regions_v2(filename):
+    return [tuple(int(x) for x in line.split())
+            for line in open(filename, 'r')]
+
+lactase_exon_regions = read_exon_regions_v2(lactase_exon_file)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+For simplicity's sake, we shall consider mRNA as the concatenation of exons,
+although in reality, additional base pairs are added to each end.
+Having the lactase gene as a string and the exon regions as a list of
+(start,end) tuples, it is straightforward to extract the regions
+as substrings, replace T by U, and add all the substrings together:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def create_mRNA(gene, exon_regions):
+    mrna = ''
+    for start, end in exon_regions:
+        mrna += gene[start:end].replace('T','U')
+    return mrna
+
+mrna = create_mRNA(lactase_gene, lactase_exon_regions)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+We would like to store the mRNA string in a file, using the same
+format as <tt>lactase_gene.txt</tt> and <tt>yeast_chr1.txt</tt>, i.e.,
+the string is split on multiple lines with, e.g., 70 characters per line.
+An appropriate function doing this is
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def tofile_with_line_sep(text, filename, chars_per_line=70):
+    outfile = open(filename, 'w')
+    for i in xrange(0, len(text), chars_per_line):
+        start = i
+        end = start + chars_per_line
+        outfile.write(text[start:end] + '\n')
+    outfile.close()
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+[<b>hpl</b>: <em>I changed the file writing a bit: instead of xrange(len(text)/...), I simply used a step size in xrange(0,len(text),...), which I found easier to read.</em>]
+
+<P>
+It might be convenient to have a separate folder for files that we create.
+Python has good support for testing if a folder exists, and if not,
+make a folder:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+output_folder = 'output'
+if not os.path.isdir(output_folder):
+    os.mkdir(output_folder)
+filename = os.path.join(output_folder, 'lactase_mrna.txt')
+tofile_with_line_sep(mrna, filename)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Python's term for folder is directory, which explains why <tt>isdir</tt> is
+the function name for testing on a folder existence. Observe
+especially that the combination of a folder and a filename is done via
+<tt>os.path.join</tt> rather than just inserting a forward slash, or backward
+slash on Windows: <tt>os.path.join</tt> will insert the right slsah, forward
+or backward, depending on the current operating system.
+
+<P>
+To create the protein, we replace the triplets of the mRNA strings
+by the corresponding 1-letter name as specified in the
+<tt>genetic_code.tsv</tt> file.
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def create_protein(mrna, genetic_code):
+    protein = ''
+    for i in xrange(len(mrna)/3):
+        start = i * 3
+        end = start + 3
+        protein += genetic_code[mrna[start:end]]
+    return protein
+
+genetic_code = simple_genetic_code_v1('genetic_code.tsv')
+protein = create_protein(mrna, genetic_code)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+
+<P>
+Unfortunately, this first try to simulate this translation process is
+incorrect. The problem is that the translation always begins with the
+amino acid Methionine, code AUG, and ends when one of the stop codons
+is met. We must thus check for the correct start and stop criterias.
+A fix is
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def create_protein_fixed(mrna, genetic_code):
+    protein_fixed = ''
+    trans_start_pos = mrna.find('AUG')
+    for i in range(len(mrna[trans_start_pos:])/3):
+        start = trans_start_pos + i*3
+        end = start + 3
+        amino = genetic_code[mrna[start:end]]
+        if amino == 'X':
+            break
+        protein_fixed += amino
+    return protein_fixed
+
+protein = create_protein_fixed(mrna, genetic_code)
+filename = os.path.join(output_folder, 'lactase_protein_fixed.txt')
+tofile_with_line_sep(protein, filename, 70)
+
+print '10 last amino acids of the correct lactase protein: ', \ 
+      protein[-10:]
+print 'Lenght of the correct protein: ', len(protein)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The output, needed below for comparison, becomes
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+10 last amino acids of the correct lactase protein:  QQELSPVSSF
+Lenght of the correct protein:  1927
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h3>Some Humans Can Drink Milk, While Others Cannot <a name="bioinf:lactase:milk"></A></h3>
+<P>
+
+<P>
+One type of lactose intolerance is called <em>Congenital lactase deficiency</em>.
+This is a rare genetic disorder that causes lactose intolerance from birth,
+and is particularly common in Finland. The disease is caused by a mutation of
+the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
+A. Our goal is to check what happens to the protein if this base is mutated.
+This is a simple task using the previously developed tools:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def congential_lactase_deficiency(
+    lactase_gene,
+    genetic_code,
+    lactase_exon_regions,
+    mrna_file=None,
+    protein_file=None):
+    pos = 30049
+    mutated_gene = lactase_gene[:pos] + 'A' + lactase_gene[pos+1:]
+
+    mutated_mrna = create_mRNA(mutated_gene, lactase_exon_regions)
+    if mrna_file is not None:
+        tofile_with_line_sep(mutated_mrna, mrna_file)
+
+    mutated_protein = create_protein_fixed(mutated_mrna, genetic_code)
+    if protein_file:
+        tofile_with_line_sep(mutated_protein, protein_file)
+    return mutated_protein
+
+mrna_file = os.path.join('output', 'mutated_lactase_mrna.txt')
+protein_file = os.path.join('output', 'mutated_lactase_protein.txt')
+mutated_protein = congential_lactase_deficiency(
+    lactase_gene, genetic_code, lactase_exon_regions,
+    mrna_file=mrna_file, protein_file=protein_file)
+
+print '10 last amino acids of the mutated lactase protein:', \ 
+      mutated_protein[-10:]
+print 'Lenght of the mutated lactase protein:', \ 
+      len(mutated_protein)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The output, to be compared with the non-mutated gene above, is now
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+10 last amino acids of the mutated lactase protein: GFIWSAASAA
+Lenght of the mutated lactase protein: 1389
+</pre>
+</blockquote>   <! -- end verbatim block -->
+As we can see, the translation stops prematurely, creating a much smaller
+protein, which will not have the required characteristics of the lactase
+protein.
+
+<P>
+A couple of mutations in a region for LCT located in front of LCT (actually in
+the introns of another gene) is the reason for the common lactose intolerance.
+That is, the one that sets in for adults only. These mutations control the
+expression of the LCT gene, i.e., whether that the gene is turned on or off.
+Interestingly, different mutations have evolved in different regions of the
+world, e.g., Africa and Northern Europe. This is an example of convergent
+evolution: the acquisition of the same biological trait in unrelated
+lineages. The prevalence of lactose intolerance varies widely, from around 5%
+in northern Europe, to close to 100% in south-east Asia.
+
+<P>
+[<b>hpl</b>: <em>Very attractive example!</em>]
+
+<P>
+The functions analyzing the lactase gene are found
+in the file <tt>genes2proteins.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/genes2proteins.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/genes2proteins.py.html">online viewing</a>).
+
+<P>
+
+<P>
+<h3>Random Mutations of Genes <a name="bioinf:random"></A></h3>
+<P>
+
+<P>
+
+<P>
+Mutation of genes
+is easily modeled by replacing the letter in a randomly
+chosen position of the DNA by a randomly chosen letter.
+Python's <tt>random</tt> module can be used
+to generate random numbers. Selecting a random position means
+generating a random index in the DNA string, and the function
+<tt>random.randint(a, b)</tt> generates random integers between <tt>a</tt> and
+<tt>b</tt> (both included). Generating a random
+letter is easiest done by having a list of the actual letters
+and using <tt>random.choice(list)</tt> to pick an arbitrary element from
+<tt>list</tt>.
+A function for replacing the letter in a randomly selected position (index)
+by a random letter among A, C, G, and T is most straightforwardly
+implemented by converting the DNA string to a list of letters:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+import random
+
+def mutate(dna):
+    dna_list = list(dna)
+    mutation_site = random.randint(0, len(dna_list) - 1)
+    dna_list[mutation_site] = random.choice(list('ATCG'))
+    return ''.join(dna_list)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Using the functions <tt>get_base_frequencies_v2</tt> and <tt>format_frequencies</tt>
+from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>, we can easily mutate a gene a number
+of times and see how the frequencies of the bases A, C, G, and T change:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+dna = 'ACGGAGATTTCGGTATGCAT'
+print 'Starting DNA:', dna
+print format_frequencies(get_base_frequencies_v2(dna))
+
+nmutations = 10000
+for i in range(nmutations):
+    dna = mutate(dna)
+
+print 'DNA after %d mutations:' % nmutations, dna
+print format_frequencies(get_base_frequencies_v2(dna))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Here is the output from a run:
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+Starting DNA: ACGGAGATTTCGGTATGCAT
+A: 0.25, C: 0.15, T: 0.30, G: 0.30
+DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
+A: 0.35, C: 0.25, T: 0.10, G: 0.30
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The observed rate at which mutations occur at a given position in the
+genome depends on the nucleotide (base) at the position, but maybe
+more importantly at the surrounding sequence context. There are a
+number of reasons why the observed mutation rates betwen different
+nucleotides vary. One is that there are different mechansism
+generating transitions from one base to another. Another is that the
+efficiency of the repair mechanism, which is an extensive process in
+living dividing cells, varies for different nucleotides. The
+surrounding context of the position determines to what degree there is
+a working selection pressure. If the position is in a region that
+excerts a function there will be a selective pressure. [<b>hpl</b>: <em>"selective pressure" should be better explained.</em>]
+
+<P>
+Here, we only look at the nucleotide transitions, and not the
+surrounding context.  The mutations of single nucleotides may be
+modeled using a probability for the transition from one nucleotide to
+another. For example, the probability of replacing A by C is
+prescribed as (say) 0.2. In total we need 4x4
+probabilities since each nucleotide can transform into itself (no
+change) or three others. The sum of all four transition probabilities
+for a given nucleotide must sum up to one.  Such statistical
+evolution, based on probabilities for transitioning from one state to
+another, is known as a Markov process or Markov chain.
+
+<P>
+First we need to set up the probability matrix, i.e., the
+4x4 table of probabilities where each row corresponds to the
+transition of A, C, G, or T into A, C, G, or T. Say the probability
+transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
+and from A to T is 0.4. To select a random transiton based on these
+probabilities we divide the interval [0,1] into slices whose lengths
+correspond to the given probabilities. In this example this means 0,
+0.2, 0.3, 0.6, 1. Then we draw a random number in [0,1] and
+determine which interval between the slices it lies in. The
+probability of hitting an interval equals the transition probability
+for the transition corresponding to that interval. For example, if the
+random number is 0.33, it belongs to the interval (0.3, 0.6], which
+corresponds to the transiton from A to G.
+
+<P>
+Let us generate random transition probabilities. That is,
+we generate three random numbers to divide the interval [0,1] into
+four intervals corresponding to the four possible transitions.
+The interval limits, 0, 1, and three random numbers must be sorted
+in ascending order to form the intervals. We use the function
+<tt>random.random()</tt> to generate random numbers in [0,1):
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+slice_points = sorted(
+    [0] + [random.random() for i in range(3)] + [1])
+transition_probabilities = [slice_points[i+1] - slice_points[i]
+                            for i in range(4)]
+</pre>
+</blockquote>   <! -- end verbatim block -->
+The transition probabilities are handy to have available as a dictionary:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+markov_chain['A'] = {'A': ..., 'C': ..., 'G': ..., 'T': ...}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+which can be computed by
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+markov_chain['A'] = {base: p for base, p in
+                     zip('ATGC', transition_probabilities)}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+To select a transition, the following <tt>transition</tt> function computes
+the interval limits based on the probabilities and checks in which
+interval a random number falls:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def transition(transition_probabilities):
+    interval_limits = []
+    current_limit = 0
+    for to_base in transition_probabilities:
+        current_limit += transition_probabilities[to_base]
+        interval_limits.append((current_limit, to_base))
+    r = random.random()
+    for limit, to_base in interval_limits:
+        if r &lt;= limit:
+            return to_base
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The <tt>transition_probabilities</tt> argument is a dictionary of the
+transition probabilities for a given base.
+
+<P>
+[<b>hpl</b>: <em>the transition function was made somewhat different from what you had. I just understand my version better as this is the way I draw according to a discrete prob distr. ;-) </em>]
+
+<P>
+A complete function creating all the transition probabilities and
+storing them in a dictionary of dictionaries takes the form
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def create_markov_chain():
+    markov_chain = {}
+    for from_base in 'ATGC':
+        # Generate random transition probabilities by dividing
+        # [0,1] into four intervals of random length
+       slice_points = sorted(
+           [0] + [random.random()for i in range(3)] + [1])
+       transition_probabilities = \ 
+           [slice_points[i+1] - slice_points[i] for i in range(4)]
+       markov_chain[from_base] = {base: p for base, p
+                         in zip('ATGC', transition_probabilities)}
+    return markov_chain
+
+mc = create_markov_chain()
+print mc
+print mc['A']['T'] # probability of transition from A to T
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+It is natural to develop a function for checking that the generated
+probabilities are consistent, i.e., that they sum up to 1 for each
+base:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def check_transition_probabilities(markov_chain):
+    for from_base in 'ATGC':
+        s = sum(markov_chain[from_base][to_base]
+                for to_base in 'ATGC')
+        if abs(s - 1) &gt; 1E-15:
+            raise ValueError('Wrong sum: %s for "%s"' % \ 
+                             (s, from_base))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Having the transition probability matrix <tt>mc</tt> we can randomly generate
+some transitions:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+for i in range(N):
+    print 'from A to', transition(mc['A'])
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Now we have all the tools needed to run this Markov chain of
+transitions for a randomly selected position in a DNA sequence:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def mutate_via_markov_chain(dna, markov_chain):
+    dna_list = list(dna)
+    mutation_site = random.randint(0, len(dna_list) - 1)
+    from_base = dna[mutation_site]
+    to_base = transition(markov_chain[from_base])
+    dna_list[mutation_site] = to_base
+    return ''.join(dna_list)
+
+random.seed(10)  # ensure the same random numbers every time
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Exercise <a href="#bioinf:exer:Markov:chain:eff">Speed up Markov chain mutation</a> suggests some efficiency
+enhancements of simulating mutations via these functions.
+
+<P>
+Here is a simulation of mutations using the method based on Markov chains:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+dna = 'TTACGGAGATTTCGGTATGCAT'
+print 'Starting DNA:', dna
+print format_frequencies(get_base_frequencies_v2(dna))
+
+mc = create_markov_chain()
+import pprint
+print 'Transition probabilities:\n', pprint.pformat(mc)
+nmutations = 10000
+for i in range(nmutations):
+    dna = mutate_via_markov_chain(dna, mc)
+
+print 'DNA after %d mutations (Markov chain):' % nmutations, dna
+print format_frequencies(get_base_frequencies_v2(dna))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+The output can be like
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+Starting DNA: TTACGGAGATTTCGGTATGCAT
+A: 0.23, C: 0.14, T: 0.36, G: 0.27
+Transition probabilities:
+{'A': {'A': 0.4288890546751146,
+       'C': 0.4219086988655296,
+       'G': 0.00668870644455688,
+       'T': 0.14251354001479888},
+ 'C': {'A': 0.24999667668640035,
+       'C': 0.04718309085408834,
+       'G': 0.6250440975238185,
+       'T': 0.0777761349356928},
+ 'G': {'A': 0.16022955651881965,
+       'C': 0.34652746609882423,
+       'G': 0.1328031742612512,
+       'T': 0.3604398031211049},
+ 'T': {'A': 0.20609823213950174,
+       'C': 0.17641112746655452,
+       'G': 0.010267621176125452,
+       'T': 0.6072230192178183}}
+DNA after 10000 mutations (Markov chain): GGTTTAAGTCAGCTATGATTCT
+A: 0.23, C: 0.14, T: 0.41, G: 0.23
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Note that the mutated DNA should contain more nucleotides of the
+type where the total probability of transitioning into that particular
+nucleotide is largest. This total probability is computed by summing
+up the columns of the transition probability matrix and dividing by 4:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def transition_into_bases(markov_chain):
+    return {to_base: sum(markov_chain[from_base][to_base]
+                         for from_base in 'ATGC')/4.0
+            for to_base in 'ATGC'}
+
+print transition_into_bases(mc)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+These probabilities corresponding to the example run above reads
+<blockquote>    <!-- begin verbatim block   dat-->
+<pre>
+{'A': 0.26, 'C': 0.25, 'T': 0.30, 'G': 0.19}
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Transition into T has greatest probability (0.3) and this is also
+confirmed by the greatest frequency (0.41).
+
+<P>
+The functions performing mutations are located
+in the file <tt>mutate.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>).
+
+<P>
+<h3>Classes for DNA Analysis <a name="bioinf:oo"></A></h3>
+<P>
+
+<P>
+We shall here exemplify the use of classes for performing
+DNA analysis as explained  in the previous text.
+Basically, we create a class <tt>Gene</tt> to represent a DNA sequence (string)
+and a class <tt>Region</tt> to represent a subsequence (substring), typically an
+exon or intron.
+
+<P>
+<h4>Class Region</h4>
+<P>
+The class for representing a region of a DNA string is quite simple:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+class Region:
+    def __init__(self, dna, start, end):
+        self._region = dna[start:end]
+
+    def get_region(self):
+        return self._region
+
+    def __len__(self):
+        return len(self._region)
+
+    def __eq__(self, other):
+        """Check if two Region instances are equal."""
+        return self._region == other._region
+
+    def __add__(self, other):
+        """Add Region instances: self + other"""
+        return self._region + other._region
+
+    def __iadd__(self, other):
+        """Increment Region instance: self += other"""
+        self._region += other._region
+        return self
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Besides storing the substring and giving access to it through <tt>get_region</tt>,
+we have also included the possibility to
+
+<P>
+
+<ul>
+  <li> say <tt>len(r)</tt> if <tt>r</tt> is a <tt>Region</tt> instance
+  <li> check if two <tt>Region</tt> instances are equal
+  <li> write <tt>r1 + r2</tt> for two instances <tt>r1</tt> and <tt>r2</tt> of type <tt>Region</tt>
+  <li> perform <tt>r1 += r2</tt>
+</ul>
+
+The latter two operations are convenient for making one large string out
+of all exon or intron regions.
+
+<P>
+<h4>Class Gene</h4>
+<P>
+The class for gene will be longer and more complex than class
+<tt>Region</tt>. We already have a bunch of functions performing various
+types of analysis. The idea of the <tt>Gene</tt> class is that these
+functions are methods in the class operating on the DNA string and the
+exon regions stored in the class.  Rather than recoding all the
+functions as methods in the class we shall just let the class "wrap"
+the functions. That is, the class methods calls up the functions we
+already have.  This approach has two advantages: users can either
+choose the function-based or the class-based interface, and the
+programmer can reuse all the ready-made functions when implementing
+the class.
+
+<P>
+The selection of functions include
+
+<P>
+
+<ul>
+ <li> <tt>generate_string</tt> for generating a random string from some alphabet
+ <li> <tt>download</tt> and <tt>read_dnafile</tt>
+   (version <tt>read_dnafile_v1</tt>)
+   for downloading data from the Internet and reading from file
+ <li> <tt>read_exon_regions</tt> (version <tt>read_exon_regions_v2</tt>)
+   for reading exon regions from file
+ <li> <tt>tofile_with_line_sep</tt> for writing DNA strings to file
+ <li> <tt>simple_genetic_code</tt> and <tt>complex_genetic_code</tt> for loading
+   mappings from genetic codes to different type of names for amino acids
+ <li> <tt>get_base_frequencies</tt> (version <tt>get_base_frequencies_v2</tt>)
+   for finding frequencies of each base
+ <li> <tt>format_frequencies</tt> for formatting base frequencies with two decimals
+ <li> <tt>create_mRNA</tt> for computing an mRNA string from DNA and exon regions
+ <li> <tt>mutate</tt> for mutating a base at a random position
+ <li> <tt>create_markov_chain</tt>, <tt>transition</tt>, and <tt>mutate_via_markov_chain</tt>
+   for mutating a base at a random position according to randomly
+   generated transition probabilities
+ <li> <tt>create_protein_fixed</tt> for proper creation of a protein sequence (string)
+</ul>
+
+The set of plain functions for DNA analysis is found
+in the file <tt>dna_functions.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_functions.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_functions.py.html">online viewing</a>), while
+<tt>dna_classes.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_classes.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_classes.py.html">online viewing</a>) contains the implementations
+of classes <tt>Gene</tt> and <tt>Region</tt>.
+
+<P>
+Class <tt>Gene</tt> is supposed to hold the DNA sequence and
+the associated exon regions. A simple constructor and a few
+methods may take the following form:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+from dna_functions import *
+
+class Gene:
+    def __init__(self, dna, exon_regions):
+        self._dna = dna
+
+        self._exon_regions = exon_regions
+        self._exons = []
+        for start, end in exon_regions:
+            self._exons.append(Region(dna, start, end))
+
+        # Compute the introns (regions between the exons)
+        self._introns = []
+        prev_end = 0
+        for start, end in exon_regions:
+            self._introns.append(Region(dna, prev_end, start))
+            prev_end = end
+        self._introns.append(Region(dna, end, len(dna)))
+
+    def write(self, filename, chars_per_line=70):
+        """Write DNA sequence to file with name filename."""
+        tofile_with_line_sep(self._dna, filename, chars_per_line)
+
+    def count(self, base):
+        """Return no of occurences of base in DNA."""
+        return self._dna.count(base)
+
+    def get_base_frequencies(self):
+        """Return dict of base frequencies in DNA."""
+        return get_base_frequencies(self._dna)
+
+    def format_base_frequencies(self):
+        """Return base frequencies formatted with two decimals."""
+        return format_base_frequencies(
+            self.get_base_frequencies(self._dna))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Observe how the methods just call up existing functions in
+<tt>dna_functions.py</tt>.
+
+<P>
+The constructor can be made more flexible. First, the exon regions
+may not be known so we should allow <tt>None</tt> as value and in fact
+use that as default value. Second, the data for the DNA string and
+the exon regions can either be passed or downloaded and read.
+That is,
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+g1 = Gene(dna, exon_regions)  # user has read data from file
+g2 = Gene((urlbase, dna_file), (urlbase, exon_file))  # download
+</pre>
+</blockquote>   <! -- end verbatim block -->
+If the files are already at the computer one can pass <tt>None</tt> for
+<tt>urlbase</tt>. The flexible constructor has, not surprisingly, longer
+code than the first version (but illustrates well how the
+concept of overloaded constructors in other languages, like C++ and Java,
+are dealt with in Python):
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+class Gene:
+    def __init__(self, dna, exon_regions):
+        """
+        dna: string or (urlbase,filename) tuple
+        exon_regions: None, list of (start,end) tuples
+                      or (urlbase,filename) tuple
+        In case of (urlbase,filename) tuple the file
+        is downloaded and read.
+        """
+        if isinstance(dna, (list,tuple)) and \ 
+           len(dna) == 2 and isinstance(dna[0], str) and \ 
+           isinstance(dna[1], str):
+            download(urlbase=dna[0], filename=dna[1])
+            dna = read_dnafile(dna[1])
+        elif isinstance(dna, str):
+            pass # ok type (the other possibility)
+        else:
+            raise TypeError(
+                'dna=%s %s is not string or (urlbase,filename) '\ 
+                'tuple' % (dna, type(dna)))
+
+        self._dna = dna
+
+        er = exon_regions
+        if er is None:
+            self._exons = None
+            self._introns = None
+        else:
+            if isinstance(er, (list,tuple)) and \ 
+                len(er) == 2 and isinstance(er[0], str) and \ 
+                isinstance(er[1], str):
+                download(urlbase=er[0], filename=er[1])
+                exon_regions = read_exon_regions(er[1])
+            elif isinstance(er, (list,tuple)) and \ 
+                isinstance(er[0], (list,tuple)) and \ 
+                isinstance(er[0][0], int) and \ 
+                isinstance(er[0][1], int):
+                pass # ok type (the other possibility)
+            else:
+                raise TypeError(
+                    'exon_regions=%s %s is not list of (int,int) '
+                    'or (urlbase,filename) tuple' % (er, type(era)))
+
+            self._exon_regions = exon_regions
+            self._exons = []
+            for start, end in exon_regions:
+                self._exons.append(Region(dna, start, end))
+
+            # Compute the introns (regions between the exons)
+            self._introns = []
+            prev_end = 0
+            for start, end in exon_regions:
+                self._introns.append(Region(dna, prev_end, start))
+                prev_end = end
+            self._introns.append(Region(dna, end, len(dna)))
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Note that we perform quite detailed testing of the object type
+of the data structures supplied as the <tt>dna</tt> and <tt>exon_regions</tt>
+arguments. This can well be done to ensure safe use also when there is only
+one allowed type per argument.
+
+<P>
+A <tt>create_mRNA</tt> method, returning the mRNA as a string, can be coded as
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    def create_mRNA(self):
+        """Return string for mRNA."""
+        if self._exons is not None:
+            return create_mRNA(self._dna, self._exon_regions)
+        else:
+            raise ValueError(
+                'Cannot create mRNA for gene with no exon regions')
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Also here we rely on calling an already implemented function, but include
+some testing whether asking for mRNA is appropriate.
+
+<P>
+Methods for creating a mutated gene are also included:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    def mutate_pos(self, pos, base):
+        """Return Gene with a mutation to base at position pos."""
+        dna = self._dna[:pos] + base + self._dna[pos+1:]
+        return Gene(dna, self._exon_regions)
+
+    def mutate_random(self):
+        """
+        Return Gene with a mutation at a random position.
+        Mutation into new base with equal probabilities.
+        """
+        mutated_dna = mutate(self._dna)
+        return Gene(mutated_dna, self._exon_regions)
+
+    def mutate_via_markov_chain(markov_chain):
+        """
+        Return Gene with a mutation at a random position.
+        Mutation into new base based on transition
+        probabilities in the markov_chain dict of dicts.
+        """
+        mutated_dna = mutate_via_markov_chain(
+            self._dna, markov_chain)
+        return Gene(mutated_dna, self._exon_regions)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Some "get" methods that give access to the fundamental attributes
+of the class can be included:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    def get_dna(self):
+        return self._dna
+
+    def get_exons(self):
+        return self._exons
+
+    def get_introns(self):
+        return self._introns
+</pre>
+</blockquote>   <! -- end verbatim block -->
+Alternatively, one could access the attributes directly: <tt>gene._dna</tt>,
+<tt>gene._exons</tt>, etc. In that case we should remove the leading underscore as
+this underscore signifies to the user of the class that these
+attributes are considered "protected", i.e., not to be directly accessed
+by the user. The "protection" in "get" functions is more mental
+than actual since we anyway give the data structures in the hands of
+the user.
+
+<P>
+
+<P>
+Special methods for the length of a gene, adding genes, checking if
+two genes are identical, and printing of compact gene information
+are relevant to add:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    def __len__(self):
+        return len(self._dna)
+
+    def __add__(self, other):
+        """Add Gene instances: self + other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            return self._dna + other._dna
+        else:
+            raise ValueError(
+                'cannot do Gene + Gene with exon regions')
+
+    def __iadd__(self, other):
+        """Increment Gene instance: self += other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            self._dna += other._dna
+            return self
+        else:
+            raise ValueError(
+                'cannot do Gene += Gene with exon regions')
+
+    def __eq__(self, other):
+        """Check if two Gene instances are equal."""
+        return self._dna == other._dna and \ 
+               self._exons == other._exons
+
+    def __str__(self):
+        """Pretty print (condensed info)."""
+        s = 'Gene: ' + self._dna[:6] + '...' + self._dna[-6:] + \ 
+            ', length=%d' % len(self._dna)
+        if self._exons is not None:
+            s += ', %d exon regions' % len(self._exons)
+        return s
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+<h4>Subclasses</h4>
+<P>
+We can add a <tt>get_product</tt> method in class <tt>Gene</tt>, which will be
+implemented in subclasses:
+
+<P>
+[<b>hpl</b>: <em>what does this functionality mean?</em>]
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    def get_product(self):
+        raise NotImplementedError(
+            'Class %s must implement get_product' % \ 
+            self.__lass__.__name__)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+For a non-coding gene the product is the mRNA, while a protein-coding
+gene has the product defined as the corresponding protein:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+class NoncodingGene(Gene):
+    def get_product(self):
+        return self.create_mRNA()
+
+class ProteinCodingGene(Gene):
+    def __init__(self, dna, exon_positions):
+        Gene.__init__(self, dna, exon_positions)
+        urlbase = 'http://hplgit.github.com/bioinf-py/data/'
+        genetic_code_file = 'genetic_code.tsv'
+        download(urlbase, genetic_code_file)
+        code = simple_genetic_code(genetic_code_file)
+        self.simple_genetic_code = code
+
+    def get_product(self):
+        return create_protein_fixed(self.create_mRNA(),
+                                    self.simple_genetic_code)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+
+<P>
 <h2>Exercises</h2>
 <P>
 <h3>Find pairs of characters <a name="bioinf:exer:pairs1"></A></h3>
@@ -1786,15 +2873,32 @@ of the substring. Use slices like <tt>s[3:9]</tt> to pick out a substring of <tt
 <em>Filename</em>: <tt>count_substr.py</tt>
 
 <P>
+<h3>Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></A></h3>
+<P>
+
+<P>
+Consider the family of <tt>find_consensus_v*</tt> functions from
+the section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
+different representations of the frequency matrix. Make a unified
+<tt>find_consensus</tt> function which accepts different data structures
+for the <tt>frequency_matrix</tt>. Test on the type of data structure and
+perform the necessary actions.
+
+<P>
+<em>Filename</em>: <tt>find_consensus.py</tt>
+
+<P>
 <h3>Make a function more robust <a name="bioinf:exer:get_base_counts2"></A></h3>
 <P>
 
 <P>
-Consider the function <tt>get_base_counts(dna)</tt> which counts how
-many times <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and <tt>T</tt> appears in the string <tt>dna</tt>:
+Consider the function <tt>get_base_counts(dna)</tt>
+(from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>),
+which counts how many times <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and
+<tt>T</tt> appears in the string <tt>dna</tt>:
 
 <P>
-<blockquote>    <!-- begin verbatim block  -->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def get_base_counts(dna):
     counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
@@ -1813,12 +2917,41 @@ Write an enhanced function <tt>get_base_counts2</tt> which solves this problem.
 <em>Filename</em>: <tt>get_base_counts2.py</tt>
 
 <P>
-<h2>2DO</h2>
-<ol>
-<li> gh-pages index.html
-<li> make.sh for sphinx, html, pdflatex
-<li> more ex
-</ol>
+<h3>Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></A></h3>
+<P>
+
+<P>
+Consider the lactase gene as described in
+the sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and {bioinf:lactase:milk}.
+What is the proportion of base A inside and outside exons of
+the lactase gene? Write a function <tt>get_exons</tt>, which returns
+all the substrings of the exon regions concatenated,
+and a function <tt>get_introns</tt>, which
+returns all the substrings between the exon regions concatenated.
+The function <tt>get_base_frequencies</tt> from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>
+can then be used to analyze the frequencies of bases A, C, G, and T
+in the two strings.
+
+<P>
+<em>Filename</em>: <tt>prop_A_exons.py</tt>
+
+<P>
+<h3>Speed up Markov chain mutation <a name="bioinf:exer:Markov:chain:eff"></A></h3>
+<P>
+
+<P>
+The functions <tt>transition</tt> and <tt>mutate_via_markov_chain</tt> from the section <a href="#bioinf:random">Random Mutations of Genes</a> were made for being easy to read and understand.  Upon
+closer inspection, we realize that the <tt>transition</tt> function
+constructs the <tt>interval_limits</tt> every time a random transition is to
+be computed, and we want to run a large number of transitions.  By (i)
+merging the two functions, (ii) pre-computing interval limits for each
+<tt>from_base</tt>, and (iii) adding a loop over <tt>N</tt> mutations, one can
+reduce the computation of interval limits to a minimum. Perform such
+an efficiency enhancement.  Measure the CPU time of this new function
+versus the <tt>mutate_via_markov_chain</tt> function for 1 million mutations.
+
+<P>
+<em>Filename</em>: <tt>markov_chain_mutation2.py</tt>
 
 </body>
 </html>

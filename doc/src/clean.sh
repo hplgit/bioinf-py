@@ -4,4 +4,5 @@ sh clean.sh
 cd ..
 
 doconce clean
-rm -rf ch*.p.tex
+rm -rf ch*.p.tex _static
+

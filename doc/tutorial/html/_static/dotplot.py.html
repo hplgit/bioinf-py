@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #808080 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0040D0 } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">):</span>
+    <span class="n">dotplot_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;0&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dna_x</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">dna_y</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x_index</span><span class="p">,</span> <span class="n">x_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x_value</span> <span class="o">==</span> <span class="n">y_value</span><span class="p">:</span>
+                <span class="n">dotplot_matrix</span><span class="p">[</span><span class="n">y_index</span><span class="p">][</span><span class="n">x_index</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;1&#39;</span>
+    <span class="k">return</span> <span class="n">dotplot_matrix</span>
+
+<span class="n">dna_x</span> <span class="o">=</span> <span class="s">&#39;TAATGCCTGAAT&#39;</span>
+<span class="n">dna_y</span> <span class="o">=</span> <span class="s">&#39;CTCTATGCC&#39;</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="n">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_x</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">M</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">column</span><span class="p">,</span>
+    <span class="k">print</span>
+
+<span class="k">def</span> <span class="nf">make_string</span><span class="p">(</span><span class="n">dotplot_matrix</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dotplot_matrix</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">make_string_expanded</span><span class="p">(</span><span class="n">dotplot_matrix</span><span class="p">):</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">dotplot_matrix</span><span class="p">:</span>
+        <span class="n">row_string</span> <span class="o">=</span> <span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row_string</span><span class="p">)</span>
+    <span class="n">plot</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">plot</span>
+
+<span class="n">M2</span> <span class="o">=</span> <span class="p">[[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">],</span>
+     <span class="p">[</span><span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;0&#39;</span><span class="p">,</span> <span class="s">&#39;1&#39;</span><span class="p">]]</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">make_string_expanded</span><span class="p">(</span><span class="n">M2</span><span class="p">)</span>
+
+<span class="c"># end of testing join operations in detail</span>
+<span class="k">print</span> <span class="s">&#39;-------------&#39;</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_x</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">make_string</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">make_string</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">dotplot_numpy</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">):</span>
+    <span class="n">dotplot_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">dna_y</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_x</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">x_index</span><span class="p">,</span> <span class="n">x_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_x</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">y_index</span><span class="p">,</span> <span class="n">y_value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna_y</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">x_value</span> <span class="o">==</span> <span class="n">y_value</span><span class="p">:</span>
+                <span class="n">dotplot_matrix</span><span class="p">[</span><span class="n">y_index</span><span class="p">,</span><span class="n">x_index</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">dotplot_matrix</span>
+
+<span class="k">print</span> <span class="n">dotplot_numpy</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">)</span>
+
+<span class="n">dna_x</span> <span class="o">=</span> <span class="s">&#39;ATTGCAGCTTAAGGAATCGTGCAGATTAAAGGCACCACGAATTAAGACCAGGGACATAA&#39;</span>
+<span class="n">dna_y</span> <span class="o">=</span> <span class="s">&#39;ATTGCAGCGGAAGGAATACTGCAGGTTAAAGTCACCAGGAATTCAGACCAGTTTCATAA&#39;</span>
+<span class="n">dna_y</span> <span class="o">=</span> <span class="s">&#39;ATTGCAGCCTAAGGAATCGTGCAGATTAAACTCACCACGAATTAAGACCAGGGACATAT&#39;</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">dotplot_numpy</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">)</span>
+<span class="c">#from matplotlib.pyplot import plot, show</span>
+<span class="c">#p = np.eye(60) # test</span>
+<span class="c">#x = [i for i in xrange(p.shape[1]) for j in xrange(p.shape[0]) if p[i,j] == 1]</span>
+<span class="c">#y = [j for i in xrange(p.shape[1]) for j in xrange(p.shape[0]) if p[i,j] == 1]</span>
+<span class="c">#plot(x, y, &#39;ro&#39;)</span>
+<span class="c">#show()</span>
+
+<span class="c"># Test</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">dotplot_list_of_lists</span><span class="p">(</span><span class="n">dna_x</span><span class="p">,</span> <span class="n">dna_y</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="k">assert</span> <span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]),</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> vs </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))</span>
+</pre></div>
+</body>
+</html>

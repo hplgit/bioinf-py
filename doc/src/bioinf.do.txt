@@ -909,7 +909,7 @@ plot = '\n'.join(rows)
 # or combined
 plot = '\n'.join([' '.join(row) for row in dotplot_matrix])
 !ec
-${not_primer_book("""The construction `'d'.join(l)` joints
+${not_primer_book_comment("""The construction `'d'.join(l)` joints
 all the string elements of the
 list `l` and inserts `d` as delimiter: `'x'.join(['A','B','C'])`
 becomes `'AxBxC'`.""")}
@@ -1126,7 +1126,7 @@ a dictionary of dictionaries:
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def complex_genetic_code_v1@def complex_genetic_code_v2
 
-[hpl: Why the names `complex_` and `simple_` `genetic_code`? I would say `simple_genetic_code_mapping` and `complete_genetic_code_mapping`, or??]
+[hpl: Why the names complex and simple in genetic code? I would say simple genetic code mapping and complete genetic codemapping, or??]
 
 An alternative way of writing the last function is
 
@@ -1186,8 +1186,7 @@ It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
 make a folder:
 
-@@@CODE src-bioinf/genes2proteins.py fromto: output_folder =@def
-create_protein\(
+@@@CODE src-bioinf/genes2proteins.py fromto: output_folder =@def create_protein\(
 Python's term for folder is directory, which explains why `isdir` is
 the function name for testing on a folder existence. Observe
 especially that the combination of a folder and a filename is done via
@@ -1437,11 +1436,7 @@ in the file ${link('mutate.py')}.
 label{bioinf:oo}
 
 We shall here exemplify the use of classes for performing
-DNA analysis as explained
-${primer_book_comment("""in Sections ref{bioinf:count}, ref{bioinf:freqm},
-ref{bioinf:freq:analysis}, ref{bioinf:basefreq},
-ref{bioinf:gene2protein}, ref{bioinf:lactase:milk}, and ref{bioinf:random}.
-""")} ${not_primer_book_comment(""" in the previous text.""")}
+DNA analysis as explained ${primer_book_comment("""in Sections ref{bioinf:count}, ref{bioinf:freqm}, ref{bioinf:freq:analysis}, ref{bioinf:basefreq}, ref{bioinf:gene2protein}, ref{bioinf:lactase:milk}, and ref{bioinf:random}.""")} ${not_primer_book_comment("""in the previous text.""")}
 Basically, we create a class `Gene` to represent a DNA sequence (string)
 and a class `Region` to represent a subsequence (substring), typically an
 exon or intron.
