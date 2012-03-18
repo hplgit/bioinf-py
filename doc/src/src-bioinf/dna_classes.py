@@ -77,9 +77,12 @@ class Gene:
             self._introns = []
             prev_end = 0
             for start, end in exon_regions:
-                self._introns.append(Region(dna, prev_end, start))
+                if start - prev_end > 0:
+                    self._introns.append(
+                        Region(dna, prev_end, start))
                 prev_end = end
-            self._introns.append(Region(dna, end, len(dna)))
+            if len(dna) - end > 0:
+                self._introns.append(Region(dna, end, len(dna)))
 
     def create_mRNA(self):
         """Return string for mRNA."""
@@ -175,11 +178,11 @@ class Gene:
 
     def get_product(self):
         raise NotImplementedError(
-            'Class %s must implement get_product' % \
-            self.__lass__.__name__)
+            'Subclass %s must implement get_product' % \
+            self.__class__.__name__)
 
 
-class NoncodingGene(Gene):
+class RNACodingGene(Gene):
     def get_product(self):
         return self.create_mRNA()
 
@@ -189,19 +192,23 @@ class ProteinCodingGene(Gene):
         urlbase = 'http://hplgit.github.com/bioinf-py/data/'
         genetic_code_file = 'genetic_code.tsv'
         download(urlbase, genetic_code_file)
-        code = simple_genetic_code(genetic_code_file)
-        self.simple_genetic_code = code
+        code = read_genetic_code(genetic_code_file)
+        self.genetic_code = code
 
     def get_product(self):
         return create_protein_fixed(self.create_mRNA(),
-                                    self.simple_genetic_code)
+                                    self.genetic_code)
 
 def _test():
     urlbase = 'http://hplgit.github.com/bioinf-py/data/'
     lactase_gene_file = 'lactase_gene.txt'
     lactase_exon_file = 'lactase_exon.tsv'
-    lactase_gene1 = Gene((urlbase, lactase_gene_file),
-                         (urlbase, lactase_exon_file))
+    lactase_gene = ProteinCodingGene(
+        (urlbase, lactase_gene_file),
+        (urlbase, lactase_exon_file))
+
+    protein = lactase_gene.get_product()
+    tofile_with_line_sep(protein, 'output', 'lactase_protein.txt')
 
     # Manual downloading and reading
     download(urlbase, lactase_gene_file)
@@ -210,18 +217,10 @@ def _test():
     lactase_exon_regions = read_exon_regions(lactase_exon_file)
     lactase_gene2 = Gene(lactase_dna, lactase_exon_regions)
 
-    print lactase_gene1
+    print lactase_gene
     print lactase_gene2
 
-    assert lactase_gene1 == lactase_gene2
-
-    mrna = lactase_gene1.create_mRNA()
-
-    output_folder = 'output'
-    if not os.path.isdir(output_folder):
-        os.mkdir(output_folder)
-    filename = os.path.join(output_folder, 'lactase_mrna.txt')
-    tofile_with_line_sep(mrna, filename)
+    assert lactase_gene == lactase_gene2
 
 if __name__ == '__main__':
     _test()

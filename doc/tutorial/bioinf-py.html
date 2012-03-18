@@ -26,7 +26,7 @@ Automatically generated HTML file from Doconce source
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 
 
-<center><h3>Mar 15, 2012</h3></center>
+<center><h3>Mar 18, 2012</h3></center>
 <P>
 
 <P>
@@ -78,10 +78,10 @@ proteins.
 <P>
 
 <P>
-Below are some very simple examples on DNA analysis that brings together
-basic building blocks in programming: loops, <tt>if</tt> tests, and functions.
 
 <P>
+Below are some very simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, <tt>if</tt> tests, and functions.
 
 <P>
 <h3>Counting Letters in DNA Strings <a name="bioinf:count"></A></h3>
@@ -193,7 +193,7 @@ statement. Three tools are
 effective for helping you reach the required understanding of performing
 a simulation by hand:
 (i) printing variables, (ii) using a debugger, and (iii) using an
-<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html#mode=visualize">online program flow tool</a>.
+<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">online program flow tool</a>.
 
 <P>
 Inserting <tt>print</tt> statements and examining the about is the
@@ -434,7 +434,7 @@ def count_v9(dna, base):
 
 <P>
 The DNA string is usually huge - 3 billion letters for the human
-specie. Making a boolean array with <tt>True</tt> and <tt>False</tt> values
+species. Making a boolean array with <tt>True</tt> and <tt>False</tt> values
 therefore increases the memory usage by a factor of two
 in our sample functions <tt>count_v5</tt> to <tt>count_v9</tt>.
 Summing without actually storing an extra list is desireable.
@@ -730,13 +730,13 @@ def freq_lists(dna_list):
         for index, base in enumerate(dna):
             if base == 'A':
                 A[index] += 1
-            elif base == 'T':
-                T[index] += 1
-            elif base == 'G':
-                G[index] += 1
             elif base == 'C':
                 C[index] += 1
-    return A, T, G, C
+            elif base == 'G':
+                G[index] += 1
+            elif base == 'T':
+                T[index] += 1
+    return A, C, G, T
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -769,19 +769,19 @@ Here is a call and printout of the results:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
-A, T, G, C = freq_lists(dna_list)
+A, C, G, T = freq_lists(dna_list)
 print A
-print T
-print G
 print C
+print G
+print T
 </pre>
 </blockquote>   <! -- end verbatim block -->
 with output
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
 [0, 0, 0, 2, 0]
-[3, 3, 0, 1, 1]
 [0, 0, 0, 0, 2]
+[3, 3, 0, 1, 1]
 [0, 0, 3, 0, 0]
 </pre>
 </blockquote>   <! -- end verbatim block -->
@@ -800,10 +800,10 @@ the DNA strings must have the same length.
 
 <P>
 The simplest way to make a nested list is to insert the
-<tt>A</tt>, <tt>T</tt>, <tt>C</tt>, and <tt>G</tt> lists into another list:
+<tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and <tt>T</tt> lists into another list:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-&gt;&gt;&gt; frequency_matrix = [A, T, G, C]
+&gt;&gt;&gt; frequency_matrix = [A, C, G, T]
 &gt;&gt;&gt; frequency_matrix[2][3]
 2
 &gt;&gt;&gt; G[3]  # same element
@@ -822,17 +822,17 @@ def freq_list_of_lists_v1(dna_list):
     # Create empty frequency_matrix[i][j] = 0
     # i=0,1,2,3 corresponds to A,T,G,C
     # j=0,...,length of dna_list[0]
-    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ATGC']
+    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ACGT']
 
     for dna in dna_list:
       for index, base in enumerate(dna):
           if base == 'A':
               frequency_matrix[0][index] +=1
-          elif base == 'T':
+          elif base == 'C':
               frequency_matrix[1][index] +=1
           elif base == 'G':
               frequency_matrix[2][index] +=1
-          elif base == 'C':
+          elif base == 'T':
               frequency_matrix[3][index] +=1
 
     return frequency_matrix
@@ -855,9 +855,11 @@ print frequency_matrix
 results in
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
-[[0, 0, 0, 2, 0], [0, 0, 3, 0, 0], [3, 3, 0, 1, 1], [0, 0, 0, 0, 2]]
+[[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
 </pre>
 </blockquote>   <! -- end verbatim block -->
+
+<P>
 
 <P>
 <h4>Dictionary for More Convenient Indexing</h4>
@@ -871,7 +873,7 @@ which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary represents such mappings:
 <blockquote>    <!-- begin verbatim block   ipy-->
 <pre>
-&gt;&gt;&gt; base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+&gt;&gt;&gt; base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 &gt;&gt;&gt; base2index['G']
 2
 </pre>
@@ -884,8 +886,8 @@ without affecting the length of the code.
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def freq_list_of_lists_v2(dna_list):
-    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ATGC']
-    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    frequency_matrix = [[0 for v in dna_list[0]] for x in 'ACGT']
+    base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     for dna in dna_list:
         for index, base in enumerate(dna):
             frequency_matrix[base2index[base]][index] += 1
@@ -898,7 +900,7 @@ def freq_list_of_lists_v2(dna_list):
 <h4>Numerical Python Array</h4>
 <P>
 As long as each sublist in a list of lists has the same length, a
-list of list can be replaced by a Numerical Python (<tt>numpy</tt>) array.
+list of lists can be replaced by a Numerical Python (<tt>numpy</tt>) array.
 Processing of such arrays is often much more efficient than
 processing of the nested list data structure.
 To initialize a two-dimensional <tt>numpy</tt> array we need to know its
@@ -913,7 +915,7 @@ import numpy as np
 
 def freq_numpy(dna_list):
     frequency_matrix = np.zeros((4, len(dna_list[0])), dtype=np.int)
-    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     for dna in dna_list:
         for index, base in enumerate(dna):
             frequency_matrix[base2index[base]][index] += 1
@@ -936,7 +938,7 @@ and the position index directly: like in`['C'][14]`.
 This is the most natural syntax for a user of the
 frequency matrix.  The relevant Python data structure is then a
 dictionary of lists. That is, <tt>frequency_matrix</tt> is a dictionary with
-keys <tt>'A'</tt>, <tt>'T'</tt>, <tt>'C'</tt>, and <tt>'G'</tt>. The value for each key is a
+keys <tt>'A'</tt>, <tt>'C'</tt>, <tt>'G'</tt>, and <tt>'T'</tt>. The value for each key is a
 list. Let us now also extend the flexibility such that <tt>dna_list</tt> can
 have DNA strings of different lengths. The lists in <tt>frequency_list</tt>
 will have lengths equal to the longest DNA string.  A relevant
@@ -949,9 +951,9 @@ def freq_dict_of_lists_v1(dna_list):
     n = max([len(dna) for dna in dna_list])
     frequency_matrix = {
         'A': [0]*n,
-        'T': [0]*n,
-        'G': [0]*n,
         'C': [0]*n,
+        'G': [0]*n,
+        'T': [0]*n,
         }
     for dna in dna_list:
         for index, base in enumerate(dna):
@@ -993,7 +995,7 @@ dict = {key: value for key in some_sequence}
 Here,
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-frequency_matrix = {base: [0]*n for base in 'ATGC'}
+frequency_matrix = {base: [0]*n for base in 'ACGT'}
 </pre>
 </blockquote>   <! -- end verbatim block -->
 Adopting this construction in the <tt>freq_dict_of_lists_v1</tt> function
@@ -1004,7 +1006,7 @@ leads to a slightly more compact version,
 <pre>
 def freq_dict_of_lists_v2(dna_list):
     n = max([len(dna) for dna in dna_list])
-    frequency_matrix = {base: [0]*n for base in 'ATGC'}
+    frequency_matrix = {base: [0]*n for base in 'ACGT'}
     for dna in dna_list:
         for index, base in enumerate(dna):
             frequency_matrix[base][index] += 1
@@ -1012,6 +1014,8 @@ def freq_dict_of_lists_v2(dna_list):
     return frequency_matrix
 </pre>
 </blockquote>   <! -- end verbatim block -->
+
+<P>
 
 <P>
 <h4>Dictionary of Dictionaries</h4>
@@ -1035,7 +1039,7 @@ is written
 def freq_dict_of_dicts_v1(dna_list):
     n = max([len(dna) for dna in dna_list])
     frequency_matrix = {base: {index: 0 for index in range(n)}
-                        for base in 'ATGC'}
+                        for base in 'ACGT'}
     for dna in dna_list:
         for index, base in enumerate(dna):
             frequency_matrix[base][index] += 1
@@ -1051,7 +1055,7 @@ The manual initialization of each subdictionary to zero,
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
     frequency_matrix = {base: {index: 0 for index in range(n)}
-                        for base in 'ATGC'}
+                        for base in 'ACGT'}
 </pre>
 </blockquote>   <! -- end verbatim block -->
 can be simplified by using a dictionary with default values for any
@@ -1067,7 +1071,7 @@ from collections import defaultdict
 def freq_dict_of_dicts_v2(dna_list):
     n = max([len(dna) for dna in dna_list])
     frequency_matrix = {base: defaultdict(lambda: 0)
-                        for base in 'ATGC'}
+                        for base in 'ACGT'}
     for dna in dna_list:
         for index, base in enumerate(dna):
             frequency_matrix[base][index] += 1
@@ -1093,40 +1097,160 @@ d = dict([(key, value) for key in sequence])
 </blockquote>   <! -- end verbatim block -->
 
 <P>
+<h4>Using Arrays and Vectorization</h4>
+<P>
+The dict of lists data structure for <tt>frequency_matrix</tt> can easily be
+changed to a dict of <tt>numpy</tt> arrays: just replace the initialization
+<tt>[0]*n</tt> by <tt>np.zeros(n, dtype=np.int)</tt>. The indexing remains the same:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def freq_dict_of_arrays_v1(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {base: np.zeros(n, dtype=np.int)
+                        for base in 'ACGT'}
+    for dna in dna_list:
+        for index, base in enumerate(dna):
+            frequency_matrix[base][index] += 1
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Having <tt>frequency_matrix[base]</tt> as a <tt>numpy</tt> array instead of a list
+does not give any immediate advantage, as the storage and CPU time is
+about the same. The loop over the <tt>dna</tt> string and the associated
+indexing is what consumes all the CPU time.  However, the <tt>numpy</tt>
+arrays provides a potential for increasing efficiency through
+vectorization, i.e., replacing the element-wise operations on <tt>dna</tt>
+and <tt>frequency_matrix[base]</tt> by operations on the whole arrays at
+once.
+
+<P>
+Let us use the interactive Python shell to
+explore the possibilities of vectorization.
+We first convert the string to a <tt>numpy</tt> array of characters:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+&gt;&gt;&gt; dna = 'ACAT'
+&gt;&gt;&gt; dna = np.array(dna, dtype='c')
+&gt;&gt;&gt; dna
+array(['A', 'C', 'A', 'T'],
+      dtype='|S1')
+</pre>
+</blockquote>   <! -- end verbatim block -->
+For a given base, say A, we can in one vectorized operation find
+which locations in <tt>dna</tt> that contain <tt>A</tt>:
+<blockquote>    <!-- begin verbatim block   cod-->
+<pre>
+&gt;&gt;&gt; b = dna == 'A'
+&gt;&gt;&gt; b
+array([ True, False,  True, False], dtype=bool)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+By converting <tt>b</tt> to an integer array <tt>i</tt> we can
+update the frequency counts
+for all indices by adding <tt>i</tt> to <tt>frequency_matrix['A']</tt>:
+<blockquote>    <!-- begin verbatim block   cod-->
+<pre>
+&gt;&gt;&gt; i = np.asarray(b, dtype=np.int)
+&gt;&gt;&gt; i
+array([1, 0, 1, 0])
+&gt;&gt;&gt; frequency_matrix['A'] = frequency_matrix['A'] + i
+</pre>
+</blockquote>   <! -- end verbatim block -->
+This recipe can be repeated for all bases:
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+    for dna in dna_list:
+        dna = np.array(dna, dtype='c')
+        for base in 'ACGT':
+            b = dna == base
+            i = np.asarray(b, dtype=np.int)
+            frequency_matrix[base] = frequency_matrix[base] + i
+</pre>
+</blockquote>   <! -- end verbatim block -->
+It turns out that we do not need to convert the boolean array <tt>b</tt>
+to an integer array <tt>i</tt>, because doing arithmetics with <tt>b</tt> directly
+is possible: <tt>False</tt> is interpreted as 0 and <tt>True</tt> as 1 in arithmetic
+operations.  We can also use
+the <tt>+=</tt> operator to update all elements of <tt>frequency_matrix[base]</tt>
+directly, without first computing the sum of two arrays
+<tt>frequency_matrix[base] + i</tt> and then assigning this result to
+<tt>frequency_matrix[base]</tt>.
+Collecting all these ideas in one function yields the code
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def freq_dict_of_arrays_v2(dna_list):
+    n = max([len(dna) for dna in dna_list])
+    frequency_matrix = {base: np.zeros(n, dtype=np.int)
+                        for base in 'ACGT'}
+    for dna in dna_list:
+        dna = np.array(dna, dtype='c')
+        for base in 'ACCT':
+            frequency_matrix[base] += dna == base
+
+    return frequency_matrix
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+This vectorized function runs almost 10 times as fast as the
+(scalar) counterpart <tt>freq_list_of_arrays_v1</tt>!
+
+<P>
+<!-- memory mapped files? -->
+
+<P>
 <h3>Analyzing the Frequency Matrix <a name="bioinf:freq:analysis"></A></h3>
 <P>
 
 <P>
 Having built a frequency matrix out of a collection of DNA strings, it
-is time to use it for analysis.  A typical question is: for a given
-position in the DNA string, which of A, T, G, or C has the highest
-frequency (highest count)?  We can then build a new DNA string with
-the most frequent letter for each position. This is in
-bioinformatics known as finding consensus from a frequency matrix.
+is time to use it for analysis.
+The short DNA strings that a frequency matrix is built out of, is
+typically a set of substrings of a larger DNA sequence, which shares
+some common purpose. An example of this is to have a set of substrings
+that serves as a kind of anchors/magnets at which given molecules
+attach to DNA and perform biological functions (like turning genes on
+or off). With the frequency matrix constructed from a limited set of
+known anchor locations (substrings), we can now scan for other similar
+substrings that have the potential to perform the same function. The
+simplest way to do this is to first determine the most typical
+substring according to the frequency matrix, i.e., the substring having
+the most frequent nucleotide at each position. This is referred to as
+the consensus string of the frequency matrix. We can then look for
+occurrences of the consensus substring in a larger DNA sequence, and
+consider these occurrences as likely candidates for serving the same
+function (e.g., as anchor locations for molecules).
 
 <P>
-For example, if the frequency matrix looks like this (list of lists,
-with rows corresponding to A, T, G, and C),
+For instance,
+given three substrings ACT, CCA and AGA, the frequency matrix
+would be (list of lists, with rows corresponding to A, C, G, and T):
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
-[0, 0, 0, 2, 0]
-[3, 3, 0, 1, 1]
-[0, 0, 0, 0, 2]
-[0, 0, 3, 0, 0]
+[[2, 0, 2]
+ [1, 2, 0]
+ [0, 1, 0]
+ [0, 0, 1]]
 </pre>
 </blockquote>   <! -- end verbatim block -->
-we see that for position 0, which corresponds to column 0 in the table,
-T has the highest frequency (3). The maximum frequencies for the
-other positions are seen to be T for position 1, A for position 2,
-and G for position 3. The consensus string is therefore
-TTAG.
+We see that for position 0,
+which corresponds to the left-most columnin the table, the symbol A has the
+highest frequency (2). The maximum frequencies for the other positions
+are seen to be C for position 1, and A for position 2. The consensus
+string is therefore ACA.  Note that the consensus string does not need to be
+equal to any of the substrings that formed the basis of the frequency
+matrix (this is indeed the case for the above example).
 
 <P>
-<!-- This is an inline comment, can be turned on and off in the -->
-<!-- final document: -->
 
 <P>
-[<b>hpl</b>: <em>Can we explain this better? Some example on application or conclusion that can be drawn from a consensus string?</em>]
 
 <P>
 <h4>List of Lists Frequency Matrix</h4>
@@ -1144,7 +1268,7 @@ The following function computes the consensus string:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 def find_consensus_v1(frequency_matrix):
-    base2index = {'A': 0, 'T': 1, 'G': 2, 'C': 3}
+    base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     consensus = ''
     dna_length = len(frequency_matrix[0])
 
@@ -1165,8 +1289,8 @@ def find_consensus_v1(frequency_matrix):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-Since this code requires <tt>frequency_matrix</tt> to be a list of list
-we should insert a test on this and raise an exception if the
+Since this code requires <tt>frequency_matrix</tt> to be a list of lists
+we should insert a test and raise an exception if the
 type is wrong:
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
@@ -1195,7 +1319,7 @@ is a dict of dicts?
     by <tt>frequency_matrix['A']</tt>.
 </ol>
 
-The updated function looks like
+The updated function becomes
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
@@ -1214,7 +1338,7 @@ def find_consensus_v3(frequency_matrix):
         max_freq = -1            # holds the max freq. for this i
         max_freq_base = None     # holds the corresponding base
 
-        for base in 'ATGC':
+        for base in 'ACGT':
             if frequency_matrix[base][i] &gt; max_freq:
                 max_freq = frequency_matrix[base][i]
                 max_freq_base = base
@@ -1278,7 +1402,7 @@ def find_consensus_v4(frequency_matrix, dna_length):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-Exercise <a href="#bioinf:exer:freq:fargs">Allow different types for a function argument</a> suggest to make a unified
+Exercise <a href="#bioinf:exer:freq:fargs">bioinf:exer:freq:fargs</a> suggest to make a unified
 <tt>find_consensus</tt> function which works with all of the different
 representation of <tt>frequency_matrix</tt> that we have used.
 
@@ -1710,9 +1834,21 @@ Base frequencies of yeast DNA (length 230208):
 A: 0.30, C: 0.19, T: 0.30, G: 0.20
 </pre>
 </blockquote>   <! -- end verbatim block -->
-This shows that A and T appears in the yeast DNA with 50 percent higher
-probability than C and G.
-[<b>hpl</b>: <em>GK, can we say this, or more precisely, does the observation have any interpretation of significance?</em>]
+
+<P>
+The varying frequency of different nucleotides in DNA is referred to
+as nucleotide bias. The nucleotide bias varies between organisms, and
+have a range of biological implications. For many organisms the
+nucleotide bias has been highly optimized through evolution and
+reflects characteristics of the organisms and their environments, for
+instance the typical temperature the organism is adapted to.
+ The
+interested reader can, e.g., find more details in
+<a href="http://www.nature.com/embor/journal/v6/n12/full/7400538.html">this article</a>.
+
+<P>
+<!-- This shows that A and T appears in the yeast DNA with 50 percent higher -->
+<!-- probability than C and G. -->
 
 <P>
 The functions computing base frequencies are available
@@ -1723,36 +1859,27 @@ in the file <tt>basefreq.py</tt> (<a href="http://hplgit.github.com/bioinf-py/do
 <P>
 
 <P>
-[<b>hpl</b>: <em>I have not yet read this...</em>]
+An important usage of DNA is for cells to store information on their
+arsenal of proteins. Briefly, a gene is, in essence, a region of the
+DNA, consisting of several coding parts (called exons), interspersed
+by non-coding parts (called introns).  The coding parts are
+concatenated to form a string called mRNA, where also occurrences of
+the letter T in the coding parts are substituted by a U. A triplet of
+mRNA letters code for a specific amino acid, which are the building
+blocks of proteins. Consecutive triplets of letters in mRNA in this
+way define a specific sequence of amino acids, which amounts to a
+certain protein.  Here is an example of using the mapping from DNA to
+proteins to create the Lactase protein (LPH), using the DNA sequence
+of the Lactase gene (LCT) as underlying code. An important functional
+property of LPH is in diguesting Lactose which is found most notably
+in milk. Lack of the functionality of LPH leads to digestive problems
+referred to as lactose intolerance. Most mammals and humans lose their
+expression of LCT and therefore their ability to digest milk when they
+stop recieving breast milk.
 
 <P>
-An important usage of DNA is for cells to store information on their arsenal of
-proteins. These proteins are what makes up the possible functional properties
-of a cell. Proteins are made based on the recipe found in genes. Genes are, in
-essence, only regions of the DNA. These are divided into exons, which are the
-coding regions of the gene, and introns, the regions in between. In order for a
-protein to be created, the exon regions are copied out of the DNA, joined
-together and then transcribed into mRNA. mRNA is messenger RNA, which is a
-small DNA-like sequence that is sent to the protein-creating machinery in the
-ribosomes, containing the recipe for a protein. One difference between the
-mRNA and the original DNA is that all T-bases (Thymine) are exchanged with
-U-bases (Uridine). In the ribosome, the mRNA is translated into proteins.
-Here, a genetic code is used to translate triplet of bases, or codons, into
-an amino acid. A protein is made up of a series of amino acids. Interestingly,
-the genetic code, which is the same for most forms of life, contains
-redundancy, i.e., that several codons code for the same aminoacids, as the 64
-possible codons are used to code for only 20 amino acids.
 
 <P>
-Here is an example of using the genetic code to create the amino acid sequence
-of the Lactase protein (LPH), using the DNA sequence of the Lactase gene (LCT)
-as template. An important functional property of LPH is as a restriction
-enzyme to cleave the disaccaaride Lactose into two monsaccarides. Lactose is
-most notably found in milk. Organisms lacking the functionality of LPH will
-get digestive problems including elevated osmotic pressure in the intestine
-leading to diarea and referred to as lactose intolerance. Most mammals and
-humans lose their expression of LCT and therefore their ability to digest milk
-when they stop recieving breast milk.
 
 <P>
 The file
@@ -1779,15 +1906,38 @@ AUA     I       Ile     Isoleucine
 AUG     M       Met     Methionine (Start)
 </pre>
 </blockquote>   <! -- end verbatim block -->
-The first column is the genetic code, while the other columns represent
-various ways of expressing the corresponding amino acod:
-1-letter name, a 3-letter name, and the full name.
-[<b>hpl</b>: <em>Is this correct? I'm guessing...</em>]
+The first column is the genetic code (triplet in mRNA),
+while the other columns represent
+various ways of expressing the corresponding amino acid:
+a 1-letter symbol, a 3-letter name, and the full name.
 
 <P>
-We want to make a dictionary of this file that maps the code (first
-column) on to the 1-letter name (second column).  Downloading the
-file, reading it and making the dictionary are done by
+Downloading the <tt>genetic_code.tsv</tt> file can be done by
+this robust function:
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def download(urlbase, filename):
+    if not os.path.isfile(filename):
+        url = urlbase + filename
+        try:
+            urllib.urlretrieve(url, filename=filename)
+        except IOError, e:
+            raise IOError('No Internet connection')
+        # Check if downloaded file is an HTML file, which
+        # is what github.com returns if the URL is not existing
+        f = open(filename, 'r')
+        if 'DOCTYPE html' in f.readline():
+            raise IOError('URL %s does not exist' % url)
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+We want to make a dictionary of the <tt>genetic_code.tsv</tt> file that maps
+the code in the first column onto the 1-letter symbol in the second
+column.  Downloading the file, reading it and making the dictionary
+are done by
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
@@ -1795,19 +1945,19 @@ file, reading it and making the dictionary are done by
 urlbase = 'http://hplgit.github.com/bioinf-py/data/'
 genetic_code_file = 'genetic_code.tsv'
 download(urlbase, genetic_code_file)
-code = simple_genetic_code_v1(genetic_code_file)
+code = read_genetic_code_v1(genetic_code_file)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-Not surprisingly, the <tt>simple_genetic_code_v1</tt> can be made much shorter
+Not surprisingly, the <tt>read_genetic_code_v1</tt> can be made much shorter
 by collecting the first two columns as list of 2-lists and then
 converting the 2-lists to key-value pairs in a dictionary:
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def simple_genetic_code_v2(filename):
+def read_genetic_code_v2(filename):
     return dict([line.split()[0:2] for line in open(filename, 'r')])
 </pre>
 </blockquote>   <! -- end verbatim block -->
@@ -1822,7 +1972,7 @@ a dictionary of dictionaries:
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def complex_genetic_code_v1(filename):
+def read_genetic_code_v3(filename):
     genetic_code = {}
     for line in open(filename, 'r'):
         columns = line.split()
@@ -1835,44 +1985,190 @@ def complex_genetic_code_v1(filename):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-[<b>hpl</b>: <em>Why the names complex and simple in genetic code? I would say simple genetic code mapping and complete genetic codemapping, or??</em>]
-
-<P>
 An alternative way of writing the last function is
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def complex_genetic_code_v2(filename):
+def read_genetic_code_v4(filename):
     genetic_code = {}
     for line in open(filename, 'r'):
         c = line.split()
         genetic_code[c[0]] = {
             '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
     return genetic_code
+
+code = complex_genetic_code_v1('genetic_code.tsv')
+print code['UUC']
+print code['UUG']
+
+code2 = complex_genetic_code_v2('genetic_code.tsv')
+assert code == code2
+
+name = 'UUC'
+print '%s translates into the amino acid "%s" with "%s" '\ 
+      'as 3-letter code.' % \ 
+      (name, code[name]['amino acid'], code[name]['3-letter'])
+
+def read_dnafile_v1(filename):
+    lines = open(filename, 'r').readlines()
+    # Remove newlines in each line and join
+    dna = ''.join([line.strip() for line in lines])
+    return dna
+
+lactase_gene_file = 'lactase_gene.txt'
+download(urlbase, lactase_gene_file)
+lactase_gene = read_dnafile_v1(lactase_gene_file)
+print '10 first bases of the lactase gene: ', lactase_gene[:10]
+
+lactase_exon_file = 'lactase_exon.tsv'
+download(urlbase, lactase_exon_file)
+
+def read_exon_regions_v1(filename):
+    positions = []
+    infile = open(filename, 'r')
+    for line in infile:
+        start, end = line.split()
+        start, end = int(start), int(end)
+        positions.append((start, end))
+    infile.close()
+    return positions
+
+def read_exon_regions_v2(filename):
+    return [tuple(int(x) for x in line.split())
+            for line in open(filename, 'r')]
+
+lactase_exon_regions = read_exon_regions_v2(lactase_exon_file)
+print 'Start and end position of the second exon '\ 
+      'of the lactase gene: ', lactase_exon_regions[1]
+
+lactase_exon_regions1 = read_exon_regions_v1(lactase_exon_file)
+assert lactase_exon_regions == lactase_exon_regions1
+
+# For simplicity's sake, we will consider mRNA as the concatenation of exons,
+# although in reality, additional base pairs are added to each end.
+
+def create_mRNA(gene, exon_regions):
+    mrna = ''
+    for start, end in exon_regions:
+        mrna += gene[start:end].replace('T','U')
+    return mrna
+
+mrna = create_mRNA(lactase_gene, lactase_exon_regions)
+print '10 last bases of the (coding sequence of the) mRNA '\ 
+      'for the lactase gene: ', mrna[-10:]
+
+def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
+    outfile = open(filename, 'w')
+    for i in xrange(0, len(text), chars_per_line):
+        start = i
+        end = start + chars_per_line
+        outfile.write(text[start:end] + '\n')
+    outfile.close()
+
+def tofile_with_line_sep_v2(text, foldername, filename,
+                            chars_per_line=70):
+    if not os.path.isdir(foldername):
+        os.makedirs(foldername)
+    filename = os.path.join(foldername, filename)
+    outfile = open(filename, 'w')
+
+    if chars_per_line == 'inf':
+        outfile.write(text)
+    else:
+        for i in xrange(0, len(text), chars_per_line):
+            start = i
+            end = start + chars_per_line
+            outfile.write(text[start:end] + '\n')
+    outfile.close()
+
+tofile_with_line_sep_v2(mrna, 'output', 'lactase_mrna.txt')
+
+def create_protein(mrna, genetic_code):
+    protein = ''
+    for i in xrange(len(mrna)/3):
+        start = i * 3
+        end = start + 3
+        protein += genetic_code[mrna[start:end]]
+    return protein
+
+genetic_code = read_genetic_code_v1('genetic_code.tsv')
+protein = create_protein(mrna, genetic_code)
+filename = os.path.join(output_folder, 'lactase_protein.txt')
+tofile_with_line_sep(protein, filename, 70)
+
+def create_protein_fixed(mrna, genetic_code):
+    protein_fixed = ''
+    trans_start_pos = mrna.find('AUG')
+    for i in range(len(mrna[trans_start_pos:])/3):
+        start = trans_start_pos + i*3
+        end = start + 3
+        amino = genetic_code[mrna[start:end]]
+        if amino == 'X':
+            break
+        protein_fixed += amino
+    return protein_fixed
+
+protein = create_protein_fixed(mrna, genetic_code)
+filename = os.path.join(output_folder, 'lactase_protein_fixed.txt')
+tofile_with_line_sep(protein, filename, 70)
+
+print '10 last amino acids of the correct lactase protein: ', \ 
+      protein[-10:]
+print 'Lenght of the correct protein: ', len(protein)
+
+
+def congential_lactase_deficiency(
+    lactase_gene,
+    genetic_code,
+    lactase_exon_regions,
+    mrna_file=None,
+    protein_file=None):
+    pos = 30049
+    mutated_gene = lactase_gene[:pos] + 'A' + lactase_gene[pos+1:]
+
+    mutated_mrna = create_mRNA(mutated_gene, lactase_exon_regions)
+    if mrna_file is not None:
+        tofile_with_line_sep(mutated_mrna, mrna_file)
+
+    mutated_protein = create_protein_fixed(mutated_mrna, genetic_code)
+    if protein_file:
+        tofile_with_line_sep(mutated_protein, protein_file)
+    return mutated_protein
+
+mrna_file = os.path.join('output', 'mutated_lactase_mrna.txt')
+protein_file = os.path.join('output', 'mutated_lactase_protein.txt')
+mutated_protein = congential_lactase_deficiency(
+    lactase_gene, genetic_code, lactase_exon_regions,
+    mrna_file=mrna_file, protein_file=protein_file)
+
+print '10 last amino acids of the mutated lactase protein:', \ 
+      mutated_protein[-10:]
+print 'Lenght of the mutated lactase protein:', \ 
+      len(mutated_protein)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-To form mRNA, we need to grab the exon regions of the lactase gene.
-These regions are substrings of the lactase gene dna string,
-corresponding to the start and end positions of the exon regions.
-Then we must replace T by U, and combine all the substrings to build
-mRNA.
+To form mRNA, we need to grab the exon regions (the coding parts) of
+the lactase gene.  These regions are substrings of the lactase gene
+DNA string, corresponding to the start and end positions of the exon
+regions.  Then we must replace T by U, and combine all the substrings
+to build the mRNA string.
 
 <P>
 Two straightforward subtasks are to load the lactase gene and its exon
 positions into variables.  The file <tt>lactase_gene.txt</tt>, at the same
-Internet location as the other files, stores lactase gene. The file
-has the same format as <tt>yeast_chr1.txt</tt>. Using previous code segments,
-we can easily download the file and read it (<tt>read_dnafile_v1</tt>) into
-<tt>lactase_gene</tt>.
+Internet location as the other files, stores the lactase gene. The file
+has the same format as <tt>yeast_chr1.txt</tt>. Using the <tt>download</tt> function
+and the previously shown <tt>read_dnafile_v1</tt>, we can easily load the
+data in the file into the string <tt>lactase_gene</tt>.
 
 <P>
-The exon regions are described in a file <tt>lactase_exon.tsv</tt>, again
-found at the same Internet site as the other files. The file is
-easily downloaded by calling the previously shown <tt>download</tt> function.
-The file format is simple in that each line holds the start and end positions of an exon region:
+The exon regions are described in a file <tt>lactase_exon.tsv</tt>, also
+found at the same Internet site as the other files. The file is easily
+downloaded by calling <tt>download</tt>.  The file format is very simple in
+that each line holds the start and end positions of an exon region:
 <blockquote>    <!-- begin verbatim block   dat-->
 <pre>
 0       651
@@ -1942,7 +2238,7 @@ An appropriate function doing this is
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def tofile_with_line_sep(text, filename, chars_per_line=70):
+def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
     outfile = open(filename, 'w')
     for i in xrange(0, len(text), chars_per_line):
         start = i
@@ -1953,21 +2249,18 @@ def tofile_with_line_sep(text, filename, chars_per_line=70):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-[<b>hpl</b>: <em>I changed the file writing a bit: instead of xrange(len(text)/...), I simply used a step size in xrange(0,len(text),...), which I found easier to read.</em>]
 
 <P>
 It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
 make a folder:
-
-<P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 output_folder = 'output'
 if not os.path.isdir(output_folder):
     os.mkdir(output_folder)
 filename = os.path.join(output_folder, 'lactase_mrna.txt')
-tofile_with_line_sep(mrna, filename)
+tofile_with_line_sep_v1(mrna, filename)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 Python's term for folder is directory, which explains why <tt>isdir</tt> is
@@ -1976,6 +2269,47 @@ especially that the combination of a folder and a filename is done via
 <tt>os.path.join</tt> rather than just inserting a forward slash, or backward
 slash on Windows: <tt>os.path.join</tt> will insert the right slsah, forward
 or backward, depending on the current operating system.
+
+<P>
+Occasionally, the output folder is nested, say
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+output_folder = os.path.join('output', 'lactase')
+</pre>
+</blockquote>   <! -- end verbatim block -->
+In that case <tt>os.mkdir(output_folder)</tt> may fail because
+the intermediate folder <tt>output</tt> is missing. Making a folder
+and also all missing intermediate folders is done by <tt>os.makedirs</tt>.
+We can write a more general file writing function which takes
+a folder name and file name as input and writes the file.
+Let us also add some flexibility in the file format: one can either
+write a fixed number of characters per line, or have the string on just
+one long line. The latter version is specified through <tt>chars_per_line='inf'</tt>
+(for infinite number of characters per line).
+
+<P>
+The flexible file writing function then becomes
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def tofile_with_line_sep_v2(text, foldername, filename,
+                            chars_per_line=70):
+    if not os.path.isdir(foldername):
+        os.makedirs(foldername)
+    filename = os.path.join(foldername, filename)
+    outfile = open(filename, 'w')
+
+    if chars_per_line == 'inf':
+        outfile.write(text)
+    else:
+        for i in xrange(0, len(text), chars_per_line):
+            start = i
+            end = start + chars_per_line
+            outfile.write(text[start:end] + '\n')
+    outfile.close()
+</pre>
+</blockquote>   <! -- end verbatim block -->
 
 <P>
 To create the protein, we replace the triplets of the mRNA strings
@@ -1993,7 +2327,7 @@ def create_protein(mrna, genetic_code):
         protein += genetic_code[mrna[start:end]]
     return protein
 
-genetic_code = simple_genetic_code_v1('genetic_code.tsv')
+genetic_code = read_genetic_code_v1('genetic_code.tsv')
 protein = create_protein(mrna, genetic_code)
 </pre>
 </blockquote>   <! -- end verbatim block -->
@@ -2186,28 +2520,21 @@ A: 0.35, C: 0.25, T: 0.10, G: 0.30
 
 <P>
 The observed rate at which mutations occur at a given position in the
-genome depends on the nucleotide (base) at the position, but maybe
-more importantly at the surrounding sequence context. There are a
-number of reasons why the observed mutation rates betwen different
-nucleotides vary. One is that there are different mechansism
-generating transitions from one base to another. Another is that the
-efficiency of the repair mechanism, which is an extensive process in
-living dividing cells, varies for different nucleotides. The
-surrounding context of the position determines to what degree there is
-a working selection pressure. If the position is in a region that
-excerts a function there will be a selective pressure. [<b>hpl</b>: <em>"selective pressure" should be better explained.</em>]
-
-<P>
-Here, we only look at the nucleotide transitions, and not the
-surrounding context.  The mutations of single nucleotides may be
-modeled using a probability for the transition from one nucleotide to
-another. For example, the probability of replacing A by C is
-prescribed as (say) 0.2. In total we need 4x4
-probabilities since each nucleotide can transform into itself (no
-change) or three others. The sum of all four transition probabilities
-for a given nucleotide must sum up to one.  Such statistical
-evolution, based on probabilities for transitioning from one state to
-another, is known as a Markov process or Markov chain.
+genome depends on the nucleotide (base) at the position. There are a
+number of reasons why the observed mutation rates vary between
+different nucleotides. One reason is that there are different
+mechanisms generating transitions from one base to another. Another
+reason is that there are extensive repair process in living cells, and
+the efficiency of this repair mechanism varies for different
+nucleotides.  Mutation of nucleotides may be modeled using distinct
+probabilities for the transitions from each nucleotide to every other
+nucleotide. For example, the probability of replacing A by C may be
+prescribed as (say) 0.2. In total we need 4x4 probabilities since each
+nucleotide can transform into itself (no change) or three others. The
+sum of all four transition probabilities for a given nucleotide must
+sum up to one. Such statistical evolution, based on probabilities for
+transitioning from one state to another, is known as a Markov process
+or Markov chain.
 
 <P>
 First we need to set up the probability matrix, i.e., the
@@ -2351,7 +2678,7 @@ def mutate_via_markov_chain(dna, markov_chain):
 random.seed(10)  # ensure the same random numbers every time
 </pre>
 </blockquote>   <! -- end verbatim block -->
-Exercise <a href="#bioinf:exer:Markov:chain:eff">Speed up Markov chain mutation</a> suggests some efficiency
+Exercise <a href="#bioinf:exer:Markov:chain:eff">bioinf:exer:Markov:chain:eff</a> suggests some efficiency
 enhancements of simulating mutations via these functions.
 
 <P>
@@ -2435,7 +2762,7 @@ The functions performing mutations are located
 in the file <tt>mutate.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>).
 
 <P>
-<h3>Classes for DNA Analysis <a name="bioinf:oo"></A></h3>
+<h2>Classes for DNA Analysis <a name="bioinf:oo"></A></h2>
 <P>
 
 <P>
@@ -2446,7 +2773,7 @@ and a class <tt>Region</tt> to represent a subsequence (substring), typically an
 exon or intron.
 
 <P>
-<h4>Class Region</h4>
+<h3>Class for Regions</h3>
 <P>
 The class for representing a region of a DNA string is quite simple:
 
@@ -2493,7 +2820,7 @@ The latter two operations are convenient for making one large string out
 of all exon or intron regions.
 
 <P>
-<h4>Class Gene</h4>
+<h3>Class for Genes</h3>
 <P>
 The class for gene will be longer and more complex than class
 <tt>Region</tt>. We already have a bunch of functions performing various
@@ -2519,9 +2846,10 @@ The selection of functions include
    for downloading data from the Internet and reading from file
  <li> <tt>read_exon_regions</tt> (version <tt>read_exon_regions_v2</tt>)
    for reading exon regions from file
- <li> <tt>tofile_with_line_sep</tt> for writing DNA strings to file
- <li> <tt>simple_genetic_code</tt> and <tt>complex_genetic_code</tt> for loading
-   mappings from genetic codes to different type of names for amino acids
+ <li> <tt>tofile_with_line_sep</tt> (version <tt>tofile_with_line_sep_v2</tt>)
+   for writing strings to file
+ <li> <tt>read_genetic_code</tt> (version <tt>read_genetic_code_v2</tt>) for loading
+   the mapping from triplet codes to 1-letter symbols for amino acids
  <li> <tt>get_base_frequencies</tt> (version <tt>get_base_frequencies_v2</tt>)
    for finding frequencies of each base
  <li> <tt>format_frequencies</tt> for formatting base frequencies with two decimals
@@ -2538,6 +2866,8 @@ in the file <tt>dna_functions.py</tt> (<a href="http://hplgit.github.com/bioinf-
 <tt>dna_classes.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_classes.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/dna_classes.py.html">online viewing</a>) contains the implementations
 of classes <tt>Gene</tt> and <tt>Region</tt>.
 
+<P>
+<h4>Basic Features of class Gene</h4>
 <P>
 Class <tt>Gene</tt> is supposed to hold the DNA sequence and
 the associated exon regions. A simple constructor and a few
@@ -2585,9 +2915,14 @@ Observe how the methods just call up existing functions in
 <tt>dna_functions.py</tt>.
 
 <P>
+<h4>Flexible Constructor</h4>
+<P>
 The constructor can be made more flexible. First, the exon regions
 may not be known so we should allow <tt>None</tt> as value and in fact
-use that as default value. Second, the data for the DNA string and
+use that as default value. Second, exon regions at the start and/or
+end of the DNA string will lead to empty intron <tt>Region</tt> objects so a proper
+test on nonzero length of the introns must be inserted.
+Third, the data for the DNA string and
 the exon regions can either be passed or downloaded and read.
 That is,
 <blockquote>    <!-- begin verbatim block   pycod-->
@@ -2657,9 +2992,12 @@ class Gene:
             self._introns = []
             prev_end = 0
             for start, end in exon_regions:
-                self._introns.append(Region(dna, prev_end, start))
+                if start - prev_end &gt; 0:
+                    self._introns.append(
+                        Region(dna, prev_end, start))
                 prev_end = end
-            self._introns.append(Region(dna, end, len(dna)))
+            if len(dna) - end &gt; 0:
+                self._introns.append(Region(dna, end, len(dna)))
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
@@ -2669,6 +3007,8 @@ of the data structures supplied as the <tt>dna</tt> and <tt>exon_regions</tt>
 arguments. This can well be done to ensure safe use also when there is only
 one allowed type per argument.
 
+<P>
+<h4>Other Methods</h4>
 <P>
 A <tt>create_mRNA</tt> method, returning the mRNA as a string, can be coded as
 
@@ -2791,32 +3131,39 @@ are relevant to add:
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-<h4>Subclasses</h4>
+<h3>Subclasses</h3>
 <P>
-We can add a <tt>get_product</tt> method in class <tt>Gene</tt>, which will be
-implemented in subclasses:
+There are two fundamental types of genes: the most common type which
+codes for proteins (indirectly via mRNA) and the type which only codes
+for RNA (without being further processed to proteins).
+The product of a gene, mRNA or protein, depends on the type of gene we have.
+It is then natural to create two subclasses for the two types of
+gene and have a method <tt>get_product</tt> which returns the product
+of that type of gene.
 
 <P>
-[<b>hpl</b>: <em>what does this functionality mean?</em>]
+The <tt>get_product</tt> method can be declared in class <tt>Gene</tt>:
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
     def get_product(self):
         raise NotImplementedError(
-            'Class %s must implement get_product' % \ 
-            self.__lass__.__name__)
+            'Subclass %s must implement get_product' % \ 
+            self.__class__.__name__)
 </pre>
 </blockquote>   <! -- end verbatim block -->
+Note that the exception here will be triggered by an instance (<tt>self</tt>)
+of any subclass that just inherits <tt>get_product</tt> from class <tt>Gene</tt>
+without implementing a subclass version of this method.
 
 <P>
-For a non-coding gene the product is the mRNA, while a protein-coding
-gene has the product defined as the corresponding protein:
+The two subclasses of <tt>Gene</tt> may take this simple form:
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-class NoncodingGene(Gene):
+class RNACodingGene(Gene):
     def get_product(self):
         return self.create_mRNA()
 
@@ -2826,132 +3173,36 @@ class ProteinCodingGene(Gene):
         urlbase = 'http://hplgit.github.com/bioinf-py/data/'
         genetic_code_file = 'genetic_code.tsv'
         download(urlbase, genetic_code_file)
-        code = simple_genetic_code(genetic_code_file)
-        self.simple_genetic_code = code
+        code = read_genetic_code(genetic_code_file)
+        self.genetic_code = code
 
     def get_product(self):
         return create_protein_fixed(self.create_mRNA(),
-                                    self.simple_genetic_code)
+                                    self.genetic_code)
 </pre>
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-
-<P>
-<h2>Exercises</h2>
-<P>
-<h3>Find pairs of characters <a name="bioinf:exer:pairs1"></A></h3>
-<P>
-
-<P>
-Write a function <tt>count_pairs(dna, pair)</tt> that returns the number of
-occurences of a pair of characters (<tt>pair</tt>) in a DNA string (<tt>dna</tt>).
-For example, <tt>count_pairs('ACTGCTATCCATT', 'AT')</tt> should return 2.
-
-<P>
-<!-- Note: dna.count(pair) works! -->
-
-<P>
-<em>Filename</em>: <tt>count_pairs.py</tt>
-
-<P>
-<h3>Count substrings <a name="bioinf:exer:substr1"></A></h3>
-<P>
-
-<P>
-This is an extension of Exercise <a href="#bioinf:exer:substr1">Count substrings</a>:
-count how many times a certain string appears in another string.
-For example, <tt>count_substr('ACGTTACGGAACG', 'ACG')</tt> should return 2.
-
-<P>
-<b>Hint 1.</b> For each match of the first character of the
-substring in the main string, check if the next <tt>n</tt> characters
-in the main string matches the substring, where <tt>n</tt> is the length
-of the substring. Use slices like <tt>s[3:9]</tt> to pick out a substring of <tt>s</tt>.
-
-<P>
-<em>Filename</em>: <tt>count_substr.py</tt>
-
-<P>
-<h3>Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></A></h3>
-<P>
-
-<P>
-Consider the family of <tt>find_consensus_v*</tt> functions from
-the section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
-different representations of the frequency matrix. Make a unified
-<tt>find_consensus</tt> function which accepts different data structures
-for the <tt>frequency_matrix</tt>. Test on the type of data structure and
-perform the necessary actions.
-
-<P>
-<em>Filename</em>: <tt>find_consensus.py</tt>
-
-<P>
-<h3>Make a function more robust <a name="bioinf:exer:get_base_counts2"></A></h3>
-<P>
-
-<P>
-Consider the function <tt>get_base_counts(dna)</tt>
-(from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>),
-which counts how many times <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and
-<tt>T</tt> appears in the string <tt>dna</tt>:
+A demonstration of how to load the lactase gene and create the
+lactase protein is done with
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
-def get_base_counts(dna):
-    counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
-    for base in dna:
-        counts[base] += 1
-    return counts
+def _test():
+    urlbase = 'http://hplgit.github.com/bioinf-py/data/'
+    lactase_gene_file = 'lactase_gene.txt'
+    lactase_exon_file = 'lactase_exon.tsv'
+    lactase_gene = ProteinCodingGene(
+        (urlbase, lactase_gene_file),
+        (urlbase, lactase_exon_file))
+
+    protein = lactase_gene.get_product()
+    tofile_with_line_sep(protein, 'output', 'lactase_protein.txt')
 </pre>
 </blockquote>   <! -- end verbatim block -->
-Unfortunately, this function crashes if other symbols appear in <tt>dna</tt>.
-Write an enhanced function <tt>get_base_counts2</tt> which solves this problem.
 
 <P>
-<!-- Hints: defaultdict or test on if base in counts: ... else counts[base]=1 -->
-
-<P>
-<em>Filename</em>: <tt>get_base_counts2.py</tt>
-
-<P>
-<h3>Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></A></h3>
-<P>
-
-<P>
-Consider the lactase gene as described in
-the sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and {bioinf:lactase:milk}.
-What is the proportion of base A inside and outside exons of
-the lactase gene? Write a function <tt>get_exons</tt>, which returns
-all the substrings of the exon regions concatenated,
-and a function <tt>get_introns</tt>, which
-returns all the substrings between the exon regions concatenated.
-The function <tt>get_base_frequencies</tt> from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>
-can then be used to analyze the frequencies of bases A, C, G, and T
-in the two strings.
-
-<P>
-<em>Filename</em>: <tt>prop_A_exons.py</tt>
-
-<P>
-<h3>Speed up Markov chain mutation <a name="bioinf:exer:Markov:chain:eff"></A></h3>
-<P>
-
-<P>
-The functions <tt>transition</tt> and <tt>mutate_via_markov_chain</tt> from the section <a href="#bioinf:random">Random Mutations of Genes</a> were made for being easy to read and understand.  Upon
-closer inspection, we realize that the <tt>transition</tt> function
-constructs the <tt>interval_limits</tt> every time a random transition is to
-be computed, and we want to run a large number of transitions.  By (i)
-merging the two functions, (ii) pre-computing interval limits for each
-<tt>from_base</tt>, and (iii) adding a loop over <tt>N</tt> mutations, one can
-reduce the computation of interval limits to a minimum. Perform such
-an efficiency enhancement.  Measure the CPU time of this new function
-versus the <tt>mutate_via_markov_chain</tt> function for 1 million mutations.
-
-<P>
-<em>Filename</em>: <tt>markov_chain_mutation2.py</tt>
 
 </body>
 </html>

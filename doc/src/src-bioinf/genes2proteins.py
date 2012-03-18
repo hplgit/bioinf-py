@@ -13,7 +13,7 @@ def download(urlbase, filename):
         if 'DOCTYPE html' in f.readline():
             raise IOError('URL %s does not exist' % url)
 
-def simple_genetic_code_v1(filename):
+def read_genetic_code_v1(filename):
     infile = open(filename, 'r')
     genetic_code = {}
     for line in infile:
@@ -24,15 +24,15 @@ def simple_genetic_code_v1(filename):
 urlbase = 'http://hplgit.github.com/bioinf-py/data/'
 genetic_code_file = 'genetic_code.tsv'
 download(urlbase, genetic_code_file)
-code = simple_genetic_code_v1(genetic_code_file)
+code = read_genetic_code_v1(genetic_code_file)
 
-def simple_genetic_code_v2(filename):
+def read_genetic_code_v2(filename):
     return dict([line.split()[0:2] for line in open(filename, 'r')])
 
-code2 = simple_genetic_code_v2('genetic_code.tsv')
+code2 = read_genetic_code_v2('genetic_code.tsv')
 assert code == code2
 
-def complex_genetic_code_v1(filename):
+def read_genetic_code_v3(filename):
     genetic_code = {}
     for line in open(filename, 'r'):
         columns = line.split()
@@ -42,7 +42,7 @@ def complex_genetic_code_v1(filename):
         genetic_code[columns[0]]['amino acid'] = columns[3]
     return genetic_code
 
-def complex_genetic_code_v2(filename):
+def read_genetic_code_v4(filename):
     genetic_code = {}
     for line in open(filename, 'r'):
         c = line.split()
@@ -110,7 +110,7 @@ mrna = create_mRNA(lactase_gene, lactase_exon_regions)
 print '10 last bases of the (coding sequence of the) mRNA '\
       'for the lactase gene: ', mrna[-10:]
 
-def tofile_with_line_sep(text, filename, chars_per_line=70):
+def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
     outfile = open(filename, 'w')
     for i in xrange(0, len(text), chars_per_line):
         start = i
@@ -118,11 +118,23 @@ def tofile_with_line_sep(text, filename, chars_per_line=70):
         outfile.write(text[start:end] + '\n')
     outfile.close()
 
-output_folder = 'output'
-if not os.path.isdir(output_folder):
-    os.mkdir(output_folder)
-filename = os.path.join(output_folder, 'lactase_mrna.txt')
-tofile_with_line_sep(mrna, filename)
+def tofile_with_line_sep_v2(text, foldername, filename,
+                            chars_per_line=70):
+    if not os.path.isdir(foldername):
+        os.makedirs(foldername)
+    filename = os.path.join(foldername, filename)
+    outfile = open(filename, 'w')
+
+    if chars_per_line == 'inf':
+        outfile.write(text)
+    else:
+        for i in xrange(0, len(text), chars_per_line):
+            start = i
+            end = start + chars_per_line
+            outfile.write(text[start:end] + '\n')
+    outfile.close()
+
+tofile_with_line_sep_v2(mrna, 'output', 'lactase_mrna.txt')
 
 def create_protein(mrna, genetic_code):
     protein = ''
@@ -132,7 +144,7 @@ def create_protein(mrna, genetic_code):
         protein += genetic_code[mrna[start:end]]
     return protein
 
-genetic_code = simple_genetic_code_v1('genetic_code.tsv')
+genetic_code = read_genetic_code_v1('genetic_code.tsv')
 protein = create_protein(mrna, genetic_code)
 filename = os.path.join(output_folder, 'lactase_protein.txt')
 tofile_with_line_sep(protein, filename, 70)

@@ -92,7 +92,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="k">if</span> <span class="s">&#39;DOCTYPE html&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">():</span>
             <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s">&#39;URL </span><span class="si">%s</span><span class="s"> does not exist&#39;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">simple_genetic_code_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_genetic_code_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">infile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
     <span class="n">genetic_code</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
@@ -103,15 +103,15 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 <span class="n">genetic_code_file</span> <span class="o">=</span> <span class="s">&#39;genetic_code.tsv&#39;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">urlbase</span><span class="p">,</span> <span class="n">genetic_code_file</span><span class="p">)</span>
-<span class="n">code</span> <span class="o">=</span> <span class="n">simple_genetic_code_v1</span><span class="p">(</span><span class="n">genetic_code_file</span><span class="p">)</span>
+<span class="n">code</span> <span class="o">=</span> <span class="n">read_genetic_code_v1</span><span class="p">(</span><span class="n">genetic_code_file</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">simple_genetic_code_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_genetic_code_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">dict</span><span class="p">([</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)])</span>
 
-<span class="n">code2</span> <span class="o">=</span> <span class="n">simple_genetic_code_v2</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
+<span class="n">code2</span> <span class="o">=</span> <span class="n">read_genetic_code_v2</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">code</span> <span class="o">==</span> <span class="n">code2</span>
 
-<span class="k">def</span> <span class="nf">complex_genetic_code_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_genetic_code_v3</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">genetic_code</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
         <span class="n">columns</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -121,7 +121,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="n">genetic_code</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s">&#39;amino acid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">genetic_code</span>
 
-<span class="k">def</span> <span class="nf">complex_genetic_code_v2</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">read_genetic_code_v4</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">genetic_code</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">):</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
@@ -189,7 +189,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="k">print</span> <span class="s">&#39;10 last bases of the (coding sequence of the) mRNA &#39;</span>\
       <span class="s">&#39;for the lactase gene: &#39;</span><span class="p">,</span> <span class="n">mrna</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
 
-<span class="k">def</span> <span class="nf">tofile_with_line_sep</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">tofile_with_line_sep_v1</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
     <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">chars_per_line</span><span class="p">):</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">i</span>
@@ -197,11 +197,23 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
     <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<span class="n">output_folder</span> <span class="o">=</span> <span class="s">&#39;output&#39;</span>
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">output_folder</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">output_folder</span><span class="p">)</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="s">&#39;lactase_mrna.txt&#39;</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span>
+                            <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">foldername</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">foldername</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">foldername</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">chars_per_line</span> <span class="o">==</span> <span class="s">&#39;inf&#39;</span><span class="p">:</span>
+        <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">chars_per_line</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chars_per_line</span>
+            <span class="n">outfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+    <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_mrna.txt&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">):</span>
     <span class="n">protein</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
@@ -211,7 +223,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="n">protein</span> <span class="o">+=</span> <span class="n">genetic_code</span><span class="p">[</span><span class="n">mrna</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">protein</span>
 
-<span class="n">genetic_code</span> <span class="o">=</span> <span class="n">simple_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
+<span class="n">genetic_code</span> <span class="o">=</span> <span class="n">read_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
 <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="s">&#39;lactase_protein.txt&#39;</span><span class="p">)</span>
 <span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>

@@ -48,7 +48,7 @@ def link(filename, primer_src_dir=None):
     #s = not_primer_book_comment('"%s": "%s"' % (filename, '_static/' + filename))
     #s = not_primer_book_comment('"%s": "%s"' % (filename, urlbase + filename))
     s = not_primer_book_comment('`%s` ("download": "%s" or "online viewing": "%s")' % (filename, urlbase + filename, urlbase + filename + '.html'))
-    s += primer_pbook_comment(filename)
+    s += primer_pbook_comment('`' + filename + '`')
     s += primer_ebook_comment('"%s": "%s"' % (filename, urlbase + filename))
     return s
 

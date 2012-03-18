@@ -28,24 +28,24 @@ def read_exon_regions(filename):
     return [tuple(int(x) for x in line.split())
             for line in open(filename, 'r')]
 
-def tofile_with_line_sep(text, filename, chars_per_line=70):
+def tofile_with_line_sep(text, foldername, filename,
+                         chars_per_line=70):
+    if not os.path.isdir(foldername):
+        os.makedirs(foldername)
+    filename = os.path.join(foldername, filename)
     outfile = open(filename, 'w')
-    for i in xrange(0, len(text), chars_per_line):
-        start = i
-        end = start + chars_per_line
-        outfile.write(text[start:end] + '\n')
+
+    if chars_per_line == 'inf':
+        outfile.write(text)
+    else:
+        for i in xrange(0, len(text), chars_per_line):
+            start = i
+            end = start + chars_per_line
+            outfile.write(text[start:end] + '\n')
     outfile.close()
 
-def simple_genetic_code(filename):
+def read_genetic_code(filename):
     return dict([line.split()[0:2] for line in open(filename, 'r')])
-
-def complex_genetic_code(filename):
-    genetic_code = {}
-    for line in open(filename, 'r'):
-        c = line.split()
-        genetic_code[c[0]] = {
-            '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
-    return genetic_code
 
 def get_base_frequencies(dna):
         return {base: dna.count(base)/float(len(dna))
