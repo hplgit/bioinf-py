@@ -50,11 +50,11 @@ def read_genetic_code_v4(filename):
             '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
     return genetic_code
 
-code = complex_genetic_code_v1('genetic_code.tsv')
+code = read_genetic_code_v3('genetic_code.tsv')
 print code['UUC']
 print code['UUG']
 
-code2 = complex_genetic_code_v2('genetic_code.tsv')
+code2 = read_genetic_code_v4('genetic_code.tsv')
 assert code == code2
 
 name = 'UUC'
@@ -110,6 +110,30 @@ mrna = create_mRNA(lactase_gene, lactase_exon_regions)
 print '10 last bases of the (coding sequence of the) mRNA '\
       'for the lactase gene: ', mrna[-10:]
 
+# Try a version of create_mRNA where gene is a numpy array
+# and where numpy functionality is used (much faster for
+# long strings, but create_mRNA is perhaps fast enough)
+import numpy as np
+
+def create_mRNA_v2(gene, exon_regions):
+    if isinstance(gene, str):
+        gene = np.array(gene, dtype='c')
+    mrna = np.concatenate(
+        [gene[start:end] for start, end in exon_regions])
+    mrna[mrna == 'T'] = 'U'
+    return mrna
+
+g = 'A'*50000000
+exon_regions = [(i, i+1000) for i in range(1, 490000, 10000)]
+import time
+t0 = time.clock()
+create_mRNA(g, exon_regions)
+t1 = time.clock()
+create_mRNA_v2(g, exon_regions)
+t2 = time.clock()
+print 'vectorized mRNA:', t2-t1, t1-t0, (t1-t0)/(t2-t1)
+
+
 def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
     outfile = open(filename, 'w')
     for i in xrange(0, len(text), chars_per_line):
@@ -146,8 +170,7 @@ def create_protein(mrna, genetic_code):
 
 genetic_code = read_genetic_code_v1('genetic_code.tsv')
 protein = create_protein(mrna, genetic_code)
-filename = os.path.join(output_folder, 'lactase_protein.txt')
-tofile_with_line_sep(protein, filename, 70)
+tofile_with_line_sep_v2(protein, 'output', 'lactase_protein.txt', 70)
 
 def create_protein_fixed(mrna, genetic_code):
     protein_fixed = ''
@@ -162,8 +185,7 @@ def create_protein_fixed(mrna, genetic_code):
     return protein_fixed
 
 protein = create_protein_fixed(mrna, genetic_code)
-filename = os.path.join(output_folder, 'lactase_protein_fixed.txt')
-tofile_with_line_sep(protein, filename, 70)
+tofile_with_line_sep_v2(protein, 'output', 'lactase_protein_fixed.txt', 70)
 
 print '10 last amino acids of the correct lactase protein: ', \
       protein[-10:]
@@ -174,25 +196,31 @@ def congential_lactase_deficiency(
     lactase_gene,
     genetic_code,
     lactase_exon_regions,
+    output_folder=os.curdir,
     mrna_file=None,
     protein_file=None):
+
     pos = 30049
     mutated_gene = lactase_gene[:pos] + 'A' + lactase_gene[pos+1:]
-
     mutated_mrna = create_mRNA(mutated_gene, lactase_exon_regions)
-    if mrna_file is not None:
-        tofile_with_line_sep(mutated_mrna, mrna_file)
 
-    mutated_protein = create_protein_fixed(mutated_mrna, genetic_code)
+    if mrna_file is not None:
+        tofile_with_line_sep_v2(
+            mutated_mrna, output_folder, mrna_file)
+
+    mutated_protein = create_protein_fixed(
+        mutated_mrna, genetic_code)
+
     if protein_file:
-        tofile_with_line_sep(mutated_protein, protein_file)
+        tofile_with_line_sep_v2(
+            mutated_protein, output_folder, protein_file)
     return mutated_protein
 
-mrna_file = os.path.join('output', 'mutated_lactase_mrna.txt')
-protein_file = os.path.join('output', 'mutated_lactase_protein.txt')
 mutated_protein = congential_lactase_deficiency(
     lactase_gene, genetic_code, lactase_exon_regions,
-    mrna_file=mrna_file, protein_file=protein_file)
+    output_folder='output',
+    mrna_file='mutated_lactase_mrna.txt',
+    protein_file='mutated_lactase_protein.txt')
 
 print '10 last amino acids of the mutated lactase protein:', \
       mutated_protein[-10:]
