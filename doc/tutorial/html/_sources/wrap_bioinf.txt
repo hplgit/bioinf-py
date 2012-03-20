@@ -6,7 +6,7 @@ Illustrating Python via Examples from Bioinformatics
 
 :Author: Hans Petter Langtangen, Geir Kjetil Sandve
 
-:Date: Mar 18, 2012
+:Date: Mar 20, 2012
 
 .. index:: bioinformatics
 
@@ -506,7 +506,7 @@ function, gives
 
         import random
         
-        def generate_string(N, alphabet='ATCG'):
+        def generate_string(N, alphabet='ACGT'):
             return ''.join([random.choice(alphabet) for i in xrange(N)])
         
         dna = generate_string(600000)
@@ -1848,155 +1848,6 @@ An alternative way of writing the last function is
                 genetic_code[c[0]] = {
                     '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
             return genetic_code
-        
-        code = complex_genetic_code_v1('genetic_code.tsv')
-        print code['UUC']
-        print code['UUG']
-        
-        code2 = complex_genetic_code_v2('genetic_code.tsv')
-        assert code == code2
-        
-        name = 'UUC'
-        print '%s translates into the amino acid "%s" with "%s" '\ 
-              'as 3-letter code.' % \ 
-              (name, code[name]['amino acid'], code[name]['3-letter'])
-        
-        def read_dnafile_v1(filename):
-            lines = open(filename, 'r').readlines()
-            # Remove newlines in each line and join
-            dna = ''.join([line.strip() for line in lines])
-            return dna
-        
-        lactase_gene_file = 'lactase_gene.txt'
-        download(urlbase, lactase_gene_file)
-        lactase_gene = read_dnafile_v1(lactase_gene_file)
-        print '10 first bases of the lactase gene: ', lactase_gene[:10]
-        
-        lactase_exon_file = 'lactase_exon.tsv'
-        download(urlbase, lactase_exon_file)
-        
-        def read_exon_regions_v1(filename):
-            positions = []
-            infile = open(filename, 'r')
-            for line in infile:
-                start, end = line.split()
-                start, end = int(start), int(end)
-                positions.append((start, end))
-            infile.close()
-            return positions
-        
-        def read_exon_regions_v2(filename):
-            return [tuple(int(x) for x in line.split())
-                    for line in open(filename, 'r')]
-        
-        lactase_exon_regions = read_exon_regions_v2(lactase_exon_file)
-        print 'Start and end position of the second exon '\ 
-              'of the lactase gene: ', lactase_exon_regions[1]
-        
-        lactase_exon_regions1 = read_exon_regions_v1(lactase_exon_file)
-        assert lactase_exon_regions == lactase_exon_regions1
-        
-        # For simplicity's sake, we will consider mRNA as the concatenation of exons,
-        # although in reality, additional base pairs are added to each end.
-        
-        def create_mRNA(gene, exon_regions):
-            mrna = ''
-            for start, end in exon_regions:
-                mrna += gene[start:end].replace('T','U')
-            return mrna
-        
-        mrna = create_mRNA(lactase_gene, lactase_exon_regions)
-        print '10 last bases of the (coding sequence of the) mRNA '\ 
-              'for the lactase gene: ', mrna[-10:]
-        
-        def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
-            outfile = open(filename, 'w')
-            for i in xrange(0, len(text), chars_per_line):
-                start = i
-                end = start + chars_per_line
-                outfile.write(text[start:end] + '\n')
-            outfile.close()
-        
-        def tofile_with_line_sep_v2(text, foldername, filename,
-                                    chars_per_line=70):
-            if not os.path.isdir(foldername):
-                os.makedirs(foldername)
-            filename = os.path.join(foldername, filename)
-            outfile = open(filename, 'w')
-        
-            if chars_per_line == 'inf':
-                outfile.write(text)
-            else:
-                for i in xrange(0, len(text), chars_per_line):
-                    start = i
-                    end = start + chars_per_line
-                    outfile.write(text[start:end] + '\n')
-            outfile.close()
-        
-        tofile_with_line_sep_v2(mrna, 'output', 'lactase_mrna.txt')
-        
-        def create_protein(mrna, genetic_code):
-            protein = ''
-            for i in xrange(len(mrna)/3):
-                start = i * 3
-                end = start + 3
-                protein += genetic_code[mrna[start:end]]
-            return protein
-        
-        genetic_code = read_genetic_code_v1('genetic_code.tsv')
-        protein = create_protein(mrna, genetic_code)
-        filename = os.path.join(output_folder, 'lactase_protein.txt')
-        tofile_with_line_sep(protein, filename, 70)
-        
-        def create_protein_fixed(mrna, genetic_code):
-            protein_fixed = ''
-            trans_start_pos = mrna.find('AUG')
-            for i in range(len(mrna[trans_start_pos:])/3):
-                start = trans_start_pos + i*3
-                end = start + 3
-                amino = genetic_code[mrna[start:end]]
-                if amino == 'X':
-                    break
-                protein_fixed += amino
-            return protein_fixed
-        
-        protein = create_protein_fixed(mrna, genetic_code)
-        filename = os.path.join(output_folder, 'lactase_protein_fixed.txt')
-        tofile_with_line_sep(protein, filename, 70)
-        
-        print '10 last amino acids of the correct lactase protein: ', \ 
-              protein[-10:]
-        print 'Lenght of the correct protein: ', len(protein)
-        
-        
-        def congential_lactase_deficiency(
-            lactase_gene,
-            genetic_code,
-            lactase_exon_regions,
-            mrna_file=None,
-            protein_file=None):
-            pos = 30049
-            mutated_gene = lactase_gene[:pos] + 'A' + lactase_gene[pos+1:]
-        
-            mutated_mrna = create_mRNA(mutated_gene, lactase_exon_regions)
-            if mrna_file is not None:
-                tofile_with_line_sep(mutated_mrna, mrna_file)
-        
-            mutated_protein = create_protein_fixed(mutated_mrna, genetic_code)
-            if protein_file:
-                tofile_with_line_sep(mutated_protein, protein_file)
-            return mutated_protein
-        
-        mrna_file = os.path.join('output', 'mutated_lactase_mrna.txt')
-        protein_file = os.path.join('output', 'mutated_lactase_protein.txt')
-        mutated_protein = congential_lactase_deficiency(
-            lactase_gene, genetic_code, lactase_exon_regions,
-            mrna_file=mrna_file, protein_file=protein_file)
-        
-        print '10 last amino acids of the mutated lactase protein:', \ 
-              mutated_protein[-10:]
-        print 'Lenght of the mutated lactase protein:', \ 
-              len(mutated_protein)
 
 
 To form mRNA, we need to grab the exon regions (the coding parts) of
@@ -2091,6 +1942,10 @@ An appropriate function doing this is
 
 
 .. index:: making folder (directory)
+
+.. index:: os.mkdir
+
+.. index:: os.makedirs
 
 
 It might be convenient to have a separate folder for files that we create.
@@ -2192,8 +2047,7 @@ A fix is
             return protein_fixed
         
         protein = create_protein_fixed(mrna, genetic_code)
-        filename = os.path.join(output_folder, 'lactase_protein_fixed.txt')
-        tofile_with_line_sep(protein, filename, 70)
+        tofile_with_line_sep_v2(protein, 'output', 'lactase_protein_fixed.txt', 70)
         
         print '10 last amino acids of the correct lactase protein: ', \ 
               protein[-10:]
@@ -2226,25 +2080,31 @@ This is a simple task using the previously developed tools:
             lactase_gene,
             genetic_code,
             lactase_exon_regions,
+            output_folder=os.curdir,
             mrna_file=None,
             protein_file=None):
+        
             pos = 30049
             mutated_gene = lactase_gene[:pos] + 'A' + lactase_gene[pos+1:]
-        
             mutated_mrna = create_mRNA(mutated_gene, lactase_exon_regions)
-            if mrna_file is not None:
-                tofile_with_line_sep(mutated_mrna, mrna_file)
         
-            mutated_protein = create_protein_fixed(mutated_mrna, genetic_code)
+            if mrna_file is not None:
+                tofile_with_line_sep_v2(
+                    mutated_mrna, output_folder, mrna_file)
+        
+            mutated_protein = create_protein_fixed(
+                mutated_mrna, genetic_code)
+        
             if protein_file:
-                tofile_with_line_sep(mutated_protein, protein_file)
+                tofile_with_line_sep_v2(
+                    mutated_protein, output_folder, protein_file)
             return mutated_protein
         
-        mrna_file = os.path.join('output', 'mutated_lactase_mrna.txt')
-        protein_file = os.path.join('output', 'mutated_lactase_protein.txt')
         mutated_protein = congential_lactase_deficiency(
             lactase_gene, genetic_code, lactase_exon_regions,
-            mrna_file=mrna_file, protein_file=protein_file)
+            output_folder='output',
+            mrna_file='mutated_lactase_mrna.txt',
+            protein_file='mutated_lactase_protein.txt')
         
         print '10 last amino acids of the mutated lactase protein:', \ 
               mutated_protein[-10:]
@@ -2284,6 +2144,9 @@ in the file ``genes2proteins.py`` (`download <http://hplgit.github.com/bioinf-py
 Random Mutations of Genes
 -------------------------
 
+A Simple Mutation Model
+~~~~~~~~~~~~~~~~~~~~~~~
+
 
 Mutation of genes
 is easily modeled by replacing the letter in a randomly
@@ -2305,7 +2168,7 @@ implemented by converting the DNA string to a list of letters:
 
         import random
         
-        def mutate(dna):
+        def mutate_v1(dna):
             dna_list = list(dna)
             mutation_site = random.randint(0, len(dna_list) - 1)
             dna_list[mutation_site] = random.choice(list('ATCG'))
@@ -2325,7 +2188,7 @@ of times and see how the frequencies of the bases A, C, G, and T change:
         
         nmutations = 10000
         for i in range(nmutations):
-            dna = mutate(dna)
+            dna = mutate_v1(dna)
         
         print 'DNA after %d mutations:' % nmutations, dna
         print format_frequencies(get_base_frequencies_v2(dna))
@@ -2341,10 +2204,131 @@ Here is the output from a run:
         A: 0.35, C: 0.25, T: 0.10, G: 0.30
 
 
+Vectorized Version
+~~~~~~~~~~~~~~~~~~
+
+The efficiency of the ``mutate_v1`` function with its surrounding loop can be
+significantly increased up by performing all the mutations at
+once using ``numpy`` arrays. This speed-up is of interest for long ``dna``
+strings and many mutations. The idea is to draw all the mutation sites
+at once, and also all the new bases at these sites at once.
+The ``np.random`` module provides functions for drawing several random
+numbers at a time, but only integers and real numbers can be drawn,
+not characters from the alphabet A, C, G, and T. We therefore have
+to simulate these four characters by the numbers (say) 0, 1, 2, and 3.
+Afterwards we can translate the integers to letters by some clever
+vectorized indexing.
+
+Drawing ``N`` mutation sites is a matter of drawing ``N`` random
+integers among the legal indices:
+
+.. code-block:: python
+
+        import numpy as np
+        mutation_sites = np.random.random_integers(0, len(dna)-1, size=N)
+
+Drawing ``N`` bases, represented as the integers 0-3, is similarly done by
+
+.. code-block:: python
+
+        new_bases_i = np.random.random_integers(0, 3, N)
+
+Converting say the integers 1 to the base symbol C is done by
+picking out the indices (in a boolean array) where ``new_bases_i``
+equals 1, and inserting the character ``'C'`` in a companion
+array of characters:
+
+.. code-block:: python
+
+        new_bases_c = np.zeros(N, dtype='c')
+        indices = new_bases_i == 1
+        new_bases_c[indices] = 'C'
+
+We must do this integer-to-letter conversion for all four integers/letters.
+Thereafter, ``new_bases_c`` must be inserted in ``dna`` for all the
+indices corresponding to the randomly drawn mutation sites,
+
+.. code-block:: python
+
+        dna[mutation_sites] = new_bases_c
+
+The final step is to convert the ``numpy`` array of characters ``dna``
+back to a standard string by first converting ``dna`` to a list
+and then joining the list elements: ``''.join(dna.tolist())``.
+
+The complete vectorized functions can now be expressed as follows:
+
+
+.. code-block:: python
+
+        import numpy as np
+        # Use integers in random numpy arrays and map these
+        # to characters according to
+        i2c = {0: 'A', 1: 'C', 2: 'G', 3: 'T'}
+        
+        def mutate_v2(dna, N):
+            dna = np.array(dna, dtype='c')  # array of characters
+            mutation_sites = np.random.random_integers(
+                0, len(dna) - 1, size=N)
+            # Must draw bases as integers
+            new_bases_i = np.random.random_integers(0, 3, size=N)
+            # Translate integers to characters
+            new_bases_c = np.zeros(N, dtype='c')
+            for i in i2c:
+                new_bases_c[new_bases_i == i] = i2c[i]
+            dna[mutation_sites] = new_bases_c
+            return ''.join(dna.tolist())
+
+
+It is of interest to time ``mutate_v2`` versus ``mutate_v1``. For this purpose
+we need a long test string. A straightforward generation of random
+letters is
+
+
+.. code-block:: python
+
+        def generate_string_v1(N, alphabet='ACGT'):
+            return ''.join([random.choice(alphabet) for i in xrange(N)])
+
+
+A vectorized version of this function can also be made, using the
+ideas explored above for the ``mutate_v2`` function:
+
+
+.. code-block:: python
+
+        def generate_string_v2(N, alphabet='ACGT'):
+            # Draw random integers 0,1,2,3 to represent bases
+            dna_i = np.random.random_integers(0, 3, N)
+            # Translate integers to characters
+            dna = np.zeros(N, dtype='c')
+            for i in i2c:
+                dna[dna_i == i] = i2c[i]
+            return ''.join(dna.tolist())
+
+
+The ``time_mutate`` function in the file ``mutate.py`` (`download <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py>`_ or `online viewing <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html>`_) performs
+timing of the generation of test strings and the mutations.  For a DNA
+string of length 100,000 the vectorized function is about 8 times
+faster. With 10,000 mutations on this string, the vectorized version
+is almost 3000 times faster! These numbers stay approximately the same
+also for larger strings and more mutations.  This case study on
+vectorization is a striking example on the fact that a straightforward
+and convenient function like ``mutate_v1`` might occasionally be very
+slow for large-scale computations.
+
+
+A Markov Chain Mutation Model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 The observed rate at which mutations occur at a given position in the
-genome depends on the nucleotide (base) at the position. There are a
-number of reasons why the observed mutation rates vary between
-different nucleotides. One reason is that there are different
+genome is not independent of the type of nucleotide (base) at that
+position, as was assumed in the previous simple mutation model.  We
+should therefore take into account that the rate of transition depends
+on the base.
+
+There are a number of reasons why the observed mutation rates vary
+between different nucleotides. One reason is that there are different
 mechanisms generating transitions from one base to another. Another
 reason is that there are extensive repair process in living cells, and
 the efficiency of this repair mechanism varies for different
@@ -2399,29 +2383,37 @@ which can be computed by
         markov_chain['A'] = {base: p for base, p in
                              zip('ATGC', transition_probabilities)}
 
-To select a transition, the following ``transition`` function computes
-the interval limits based on the probabilities and checks in which
-interval a random number falls:
+To select a transition, we need to draw a random letter
+(A, C, G, or T) according to the probababilities
+``markov_chain[b]`` where ``b`` is the base at the current position.
+Actually, this is a very common operation, namely drawing a
+random value from a *discrete probability distribution* (``markov_chain[b]``).
+The natural approach is therefore write a general function for
+drawing from any discrete probability distribution given as
+a dictionary:
 
 
 .. code-block:: python
 
-        def transition(transition_probabilities):
-            interval_limits = []
-            current_limit = 0
-            for to_base in transition_probabilities:
-                current_limit += transition_probabilities[to_base]
-                interval_limits.append((current_limit, to_base))
+        def draw(discrete_probdist):
+            """
+            Draw random value from discrete probability distribution
+            represented as a dict: P(x=value) = discrete_probdist[value].
+            """
+            # Method:
+            # http://en.wikipedia.org/wiki/Pseudo-random_number_sampling
+            limit = 0
             r = random.random()
-            for limit, to_base in interval_limits:
-                if r <= limit:
-                    return to_base
+            for value in discrete_probdist:
+                limit += discrete_probdist[value]
+                if r < limit:
+                    return value
 
 
-The ``transition_probabilities`` argument is a dictionary of the
-transition probabilities for a given base.
-
-(**hpl**: the transition function was made somewhat different from what you had. I just understand my version better as this is the way I draw according to a discrete prob distr. ;-) )
+Basically, the algorithm divides :math:`[0,1]` into intervals of lengths
+equal to the probabilities of the various outcomes and checks
+which interval is hit by a random variable in :math:`[0,1]`. The corresponding
+value is the random choice.
 
 A complete function creating all the transition probabilities and
 storing them in a dictionary of dictionaries takes the form
@@ -2448,13 +2440,14 @@ storing them in a dictionary of dictionaries takes the form
 
 
 It is natural to develop a function for checking that the generated
-probabilities are consistent, i.e., that they sum up to 1 for each
-base:
+probabilities are consistent. The transition from a particular base
+into one of the four bases happens with probability 1, which means that
+the probabilities in a row must sum up to 1:
 
 
 .. code-block:: python
 
-        def check_transition_probabilities(markov_chain):
+        def test_transition_probabilities(markov_chain):
             for from_base in 'ATGC':
                 s = sum(markov_chain[from_base][to_base]
                         for to_base in 'ATGC')
@@ -2463,16 +2456,38 @@ base:
                                      (s, from_base))
 
 
-Having the transition probability matrix ``mc`` we can randomly generate
-some transitions:
+Another test is to check that ``draw`` actually draws random values
+in accordance with the underlying probabilities. To this end, we draw
+a large number of values, ``N``, count the frequencies of the various values,
+divide by ``N`` and compare the empirical normalized frequencies
+with the probabilities:
+
 
 .. code-block:: python
 
-        for i in range(N):
-            print 'from A to', transition(mc['A'])
+        def test_draw_approx(discrete_probdist, N=1000000):
+            """
+            See if draw results in frequencies approx equal to
+            the probability distribution.
+            """
+            frequencies = {value: 0 for value in discrete_probdist}
+            for i in range(N):
+                value = draw(discrete_probdist)
+                frequencies[value] += 1
+            for value in frequencies:
+                frequencies[value] /= float(N)
+            print ', '.join(['%s: %.4f (exact %.4f)' % \ 
+                             (v, frequencies[v], discrete_probdist[v])
+                             for v in frequencies])
 
+This test is only approximate, but does bring evidence to the correctness
+of the implementation of the ``draw`` function.
 
-Now we have all the tools needed to run this Markov chain of
+A vectorized version of ``draw`` can also be made. We refer to the
+source code file ``mutate.py`` (`download <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py>`_ or `online viewing <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html>`_) for details (the function relatively
+complicated).
+
+Now we have all the tools needed to run the Markov chain of
 transitions for a randomly selected position in a DNA sequence:
 
 
@@ -2482,11 +2497,9 @@ transitions for a randomly selected position in a DNA sequence:
             dna_list = list(dna)
             mutation_site = random.randint(0, len(dna_list) - 1)
             from_base = dna[mutation_site]
-            to_base = transition(markov_chain[from_base])
+            to_base = draw(markov_chain[from_base])
             dna_list[mutation_site] = to_base
             return ''.join(dna_list)
-        
-        random.seed(10)  # ensure the same random numbers every time
 
 Exercise :ref:`bioinf:exer:Markov:chain:eff` suggests some efficiency
 enhancements of simulating mutations via these functions.
@@ -2511,7 +2524,11 @@ Here is a simulation of mutations using the method based on Markov chains:
         print format_frequencies(get_base_frequencies_v2(dna))
 
 
-The output can be like
+The output will differ each time the program is run unless
+``random.seed(i)`` is called in the beginning of the program for some
+integer ``i``. This call makes the
+sequence of random numbers the same every time the program is run and
+is very useful for debugging. An example on the output may look like
 
 .. code-block:: python
 
@@ -2539,8 +2556,33 @@ The output can be like
 
 Note that the mutated DNA should contain more nucleotides of the
 type where the total probability of transitioning into that particular
-nucleotide is largest. This total probability is computed by summing
-up the columns of the transition probability matrix and dividing by 4:
+nucleotide is largest. The total probability of transitioning into
+a particular base can be computed by a bit a probability algebra.
+Let :math:`X` be the initial base at some position in the DNA and let :math:`Y`
+be the new base after mutation at this position. The probability
+that :math:`P(Y=b)`, where :math:`b` is some base (A, C, G, or T), is built up
+of four mutually exclusive events:
+
+.. math::
+         P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) + P(X=G \cup Y=b) + P(X=T \cup Y=b)
+
+A joint event can be expressed by the (conditional) transition
+probabilities, e.g.,
+
+.. math::
+         P(X=A \cup Y=b) = P(Y=b | X=A) P(X=A) 
+
+leading to
+
+.. math::
+         P(Y=b) = \sum_{i\in\{A,C,G,T\}} P(Y=b|X=i)P(X=i)
+
+The probabilities :math:`P(Y=b|X=i)` correspond to a column in the
+transition probability matrix. If each of the initial events
+:math:`P(X=i)` are equally probable, :math:`P(X=i)=1/4`, and :math:`P(Y=b)`
+is then the sum of the probabilities in the column corresponding to
+:math:`b`, divided by 4. We can now compute :math:`P(Y=b)` for
+:math:`b` as A, C, G, and T:
 
 
 .. code-block:: python
@@ -2553,13 +2595,13 @@ up the columns of the transition probability matrix and dividing by 4:
         print transition_into_bases(mc)
 
 
-These probabilities corresponding to the example run above reads
+The :math:`P(X=b)` probabilities corresponding to the example run above reads
 
 .. code-block:: python
 
         {'A': 0.26, 'C': 0.25, 'T': 0.30, 'G': 0.19}
 
-Transition into T has greatest probability (0.3) and this is also
+Transition into T (:math:`P(Y=T)`) has greatest probability (0.3) and this is also
 confirmed by the greatest frequency (0.41).
 
 The functions performing mutations are located
@@ -2993,4 +3035,120 @@ lactase protein is done with
             tofile_with_line_sep(protein, 'output', 'lactase_protein.txt')
 
 
+Now, envision that the Lactase gene would instead have been an
+RNA-coding gene. The only necessary changes would have been to exhange
+``ProteinCodingGene`` by ``RNACodingGene`` in the assignment to
+``lactase_gene``, and one would get out a final RNA product instead of a
+protein.
 
+Exercises
+=========
+
+.. _bioinf:exer:pairs1:
+
+Find pairs of characters
+------------------------
+
+Write a function ``count_pairs(dna, pair)`` that returns the number of
+occurences of a pair of characters (``pair``) in a DNA string (``dna``).
+For example, ``count_pairs('ACTGCTATCCATT', 'AT')`` should return 2.
+
+.. Note: dna.count(pair) works!
+
+
+*Filename*: ``count_pairs.py``
+
+.. _bioinf:exer:substr1:
+
+Count substrings
+----------------
+
+This is an extension of Exercise :ref:`bioinf:exer:pairs1`:
+count how many times a certain string appears in another string.
+For example, ``count_substr('ACGTTACGGAACG', 'ACG')`` should return 2.
+
+*Hint 1.* For each match of the first character of the
+substring in the main string, check if the next ``n`` characters
+in the main string matches the substring, where ``n`` is the length
+of the substring. Use slices like ``s[3:9]`` to pick out a substring of ``s``.
+
+*Filename*: ``count_substr.py``
+
+.. _bioinf:exer:freq:fargs:
+
+Allow different types for a function argument
+---------------------------------------------
+
+Consider the family of ``find_consensus_v*`` functions from
+the section :ref:`bioinf:freq:analysis`. The different versions work on
+different representations of the frequency matrix. Make a unified
+``find_consensus`` function which accepts different data structures
+for the ``frequency_matrix``. Test on the type of data structure and
+perform the necessary actions.
+
+*Filename*: ``find_consensus.py``
+
+.. _bioinf:exer:get_base_counts2:
+
+Make a function more robust
+---------------------------
+
+Consider the function ``get_base_counts(dna)``
+(from the section :ref:`bioinf:basefreq`),
+which counts how many times ``A``, ``C``, ``G``, and
+``T`` appears in the string ``dna``:
+
+
+.. code-block:: python
+
+        def get_base_counts(dna):
+            counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
+            for base in dna:
+                counts[base] += 1
+            return counts
+
+Unfortunately, this function crashes if other symbols appear in ``dna``.
+Write an enhanced function ``get_base_counts2`` which solves this problem.
+
+.. Hints: defaultdict or test on if base in counts: ... else counts[base]=1
+
+
+*Filename*: ``get_base_counts2.py``
+
+.. _bioinf:exer:Ainsouts:exons:
+
+Find proportion of bases inside/outside exons
+---------------------------------------------
+
+Consider the lactase gene as described in
+the sections :ref:`bioinf:gene2protein` and {bioinf:lactase:milk}.
+What is the proportion of base A inside and outside exons of
+the lactase gene? Write a function ``get_exons``, which returns
+all the substrings of the exon regions concatenated,
+and a function ``get_introns``, which
+returns all the substrings between the exon regions concatenated.
+The function ``get_base_frequencies`` from the section :ref:`bioinf:basefreq`
+can then be used to analyze the frequencies of bases A, C, G, and T
+in the two strings.
+
+*Filename*: ``prop_A_exons.py``
+
+.. _bioinf:exer:Markov:chain:eff:
+
+Speed up Markov chain mutation
+------------------------------
+
+The functions ``transition`` and ``mutate_via_markov_chain`` from the section :ref:`bioinf:random` were made for being easy to read and understand.  Upon
+closer inspection, we realize that the ``transition`` function
+constructs the ``interval_limits`` every time a random transition is to
+be computed, and we want to run a large number of transitions.  By (i)
+merging the two functions, (ii) pre-computing interval limits for each
+``from_base``, and (iii) adding a loop over ``N`` mutations, one can
+reduce the computation of interval limits to a minimum. Perform such
+an efficiency enhancement.  Measure the CPU time of this new function
+versus the ``mutate_via_markov_chain`` function for 1 million mutations.
+
+*Acknowledgments.* The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid for contributing to the examples and their implementations.
+
+*Filename*: ``markov_chain_mutation2.py``

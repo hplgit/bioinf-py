@@ -129,11 +129,11 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
             <span class="s">&#39;1-letter&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">&#39;3-letter&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s">&#39;amino acid&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">]}</span>
     <span class="k">return</span> <span class="n">genetic_code</span>
 
-<span class="n">code</span> <span class="o">=</span> <span class="n">complex_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
+<span class="n">code</span> <span class="o">=</span> <span class="n">read_genetic_code_v3</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">code</span><span class="p">[</span><span class="s">&#39;UUC&#39;</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">code</span><span class="p">[</span><span class="s">&#39;UUG&#39;</span><span class="p">]</span>
 
-<span class="n">code2</span> <span class="o">=</span> <span class="n">complex_genetic_code_v2</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
+<span class="n">code2</span> <span class="o">=</span> <span class="n">read_genetic_code_v4</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">code</span> <span class="o">==</span> <span class="n">code2</span>
 
 <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;UUC&#39;</span>
@@ -189,6 +189,30 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="k">print</span> <span class="s">&#39;10 last bases of the (coding sequence of the) mRNA &#39;</span>\
       <span class="s">&#39;for the lactase gene: &#39;</span><span class="p">,</span> <span class="n">mrna</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
 
+<span class="c"># Try a version of create_mRNA where gene is a numpy array</span>
+<span class="c"># and where numpy functionality is used (much faster for</span>
+<span class="c"># long strings, but create_mRNA is perhaps fast enough)</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">create_mRNA_v2</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">gene</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+    <span class="n">mrna</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">gene</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">exon_regions</span><span class="p">])</span>
+    <span class="n">mrna</span><span class="p">[</span><span class="n">mrna</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;U&#39;</span>
+    <span class="k">return</span> <span class="n">mrna</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="s">&#39;A&#39;</span><span class="o">*</span><span class="mi">50000000</span>
+<span class="n">exon_regions</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1000</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">490000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)]</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">create_mRNA</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">create_mRNA_v2</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;vectorized mRNA:&#39;</span><span class="p">,</span> <span class="n">t2</span><span class="o">-</span><span class="n">t1</span><span class="p">,</span> <span class="n">t1</span><span class="o">-</span><span class="n">t0</span><span class="p">,</span> <span class="p">(</span><span class="n">t1</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">t2</span><span class="o">-</span><span class="n">t1</span><span class="p">)</span>
+
+
 <span class="k">def</span> <span class="nf">tofile_with_line_sep_v1</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
     <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">),</span> <span class="n">chars_per_line</span><span class="p">):</span>
@@ -225,8 +249,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="n">genetic_code</span> <span class="o">=</span> <span class="n">read_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="s">&#39;lactase_protein.txt&#39;</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_protein.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">):</span>
     <span class="n">protein_fixed</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
@@ -241,8 +264,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="n">protein_fixed</span>
 
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_folder</span><span class="p">,</span> <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="s">&#39;10 last amino acids of the correct lactase protein: &#39;</span><span class="p">,</span> \
       <span class="n">protein</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
@@ -253,25 +275,31 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="n">lactase_gene</span><span class="p">,</span>
     <span class="n">genetic_code</span><span class="p">,</span>
     <span class="n">lactase_exon_regions</span><span class="p">,</span>
+    <span class="n">output_folder</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">,</span>
     <span class="n">mrna_file</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
     <span class="n">protein_file</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
     <span class="n">pos</span> <span class="o">=</span> <span class="mi">30049</span>
     <span class="n">mutated_gene</span> <span class="o">=</span> <span class="n">lactase_gene</span><span class="p">[:</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;A&#39;</span> <span class="o">+</span> <span class="n">lactase_gene</span><span class="p">[</span><span class="n">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
-
     <span class="n">mutated_mrna</span> <span class="o">=</span> <span class="n">create_mRNA</span><span class="p">(</span><span class="n">mutated_gene</span><span class="p">,</span> <span class="n">lactase_exon_regions</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">mrna_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">mutated_mrna</span><span class="p">,</span> <span class="n">mrna_file</span><span class="p">)</span>
 
-    <span class="n">mutated_protein</span> <span class="o">=</span> <span class="n">create_protein_fixed</span><span class="p">(</span><span class="n">mutated_mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">mrna_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">tofile_with_line_sep_v2</span><span class="p">(</span>
+            <span class="n">mutated_mrna</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">,</span> <span class="n">mrna_file</span><span class="p">)</span>
+
+    <span class="n">mutated_protein</span> <span class="o">=</span> <span class="n">create_protein_fixed</span><span class="p">(</span>
+        <span class="n">mutated_mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">protein_file</span><span class="p">:</span>
-        <span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="n">mutated_protein</span><span class="p">,</span> <span class="n">protein_file</span><span class="p">)</span>
+        <span class="n">tofile_with_line_sep_v2</span><span class="p">(</span>
+            <span class="n">mutated_protein</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">,</span> <span class="n">protein_file</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mutated_protein</span>
 
-<span class="n">mrna_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;mutated_lactase_mrna.txt&#39;</span><span class="p">)</span>
-<span class="n">protein_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;mutated_lactase_protein.txt&#39;</span><span class="p">)</span>
 <span class="n">mutated_protein</span> <span class="o">=</span> <span class="n">congential_lactase_deficiency</span><span class="p">(</span>
     <span class="n">lactase_gene</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">,</span> <span class="n">lactase_exon_regions</span><span class="p">,</span>
-    <span class="n">mrna_file</span><span class="o">=</span><span class="n">mrna_file</span><span class="p">,</span> <span class="n">protein_file</span><span class="o">=</span><span class="n">protein_file</span><span class="p">)</span>
+    <span class="n">output_folder</span><span class="o">=</span><span class="s">&#39;output&#39;</span><span class="p">,</span>
+    <span class="n">mrna_file</span><span class="o">=</span><span class="s">&#39;mutated_lactase_mrna.txt&#39;</span><span class="p">,</span>
+    <span class="n">protein_file</span><span class="o">=</span><span class="s">&#39;mutated_lactase_protein.txt&#39;</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="s">&#39;10 last amino acids of the mutated lactase protein:&#39;</span><span class="p">,</span> \
       <span class="n">mutated_protein</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>

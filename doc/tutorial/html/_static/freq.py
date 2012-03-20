@@ -260,6 +260,7 @@ def generate_string(N, alphabet='ACGT'):
     return ''.join([random.choice(alphabet) for i in xrange(N)])
 
 dna_list = [generate_string(500000) for i in range(10)]
+print 'Testing efficiency of vectorized code on long strings.......'
 t0 = time.clock()
 frequency_matrix = freq_dict_of_arrays_v1(dna_list)
 t1 = time.clock()
@@ -267,3 +268,4 @@ frequency_matrix = freq_dict_of_arrays_v2(dna_list)
 t2 = time.clock()
 factor = (t1 - t0)/(t2 - t1)
 print 'freq_dict_of_arrays: v1 (scalar) / v2 (vectorized):', factor
+np.save('tmp.npy', np.array(dna_list[0], dtype='c'))

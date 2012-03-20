@@ -93,7 +93,7 @@ def count_v12(dna, base):
 
 import random
 
-def generate_string(N, alphabet='ATCG'):
+def generate_string(N, alphabet='ACGT'):
     return ''.join([random.choice(alphabet) for i in xrange(N)])
 
 dna = generate_string(600000)

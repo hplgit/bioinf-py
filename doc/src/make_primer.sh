@@ -7,6 +7,7 @@ doconce replace epycod ecod bioinf.p.tex
 doconce replace bpypro bpro bioinf.p.tex
 doconce replace epypro epro bioinf.p.tex
 doconce replace 'figs-bioinf/' 'figs/' bioinf.p.tex
+doconce replace 'paragraph{' 'para{' bioinf.p.tex
 
 # not ebook:
 doconce replace '\href' '\myhref' bioinf.p.tex

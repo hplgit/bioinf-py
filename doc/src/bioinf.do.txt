@@ -52,3 +52,4 @@ proteins.
 # #include "genes2proteins.do.txt"
 # #include "mutate.do.txt"
 # #include "class.do.txt"
+# #include "exercises.do.txt"
