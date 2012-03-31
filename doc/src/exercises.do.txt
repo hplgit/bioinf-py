@@ -1,0 +1,83 @@
+======= Exercises =======
+
+===== Exercise: Find pairs of characters =====
+label{bioinf:exer:pairs1}
+file=count_pairs.py
+
+Write a function `count_pairs(dna, pair)` that returns the number of
+occurences of a pair of characters (`pair`) in a DNA string (`dna`).
+For example, `count_pairs('ACTGCTATCCATT', 'AT')` should return 2.
+
+# Note: dna.count(pair) works!
+
+===== Exercise: Count substrings =====
+label{bioinf:exer:substr1}
+file=count_substr.py
+
+This is an extension of Exercise ref{bioinf:exer:pairs1}:
+count how many times a certain string appears in another string.
+For example, `count_substr('ACGTTACGGAACG', 'ACG')` should return 2.
+
+__Hint 1.__ For each match of the first character of the
+substring in the main string, check if the next `n` characters
+in the main string matches the substring, where `n` is the length
+of the substring. Use slices like `s[3:9]` to pick out a substring of `s`.
+
+===== Exercise: Allow different types for a function argument =====
+label{bioinf:exer:freq:fargs}
+file=find_consensus.py
+
+Consider the family of `find_consensus_v*` functions from
+Section ref{bioinf:freq:analysis}. The different versions work on
+different representations of the frequency matrix. Make a unified
+`find_consensus` function which accepts different data structures
+for the `frequency_matrix`. Test on the type of data structure and
+perform the necessary actions.
+
+
+===== Exercise: Make a function more robust =====
+label{bioinf:exer:get_base_counts2}
+file=get_base_counts2.py
+
+Consider the function `get_base_counts(dna)`
+(from Section ref{bioinf:basefreq}),
+which counts how many times `A`, `C`, `G`, and
+`T` appears in the string `dna`:
+
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies
+Unfortunately, this function crashes if other symbols appear in `dna`.
+Write an enhanced function `get_base_counts2` which solves this problem.
+
+# Hints: defaultdict or test on if base in counts: ... else counts[base]=1
+
+===== Exercise: Find proportion of bases inside/outside exons =====
+label{bioinf:exer:Ainsouts:exons}
+file=prop_A_exons.py
+
+Consider the lactase gene as described in
+Sections ref{bioinf:gene2protein} and {bioinf:lactase:milk}.
+What is the proportion of base A inside and outside exons of
+the lactase gene? Write a function `get_exons`, which returns
+all the substrings of the exon regions concatenated,
+and a function `get_introns`, which
+returns all the substrings between the exon regions concatenated.
+The function `get_base_frequencies` from Section ref{bioinf:basefreq}
+can then be used to analyze the frequencies of bases A, C, G, and T
+in the two strings.
+
+
+===== Exercise: Speed up Markov chain mutation =====
+label{bioinf:exer:Markov:chain:eff}
+file=markov_chain_mutation2.py
+
+The functions `transition` and `mutate_via_markov_chain` from Section
+ref{bioinf:random} were made for being easy to read and understand.  Upon
+closer inspection, we realize that the `transition` function
+constructs the `interval_limits` every time a random transition is to
+be computed, and we want to run a large number of transitions.  By (i)
+merging the two functions, (ii) pre-computing interval limits for each
+`from_base`, and (iii) adding a loop over `N` mutations, one can
+reduce the computation of interval limits to a minimum. Perform such
+an efficiency enhancement.  Measure the CPU time of this new function
+versus the `mutate_via_markov_chain` function for 1 million mutations.
+
