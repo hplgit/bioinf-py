@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Illustrating Python via Examples from Bioinformatics &mdash; Illustrating Python via Bioinformatics Examples 1.0 documentation</title>
+    <title>Illustrating Python via Bioinformatics Examples &mdash; Illustrating Python via Examples from Bioinformatics 1.0 documentation</title>
     
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,8 +25,8 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Illustrating Python via Bioinformatics Examples 1.0 documentation" href="index.html" />
-    <link rel="prev" title="Illustrating Python via Bioinformatics Examples" href="index.html" />
+    <link rel="top" title="Illustrating Python via Examples from Bioinformatics 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Illustrating Python via Examples from Bioinformatics" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -43,9 +43,9 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="index.html" title="Illustrating Python via Bioinformatics Examples"
+          <a href="index.html" title="Illustrating Python via Examples from Bioinformatics"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Illustrating Python via Bioinformatics Examples 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,15 +54,15 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="illustrating-python-via-examples-from-bioinformatics">
-<h1>Illustrating Python via Examples from Bioinformatics<a class="headerlink" href="#illustrating-python-via-examples-from-bioinformatics" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="illustrating-python-via-bioinformatics-examples">
+<h1>Illustrating Python via Bioinformatics Examples<a class="headerlink" href="#illustrating-python-via-bioinformatics-examples" title="Permalink to this headline">¶</a></h1>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Hans Petter Langtangen, Geir Kjetil Sandve</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Mar 20, 2012</td>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Mar 31, 2012</td>
 </tr>
 </tbody>
 </table>
@@ -1390,10 +1390,9 @@ as nucleotide bias. The nucleotide bias varies between organisms, and
 have a range of biological implications. For many organisms the
 nucleotide bias has been highly optimized through evolution and
 reflects characteristics of the organisms and their environments, for
-instance the typical temperature the organism is adapted to.</p>
-<blockquote>
-<div>The</div></blockquote>
-<p>interested reader can, e.g., find more details in
+instance the typical temperature the organism is adapted to.
+The
+interested reader can, e.g., find more details in
 <a class="reference external" href="http://www.nature.com/embor/journal/v6/n12/full/7400538.html">this article</a>.</p>
 <p>The functions computing base frequencies are available
 in the file <tt class="docutils literal"><span class="pre">basefreq.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/basefreq.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/basefreq.py.html">online viewing</a>).</p>
@@ -1455,10 +1454,19 @@ this robust function:</p>
             <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s">&#39;URL </span><span class="si">%s</span><span class="s"> does not exist&#39;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We want to make a dictionary of the <tt class="docutils literal"><span class="pre">genetic_code.tsv</span></tt> file that maps
-the code in the first column onto the 1-letter symbol in the second
-column.  Downloading the file, reading it and making the dictionary
-are done by</p>
+<p>We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">read_genetic_code_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">infile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">genetic_code</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">infile</span><span class="p">:</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">genetic_code</span><span class="p">[</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">genetic_code</span>
+</pre></div>
+</div>
+<p>Downloading the
+file, reading it and making the dictionary are done by</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 <span class="n">genetic_code_file</span> <span class="o">=</span> <span class="s">&#39;genetic_code.tsv&#39;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">urlbase</span><span class="p">,</span> <span class="n">genetic_code_file</span><span class="p">)</span>
@@ -1568,7 +1576,7 @@ An appropriate function doing this is</p>
     <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
-<span class="target" id="index-14"></span><span class="target" id="index-15"></span><p id="index-16">It might be convenient to have a separate folder for files that we create.
+<p>It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
 make a folder:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">output_folder</span> <span class="o">=</span> <span class="s">&#39;output&#39;</span>
@@ -1588,7 +1596,7 @@ or backward, depending on the current operating system.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">output_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In that case <tt class="docutils literal"><span class="pre">os.mkdir(output_folder)</span></tt> may fail because
+<p>In that case, <tt class="docutils literal"><span class="pre">os.mkdir(output_folder)</span></tt> may fail because
 the intermediate folder <tt class="docutils literal"><span class="pre">output</span></tt> is missing. Making a folder
 and also all missing intermediate folders is done by <tt class="docutils literal"><span class="pre">os.makedirs</span></tt>.
 We can write a more general file writing function which takes
@@ -1915,7 +1923,7 @@ in ascending order to form the intervals. We use the function
 </div>
 <p>which can be computed by</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">markov_chain</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">p</span> <span class="k">for</span> <span class="n">base</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span>
-                     <span class="nb">zip</span><span class="p">(</span><span class="s">&#39;ATGC&#39;</span><span class="p">,</span> <span class="n">transition_probabilities</span><span class="p">)}</span>
+                     <span class="nb">zip</span><span class="p">(</span><span class="s">&#39;ACGT&#39;</span><span class="p">,</span> <span class="n">transition_probabilities</span><span class="p">)}</span>
 </pre></div>
 </div>
 <p>To select a transition, we need to draw a random letter
@@ -2002,7 +2010,7 @@ with the probabilities:</p>
 <p>This test is only approximate, but does bring evidence to the correctness
 of the implementation of the <tt class="docutils literal"><span class="pre">draw</span></tt> function.</p>
 <p>A vectorized version of <tt class="docutils literal"><span class="pre">draw</span></tt> can also be made. We refer to the
-source code file <tt class="docutils literal"><span class="pre">mutate.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>) for details (the function relatively
+source code file <tt class="docutils literal"><span class="pre">mutate.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>) for details (the function is relatively
 complicated).</p>
 <p>Now we have all the tools needed to run the Markov chain of
 transitions for a randomly selected position in a DNA sequence:</p>
@@ -2069,7 +2077,8 @@ be the new base after mutation at this position. The probability
 that <span class="math">\(P(Y=b)\)</span>, where <span class="math">\(b\)</span> is some base (A, C, G, or T), is built up
 of four mutually exclusive events:</p>
 <div class="math">
-\[P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) + P(X=G \cup Y=b) + P(X=T \cup Y=b)\]</div>
+\[P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) +
+P(X=G \cup Y=b) + P(X=T \cup Y=b)\]</div>
 <p>A joint event can be expressed by the (conditional) transition
 probabilities, e.g.,</p>
 <div class="math">
@@ -2434,7 +2443,7 @@ of that type of gene.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Note that the exception here will be triggered by an instance (<tt class="docutils literal"><span class="pre">self</span></tt>)
+<p>The exception here will be triggered by an instance (<tt class="docutils literal"><span class="pre">self</span></tt>)
 of any subclass that just inherits <tt class="docutils literal"><span class="pre">get_product</span></tt> from class <tt class="docutils literal"><span class="pre">Gene</span></tt>
 without implementing a subclass version of this method.</p>
 <p>The two subclasses of <tt class="docutils literal"><span class="pre">Gene</span></tt> may take this simple form:</p>
@@ -2475,6 +2484,8 @@ RNA-coding gene. The only necessary changes would have been to exhange
 <tt class="docutils literal"><span class="pre">ProteinCodingGene</span></tt> by <tt class="docutils literal"><span class="pre">RNACodingGene</span></tt> in the assignment to
 <tt class="docutils literal"><span class="pre">lactase_gene</span></tt>, and one would get out a final RNA product instead of a
 protein.</p>
+<p><em>Acknowledgments.</em> The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid for contributing to the examples and their implementations.</p>
 </div>
 </div>
 <div class="section" id="exercises">
@@ -2549,8 +2560,6 @@ merging the two functions, (ii) pre-computing interval limits for each
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chain</span></tt> function for 1 million mutations.</p>
-<p><em>Acknowledgments.</em> The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
-and Kai Trengereid for contributing to the examples and their implementations.</p>
 <p><em>Filename</em>: <tt class="docutils literal"><span class="pre">markov_chain_mutation2.py</span></tt></p>
 </div>
 </div>
@@ -2563,7 +2572,7 @@ and Kai Trengereid for contributing to the examples and their implementations.</
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Illustrating Python via Examples from Bioinformatics</a></li>
+<li><a class="reference internal" href="#">Illustrating Python via Bioinformatics Examples</a></li>
 <li><a class="reference internal" href="#basic-bioinformatics-examples-in-python">Basic Bioinformatics Examples in Python</a><ul>
 <li><a class="reference internal" href="#counting-letters-in-dna-strings">Counting Letters in DNA Strings</a><ul>
 <li><a class="reference internal" href="#list-iteration">List Iteration</a></li>
@@ -2642,7 +2651,7 @@ and Kai Trengereid for contributing to the examples and their implementations.</
 
   <h4>Previous topic</h4>
   <p class="topless"><a href="index.html"
-                        title="previous chapter">Illustrating Python via Bioinformatics Examples</a></p>
+                        title="previous chapter">Illustrating Python via Examples from Bioinformatics</a></p>
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
@@ -2667,13 +2676,13 @@ and Kai Trengereid for contributing to the examples and their implementations.</
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="index.html" title="Illustrating Python via Bioinformatics Examples"
+          <a href="index.html" title="Illustrating Python via Examples from Bioinformatics"
              >previous</a> |</li>
-        <li><a href="index.html">Illustrating Python via Bioinformatics Examples 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 1.0 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2012, 0.1.
+        &copy; Copyright 2012, 0.9.
       Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>

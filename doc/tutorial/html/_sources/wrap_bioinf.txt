@@ -1,12 +1,12 @@
 .. Automatically generated reST file from Doconce source
    (http://code.google.com/p/doconce/)
 
-Illustrating Python via Examples from Bioinformatics
-====================================================
+Illustrating Python via Bioinformatics Examples
+===============================================
 
 :Author: Hans Petter Langtangen, Geir Kjetil Sandve
 
-:Date: Mar 20, 2012
+:Date: Mar 31, 2012
 
 .. index:: bioinformatics
 
@@ -34,6 +34,7 @@ Basic Bioinformatics Examples in Python
 
 Below are some very simple examples on DNA analysis that brings together
 basic building blocks in programming: loops, ``if`` tests, and functions.
+
 
 .. _bioinf:count:
 
@@ -596,6 +597,8 @@ can be found in the file ``count.py`` (`download <http://hplgit.github.com/bioin
 
 
 
+
+
 .. _bioinf:freqm:
 
 Computing Frequencies
@@ -780,7 +783,6 @@ results in
         [[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
 
 
-
 Dictionary for More Convenient Indexing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -925,7 +927,6 @@ leads to a slightly more compact version,
                     frequency_matrix[base][index] += 1
         
             return frequency_matrix
-
 
 
 Dictionary of Dictionaries
@@ -1148,7 +1149,6 @@ are seen to be C for position 1, and A for position 2. The consensus
 string is therefore ACA.  Note that the consensus string does not need to be
 equal to any of the substrings that formed the basis of the frequency
 matrix (this is indeed the case for the above example).
-
 
 
 List of Lists Frequency Matrix
@@ -1697,16 +1697,16 @@ The output becomes
         Base frequencies of yeast DNA (length 230208):
         A: 0.30, C: 0.19, T: 0.30, G: 0.20
 
-
 The varying frequency of different nucleotides in DNA is referred to
 as nucleotide bias. The nucleotide bias varies between organisms, and
 have a range of biological implications. For many organisms the
 nucleotide bias has been highly optimized through evolution and
 reflects characteristics of the organisms and their environments, for
 instance the typical temperature the organism is adapted to.
- The
+The
 interested reader can, e.g., find more details in
 `this article <http://www.nature.com/embor/journal/v6/n12/full/7400538.html>`_.
+
 
 .. This shows that A and T appears in the yeast DNA with 50 percent higher
 
@@ -1738,8 +1738,6 @@ in milk. Lack of the functionality of LPH leads to digestive problems
 referred to as lactose intolerance. Most mammals and humans lose their
 expression of LCT and therefore their ability to digest milk when they
 stop recieving breast milk.
-
-
 
 The file
 
@@ -1791,10 +1789,23 @@ this robust function:
                     raise IOError('URL %s does not exist' % url)
 
 
-We want to make a dictionary of the ``genetic_code.tsv`` file that maps
-the code in the first column onto the 1-letter symbol in the second
-column.  Downloading the file, reading it and making the dictionary
-are done by
+We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column):
+
+
+.. code-block:: python
+
+        def read_genetic_code_v1(filename):
+            infile = open(filename, 'r')
+            genetic_code = {}
+            for line in infile:
+                columns = line.split()
+                genetic_code[columns[0]] = columns[1]
+            return genetic_code
+
+
+Downloading the
+file, reading it and making the dictionary are done by
 
 
 .. code-block:: python
@@ -1834,7 +1845,6 @@ a dictionary of dictionaries:
                 genetic_code[columns[0]]['3-letter']   = columns[2]
                 genetic_code[columns[0]]['amino acid'] = columns[3]
             return genetic_code
-
 
 An alternative way of writing the last function is
 
@@ -1940,14 +1950,6 @@ An appropriate function doing this is
             outfile.close()
 
 
-
-.. index:: making folder (directory)
-
-.. index:: os.mkdir
-
-.. index:: os.makedirs
-
-
 It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
 make a folder:
@@ -1973,7 +1975,7 @@ Occasionally, the output folder is nested, say
 
         output_folder = os.path.join('output', 'lactase')
 
-In that case ``os.mkdir(output_folder)`` may fail because
+In that case, ``os.mkdir(output_folder)`` may fail because
 the intermediate folder ``output`` is missing. Making a folder
 and also all missing intermediate folders is done by ``os.makedirs``.
 We can write a more general file writing function which takes
@@ -2381,7 +2383,7 @@ which can be computed by
 .. code-block:: python
 
         markov_chain['A'] = {base: p for base, p in
-                             zip('ATGC', transition_probabilities)}
+                             zip('ACGT', transition_probabilities)}
 
 To select a transition, we need to draw a random letter
 (A, C, G, or T) according to the probababilities
@@ -2484,7 +2486,7 @@ This test is only approximate, but does bring evidence to the correctness
 of the implementation of the ``draw`` function.
 
 A vectorized version of ``draw`` can also be made. We refer to the
-source code file ``mutate.py`` (`download <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py>`_ or `online viewing <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html>`_) for details (the function relatively
+source code file ``mutate.py`` (`download <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py>`_ or `online viewing <http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html>`_) for details (the function is relatively
 complicated).
 
 Now we have all the tools needed to run the Markov chain of
@@ -2564,7 +2566,8 @@ that :math:`P(Y=b)`, where :math:`b` is some base (A, C, G, or T), is built up
 of four mutually exclusive events:
 
 .. math::
-         P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) + P(X=G \cup Y=b) + P(X=T \cup Y=b)
+         P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) +
+        P(X=G \cup Y=b) + P(X=T \cup Y=b)
 
 A joint event can be expressed by the (conditional) transition
 probabilities, e.g.,
@@ -2982,7 +2985,6 @@ of that type of gene.
 
 The ``get_product`` method can be declared in class ``Gene``:
 
-
 .. code-block:: python
 
             def get_product(self):
@@ -2990,7 +2992,7 @@ The ``get_product`` method can be declared in class ``Gene``:
                     'Subclass %s must implement get_product' % \ 
                     self.__class__.__name__)
 
-Note that the exception here will be triggered by an instance (``self``)
+The exception here will be triggered by an instance (``self``)
 of any subclass that just inherits ``get_product`` from class ``Gene``
 without implementing a subclass version of this method.
 
@@ -3040,6 +3042,9 @@ RNA-coding gene. The only necessary changes would have been to exhange
 ``ProteinCodingGene`` by ``RNACodingGene`` in the assignment to
 ``lactase_gene``, and one would get out a final RNA product instead of a
 protein.
+
+*Acknowledgments.* The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid for contributing to the examples and their implementations.
 
 Exercises
 =========
@@ -3147,8 +3152,5 @@ merging the two functions, (ii) pre-computing interval limits for each
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the ``mutate_via_markov_chain`` function for 1 million mutations.
-
-*Acknowledgments.* The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
-and Kai Trengereid for contributing to the examples and their implementations.
 
 *Filename*: ``markov_chain_mutation2.py``

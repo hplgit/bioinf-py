@@ -11,8 +11,8 @@ Automatically generated HTML file from Doconce source
 </head>
 
 <body bgcolor="white">
-    <title>Illustrating Python via Examples from Bioinformatics</title>
-<center><h1>Illustrating Python via Examples from Bioinformatics</h1></center>
+    <title>Illustrating Python via Bioinformatics Examples</title>
+<center><h1>Illustrating Python via Bioinformatics Examples</h1></center>
 <center>
 <b>Hans Petter Langtangen</b> [1, 2]
 </center>
@@ -26,9 +26,7 @@ Automatically generated HTML file from Doconce source
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 
 
-<center><h3>Mar 20, 2012</h3></center>
-<P>
-
+<center><h3>Mar 31, 2012</h3></center>
 <P>
 
 <P>
@@ -82,6 +80,8 @@ proteins.
 <P>
 Below are some very simple examples on DNA analysis that brings together
 basic building blocks in programming: loops, <tt>if</tt> tests, and functions.
+
+<P>
 
 <P>
 <h3>Counting Letters in DNA Strings <a name="bioinf:count"></A></h3>
@@ -664,6 +664,10 @@ can be found in the file <tt>count.py</tt> (<a href="http://hplgit.github.com/bi
 <P>
 
 <P>
+
+<P>
+
+<P>
 <h3>Computing Frequencies <a name="bioinf:freqm"></A></h3>
 <P>
 
@@ -860,8 +864,6 @@ results in
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-
-<P>
 <h4>Dictionary for More Convenient Indexing</h4>
 <P>
 
@@ -1016,8 +1018,6 @@ def freq_dict_of_lists_v2(dna_list):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-
-<P>
 <h4>Dictionary of Dictionaries</h4>
 <P>
 The dictionary of lists data structure can alternatively be replaced
@@ -1143,7 +1143,7 @@ array(['A', 'C', 'A', 'T'],
 </blockquote>   <! -- end verbatim block -->
 For a given base, say A, we can in one vectorized operation find
 which locations in <tt>dna</tt> that contain <tt>A</tt>:
-<blockquote>    <!-- begin verbatim block   cod-->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 &gt;&gt;&gt; b = dna == 'A'
 &gt;&gt;&gt; b
@@ -1153,7 +1153,7 @@ array([ True, False,  True, False], dtype=bool)
 By converting <tt>b</tt> to an integer array <tt>i</tt> we can
 update the frequency counts
 for all indices by adding <tt>i</tt> to <tt>frequency_matrix['A']</tt>:
-<blockquote>    <!-- begin verbatim block   cod-->
+<blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 &gt;&gt;&gt; i = np.asarray(b, dtype=np.int)
 &gt;&gt;&gt; i
@@ -1247,8 +1247,6 @@ are seen to be C for position 1, and A for position 2. The consensus
 string is therefore ACA.  Note that the consensus string does not need to be
 equal to any of the substrings that formed the basis of the frequency
 matrix (this is indeed the case for the above example).
-
-<P>
 
 <P>
 
@@ -1834,17 +1832,17 @@ Base frequencies of yeast DNA (length 230208):
 A: 0.30, C: 0.19, T: 0.30, G: 0.20
 </pre>
 </blockquote>   <! -- end verbatim block -->
-
-<P>
 The varying frequency of different nucleotides in DNA is referred to
 as nucleotide bias. The nucleotide bias varies between organisms, and
 have a range of biological implications. For many organisms the
 nucleotide bias has been highly optimized through evolution and
 reflects characteristics of the organisms and their environments, for
 instance the typical temperature the organism is adapted to.
- The
+The
 interested reader can, e.g., find more details in
 <a href="http://www.nature.com/embor/journal/v6/n12/full/7400538.html">this article</a>.
+
+<P>
 
 <P>
 <!-- This shows that A and T appears in the yeast DNA with 50 percent higher -->
@@ -1876,10 +1874,6 @@ in milk. Lack of the functionality of LPH leads to digestive problems
 referred to as lactose intolerance. Most mammals and humans lose their
 expression of LCT and therefore their ability to digest milk when they
 stop recieving breast milk.
-
-<P>
-
-<P>
 
 <P>
 The file
@@ -1934,10 +1928,25 @@ def download(urlbase, filename):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-We want to make a dictionary of the <tt>genetic_code.tsv</tt> file that maps
-the code in the first column onto the 1-letter symbol in the second
-column.  Downloading the file, reading it and making the dictionary
-are done by
+We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column):
+
+<P>
+<blockquote>    <!-- begin verbatim block   pycod-->
+<pre>
+def read_genetic_code_v1(filename):
+    infile = open(filename, 'r')
+    genetic_code = {}
+    for line in infile:
+        columns = line.split()
+        genetic_code[columns[0]] = columns[1]
+    return genetic_code
+</pre>
+</blockquote>   <! -- end verbatim block -->
+
+<P>
+Downloading the
+file, reading it and making the dictionary are done by
 
 <P>
 <blockquote>    <!-- begin verbatim block   pycod-->
@@ -1983,8 +1992,6 @@ def read_genetic_code_v3(filename):
     return genetic_code
 </pre>
 </blockquote>   <! -- end verbatim block -->
-
-<P>
 An alternative way of writing the last function is
 
 <P>
@@ -2100,8 +2107,6 @@ def tofile_with_line_sep_v1(text, filename, chars_per_line=70):
 </blockquote>   <! -- end verbatim block -->
 
 <P>
-
-<P>
 It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
 make a folder:
@@ -2128,7 +2133,7 @@ Occasionally, the output folder is nested, say
 output_folder = os.path.join('output', 'lactase')
 </pre>
 </blockquote>   <! -- end verbatim block -->
-In that case <tt>os.mkdir(output_folder)</tt> may fail because
+In that case, <tt>os.mkdir(output_folder)</tt> may fail because
 the intermediate folder <tt>output</tt> is missing. Making a folder
 and also all missing intermediate folders is done by <tt>os.makedirs</tt>.
 We can write a more general file writing function which takes
@@ -2564,7 +2569,7 @@ which can be computed by
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
 markov_chain['A'] = {base: p for base, p in
-                     zip('ATGC', transition_probabilities)}
+                     zip('ACGT', transition_probabilities)}
 </pre>
 </blockquote>   <! -- end verbatim block -->
 To select a transition, we need to draw a random letter
@@ -2677,7 +2682,7 @@ of the implementation of the <tt>draw</tt> function.
 
 <P>
 A vectorized version of <tt>draw</tt> can also be made. We refer to the
-source code file <tt>mutate.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>) for details (the function relatively
+source code file <tt>mutate.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>) for details (the function is relatively
 complicated).
 
 <P>
@@ -2761,7 +2766,8 @@ be the new base after mutation at this position. The probability
 that P(Y=b), where b is some base (A, C, G, or T), is built up
 of four mutually exclusive events:
 <blockquote><pre>
-\[ P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) + P(X=G \cup Y=b) + P(X=T \cup Y=b)\]
+\[ P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) +
+P(X=G \cup Y=b) + P(X=T \cup Y=b)\]
 </pre></blockquote>
 A joint event can be expressed by the (conditional) transition
 probabilities, e.g.,
@@ -3187,8 +3193,6 @@ of that type of gene.
 
 <P>
 The <tt>get_product</tt> method can be declared in class <tt>Gene</tt>:
-
-<P>
 <blockquote>    <!-- begin verbatim block   pycod-->
 <pre>
     def get_product(self):
@@ -3197,7 +3201,7 @@ The <tt>get_product</tt> method can be declared in class <tt>Gene</tt>:
             self.__class__.__name__)
 </pre>
 </blockquote>   <! -- end verbatim block -->
-Note that the exception here will be triggered by an instance (<tt>self</tt>)
+The exception here will be triggered by an instance (<tt>self</tt>)
 of any subclass that just inherits <tt>get_product</tt> from class <tt>Gene</tt>
 without implementing a subclass version of this method.
 
@@ -3252,6 +3256,10 @@ RNA-coding gene. The only necessary changes would have been to exhange
 <tt>ProteinCodingGene</tt> by <tt>RNACodingGene</tt> in the assignment to
 <tt>lactase_gene</tt>, and one would get out a final RNA product instead of a
 protein.
+
+<P>
+<b>Acknowledgments.</b> The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid for contributing to the examples and their implementations.
 
 <P>
 <h2>Exercises</h2>
@@ -3365,10 +3373,6 @@ merging the two functions, (ii) pre-computing interval limits for each
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the <tt>mutate_via_markov_chain</tt> function for 1 million mutations.
-
-<P>
-<b>Acknowledgments.</b> The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
-and Kai Trengereid for contributing to the examples and their implementations.
 
 <P>
 <em>Filename</em>: <tt>markov_chain_mutation2.py</tt>

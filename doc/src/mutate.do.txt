@@ -177,9 +177,9 @@ a dictionary:
 
 @@@CODE src-bioinf/mutate.py fromto: def draw\(@def draw_vec
 
-Basically, the algorithm divides [0,1] into intervals of lengths
+Basically, the algorithm divides $[0,1]$ into intervals of lengths
 equal to the probabilities of the various outcomes and checks
-which interval is hit by a random variable in [0,1]. The corresponding
+which interval is hit by a random variable in $[0,1]$. The corresponding
 value is the random choice.
 
 A complete function creating all the transition probabilities and

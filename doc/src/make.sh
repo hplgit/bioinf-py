@@ -17,19 +17,24 @@ done
 cp *.py ../$static
 cd ..
 
-doconce format sphinx bioinf PRIMER_BOOK=False EBOOK=False --skip_inline_comments $main
-doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.1 theme=pyramid $main
+doconce format sphinx $main PRIMER_BOOK=False EBOOK=False --skip_inline_comments
+rm -rf sphinx-rootdir
+doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=pyramid $main
 python automake-sphinx.py
+# Note: duplicate links warnings occur, but that is okay (we use the
+# same repeated link text for local files)
 
-doconce format pdflatex bioinf PRIMER_BOOK=False EBOOK=False --skip_inline_comments $main
+doconce format pdflatex $main PRIMER_BOOK=False EBOOK=False --skip_inline_comments
 ptex2tex -DMINTED $main
-pdflatex $main
-pdflatex $main
+pdflatex -shell-escape $main
+makeindex $main
+pdflatex -shell-escape $main
+pdflatex -shell-escape $main
 
 # Move
 cp -r sphinx-rootdir/_build/html ../tutorial/
-mv $main.pdf ../tutorial/bioinf-py.pdf
-mv $main.html ../tutorial/bioinf-py.html
+cp $main.pdf ../tutorial/bioinf-py.pdf
+cp $main.html ../tutorial/bioinf-py.html
 
 
 

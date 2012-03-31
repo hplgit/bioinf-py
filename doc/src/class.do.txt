@@ -7,7 +7,7 @@ Basically, we create a class `Gene` to represent a DNA sequence (string)
 and a class `Region` to represent a subsequence (substring), typically an
 exon or intron.
 
-===== Class Region =====
+===== Class for Regions =====
 
 The class for representing a region of a DNA string is quite simple:
 
@@ -23,7 +23,7 @@ we have also included the possibility to
 The latter two operations are convenient for making one large string out
 of all exon or intron regions.
 
-===== Class Gene =====
+===== Class for Genes =====
 
 The class for gene will be longer and more complex than class
 `Region`. We already have a bunch of functions performing various
@@ -46,9 +46,9 @@ The selection of functions include
  * `read_exon_regions` (version `read_exon_regions_v2`)
    for reading exon regions from file
  * `tofile_with_line_sep` (version `tofile_with_line_sep_v2`)
-   for writing DNA strings to file
+   for writing strings to file
  * `read_genetic_code` (version `read_genetic_code_v2`) for loading
-   mappings from genetic codes to different type of names for amino acids
+   the mapping from triplet codes to 1-letter symbols for amino acids
  * `get_base_frequencies` (version `get_base_frequencies_v2`)
    for finding frequencies of each base
  * `format_frequencies` for formatting base frequencies with two decimals

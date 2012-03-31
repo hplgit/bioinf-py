@@ -1,8 +1,8 @@
 
 .. Master file automatically created by doconce sphinx_dir
 
-Illustrating Python via Bioinformatics Examples
-===============================================
+Illustrating Python via Examples from Bioinformatics
+====================================================
 
 Contents:
 
