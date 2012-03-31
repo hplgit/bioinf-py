@@ -1291,7 +1291,7 @@ build as an extra argument:
             ...
 
 
-Exercise :ref:`bioinf:exer:freq:fargs` suggest to make a unified
+Exercise :ref:`bioinf:exer:freq:fargs` suggests to make a unified
 ``find_consensus`` function which works with all of the different
 representation of ``frequency_matrix`` that we have used.
 

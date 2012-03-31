@@ -4,7 +4,7 @@ main=wrap_bioinf
 
 doconce format html $main
 
-static=static-bioinf
+static=_static-bioinf
 rm -rf $static
 mkdir $static
 
