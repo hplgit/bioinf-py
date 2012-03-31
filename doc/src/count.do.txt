@@ -2,8 +2,6 @@ label{bioinf:basics}
 
 Below are some very simple examples on DNA analysis that brings together
 basic building blocks in programming: loops, `if` tests, and functions.
-${primer_book_comment("""We also give a glimpse of programming
-constructions that are covered much more in detail later in the book.""")}
 
 ===== Counting Letters in DNA Strings =====
 label{bioinf:count}

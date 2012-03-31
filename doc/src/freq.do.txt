@@ -5,7 +5,7 @@
 We shall here continue the bioinformatics applications started
 in Chapter ref{bioinf:basics}. Analysis of DNA sequences is
 conveniently done in Python, much with the aid of lists, dictionaries,
-string manipulation, and file handling. This will be illustrated
+`numpy` arrays, strings, and files. This will be illustrated
 through a series of examples.
 % endif
 
