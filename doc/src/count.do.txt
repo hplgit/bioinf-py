@@ -1,0 +1,365 @@
+label{bioinf:basics}
+
+Below are some very simple examples on DNA analysis that brings together
+basic building blocks in programming: loops, `if` tests, and functions.
+${primer_book_comment("""We also give a glimpse of programming
+constructions that are covered much more in detail later in the book.""")}
+
+===== Counting Letters in DNA Strings =====
+label{bioinf:count}
+
+Given some string `dna` containing the letters A, C, G, or T,
+representing the bases that make up DNA, we ask the question: how
+many times does a certain base occur in the DNA string?
+For example, if `dna` is ATGGCATTA and we ask how many times the
+base A occur in this string, the answer is 3.
+
+A general Python implementation answering this problem can be done
+in many ways. Several possible solutions are presented below.
+
+=== List Iteration ===
+
+idx{list iteration}
+
+The most straightforward solution is to loop over the letters
+in the string, test if the current letter equals the desired one,
+and if so, increase a counter. Looping over the letters is
+obvious if the letters are stored in a list. This is easily
+done by converting a string to a list:
+!bc ipy
+>>> list('ATGC')
+['A', 'T', 'G', 'C']
+!ec
+Our first solution becomes
+
+@@@CODE src-bioinf/count.py fromto: def count_v1\(@def count_v2\(dna
+
+=== String Iteration ===
+
+idx{string iteration}
+
+Python allows us to iterate directly over a string without converting
+it to a list:
+!bc ipy
+>>> for c in 'ATGC':
+...     print c
+A
+T
+G
+C
+!ec
+In fact, all built-in objects in Python which contain a set of elements in
+a particular sequence allow a `for` loop construction of the
+type `for element in object`.
+#Examples of such objects are
+#lists, tuples, strings, arrays, files, dictionaries
+
+A slight improvement of our solution is therefore to iterate directly
+over the string:
+
+@@@CODE src-bioinf/count.py fromto: def count_v2\(dna@def count_v2_demo
+
+We have illustrated two alternative ways of writing out text
+where the value of variables are to be inserted in "slots" in the
+string.
+
+=== Program Flow ===
+
+It is fundamental for correct programming to understand how
+to simulate a program by hand, statement by
+statement. Three tools are
+effective for helping you reach the required understanding of performing
+a simulation by hand:
+(i) printing variables, (ii) using a debugger, and (iii) using an
+"online program flow tool": "http://people.csail.mit.edu/pgbovine/python/tutor.html".
+
+Inserting `print` statements and examining the about is the
+simplest approach to investigating
+what is going on:
+
+@@@CODE src-bioinf/count.py fromto: def count_v2_demo@def count_v3
+
+idx{using a debugger}
+
+# Note: do not use !bc ipy for debugging sessions since
+# sphinx treats ipy as interactive sessions and therefore
+# drops any environment (it is automatically handled)
+
+An efficient way to explore this program is to run it in a
+debugger where we can step through each statement and see what
+is printed out. Start `ipython` in a terminal window and run the
+program ${link("count_v2_demo.py")} with
+a debugger: `run -d count_v2_demo.py`. Use `s` (for step) to
+step through each statement, or `n` (for next) for proceeding to the
+next statement without stepping through a function that is called.
+!bc cod
+ipdb> s
+> /some/disk/user/bioinf/src/count_v2_demo.py(2)count_v2_demo()
+1     1 def count_v1_demo(dna, base):
+----> 2     print 'dna:', dna
+      3     print 'base:', base
+
+ipdb> s
+dna: ATGCGGACCTAT
+> /some/disk/user/bioinf/src/count_v2_demo.py(3)count_v2_demo()
+      2     print 'dna:', dna
+----> 3     print 'base:', base
+      4     i = 0 # counter
+!ec
+Observe the output of the `print` statements. One can also
+print a variable explicitly:
+!bc cod
+ipdb> print base
+C
+!ec
+Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so
+whenever in doubt about any program flow, enter a debugger to establish
+confidence.
+
+idx{Python Online Tutor}
+
+The "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"
+% if PRIMER_BOOK:
+at
+!bc
+http://people.csail.mit.edu/pgbovine/python/tutor.html
+!ec
+% endif
+is, at least for small programs, a splendid alternative to
+debuggers. Go to the webpage, erase the sample code and paste in your
+own code. Press *Visual execution*, then *Forward* to execute
+statements one by one. The status of variables are
+explained to the right, and the text field below the program shows the output
+from `print` statements.  An example is shown in Figure ref{bioinf:fig:pot}.
+
+FIGURE: [figs-bioinf/python_online_tutor.jpg, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
+
+=== Index Iteration ===
+
+Although it is natural in Python to iterate over the letters in a
+string (or more generally over elements in a sequence), programmers
+with experience from other languages (Fortran, C and Java are
+examples) are used to `for` loops with an integer counter running over
+a all indices in a string or array:
+
+@@@CODE src-bioinf/count.py fromto: def count_v3@def count_v4
+
+Python indices always start at 0 so the legal indices for our
+string become `0`, `1`, ...,
+`len(dna)-1`, where `len(dna)` is the number of letters in the
+string `dna`. The `range(x)` function returns a list of integers
+`0`, `1`, ..., `x-1`, implying that `range(len(dna))` generates
+all the legal indices for `dna`.
+
+=== While Loops ===
+
+The `while` loop equivalent to the last function reads
+
+@@@CODE src-bioinf/count.py fromto: def count_v4@def count_v5
+
+Correct indentation is here crucial: a typical error is to fail
+indenting the `j += 1` line correctly.
+
+=== Summing a Boolean List ===
+
+The idea now is to create a list `m` where `m[i]` is `True` if
+`dna[i]` equals the letter we search for (`base`).
+The number of `True` values in `m` is then the number of `base`
+letters in `dna`. We can use the `sum` function to find
+this number because doing arithmetics with boolean lists
+automatically interprets `True` as `1` and `False` as `0`.
+That is, `sum(m)` returns the number of `True` elements in `m`.
+A possible function doing this is
+
+@@@CODE src-bioinf/count.py fromto: def count_v5@def count_v6
+
+=== Inline If Test ===
+
+Shorter, more compact code is often a goal if the compactness
+enhances readability. The four-line `if` test in the previous
+function can be condensed to one line using the inline
+`if` construction: `if condition value1 else value2`.
+
+@@@CODE src-bioinf/count.py fromto: def count_v6@def count_v7
+
+=== Using Boolean Values Directly ===
+
+The inline `if` test is in fact redundant in the previous function
+because the value of the condition `c == base` can be used
+directly: it has the value `True` or `False`. This saves
+some typing and adds clarity, at least to Python programmers:
+
+@@@CODE src-bioinf/count.py fromto: def count_v7@def count_v8
+
+
+=== List Comprehensions ===
+
+idx{list comprehension} idx{`sum`}
+
+Building a list via a `for` loop can often be condensed to one line
+by using list comprehensions: `[expr for e in sequence]`, where
+`expr` is some expression normally involving the iteration variable
+`e`. In our last example, we can introduce a list comprehension
+
+@@@CODE src-bioinf/count.py fromto: def count_v8@def count_v9
+
+Here it is tempting to get rid of the `m` variable and
+reduce the function body to a single line:
+
+@@@CODE src-bioinf/count.py fromto: def count_v9@def count_v10
+
+=== Using a Sum Iterator ===
+
+idx{`sum` iterator}
+
+The DNA string is usually huge - 3 billion letters for the human
+species. Making a boolean array with `True` and `False` values
+therefore increases the memory usage by a factor of two
+in our sample functions `count_v5` to `count_v9`.
+Summing without actually storing an extra list is desireable.
+Fortunately, `sum([x for x in s])` can be replaced
+`sum(x for x in s)`, where the latter sums the elements (`x`) in `s`
+as `x` visits the elements of `s` one by one. Removing the brackets
+therefore avoids first making a list and then applying `sum` on
+that list. This is a minor modification of the `count_v9` function:
+
+@@@CODE src-bioinf/count.py fromto: def count_v10@def count_v11
+
+Below we shall measure the impact of the various program constructs
+on the CPU time.
+
+=== Extracting Indices ===
+
+Instead of making a boolean list with elements expressing whether
+a character matches the given `base` or not, we may collect all
+the indices of the matches. This can be done by adding an `if`
+test to the list comprehension:
+
+@@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
+
+A debugger or the Python Online Tutorial do not help so much to
+understand this compact code. A better approach is to examine
+the list comprehension in an interactive Python shell:
+!bc ipy
+>>> dna = 'AATGCTTA'
+>>> base = 'A'
+>>> indices = [i for i in range(len(dna)) if dna[i] == base]
+>>> indices
+[0, 1, 7]
+>>> print dna[0], dna[1], dna[7]  # check
+A A A
+!ec
+The element `i` in the list comprehension is only made when
+`dna[i] == base`.
+
+=== Using Python's Library ===
+
+Very often when you set out to do a task in Python, there is already
+functionality for the task in the object itself, in the Python
+libraries, or in third-party libraries found on the Internet.
+Counting how many times a character (or substring) `base` appears in a
+string `dna` is obviously a very common task so Python supports
+it by `dna.count(base)`:
+
+@@@CODE src-bioinf/count.py fromto: def count_v12@import random
+
+
+===== Efficiency Assessment =====
+label{bioinf:count:cpu}
+
+Now we have 11 different versions of how to count the occurences
+of a letter in a string. Which one of these implementations is the fastest?
+To answer the question we need some test data, which should be a
+huge string `dna`.
+
+=== Generating Random DNA Strings ===
+
+idx{random strings}
+
+The simplest way of generating a long string is to repeat a
+character a large number of times:
+!bc pycod
+N = 1000000
+dna = 'A'*N
+!ec
+The resulting string is just `'AAA...A`, of length `N`, which is fine
+for testing the efficiency of Python functions. Nevertheless, it is
+more exciting to work with a DNA string with letters from the whole
+alphabet A, C, G, and T. To make a DNA string with a random
+composition of the characters we can first make a list of random
+characters and then join all those characters to a string:
+!bc pycod
+import random
+alphabet = list('ATGC')
+dna = [random.choice(alphabet) for i in range(N)]
+dna = ''.join(dna)  # join the character elements to a string
+!ec
+The `random.choice(x)` function selects an element in the list
+`x` at random.
+
+Note that `N` is very often a large number. In Python version 2.x,
+`range(N)` generates a list of `N` integers. We can avoid this by
+using `xrange` which generates an integer at a time and not the whole
+list. In Python version 3.x, the `range` function is actually the
+`xrange` function in version 2.x.  Using `xrange`, combining the
+statements, and wrapping the construction of a random DNA string in a
+function, gives
+
+@@@CODE src-bioinf/count.py fromto: import random@import time
+
+The call `generate_string(10)` may generate something like `AATGGCAGAA`.
+
+=== Measuring CPU Time ===
+
+idx{CPU time measurements}
+
+Our next goal is to see how much time the `count_v9` and `count_v10`
+functions spend on counting letters in a huge string as generated
+above. Measuring the time spent in a program can be done by the `time`
+module:
+!bc pycod
+import time
+...
+t0 = time.clock()
+# do stuff
+t1 = time.clock()
+cpu_time = t1 - t0
+!ec
+The `time.clock()` function returns the CPU time spent in the program since
+its start. If the interest is in the total time, also including reading
+and writing files, `time.time()` is the appropriate function to call.
+
+Running through all our functions made so far and recording timings can be
+done by
+
+@@@CODE src-bioinf/count.py fromto: import time@for cpu_time
+
+In Python, functions are ordinary objects so making a list of
+functions is no more special than making a list of strings or numbers.
+
+We can now iterate over `timings` and `functions` simultaneously via `zip`
+to make a nice printout of the results:
+
+@@@CODE src-bioinf/count.py fromto: for cpu_time@# Time count
+
+Timings on a MacBook Air 11 running Ubuntu show that
+the functions using `list.append` require almost the double of
+the time of the functions that work with list comprehensions.
+Even faster is the simple iteration over the string.
+However, the built-in count functionality of strings
+(`dna.count(base)`) runs over 30 times faster than the best of our
+handwritten Python functions!
+The reason is that the `for` loop needed to count in `dna.count(base)`
+is implemented in C and runs very much faster than loops in Python.
+
+A clear lesson learned is: google around before you start out to implement
+what seems to be a quite common task. Others have probably already
+done it for you, and most likely is their solution much better than what
+you can (easily) come up with.
+
+All the functions presented above, including the timings,
+can be found in the file ${link('count.py')}.
+
+#=== Testing with Real Data ===
+

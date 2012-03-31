@@ -1,0 +1,246 @@
+======= Classes for DNA Analysis =======
+label{bioinf:oo}
+
+We shall here exemplify the use of classes for performing
+DNA analysis as explained ${primer_book_comment("""in Sections ref{bioinf:count}, ref{bioinf:freqm}, ref{bioinf:freq:analysis}, ref{bioinf:basefreq}, ref{bioinf:gene2protein}, ref{bioinf:lactase:milk}, and ref{bioinf:random}.""")} ${not_primer_book_comment("""in the previous text.""")}
+Basically, we create a class `Gene` to represent a DNA sequence (string)
+and a class `Region` to represent a subsequence (substring), typically an
+exon or intron.
+
+===== Class Region =====
+
+The class for representing a region of a DNA string is quite simple:
+
+@@@CODE src-bioinf/dna_classes.py fromto: class Region@class Gene
+Besides storing the substring and giving access to it through `get_region`,
+we have also included the possibility to
+
+  * say `len(r)` if `r` is a `Region` instance
+  * check if two `Region` instances are equal
+  * write `r1 + r2` for two instances `r1` and `r2` of type `Region`
+  * perform `r1 += r2`
+
+The latter two operations are convenient for making one large string out
+of all exon or intron regions.
+
+===== Class Gene =====
+
+The class for gene will be longer and more complex than class
+`Region`. We already have a bunch of functions performing various
+types of analysis. The idea of the `Gene` class is that these
+functions are methods in the class operating on the DNA string and the
+exon regions stored in the class.  Rather than recoding all the
+functions as methods in the class we shall just let the class "wrap"
+the functions. That is, the class methods calls up the functions we
+already have.  This approach has two advantages: users can either
+choose the function-based or the class-based interface, and the
+programmer can reuse all the ready-made functions when implementing
+the class.
+
+The selection of functions include
+
+ * `generate_string` for generating a random string from some alphabet
+ * `download` and `read_dnafile`
+   (version `read_dnafile_v1`)
+   for downloading data from the Internet and reading from file
+ * `read_exon_regions` (version `read_exon_regions_v2`)
+   for reading exon regions from file
+ * `tofile_with_line_sep` (version `tofile_with_line_sep_v2`)
+   for writing DNA strings to file
+ * `read_genetic_code` (version `read_genetic_code_v2`) for loading
+   mappings from genetic codes to different type of names for amino acids
+ * `get_base_frequencies` (version `get_base_frequencies_v2`)
+   for finding frequencies of each base
+ * `format_frequencies` for formatting base frequencies with two decimals
+ * `create_mRNA` for computing an mRNA string from DNA and exon regions
+ * `mutate` for mutating a base at a random position
+ * `create_markov_chain`, `transition`, and `mutate_via_markov_chain`
+   for mutating a base at a random position according to randomly
+   generated transition probabilities
+ * `create_protein_fixed` for proper creation of a protein sequence (string)
+
+The set of plain functions for DNA analysis is found
+in the file ${link('dna_functions.py')}, while
+${link('dna_classes.py')} contains the implementations
+of classes `Gene` and `Region`.
+
+=== Basic Features of class Gene ===
+
+Class `Gene` is supposed to hold the DNA sequence and
+the associated exon regions. A simple constructor and a few
+methods may take the following form:
+!bc pycod
+from dna_functions import *
+
+class Gene:
+    def __init__(self, dna, exon_regions):
+        self._dna = dna
+
+        self._exon_regions = exon_regions
+        self._exons = []
+        for start, end in exon_regions:
+            self._exons.append(Region(dna, start, end))
+
+        # Compute the introns (regions between the exons)
+        self._introns = []
+        prev_end = 0
+        for start, end in exon_regions:
+            self._introns.append(Region(dna, prev_end, start))
+            prev_end = end
+        self._introns.append(Region(dna, end, len(dna)))
+
+    def write(self, filename, chars_per_line=70):
+        """Write DNA sequence to file with name filename."""
+        tofile_with_line_sep(self._dna, filename, chars_per_line)
+
+    def count(self, base):
+        """Return no of occurences of base in DNA."""
+        return self._dna.count(base)
+
+    def get_base_frequencies(self):
+        """Return dict of base frequencies in DNA."""
+        return get_base_frequencies(self._dna)
+
+    def format_base_frequencies(self):
+        """Return base frequencies formatted with two decimals."""
+        return format_base_frequencies(
+            self.get_base_frequencies(self._dna))
+!ec
+Observe how the methods just call up existing functions in
+`dna_functions.py`.
+
+=== Flexible Constructor ===
+
+The constructor can be made more flexible. First, the exon regions
+may not be known so we should allow `None` as value and in fact
+use that as default value. Second, exon regions at the start and/or
+end of the DNA string will lead to empty intron `Region` objects so a proper
+test on nonzero length of the introns must be inserted.
+Third, the data for the DNA string and
+the exon regions can either be passed or downloaded and read.
+That is,
+!bc pycod
+g1 = Gene(dna, exon_regions)  # user has read data from file
+g2 = Gene((urlbase, dna_file), (urlbase, exon_file))  # download
+!ec
+If the files are already at the computer one can pass `None` for
+`urlbase`. The flexible constructor has, not surprisingly, longer
+code than the first version (but illustrates well how the
+concept of overloaded constructors in other languages, like C++ and Java,
+are dealt with in Python):
+
+@@@CODE src-bioinf/dna_classes.py fromto: class Gene@def create_mRNA
+
+Note that we perform quite detailed testing of the object type
+of the data structures supplied as the `dna` and `exon_regions`
+arguments. This can well be done to ensure safe use also when there is only
+one allowed type per argument.
+
+=== Other Methods ===
+
+A `create_mRNA` method, returning the mRNA as a string, can be coded as
+
+@@@CODE src-bioinf/dna_classes.py fromto: def create_mRNA@def write
+
+Also here we rely on calling an already implemented function, but include
+some testing whether asking for mRNA is appropriate.
+
+Methods for creating a mutated gene are also included:
+
+@@@CODE src-bioinf/dna_classes.py fromto: def mutate_pos@def get_dna
+
+Some "get" methods that give access to the fundamental attributes
+of the class can be included:
+
+@@@CODE src-bioinf/dna_classes.py fromto: def get_dna@def __len
+Alternatively, one could access the attributes directly: `gene._dna`,
+`gene._exons`, etc. In that case we should remove the leading underscore as
+this underscore signifies to the user of the class that these
+attributes are considered "protected", i.e., not to be directly accessed
+by the user. The "protection" in "get" functions is more mental
+than actual since we anyway give the data structures in the hands of
+the user.
+
+## Note that copying from __len__ interferes with copying from
+## the same method in class Region. Hence, we have copied the
+## relevant code directly in here.
+
+Special methods for the length of a gene, adding genes, checking if
+two genes are identical, and printing of compact gene information
+are relevant to add:
+!bc pycod
+    def __len__(self):
+        return len(self._dna)
+
+    def __add__(self, other):
+        """Add Gene instances: self + other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            return self._dna + other._dna
+        else:
+            raise ValueError(
+                'cannot do Gene + Gene with exon regions')
+
+    def __iadd__(self, other):
+        """Increment Gene instance: self += other"""
+        # We don't know what to do with exon regions
+        if self._exons is None and other._exons is None:
+            self._dna += other._dna
+            return self
+        else:
+            raise ValueError(
+                'cannot do Gene += Gene with exon regions')
+
+    def __eq__(self, other):
+        """Check if two Gene instances are equal."""
+        return self._dna == other._dna and \
+               self._exons == other._exons
+
+    def __str__(self):
+        """Pretty print (condensed info)."""
+        s = 'Gene: ' + self._dna[:6] + '...' + self._dna[-6:] + \
+            ', length=%d' % len(self._dna)
+        if self._exons is not None:
+            s += ', %d exon regions' % len(self._exons)
+        return s
+!ec
+
+===== Subclasses =====
+
+There are two fundamental types of genes: the most common type which
+codes for proteins (indirectly via mRNA) and the type which only codes
+for RNA (without being further processed to proteins).
+The product of a gene, mRNA or protein, depends on the type of gene we have.
+It is then natural to create two subclasses for the two types of
+gene and have a method `get_product` which returns the product
+of that type of gene.
+
+The `get_product` method can be declared in class `Gene`:
+!bc pycod
+    def get_product(self):
+        raise NotImplementedError(
+            'Subclass %s must implement get_product' % \
+            self.__class__.__name__)
+!ec
+The exception here will be triggered by an instance (`self`)
+of any subclass that just inherits `get_product` from class `Gene`
+without implementing a subclass version of this method.
+
+The two subclasses of `Gene` may take this simple form:
+
+@@@CODE src-bioinf/dna_classes.py fromto: class RNACoding@def _test\(
+
+A demonstration of how to load the lactase gene and create the
+lactase protein is done with
+
+@@@CODE src-bioinf/dna_classes.py fromto: def _test\(@# Manual downloading and
+
+Now, envision that the Lactase gene would instead have been an
+RNA-coding gene. The only necessary changes would have been to exhange
+`ProteinCodingGene` by `RNACodingGene` in the assignment to
+`lactase_gene`, and one would get out a final RNA product instead of a
+protein.
+
+__Acknowledgments.__
+The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid for contributing to the examples and their implementations.

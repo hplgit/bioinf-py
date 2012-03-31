@@ -1,0 +1,290 @@
+===== Random Mutations of Genes ======
+label{bioinf:random}
+
+=== A Simple Mutation Model ===
+
+${primer_book_comment("""
+A fundamental principle of biological evolution is that DNA undergoes
+mutation. Since DNA can be represented as a string consisting of the
+letters A, C, G, and T, as explained in Section ref{bioinf:basics},
+mutation of DNA""")}
+${not_primer_book_comment("""Mutation of genes""")}
+is easily modeled by replacing the letter in a randomly
+chosen position of the DNA by a randomly chosen letter.
+${not_primer_book_comment("""Python's `random` module can be used
+to generate random numbers. Selecting a random position means
+generating a random index in the DNA string, and the function
+`random.randint(a, b)` generates random integers between `a` and
+`b` (both included). Generating a random
+letter is easiest done by having a list of the actual letters
+and using `random.choice(list)` to pick an arbitrary element from
+`list`.""")}
+A function for replacing the letter in a randomly selected position (index)
+by a random letter among A, C, G, and T is most straightforwardly
+implemented by converting the DNA string to a list of letters:
+
+@@@CODE src-bioinf/mutate.py fromto: import random@def get_base_frequencies_v2
+
+Using the functions `get_base_frequencies_v2` and `format_frequencies`
+from Section ref{bioinf:basefreq}, we can easily mutate a gene a number
+of times and see how the frequencies of the bases A, C, G, and T change:
+
+@@@CODE src-bioinf/mutate.py fromto: dna = 'AC@# Vectorized version
+
+Here is the output from a run:
+!bc dat
+Starting DNA: ACGGAGATTTCGGTATGCAT
+A: 0.25, C: 0.15, T: 0.30, G: 0.30
+DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
+A: 0.35, C: 0.25, T: 0.10, G: 0.30
+!ec
+
+=== Vectorized Version ===
+
+The efficiency of the `mutate_v1` function with its surrounding loop can be
+significantly increased up by performing all the mutations at
+once using `numpy` arrays. This speed-up is of interest for long `dna`
+strings and many mutations. The idea is to draw all the mutation sites
+at once, and also all the new bases at these sites at once.
+The `np.random` module provides functions for drawing several random
+numbers at a time, but only integers and real numbers can be drawn,
+not characters from the alphabet A, C, G, and T. We therefore have
+to simulate these four characters by the numbers (say) 0, 1, 2, and 3.
+Afterwards we can translate the integers to letters by some clever
+vectorized indexing.
+
+Drawing `N` mutation sites is a matter of drawing `N` random
+integers among the legal indices:
+!bc pycod
+import numpy as np
+mutation_sites = np.random.random_integers(0, len(dna)-1, size=N)
+!ec
+Drawing `N` bases, represented as the integers 0-3, is similarly done by
+!bc pycod
+new_bases_i = np.random.random_integers(0, 3, N)
+!ec
+Converting say the integers 1 to the base symbol C is done by
+picking out the indices (in a boolean array) where `new_bases_i`
+equals 1, and inserting the character `'C'` in a companion
+array of characters:
+!bc pycod
+new_bases_c = np.zeros(N, dtype='c')
+indices = new_bases_i == 1
+new_bases_c[indices] = 'C'
+!ec
+We must do this integer-to-letter conversion for all four integers/letters.
+Thereafter, `new_bases_c` must be inserted in `dna` for all the
+indices corresponding to the randomly drawn mutation sites,
+!bc pycod
+dna[mutation_sites] = new_bases_c
+!ec
+The final step is to convert the `numpy` array of characters `dna`
+back to a standard string by first converting `dna` to a list
+and then joining the list elements: `''.join(dna.tolist())`.
+
+The complete vectorized functions can now be expressed as follows:
+
+@@@CODE src-bioinf/mutate.py fromto: import numpy as np@dna = mutate_v2\(dna
+
+It is of interest to time `mutate_v2` versus `mutate_v1`. For this purpose
+we need a long test string. A straightforward generation of random
+letters is
+
+@@@CODE src-bioinf/mutate.py fromto: def generate_string_v1@def generate_string_v2
+
+A vectorized version of this function can also be made, using the
+ideas explored above for the `mutate_v2` function:
+
+@@@CODE src-bioinf/mutate.py fromto: def generate_string_v2@def time_mutate
+
+The `time_mutate` function in the file ${link('mutate.py')} performs
+timing of the generation of test strings and the mutations.  For a DNA
+string of length 100,000 the vectorized function is about 8 times
+faster. With 10,000 mutations on this string, the vectorized version
+is almost 3000 times faster! These numbers stay approximately the same
+also for larger strings and more mutations.  This case study on
+vectorization is a striking example on the fact that a straightforward
+and convenient function like `mutate_v1` might occasionally be very
+slow for large-scale computations.
+
+
+=== A Markov Chain Mutation Model ===
+
+The observed rate at which mutations occur at a given position in the
+genome is not independent of the type of nucleotide (base) at that
+position, as was assumed in the previous simple mutation model.  We
+should therefore take into account that the rate of transition depends
+on the base.
+
+There are a number of reasons why the observed mutation rates vary
+between different nucleotides. One reason is that there are different
+mechanisms generating transitions from one base to another. Another
+reason is that there are extensive repair process in living cells, and
+the efficiency of this repair mechanism varies for different
+nucleotides.  Mutation of nucleotides may be modeled using distinct
+probabilities for the transitions from each nucleotide to every other
+nucleotide. For example, the probability of replacing A by C may be
+prescribed as (say) 0.2. In total we need 4x4 probabilities since each
+nucleotide can transform into itself (no change) or three others. The
+sum of all four transition probabilities for a given nucleotide must
+sum up to one. Such statistical evolution, based on probabilities for
+transitioning from one state to another, is known as a Markov process
+or Markov chain.
+
+First we need to set up the probability matrix, i.e., the
+$4\times4$|$4x4$ table of probabilities where each row corresponds to the
+transition of A, C, G, or T into A, C, G, or T. Say the probability
+transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
+and from A to T is 0.4. To select a random transiton based on these
+probabilities we divide the interval $[0,1]$ into slices whose lengths
+correspond to the given probabilities. In this example this means $0,
+0.2, 0.3, 0.6, 1$. Then we draw a random number in $[0,1]$ and
+determine which interval between the slices it lies in. The
+probability of hitting an interval equals the transition probability
+for the transition corresponding to that interval. For example, if the
+random number is 0.33, it belongs to the interval $(0.3, 0.6]$, which
+corresponds to the transiton from A to G.
+
+Let us generate random transition probabilities. That is,
+we generate three random numbers to divide the interval $[0,1]$ into
+four intervals corresponding to the four possible transitions.
+The interval limits, 0, 1, and three random numbers must be sorted
+in ascending order to form the intervals. We use the function
+`random.random()` to generate random numbers in $[0,1)$:
+!bc pycod
+slice_points = sorted(
+    [0] + [random.random() for i in range(3)] + [1])
+transition_probabilities = [slice_points[i+1] - slice_points[i]
+                            for i in range(4)]
+!ec
+The transition probabilities are handy to have available as a dictionary:
+!bc pycod
+markov_chain['A'] = {'A': ..., 'C': ..., 'G': ..., 'T': ...}
+!ec
+which can be computed by
+!bc pycod
+markov_chain['A'] = {base: p for base, p in
+                     zip('ACGT', transition_probabilities)}
+!ec
+To select a transition, we need to draw a random letter
+(A, C, G, or T) according to the probababilities
+`markov_chain[b]` where `b` is the base at the current position.
+Actually, this is a very common operation, namely drawing a
+random value from a *discrete probability distribution* (`markov_chain[b]`).
+The natural approach is therefore write a general function for
+drawing from any discrete probability distribution given as
+a dictionary:
+
+@@@CODE src-bioinf/mutate.py fromto: def draw\(@def draw_vec
+
+Basically, the algorithm divides [0,1] into intervals of lengths
+equal to the probabilities of the various outcomes and checks
+which interval is hit by a random variable in [0,1]. The corresponding
+value is the random choice.
+
+A complete function creating all the transition probabilities and
+storing them in a dictionary of dictionaries takes the form
+
+@@@CODE src-bioinf/mutate.py fromto: def create_markov@def test_transition_probabilities
+
+It is natural to develop a function for checking that the generated
+probabilities are consistent. The transition from a particular base
+into one of the four bases happens with probability 1, which means that
+the probabilities in a row must sum up to 1:
+
+@@@CODE src-bioinf/mutate.py fromto: def test_transition@probabilities\(mc
+
+Another test is to check that `draw` actually draws random values
+in accordance with the underlying probabilities. To this end, we draw
+a large number of values, `N`, count the frequencies of the various values,
+divide by `N` and compare the empirical normalized frequencies
+with the probabilities:
+
+@@@CODE src-bioinf/mutate.py fromto: def test_draw_approx@def test_draw_vec_approx
+This test is only approximate, but does bring evidence to the correctness
+of the implementation of the `draw` function.
+
+A vectorized version of `draw` can also be made. We refer to the
+source code file ${link("mutate.py")} for details (the function is relatively
+complicated).
+
+Now we have all the tools needed to run the Markov chain of
+transitions for a randomly selected position in a DNA sequence:
+
+@@@CODE src-bioinf/mutate.py fromto: def mutate_via@dna = 'TTACGGAGATTTCGGTATGCAT'
+Exercise ref{bioinf:exer:Markov:chain:eff} suggests some efficiency
+enhancements of simulating mutations via these functions.
+
+Here is a simulation of mutations using the method based on Markov chains:
+
+@@@CODE src-bioinf/mutate.py fromto: dna = 'TTACGGAGATTTCGGTATGCAT'@def transition_into
+
+The output will differ each time the program is run unless
+`random.seed(i)` is called in the beginning of the program for some
+integer `i`. This call makes the
+sequence of random numbers the same every time the program is run and
+is very useful for debugging. An example on the output may look like
+!bc dat
+Starting DNA: TTACGGAGATTTCGGTATGCAT
+A: 0.23, C: 0.14, T: 0.36, G: 0.27
+Transition probabilities:
+{'A': {'A': 0.4288890546751146,
+       'C': 0.4219086988655296,
+       'G': 0.00668870644455688,
+       'T': 0.14251354001479888},
+ 'C': {'A': 0.24999667668640035,
+       'C': 0.04718309085408834,
+       'G': 0.6250440975238185,
+       'T': 0.0777761349356928},
+ 'G': {'A': 0.16022955651881965,
+       'C': 0.34652746609882423,
+       'G': 0.1328031742612512,
+       'T': 0.3604398031211049},
+ 'T': {'A': 0.20609823213950174,
+       'C': 0.17641112746655452,
+       'G': 0.010267621176125452,
+       'T': 0.6072230192178183}}
+DNA after 10000 mutations (Markov chain): GGTTTAAGTCAGCTATGATTCT
+A: 0.23, C: 0.14, T: 0.41, G: 0.23
+!ec
+% if not PRIMER_BOOK:
+Note that the mutated DNA should contain more nucleotides of the
+type where the total probability of transitioning into that particular
+nucleotide is largest. The total probability of transitioning into
+a particular base can be computed by a bit a probability algebra.
+Let $X$ be the initial base at some position in the DNA and let $Y$
+be the new base after mutation at this position. The probability
+that $P(Y=b)$, where $b$ is some base (A, C, G, or T), is built up
+of four mutually exclusive events:
+!bt
+\[ P(Y=b) = P(X=A \cup Y=b) + P(X=C \cup Y=b) +
+P(X=G \cup Y=b) + P(X=T \cup Y=b)\]
+!et
+A joint event can be expressed by the (conditional) transition
+probabilities, e.g.,
+!bt
+\[ P(X=A \cup Y=b) = P(Y=b | X=A) P(X=A) \]
+!et
+leading to
+!bt
+\[ P(Y=b) = \sum_{i\in\{A,C,G,T\}} P(Y=b|X=i)P(X=i)\]
+!et
+The probabilities $P(Y=b|X=i)$ correspond to a column in the
+transition probability matrix. If each of the initial events
+$P(X=i)$ are equally probable, $P(X=i)=1/4$, and $P(Y=b)$
+is then the sum of the probabilities in the column corresponding to
+$b$, divided by 4. We can now compute $P(Y=b)$ for
+$b$ as A, C, G, and T:
+
+@@@CODE src-bioinf/mutate.py fromto: def transition_into_bases@# Test large data
+
+The $P(X=b)$ probabilities corresponding to the example run above reads
+!bc dat
+{'A': 0.26, 'C': 0.25, 'T': 0.30, 'G': 0.19}
+!ec
+Transition into T ($P(Y=T)$) has greatest probability (0.3) and this is also
+confirmed by the greatest frequency (0.41).
+% endif
+
+The functions performing mutations are located
+in the file ${link('mutate.py')}.

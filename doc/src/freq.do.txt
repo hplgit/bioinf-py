@@ -1,0 +1,483 @@
+
+% if PRIMER_BOOK:
+======= Examples from Analyzing DNA =======
+
+We shall here continue the bioinformatics applications started
+in Chapter ref{bioinf:basics}. Analysis of DNA sequences is
+conveniently done in Python, much with the aid of lists, dictionaries,
+string manipulation, and file handling. This will be illustrated
+through a series of examples.
+% endif
+
+===== Computing Frequencies =====
+label{bioinf:freqm}
+
+idx{frequency matrix}
+
+Your genetic code is essentially the same from you are born until you
+die, and the same in your blood and your brain.  Which genes that are
+turned on and off make the difference between the cells. This
+regulation of genes is orchestrated by an immensely complex mechanism,
+which we have only started to understand. A central part of this
+mechanism consists of molecules called transcription factors that
+float around in the cell and attach to DNA, and in doing so turn
+nearby genes on or off. These molecules bind preferentially to
+specific DNA sequences, and this binding preference pattern can be
+represented by a table of frequencies of given symbols at each
+position of the pattern.  More precisely, each row in the table
+corresponds to the bases A, C, G, and T, while column j reflects how
+many times the base appears in position j in the DNA sequence.
+
+For example, if our set of DNA sequences are
+TAG, GGT, and GGG, the table becomes
+
+  |------------------|
+  | base | 0 | 1 | 2 |
+  |--l-----c---c---c-|
+  | A    | 0 | 1 | 0 |
+  | C    | 0 | 0 | 0 |
+  | G    | 2 | 2 | 2 |
+  | T    | 1 | 0 | 1 |
+  |------------------|
+
+From this table we can read that base A appears once in index 1 in the
+DNA strings, base C does not appear at all, base G appears twice in
+all positions, and base T appears once in the beginning and end of the
+strings.
+
+In the following we shall present different data structures to
+hold such a table and different ways of computing them.
+The table is known as a *frequency matrix* in bioinformatics,
+and this is the term used here too.
+
+
+=== Separate Frequency Lists ===
+
+Since we know that there are only four rows in the frequency matrix,
+an obvious data structure would be four lists, each holding
+a row. A function computing these lists may look like
+
+@@@CODE src-bioinf/freq.py fromto: def freq_lists@dna_list =
+
+We need to initialize the lists with the right length and a zero
+for each element, since each list element is to be used as a counter.
+Creating a list of length `n` with object `x` in all positions
+is done by `[x]*n`. Finding the proper length is here carried out by
+inspecting the length of the first element in `dna_list`, assuming
+that all elements have the same length.
+
+In the `for` loop we apply the `enumerate` function which is used
+to extract both the element value *and* the element index when
+iterating over a sequence. For example,
+!bc ipy
+>>> for index, base in enumerate(['t', 'e', 's', 't']):
+...   print index, base
+...
+0 t
+1 e
+2 s
+3 t
+!ec
+
+Here is a call and printout of the results:
+!bc pycod
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+A, C, G, T = freq_lists(dna_list)
+print A
+print C
+print G
+print T
+!ec
+with output
+!bc dat
+[0, 0, 0, 2, 0]
+[0, 0, 0, 0, 2]
+[3, 3, 0, 1, 1]
+[0, 0, 3, 0, 0]
+!ec
+
+=== Nested List ===
+
+The frequency matrix can also be represented as a nested list `M`
+such that `M[i][j]` is the frequency of base `i` in position `j`
+in the set of DNA strings. Here `i` is an integer, where 0 corresponds to A,
+1 to T, 2 to G, and 3 to C. The frequency is the number of times
+base `i` appears in position `j` in a set of DNA strings.
+Sometimes this number is divided by the number of DNA strings in
+the set so that the frequency is between 0 and 1. Note all
+the DNA strings must have the same length.
+
+The simplest way to make a nested list is to insert the
+`A`, `C`, `G`, and `T` lists into another list:
+!bc pycod
+>>> frequency_matrix = [A, C, G, T]
+>>> frequency_matrix[2][3]
+2
+>>> G[3]  # same element
+2
+!ec
+
+Nevertheless, we can illustrate how to compute this type of nested
+list directly:
+
+@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v1@frequency_matrix = freq_list_of_lists_v1\(
+
+As in the case with individual lists we need to initialize all elements
+in the nested list to zero.
+
+A call and printout,
+!bc pycod
+dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
+frequency_matrix = freq_list_of_lists_v1(dna_list)
+print frequency_matrix
+!ec
+results in
+!bc dat
+[[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
+!ec
+
+=== Dictionary for More Convenient Indexing ===
+
+idx{dictionary}
+
+The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersone,
+especially if want to extend the code to other bioinformatics problems
+where the alphabet is larger. What we want is a mapping from `base`,
+which is a character, to the corresponding index 0, 1, 2, or 3.
+A Python dictionary represents such mappings:
+!bc ipy
+>>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+>>> base2index['G']
+2
+!ec
+With the `base2index` dictionary we do not need the series of
+`if` tests and the alphabet `'ATGC'` could be much larger
+without affecting the length of the code.
+
+@@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v2@import numpy
+
+=== Numerical Python Array ===
+
+As long as each sublist in a list of lists has the same length, a
+list of lists can be replaced by a Numerical Python (`numpy`) array.
+Processing of such arrays is often much more efficient than
+processing of the nested list data structure.
+To initialize a two-dimensional `numpy` array we need to know its
+size, here 4 times `len(dna_list[0])`. Only the first line in the function
+`freq_list_of_lists_v2` needs to be changed in order to utilize
+a `numpy` array:
+
+@@@CODE src-bioinf/freq.py fromto: import numpy@def freq_dict_of_lists_v1
+
+The resulting `frequency_matrix` object can be indexed as
+`[b][i]` or `[b,i]`, with integers `b` and `i`. A typical
+indexing is `frequency_matrix[base2index['C'],i]`.
+
+=== Dictionary of Lists ===
+
+Instead of going from a character to an integer index via
+`base2index`, we may prefer to index `frequency_matrix` by the base name
+and the position index directly: like in`['C'][14]`.
+This is the most natural syntax for a user of the
+frequency matrix.  The relevant Python data structure is then a
+dictionary of lists. That is, `frequency_matrix` is a dictionary with
+keys `'A'`, `'C'`, `'G'`, and `'T'`. The value for each key is a
+list. Let us now also extend the flexibility such that `dna_list` can
+have DNA strings of different lengths. The lists in `frequency_list`
+will have lengths equal to the longest DNA string.  A relevant
+function is
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v1@frequency_matrix = freq_dict_of_lists_v1\(
+
+Running
+
+@@@CODE src-bioinf/freq.py fromto: frequency_matrix = freq_dict_of_lists_v1@def freq_dict_of_lists_v2
+results in the output
+!bc dat
+{'A': [0, 0, 0, 2, 0],
+ 'C': [0, 0, 0, 0, 2],
+ 'G': [3, 3, 0, 1, 1],
+ 'T': [0, 0, 3, 0, 0]}
+!ec
+
+The initialization of `frequency_matrix` in the above code can
+be made more compact by using a dictionary comprehension:
+!bc pycod
+dict = {key: value for key in some_sequence}
+!ec
+Here,
+!bc pycod
+frequency_matrix = {base: [0]*n for base in 'ACGT'}
+!ec
+Adopting this construction in the `freq_dict_of_lists_v1` function
+leads to a slightly more compact version,
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v2@def freq_dict_of_dicts_v1
+
+=== Dictionary of Dictionaries ===
+
+The dictionary of lists data structure can alternatively be replaced
+by a dictionary of dictionaries object, often just called a dict of
+dicts object. That is, `frequency_matrix[base]` is a dictionary with
+key `i` and value equal to the added number of occurences of `base` in
+`dna[i]` for all `dna` strings in the list `dna_list`.  The indexing
+`frequency_matrix['C'][i]` and the values are exactly as in the last
+example; the only difference is whether `frequency_matrix['C']` is a
+list or dictionary.
+
+Our function working with `frequency_matrix` as a dict of dicts
+is written
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_dicts_v1@from collections import default
+
+=== Using Dictionaries with Default Values ===
+
+The manual initialization of each subdictionary to zero,
+!bc pycod
+    frequency_matrix = {base: {index: 0 for index in range(n)}
+                        for base in 'ACGT'}
+!ec
+can be simplified by using a dictionary with default values for any
+key. The construction `defaultdict(lambda: obj)`
+makes a dictionary with `obj` as default value.
+This construction simplifies the previous function a bit:
+
+@@@CODE src-bioinf/freq.py fromto: from collections import default@_matrix = freq_list_of_lists_v2
+
+__Remark.__
+Dictionary comprehensions were new in Python 2.7 and 3.1, but can be
+simulated in earlier versions by making (key, value) tuples via
+list comprehensions. A dictionary comprehension
+!bc pycod
+d = {key: value for key in sequence}
+!ec
+is then constructed as
+!bc pycod
+d = dict([(key, value) for key in sequence])
+!ec
+
+=== Using Arrays and Vectorization ===
+
+The dict of lists data structure for `frequency_matrix` can easily be
+changed to a dict of `numpy` arrays: just replace the initialization
+`[0]*n` by `np.zeros(n, dtype=np.int)`. The indexing remains the same:
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_arrays_v1@def freq_dict_of_arrays_v2
+
+Having `frequency_matrix[base]` as a `numpy` array instead of a list
+does not give any immediate advantage, as the storage and CPU time is
+about the same. The loop over the `dna` string and the associated
+indexing is what consumes all the CPU time.  However, the `numpy`
+arrays provides a potential for increasing efficiency through
+vectorization, i.e., replacing the element-wise operations on `dna`
+and `frequency_matrix[base]` by operations on the whole arrays at
+once.
+
+Let us use the interactive Python shell to
+explore the possibilities of vectorization.
+We first convert the string to a `numpy` array of characters:
+!bc pycod
+>>> dna = 'ACAT'
+>>> dna = np.array(dna, dtype='c')
+>>> dna
+array(['A', 'C', 'A', 'T'],
+      dtype='|S1')
+!ec
+For a given base, say A, we can in one vectorized operation find
+which locations in `dna` that contain `A`:
+!bc pycod
+>>> b = dna == 'A'
+>>> b
+array([ True, False,  True, False], dtype=bool)
+!ec
+By converting `b` to an integer array `i` we can
+update the frequency counts
+for all indices by adding `i` to `frequency_matrix['A']`:
+!bc pycod
+>>> i = np.asarray(b, dtype=np.int)
+>>> i
+array([1, 0, 1, 0])
+>>> frequency_matrix['A'] = frequency_matrix['A'] + i
+!ec
+This recipe can be repeated for all bases:
+!bc pycod
+    for dna in dna_list:
+        dna = np.array(dna, dtype='c')
+        for base in 'ACGT':
+            b = dna == base
+            i = np.asarray(b, dtype=np.int)
+            frequency_matrix[base] = frequency_matrix[base] + i
+!ec
+It turns out that we do not need to convert the boolean array `b`
+to an integer array `i`, because doing arithmetics with `b` directly
+is possible: `False` is interpreted as 0 and `True` as 1 in arithmetic
+operations.  We can also use
+the `+=` operator to update all elements of `frequency_matrix[base]`
+directly, without first computing the sum of two arrays
+`frequency_matrix[base] + i` and then assigning this result to
+`frequency_matrix[base]`.
+Collecting all these ideas in one function yields the code
+
+@@@CODE src-bioinf/freq.py fromto: def freq_dict_of_arrays_v2@# ----
+
+This vectorized function runs almost 10 times as fast as the
+(scalar) counterpart `freq_list_of_arrays_v1`!
+
+# memory mapped files?
+
+===== Analyzing the Frequency Matrix =====
+label{bioinf:freq:analysis}
+
+Having built a frequency matrix out of a collection of DNA strings, it
+is time to use it for analysis.
+The short DNA strings that a frequency matrix is built out of, is
+typically a set of substrings of a larger DNA sequence, which shares
+some common purpose. An example of this is to have a set of substrings
+that serves as a kind of anchors/magnets at which given molecules
+attach to DNA and perform biological functions (like turning genes on
+or off). With the frequency matrix constructed from a limited set of
+known anchor locations (substrings), we can now scan for other similar
+substrings that have the potential to perform the same function. The
+simplest way to do this is to first determine the most typical
+substring according to the frequency matrix, i.e., the substring having
+the most frequent nucleotide at each position. This is referred to as
+the consensus string of the frequency matrix. We can then look for
+occurrences of the consensus substring in a larger DNA sequence, and
+consider these occurrences as likely candidates for serving the same
+function (e.g., as anchor locations for molecules).
+
+For instance,
+given three substrings ACT, CCA and AGA, the frequency matrix
+would be (list of lists, with rows corresponding to A, C, G, and T):
+!bc dat
+[[2, 0, 2]
+ [1, 2, 0]
+ [0, 1, 0]
+ [0, 0, 1]]
+!ec
+We see that for position 0,
+which corresponds to the left-most columnin the table, the symbol A has the
+highest frequency (2). The maximum frequencies for the other positions
+are seen to be C for position 1, and A for position 2. The consensus
+string is therefore ACA.  Note that the consensus string does not need to be
+equal to any of the substrings that formed the basis of the frequency
+matrix (this is indeed the case for the above example).
+
+
+=== List of Lists Frequency Matrix ===
+
+Let `frequency_matrix` be a list of lists. For each position `i` we
+run through the "rows" in the frequency matrix and keep track of the
+maximum frequency value and the corresponding letter. If two or
+more letters have the same frequency value we use a dash to
+indicate that this position in the consensus string is undetermined.
+
+The following function computes the consensus string:
+
+@@@CODE src-bioinf/freq.py fromto: def find_consensus_v1@def find_consensus_v2
+
+Since this code requires `frequency_matrix` to be a list of lists
+we should insert a test and raise an exception if the
+type is wrong:
+!bc pycod
+def find_consensus_v1(frequency_matrix):
+    if isinstance(frequency_matrix, list) and \
+       isinstance(frequency_matrix[0], list):
+        pass # right type
+    else:
+        raise TypeError('frequency_matrix must be list of lists')
+...
+!ec
+
+=== Dict of Dicts Frequency Matrix ===
+
+How must the `find_consensus_v1` function be altered if `frequency_matrix`
+is a dict of dicts?
+
+  o The `base2index` dict is no longer needed.
+  o Access of sublist, `frequency_matrix[0]`, to test for type and
+    length of the strings, must be replaced
+    by `frequency_matrix['A']`.
+
+The updated function becomes
+
+@@@CODE src-bioinf/freq.py fromto: def find_consensus_v3@frequency_matrix = freq_dict_of_dicts_v1
+
+Here is a test:
+!bc pycod
+frequency_matrix = freq_dict_of_dicts_v1(dna_list)
+pprint.pprint(frequency_matrix)
+print find_consensus_v3(frequency_matrix)
+!ec
+with output
+!bc dat
+{'A': {0: 0, 1: 0, 2: 0, 3: 2, 4: 0},
+ 'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
+ 'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
+ 'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
+Consensus string: GGTAC
+!ec
+
+Let us try `find_consensus_v3` with the dict of defaultdicts
+as input (`freq_dicts_of_dicts_v2`). The code runs fine, but
+the output string is just `G`!
+The reason is that `dna_length` is 1, and therefore that the length of
+the `A` dict in `frequency_matrix` is 1.
+Printing out `frequency_matrix` yields
+!bc pycod
+{'A': defaultdict(X, {3: 2}),
+ 'C': defaultdict(X, {4: 2}),
+ 'G': defaultdict(X, {0: 3, 1: 3, 3: 1, 4: 1}),
+ 'T': defaultdict(X, {2: 3})}
+!ec
+where our `X` is a short form for text like
+!bc pycod
+`<function <lambda> at 0xfaede8>`
+!ec
+We see that the length of a defaultdict will only count the nonzero
+entries. Hence, to use a defaultdict our function must get the length of the DNA string to
+build as an extra argument:
+!bc pycod
+def find_consensus_v4(frequency_matrix, dna_length):
+    ...
+!ec
+
+Exercise ref{bioinf:exer:freq:fargs} suggest to make a unified
+`find_consensus` function which works with all of the different
+representation of `frequency_matrix` that we have used.
+
+The functions making and using the frequency matrix are found
+in the file ${link('freq.py')}.
+
+===== Probability Matrix =====
+
+*UNFINISHED!*
+
+[hpl: I didn't understand this example, i.e., I see that a
+probability matrix is given for strings of a certain length,
+then we pick out every substring of this length of DNA,
+and computes the probability of the sequence of characters in
+the substring. But what is it good for?]
+
+!bc pycod
+DNA='ATCTGATCAA'
+probabilityMatrix={'A': {0: 0.2, 1: 0.2, 2: 0.6, 3: 0.2, 4: 0.2},
+                  'C': {0: 0.2, 1: 0.4, 2: 0.0, 3: 0.0, 4: 0.8},
+                  'T': {0: 0.2, 1: 0.0, 2: 0.2, 3: 0.6, 4: 0.0},
+                  'G': {0: 0.4, 1: 0.4, 2: 0.2, 3: 0.2, 4: 0.0}}
+
+len_window=len(probabilityMatrix['A'])
+
+probabilitiesList=[]
+for num in range(len(DNA)-len_window+1):
+    substring=DNA[num:num+len_window]
+
+    prob_value=1
+    for index, value in enumerate(substring):
+       prob_value *=probabilityMatrix[value][index]
+
+    probabilitiesList.append(prob_value)
+
+print probabilitiesList
+!ec
+

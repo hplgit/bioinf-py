@@ -1,0 +1,217 @@
+===== Translating Genes into Proteins ======
+label{bioinf:gene2protein}
+
+An important usage of DNA is for cells to store information on their
+arsenal of proteins. Briefly, a gene is, in essence, a region of the
+DNA, consisting of several coding parts (called exons), interspersed
+by non-coding parts (called introns).  The coding parts are
+concatenated to form a string called mRNA, where also occurrences of
+the letter T in the coding parts are substituted by a U. A triplet of
+mRNA letters code for a specific amino acid, which are the building
+blocks of proteins. Consecutive triplets of letters in mRNA in this
+way define a specific sequence of amino acids, which amounts to a
+certain protein.  Here is an example of using the mapping from DNA to
+proteins to create the Lactase protein (LPH), using the DNA sequence
+of the Lactase gene (LCT) as underlying code. An important functional
+property of LPH is in diguesting Lactose which is found most notably
+in milk. Lack of the functionality of LPH leads to digestive problems
+referred to as lactose intolerance. Most mammals and humans lose their
+expression of LCT and therefore their ability to digest milk when they
+stop recieving breast milk.
+
+The file
+!bc
+http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
+!ec
+contains a mapping of genetic codes to amino acids.
+The file format takes the form
+!bc dat
+UUU     F       Phe     Phenylalanine
+UUC     F       Phe     Phenylalanine
+UUA     L       Leu     Leucine
+UUG     L       Leu     Leucine
+CUU     L       Leu     Leucine
+CUC     L       Leu     Leucine
+CUA     L       Leu     Leucine
+CUG     L       Leu     Leucine
+AUU     I       Ile     Isoleucine
+AUC     I       Ile     Isoleucine
+AUA     I       Ile     Isoleucine
+AUG     M       Met     Methionine (Start)
+!ec
+The first column is the genetic code (triplet in mRNA),
+while the other columns represent
+various ways of expressing the corresponding amino acid:
+a 1-letter symbol, a 3-letter name, and the full name.
+
+Downloading the `genetic_code.tsv` file can be done by
+this robust function:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def download@def read_genetic_code_v1
+
+We want to make a dictionary of this file that maps the code (first
+column) on to the 1-letter name (second column):
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_genetic_code_v1@urlbase = 'http
+
+Downloading the
+file, reading it and making the dictionary are done by
+
+@@@CODE src-bioinf/genes2proteins.py fromto: urlbase = 'http@def read_genetic_code_v2
+
+Not surprisingly, the `read_genetic_code_v1` can be made much shorter
+by collecting the first two columns as list of 2-lists and then
+converting the 2-lists to key-value pairs in a dictionary:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_genetic_code_v2@code2 =
+
+Creating a mapping of the code onto all the three variants of the amino
+acid name is
+also of interest. For example, we would like to make look ups like
+`['CUU']['3-letter']` or `['CUU']['amino acid']`. This requires
+a dictionary of dictionaries:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_genetic_code_v3@def read_genetic_code_v4
+An alternative way of writing the last function is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_genetic_code_v4@code = read_genetic_code_v3
+
+To form mRNA, we need to grab the exon regions (the coding parts) of
+the lactase gene.  These regions are substrings of the lactase gene
+DNA string, corresponding to the start and end positions of the exon
+regions.  Then we must replace T by U, and combine all the substrings
+to build the mRNA string.
+
+Two straightforward subtasks are to load the lactase gene and its exon
+positions into variables.  The file `lactase_gene.txt`, at the same
+Internet location as the other files, stores the lactase gene. The file
+has the same format as `yeast_chr1.txt`. Using the `download` function
+and the previously shown `read_dnafile_v1`, we can easily load the
+data in the file into the string `lactase_gene`.
+
+The exon regions are described in a file `lactase_exon.tsv`, also
+found at the same Internet site as the other files. The file is easily
+downloaded by calling `download`.  The file format is very simple in
+that each line holds the start and end positions of an exon region:
+!bc dat
+0       651
+3990    4070
+7504    7588
+13177   13280
+15082   15161
+!ec
+We want to have this information available in a list of (start,end)
+tuples. The following function does the job:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_exon_regions_v1@def read_exon_regions_v2
+Readers favoring compact code will appreciate this alternative version
+of the function:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def read_exon_regions_v2@print 'Start and end position
+
+For simplicity's sake, we shall consider mRNA as the concatenation of exons,
+although in reality, additional base pairs are added to each end.
+Having the lactase gene as a string and the exon regions as a list of
+(start,end) tuples, it is straightforward to extract the regions
+as substrings, replace T by U, and add all the substrings together:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_mRNA@print '10 last
+
+We would like to store the mRNA string in a file, using the same
+format as `lactase_gene.txt` and `yeast_chr1.txt`, i.e.,
+the string is split on multiple lines with, e.g., 70 characters per line.
+An appropriate function doing this is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def tofile_with_line_sep_v1@tofile_with_line_sep_v2
+
+It might be convenient to have a separate folder for files that we create.
+Python has good support for testing if a folder exists, and if not,
+make a folder:
+!bc pycod
+output_folder = 'output'
+if not os.path.isdir(output_folder):
+    os.mkdir(output_folder)
+filename = os.path.join(output_folder, 'lactase_mrna.txt')
+tofile_with_line_sep_v1(mrna, filename)
+!ec
+Python's term for folder is directory, which explains why `isdir` is
+the function name for testing on a folder existence. Observe
+especially that the combination of a folder and a filename is done via
+`os.path.join` rather than just inserting a forward slash, or backward
+slash on Windows: `os.path.join` will insert the right slsah, forward
+or backward, depending on the current operating system.
+
+Occasionally, the output folder is nested, say
+!bc pycod
+output_folder = os.path.join('output', 'lactase')
+!ec
+In that case, `os.mkdir(output_folder)` may fail because
+the intermediate folder `output` is missing. Making a folder
+and also all missing intermediate folders is done by `os.makedirs`.
+We can write a more general file writing function which takes
+a folder name and file name as input and writes the file.
+Let us also add some flexibility in the file format: one can either
+write a fixed number of characters per line, or have the string on just
+one long line. The latter version is specified through `chars_per_line='inf'`
+(for infinite number of characters per line).
+
+The flexible file writing function then becomes
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def tofile_with_line_sep_v2@tofile_with_line_sep_v2\(mrna
+
+To create the protein, we replace the triplets of the mRNA strings
+by the corresponding 1-letter name as specified in the
+`genetic_code.tsv` file.
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein\(@lactase_protein\.txt
+
+
+Unfortunately, this first try to simulate this translation process is
+incorrect. The problem is that the translation always begins with the
+amino acid Methionine, code AUG, and ends when one of the stop codons
+is met. We must thus check for the correct start and stop criterias.
+A fix is
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def create_protein_fixed@congential_lactase_deficiency
+The output, needed below for comparison, becomes
+!bc dat
+10 last amino acids of the correct lactase protein:  QQELSPVSSF
+Lenght of the correct protein:  1927
+!ec
+
+===== Some Humans Can Drink Milk, While Others Cannot ======
+label{bioinf:lactase:milk}
+
+One type of lactose intolerance is called *Congenital lactase deficiency*.
+This is a rare genetic disorder that causes lactose intolerance from birth,
+and is particularly common in Finland. The disease is caused by a mutation of
+the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
+A. Our goal is to check what happens to the protein if this base is mutated.
+This is a simple task using the previously developed tools:
+
+@@@CODE src-bioinf/genes2proteins.py fromto: def congential_lactase_d@
+
+The output, to be compared with the non-mutated gene above, is now
+!bc dat
+10 last amino acids of the mutated lactase protein: GFIWSAASAA
+Lenght of the mutated lactase protein: 1389
+!ec
+As we can see, the translation stops prematurely, creating a much smaller
+protein, which will not have the required characteristics of the lactase
+protein.
+
+A couple of mutations in a region for LCT located in front of LCT (actually in
+the introns of another gene) is the reason for the common lactose intolerance.
+That is, the one that sets in for adults only. These mutations control the
+expression of the LCT gene, i.e., whether that the gene is turned on or off.
+Interestingly, different mutations have evolved in different regions of the
+world, e.g., Africa and Northern Europe. This is an example of convergent
+evolution: the acquisition of the same biological trait in unrelated
+lineages. The prevalence of lactose intolerance varies widely, from around 5%
+in northern Europe, to close to 100% in south-east Asia.
+
+[hpl: Very attractive example!]
+
+The functions analyzing the lactase gene are found
+in the file ${link('genes2proteins.py')}.
+

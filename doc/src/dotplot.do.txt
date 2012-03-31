@@ -1,0 +1,120 @@
+===== Dot Plots from Pair of DNA Sequences =====
+label{bioinf:dotplot}
+
+[hpl: I don't get what dot plots are good for. Even when comparing two
+identical strings the dots don't show a strong correlation (because
+there are just 4 letters to choose among the chances of having
+the same letter in pos i and j of the two strings is significant.
+There should be something visual here.]
+
+Dot plots are commonly used to visualize the similarity between two protein or
+nucleic acid sequences. They compare two sequences, say `d1` and `d2`,
+by organizing `d1`
+along the x-axis and `d2` along the y-axis of a plot.
+When `d1[i] == d2[j]` we mark this by drawing a dot at location
+`i,j` in the plot. An example is
+!bc dat
+1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+!ec
+The origin is in the upper left corner, which means that the
+first string has its indices running to the right 0, 1, 2, and so forth,
+while the second string has its indices running down, row by row.
+
+In the forthcoming examples, a dot is represented by 1. No presence at
+a given location is represented by 0. A dot plot can be manually read
+to find common patterns between two sequences that has undergone
+several insertions and deletions, and it serves as a conceptual basis
+for algorithms that align two sequences in order to find evolutionary
+origin or shared functional parts. Such alignment of biological
+sequences is a particular variant of finding the edit distance between
+strings, which is a general technique, also used for, e.g., spell
+correction in search engines.
+
+The dot plot data structure must mimic a table.  The "x" direction is
+along rows, while the "y" direction is along columns. First we need to
+initialize the whole data structure with zeros. Then, for each for
+each position in the "x string" we run through all positions in the "y
+string" and mark those where the characters match with 1.
+The algorithm will be clear when presented with specific Python code.
+
+=== Using Lists of Lists ===
+
+Since the plot is essentially a table, a list of lists is therefore
+a natural data structure. The following function creates the
+list of lists:
+
+@@@CODE src-bioinf/dotplot.py fromto: def dotplot_list_of_lists@dna_x = 'T
+
+To view the dot plot we need to print out the list of lists. Here
+is a possible way:
+
+@@@CODE src-bioinf/dotplot.py fromto: dna_x = 'T@def make_string
+
+The output becomes
+!bc dat
+1 0 0 1 0 0 0 1 0 0 0 1
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+0 0 0 0 0 1 1 0 0 0 0 0
+1 0 0 1 0 0 0 1 0 0 0 1
+0 0 0 0 1 0 0 0 1 0 0 0
+0 1 1 0 0 0 0 0 0 1 1 0
+0 1 1 0 0 0 0 0 0 1 1 0
+1 0 0 1 0 0 0 1 0 0 0 1
+!ec
+
+One can, alternatively, translate the list of lists to a multi-line string
+containing the whole plot as a string object.
+This implies joining all the characters in each row and then joining
+all the rows:
+!bc pycod
+rows = [' '.join(row) for row in dotplot_matrix]
+plot = '\n'.join(rows)
+# or combined
+plot = '\n'.join([' '.join(row) for row in dotplot_matrix])
+!ec
+${not_primer_book_comment("""The construction `'d'.join(l)` joints
+all the string elements of the
+list `l` and inserts `d` as delimiter: `'x'.join(['A','B','C'])`
+becomes `'AxBxC'`.""")}
+We use a space as delimiter among the characters in a row since this
+gives a nice layout when printing the string. All rows are joined with
+newline as delimiter such that the rows appear on separate lines when
+printing the string.  To really understand what is going on, a more
+comprehensive code could be made so that each step can be examined:
+
+@@@CODE src-bioinf/dotplot.py fromto: def make_string_expanded@# end of testing join operations in detail
+
+Unless the join operation as used here is well understood, it is highly
+recommended to paste the above code into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html", step
+through the code, and watch how variables change their content.
+Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
+
+FIGURE: [figs-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
+
+=== Using Numerical Python Arrays ===
+
+A Numerical Python array, with integer elements that equal 0 or 1,
+is well suited as data structure to hold a dot plot.
+
+@@@CODE src-bioinf/dotplot.py fromto: def dotplot_numpy@dna_x = 'ATT
+
+[hpl: we should have a real plot with matplotlib here for a somewhat large
+string. I have the code, but need a good illustrative example...]
+
+The two dot plot functions are available
+in the file ${link('dotplot.py')}.

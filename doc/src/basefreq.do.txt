@@ -1,0 +1,117 @@
+===== Finding Base Frequencies =====
+label{bioinf:basefreq}
+
+DNA consists of four molecules called nucleotides, or bases, and can
+be represented as a string of the letters A, C, G, and T. But this
+does not mean that all four nucleotides need to be similarly
+frequent. Are some nucleotides more frequent than others, say in
+yeast, as represented by the first chromosome of yeast? Also, DNA is
+really not a single thread, but two threads wound together.  This
+wounding is based on an A from one thread binding to a T of the other
+thread, and C binding to G (that is, A will only bind with T, not with
+C or G).  Could this fact force groups of the four symbol frequencies
+to be equal?  The answer is that the A-T and G-C binding does not in principle
+force certain frequencies to be equal, but in practice they usually
+become so because of evolutionary factors related to this pairing.
+
+The first task is to compute the frequencies of the bases
+A, C, G, and T. That is, the number of times each base occurs
+in the DNA string, divided by the length of the string.
+For example, if the DNA string is ACGGAAA, the length is 7, A appears
+4 times with frequency 4/7, C appears once with frequency 1/7,
+G appears twice with frequency 2/7, and T does not appear so the
+frequency is 0.
+
+From a coding perspective we may create a function for counting how
+many times A, C, G, and T appears in the string and then another
+function for computing the frequencies. In both cases we want
+dictionaries such that we can index with the character and get the
+count or the frequency out.
+Counting is done by
+
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies_v1
+This function can then be used to compute the base frequencies:
+
+@@@CODE src-bioinf/basefreq.py fromto: get_base_frequencies_v1@get_base_frequencies_v2
+Since we learned at the end of Section ref{bioinf:count:cpu} that
+`dna.count(base)` was much faster than the various manual
+implementations of counting, we can write a faster and simpler
+function for computing all the base frequencies:
+
+@@@CODE src-bioinf/basefreq.py fromto: def get_base_frequencies_v2@dna = 'ACCAGAGT'
+A little test,
+
+@@@CODE src-bioinf/basefreq.py fromto: dna = 'ACCAGAGT'@assert get_base_frequencies_v1
+gives the result
+!bc dat
+Base frequencies of sequence 'ACCAGAGT':
+A: 0.38, C: 0.25, T: 0.12, G: 0.25
+!ec
+The `format_frequencies` function was made for nice printout of
+the frequencies with 2 decimals. The one-line code is an effective
+combination of a dictionary, list comprehension, and the
+`join` functionality. The latter is used to get a comma correctly
+inserted between the items in the result. Lazy programmers would
+probably just do a `print frequencies` and live with the
+curly braces in the output and (in general) 16 disturbing decimals.
+
+idx{`urllib`}
+
+We can try the frequency computation on real data. The file
+!bc
+http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt
+!ec
+contains the DNA for yeast. We can download this file from
+the Internet by
+!bc pycod
+urllib.urlretrieve(url, filename=name_of_local_file)
+!ec
+where `url` is the Internet address of the file and `name_of_local_file`
+is a string containing the name of the file on the computer where the
+file is downloaded.
+To avoid repeated downloads when the program is run multiple times,
+we insert a test on whether the local file exists or not. The
+call `os.path.isfile(f)` returns `True` if a file with name `f` exists
+in the current working folder.
+
+The appropriate download code then becomes
+
+@@@CODE src-bioinf/basefreq.py fromto: import urllib@def read_dnafile_v1
+A copy of the file on the Internet is now in the current working folder
+under the name `yeast_chr1.txt`.
+${primer_book_comment(r"""(See Chapter ref{sec:files:urllib} for
+more information about \emp{urllib} and downloading files from
+the Internet.)""")}
+
+The `yeast_chr1.txt` files contains the DNA string split over many lines.
+We therefore need to read the lines in this file, strip each line to
+remove the trailing newline, and join all the stripped lines to
+recover the DNA string:
+
+@@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v1@def read_dnafile_v2
+
+As usual, an alternative programming solution can be devised:
+
+@@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v2@assert get_base_freq
+
+The output becomes
+!bc dat
+Base frequencies of yeast DNA (length 230208):
+A: 0.30, C: 0.19, T: 0.30, G: 0.20
+!ec
+The varying frequency of different nucleotides in DNA is referred to
+as nucleotide bias. The nucleotide bias varies between organisms, and
+have a range of biological implications. For many organisms the
+nucleotide bias has been highly optimized through evolution and
+reflects characteristics of the organisms and their environments, for
+instance the typical temperature the organism is adapted to.
+${not_primer_book_comment("""The
+interested reader can, e.g., find more details in
+"this article": "http://www.nature.com/embor/journal/v6/n12/full/7400538.html".
+""")}
+
+#This shows that A and T appears in the yeast DNA with 50 percent higher
+#probability than C and G.
+
+The functions computing base frequencies are available
+in the file ${link('basefreq.py')}.
