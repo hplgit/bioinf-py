@@ -38,8 +38,30 @@ a scientific discipline addressing the use of computers to search
 for, explore, and use information about genes, nucleic acids, and
 proteins.
 
+
 % if not PRIMER_BOOK:
 ======= Basic Bioinformatics Examples in Python =======
+
+The leading Python software for bioinformatics applications is
+"BioPython": "http://biopython.org". The forthcoming examples are
+simple illustrations of the type of problem settings and corresponding
+Python implementations that are encountered in bioinformatics. For
+real-world problem solving one should rather utilize BioPython, but
+the sections below acts as an introduction to what is inside packages
+like BioPython.
+
+% else
+
+The leading Python software for bioinformatics applications is
+BioPython (found at \emp{http://biopython.org}). The examples
+in this book (below and Chapters ref{bioinf:DNAanalysis},
+ref{bioinf:random}, and ref{bioinf:oo}) are
+simple illustrations of the type of problem settings and corresponding
+Python implementations that are encountered in bioinformatics. For
+real-world problem solving one should rather utilize BioPython, but
+the sections below acts as an introduction to what is inside packages
+like BioPython.
+
 % endif
 
 

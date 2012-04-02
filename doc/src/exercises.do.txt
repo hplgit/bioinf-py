@@ -48,8 +48,9 @@ which counts how many times `A`, `C`, `G`, and
 `T` appears in the string `dna`:
 
 @@@CODE src-bioinf/basefreq.py fromto: def get_base_counts@get_base_frequencies
-Unfortunately, this function crashes if other symbols appear in `dna`.
+Unfortunately, this function crashes if other letters appear in `dna`.
 Write an enhanced function `get_base_counts2` which solves this problem.
+Test it on a string like `'ADLSTTLLD'`.
 
 # Hints: defaultdict or test on if base in counts: ... else counts[base]=1
 
@@ -58,7 +59,7 @@ label{bioinf:exer:Ainsouts:exons}
 file=prop_A_exons.py
 
 Consider the lactase gene as described in
-Sections ref{bioinf:gene2protein} and {bioinf:lactase:milk}.
+Sections ref{bioinf:gene2protein} and ref{bioinf:lactase:milk}.
 What is the proportion of base A inside and outside exons of
 the lactase gene? Write a function `get_exons`, which returns
 all the substrings of the exon regions concatenated,
@@ -84,3 +85,11 @@ reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the `mutate_via_markov_chain` function for 1 million mutations.
 
+===== Exercise: Extend the constructor in class Gene =====
+label{bioinf:exer:Gene:randominit}
+file=dna_classes2.py
+
+Modify the constructor in class `Gene` from Section ref{bioinf:oo} such
+that giving no arguments to the constructor makes the class call
+up the `generate_string` method (from the `dna_functions` module)
+which generates a random DNA sequence.

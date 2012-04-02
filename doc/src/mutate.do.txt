@@ -7,10 +7,10 @@ ${primer_book_comment("""
 A fundamental principle of biological evolution is that DNA undergoes
 mutation. Since DNA can be represented as a string consisting of the
 letters A, C, G, and T, as explained in Section ref{bioinf:basics},
-mutation of DNA""")}
-${not_primer_book_comment("""Mutation of genes""")}
+mutation of DNA""")} ${not_primer_book_comment("""Mutation of genes""")}
 is easily modeled by replacing the letter in a randomly
-chosen position of the DNA by a randomly chosen letter.
+chosen position of the DNA by a randomly chosen letter from
+the alphabet A, C, G, and T.
 ${not_primer_book_comment("""Python's `random` module can be used
 to generate random numbers. Selecting a random position means
 generating a random index in the DNA string, and the function
@@ -18,10 +18,13 @@ generating a random index in the DNA string, and the function
 `b` (both included). Generating a random
 letter is easiest done by having a list of the actual letters
 and using `random.choice(list)` to pick an arbitrary element from
-`list`.""")}
-A function for replacing the letter in a randomly selected position (index)
+`list`.""")} A function for replacing the letter in a
+randomly selected position (index)
 by a random letter among A, C, G, and T is most straightforwardly
-implemented by converting the DNA string to a list of letters:
+implemented by converting the DNA string to a list of letters, since
+changing a character in a Python string is impossible without
+constructing a new string. However, an element in a list can be
+changed in-place:
 
 @@@CODE src-bioinf/mutate.py fromto: import random@def get_base_frequencies_v2
 
@@ -98,14 +101,14 @@ ideas explored above for the `mutate_v2` function:
 @@@CODE src-bioinf/mutate.py fromto: def generate_string_v2@def time_mutate
 
 The `time_mutate` function in the file ${link('mutate.py')} performs
-timing of the generation of test strings and the mutations.  For a DNA
-string of length 100,000 the vectorized function is about 8 times
-faster. With 10,000 mutations on this string, the vectorized version
-is almost 3000 times faster! These numbers stay approximately the same
-also for larger strings and more mutations.  This case study on
-vectorization is a striking example on the fact that a straightforward
-and convenient function like `mutate_v1` might occasionally be very
-slow for large-scale computations.
+timing of the generation of test strings and the mutations.  To
+generate a DNA string of length 100,000 the vectorized function is
+about 8 times faster. When performing 10,000 mutations on this string,
+the vectorized version is almost 3000 times faster! These numbers stay
+approximately the same also for larger strings and more mutations.
+Hence, this case study on vectorization is a striking example on the fact
+that a straightforward and convenient function like `mutate_v1` might
+occasionally be very slow for large-scale computations.
 
 
 === A Markov Chain Mutation Model ===
@@ -121,36 +124,33 @@ between different nucleotides. One reason is that there are different
 mechanisms generating transitions from one base to another. Another
 reason is that there are extensive repair process in living cells, and
 the efficiency of this repair mechanism varies for different
-nucleotides.  Mutation of nucleotides may be modeled using distinct
-probabilities for the transitions from each nucleotide to every other
+nucleotides.
+
+Mutation of nucleotides may be modeled using distinct probabilities
+for the transitions from each nucleotide to every other
 nucleotide. For example, the probability of replacing A by C may be
-prescribed as (say) 0.2. In total we need 4x4 probabilities since each
-nucleotide can transform into itself (no change) or three others. The
-sum of all four transition probabilities for a given nucleotide must
-sum up to one. Such statistical evolution, based on probabilities for
-transitioning from one state to another, is known as a Markov process
-or Markov chain.
+prescribed as (say) 0.2. In total we need $4\times 4$|$4x4$
+probabilities since each nucleotide can transform into itself (no
+change) or three others. The sum of all four transition probabilities
+for a given nucleotide must sum up to one. Such statistical evolution,
+based on probabilities for transitioning from one state to another, is
+known as a Markov process or Markov chain.
 
 First we need to set up the probability matrix, i.e., the
 $4\times4$|$4x4$ table of probabilities where each row corresponds to the
 transition of A, C, G, or T into A, C, G, or T. Say the probability
 transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
-and from A to T is 0.4. To select a random transition based on these
-probabilities we divide the interval $[0,1]$ into slices whose lengths
-correspond to the given probabilities. In this example this means $0,
-0.2, 0.3, 0.6, 1$. Then we draw a random number in $[0,1]$ and
-determine which interval between the slices it lies in. The
-probability of hitting an interval equals the transition probability
-for the transition corresponding to that interval. For example, if the
-random number is 0.33, it belongs to the interval $(0.3, 0.6]$, which
-corresponds to the transition from A to G.
+and from A to T is 0.4.
 
-Let us generate random transition probabilities. That is,
-we generate three random numbers to divide the interval $[0,1]$ into
-four intervals corresponding to the four possible transitions.
-The interval limits, 0, 1, and three random numbers must be sorted
-in ascending order to form the intervals. We use the function
-`random.random()` to generate random numbers in $[0,1)$:
+Rather than just prescribing some arbitrary transition probabilities
+for test purposes, we can use random numbers for these probabilities.
+To this end, we generate three random numbers to divide the interval
+$[0,1]$ into four intervals corresponding to the four possible
+transitions.  The lengths of the intervals give the transition
+probabilities, and their sum is ensured to be 1.  The interval limits,
+0, 1, and three random numbers must be sorted in ascending order to
+form the intervals. We use the function `random.random()` to generate
+random numbers in $[0,1)$:
 !bc pycod
 slice_points = sorted(
     [0] + [random.random() for i in range(3)] + [1])
@@ -166,6 +166,7 @@ which can be computed by
 markov_chain['A'] = {base: p for base, p in
                      zip('ACGT', transition_probabilities)}
 !ec
+
 To select a transition, we need to draw a random letter
 (A, C, G, or T) according to the probabilities
 `markov_chain[b]` where `b` is the base at the current position.
@@ -286,5 +287,5 @@ Transition into T ($P(Y=T)$) has greatest probability (0.3) and this is also
 confirmed by the greatest frequency (0.41).
 % endif
 
-The functions performing mutations are located
+The various functions performing mutations are located
 in the file ${link('mutate.py')}.

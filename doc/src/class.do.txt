@@ -31,11 +31,11 @@ types of analysis. The idea of the `Gene` class is that these
 functions are methods in the class operating on the DNA string and the
 exon regions stored in the class.  Rather than recoding all the
 functions as methods in the class we shall just let the class "wrap"
-the functions. That is, the class methods calls up the functions we
+the functions. That is, the class methods call up the functions we
 already have.  This approach has two advantages: users can either
 choose the function-based or the class-based interface, and the
 programmer can reuse all the ready-made functions when implementing
-the class.
+the class-based interface.
 
 The selection of functions include
 
@@ -67,11 +67,10 @@ of classes `Gene` and `Region`.
 === Basic Features of class Gene ===
 
 Class `Gene` is supposed to hold the DNA sequence and
-the associated exon regions. A simple constructor and a few
-methods may take the following form:
+the associated exon regions. A simple constructor expects the
+exon regions to be specified as a list of (start, end) tuples
+indicating the start and end of each region:
 !bc pycod
-from dna_functions import *
-
 class Gene:
     def __init__(self, dna, exon_regions):
         self._dna = dna
@@ -88,6 +87,16 @@ class Gene:
             self._introns.append(Region(dna, prev_end, start))
             prev_end = end
         self._introns.append(Region(dna, end, len(dna)))
+!ec
+
+The methods in class `Gene` are trivial to implement when we already
+have the functionality in stand-alone functions.
+Here are a few examples on methods:
+!bc pycod
+from dna_functions import *
+
+class Gene:
+    ...
 
     def write(self, filename, chars_per_line=70):
         """Write DNA sequence to file with name filename."""
@@ -103,11 +112,9 @@ class Gene:
 
     def format_base_frequencies(self):
         """Return base frequencies formatted with two decimals."""
-        return format_base_frequencies(
-            self.get_base_frequencies(self._dna))
+        return format_frequencies(self.get_base_frequencies())
 !ec
-Observe how the methods just call up existing functions in
-`dna_functions.py`.
+
 
 === Flexible Constructor ===
 
@@ -117,17 +124,19 @@ use that as default value. Second, exon regions at the start and/or
 end of the DNA string will lead to empty intron `Region` objects so a proper
 test on nonzero length of the introns must be inserted.
 Third, the data for the DNA string and
-the exon regions can either be passed or downloaded and read.
-That is,
+the exon regions can either be passed as arguments or downloaded and read
+from file.
+Two different initializations of `Gene` objects are therefore
 !bc pycod
 g1 = Gene(dna, exon_regions)  # user has read data from file
 g2 = Gene((urlbase, dna_file), (urlbase, exon_file))  # download
 !ec
-If the files are already at the computer one can pass `None` for
-`urlbase`. The flexible constructor has, not surprisingly, longer
-code than the first version (but illustrates well how the
-concept of overloaded constructors in other languages, like C++ and Java,
-are dealt with in Python):
+One can pass `None` for `urlbase` if the files are already at the
+computer. The flexible constructor has, not surprisingly, much longer code
+than the first version. The implementation illustrates well how the concept of
+overloaded constructors in other languages, like C++ and Java, are
+dealt with in Python (overloaded constructors take different types
+of arguments to initialize an instance):
 
 @@@CODE src-bioinf/dna_classes.py fromto: class Gene@def create_mRNA
 
@@ -155,11 +164,11 @@ of the class can be included:
 @@@CODE src-bioinf/dna_classes.py fromto: def get_dna@def __len
 Alternatively, one could access the attributes directly: `gene._dna`,
 `gene._exons`, etc. In that case we should remove the leading underscore as
-this underscore signifies to the user of the class that these
+this underscore signals that these
 attributes are considered "protected", i.e., not to be directly accessed
 by the user. The "protection" in "get" functions is more mental
 than actual since we anyway give the data structures in the hands of
-the user.
+the user and she can do whatever she wants (even delete them).
 
 ## Note that copying from __len__ interferes with copying from
 ## the same method in class Region. Hence, we have copied the
@@ -173,17 +182,15 @@ are relevant to add:
         return len(self._dna)
 
     def __add__(self, other):
-        """Add Gene instances: self + other"""
-        # We don't know what to do with exon regions
+        """self + other: append other to self (DNA string)."""
         if self._exons is None and other._exons is None:
-            return self._dna + other._dna
+            return Gene(self._dna + other._dna, None)
         else:
             raise ValueError(
                 'cannot do Gene + Gene with exon regions')
 
     def __iadd__(self, other):
-        """Increment Gene instance: self += other"""
-        # We don't know what to do with exon regions
+        """self += other: append other to self (DNA string)."""
         if self._exons is None and other._exons is None:
             self._dna += other._dna
             return self
@@ -204,6 +211,32 @@ are relevant to add:
             s += ', %d exon regions' % len(self._exons)
         return s
 !ec
+
+Here is an interactive session demonstrating how we can work with
+class `Gene` objects:
+!bc ipy
+>>> from dna_classes import Gene
+>>> g1 = Gene('ATCCGTAATTGCGCA', [(2,4), (6,9)])
+>>> print g1
+Gene: ATCCGT...TGCGCA, length=15, 2 exon regions
+>>> g2 = g1.mutate_random(10)
+>>> print g2
+Gene: ATCCGT...TGTGCT, length=15, 2 exon regions
+>>> g1 == g2
+False
+>>> g1 += g2  # expect exception
+Traceback (most recent call last):
+...
+ValueError: cannot do Gene += Gene with exon regions
+>>> g1b = Gene(g1.get_dna(), None)
+>>> g2b = Gene(g2.get_dna(), None)
+>>> print g1b
+Gene: ATCCGT...TGCGCA, length=15
+>>> g3 = g1b + g2b
+>>> g3.format_base_frequencies()
+'A: 0.17, C: 0.23, T: 0.33, G: 0.27'
+!ec
+
 
 ===== Subclasses =====
 
@@ -242,5 +275,14 @@ RNA-coding gene. The only necessary changes would have been to exchange
 protein.
 
 __Acknowledgments.__
+% if PRIMER_BOOK:
+The bioinformatics examples in
+Chapters~\ref{bioinf:basics},
+\ref{bioinf:DNAanalysis}, \ref{bioinf:random}, and \ref{bioinf:oo}
+were prepared by Geir Kjetil Sandve with help from
+Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
+and Kai Trengereid
+% else:
 The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
 and Kai Trengereid for contributing to the examples and their implementations.
+% endif

@@ -106,20 +106,21 @@ class Gene:
 
     def format_base_frequencies(self):
         """Return base frequencies formatted with two decimals."""
-        return format_base_frequencies(
-            self.get_base_frequencies(self._dna))
+        return format_frequencies(self.get_base_frequencies())
 
     def mutate_pos(self, pos, base):
         """Return Gene with a mutation to base at position pos."""
         dna = self._dna[:pos] + base + self._dna[pos+1:]
         return Gene(dna, self._exon_regions)
 
-    def mutate_random(self):
+    def mutate_random(self, n=1):
         """
-        Return Gene with a mutation at a random position.
-        Mutation into new base with equal probabilities.
+        Return Gene with n mutations at a random position.
+        All mutations are equally probable.
         """
-        mutated_dna = mutate(self._dna)
+        mutated_dna = self._dna
+        for i in range(n):
+            mutated_dna = mutate(mutated_dna)
         return Gene(mutated_dna, self._exon_regions)
 
     def mutate_via_markov_chain(markov_chain):
@@ -145,16 +146,16 @@ class Gene:
         return len(self._dna)
 
     def __add__(self, other):
-        """Add Gene instances: self + other"""
+        """self + other: append other to self (DNA string)."""
         # We don't know what to do with exon regions
         if self._exons is None and other._exons is None:
-            return self._dna + other._dna
+            return Gene(self._dna + other._dna, None)
         else:
             raise ValueError(
                 'cannot do Gene + Gene with exon regions')
 
     def __iadd__(self, other):
-        """Increment Gene instance: self += other"""
+        """self += other: append other to self (DNA string)."""
         # We don't know what to do with exon regions
         if self._exons is None and other._exons is None:
             self._dna += other._dna

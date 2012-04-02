@@ -35,7 +35,9 @@ doconce grab --from 'Find pairs of' --to- 'Allow different types' bioinf.p.tex >
 
 doconce grab --from 'Allow different types'  --to- 'Speed up Markov chain mutation' bioinf.p.tex > bioinf_ch6_ex.p.tex
 
-doconce grab --from 'Speed up Markov chain mutation' --to- Acknowledgment bioinf.p.tex > bioinf_ch8_ex.p.tex
+doconce grab --from 'Speed up Markov chain mutation' --to- 'Extend the constructor in class Gene' Acknowledgment bioinf.p.tex > bioinf_ch8_ex.p.tex
+
+# drop exer for class.do.txt
 
 # Modify exercises
 for file in bioinf_ch*_ex.p.tex; do
