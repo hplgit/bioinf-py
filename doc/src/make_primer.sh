@@ -1,11 +1,11 @@
 #!/bin/sh
 
-python ~/hg/programs/spellcheck.py -d dictionary.txt count.do.txt freq.do.txt basefreq.do.txt dotplot.do.txt genes2proteins.do.txt mutate.do.txt class.do.txt exercises.do.txt
+python ~/hg/programs/spellcheck.py -d dictionary.txt *.do.txt
 if [ $? -ne 0 ]; then
-  echo Misspellings
+  echo "Misspellings!"  # use mydict.txt~.all~ as new dictionary.txt?
   exit 1
 fi
-exit 0
+
 doconce format latex bioinf PRIMER_BOOK=True EBOOK=False --skip_inline_comments
 
 doconce replace Section Chapter bioinf.p.tex

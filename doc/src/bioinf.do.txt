@@ -11,9 +11,7 @@
 mako multi-line comments, or alternatively by if tests, either in
 the preprocess stage (# #ifdef ...) or in the mako stage
 (if some_variable:).
-</%doc>
 
-<%doc>
 PRIMER_BOOK: text to be included in the "Primer" book.
 EBOOK: PDF version of the "Primer" book with hyperlinks (href command).
 not PRIMER_BOOK means that this file is a stand-alone document.
