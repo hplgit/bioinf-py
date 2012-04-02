@@ -1,4 +1,11 @@
 #!/bin/sh
+
+python ~/hg/programs/spellcheck.py -d dictionary.txt count.do.txt freq.do.txt basefreq.do.txt dotplot.do.txt genes2proteins.do.txt mutate.do.txt class.do.txt exercises.do.txt
+if [ $? -ne 0 ]; then
+  echo Misspellings
+  exit 1
+fi
+exit 0
 doconce format latex bioinf PRIMER_BOOK=True EBOOK=False --skip_inline_comments
 
 doconce replace Section Chapter bioinf.p.tex
@@ -29,3 +36,10 @@ doconce grab --from 'Find pairs of' --to- 'Allow different types' bioinf.p.tex >
 doconce grab --from 'Allow different types'  --to- 'Speed up Markov chain mutation' bioinf.p.tex > bioinf_ch6_ex.p.tex
 
 doconce grab --from 'Speed up Markov chain mutation' --to- Acknowledgment bioinf.p.tex > bioinf_ch8_ex.p.tex
+
+# Modify exercises
+for file in bioinf_ch*_ex.p.tex; do
+doconce subst '\\subsection\{' '\\begin{exercise}\n\\exerentry{' $file
+doconce subst '\\noindent\nFilename: \\code\{(.+?)\}' 'Name of program file: \\code{\g<1>}.\n\\hfill $\\diamond$\n\\end{exercise}' $file
+done
+

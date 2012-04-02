@@ -135,7 +135,7 @@ First we need to set up the probability matrix, i.e., the
 $4\times4$|$4x4$ table of probabilities where each row corresponds to the
 transition of A, C, G, or T into A, C, G, or T. Say the probability
 transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
-and from A to T is 0.4. To select a random transiton based on these
+and from A to T is 0.4. To select a random transition based on these
 probabilities we divide the interval $[0,1]$ into slices whose lengths
 correspond to the given probabilities. In this example this means $0,
 0.2, 0.3, 0.6, 1$. Then we draw a random number in $[0,1]$ and
@@ -143,7 +143,7 @@ determine which interval between the slices it lies in. The
 probability of hitting an interval equals the transition probability
 for the transition corresponding to that interval. For example, if the
 random number is 0.33, it belongs to the interval $(0.3, 0.6]$, which
-corresponds to the transiton from A to G.
+corresponds to the transition from A to G.
 
 Let us generate random transition probabilities. That is,
 we generate three random numbers to divide the interval $[0,1]$ into
@@ -167,7 +167,7 @@ markov_chain['A'] = {base: p for base, p in
                      zip('ACGT', transition_probabilities)}
 !ec
 To select a transition, we need to draw a random letter
-(A, C, G, or T) according to the probababilities
+(A, C, G, or T) according to the probabilities
 `markov_chain[b]` where `b` is the base at the current position.
 Actually, this is a very common operation, namely drawing a
 random value from a *discrete probability distribution* (`markov_chain[b]`).

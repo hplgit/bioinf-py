@@ -94,7 +94,7 @@ class Gene:
         tofile_with_line_sep(self._dna, filename, chars_per_line)
 
     def count(self, base):
-        """Return no of occurences of base in DNA."""
+        """Return no of occurrences of base in DNA."""
         return self._dna.count(base)
 
     def get_base_frequencies(self):
@@ -236,7 +236,7 @@ lactase protein is done with
 @@@CODE src-bioinf/dna_classes.py fromto: def _test\(@# Manual downloading and
 
 Now, envision that the Lactase gene would instead have been an
-RNA-coding gene. The only necessary changes would have been to exhange
+RNA-coding gene. The only necessary changes would have been to exchange
 `ProteinCodingGene` by `RNACodingGene` in the assignment to
 `lactase_gene`, and one would get out a final RNA product instead of a
 protein.

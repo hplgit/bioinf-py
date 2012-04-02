@@ -5,8 +5,9 @@ label{bioinf:exer:pairs1}
 file=count_pairs.py
 
 Write a function `count_pairs(dna, pair)` that returns the number of
-occurences of a pair of characters (`pair`) in a DNA string (`dna`).
-For example, `count_pairs('ACTGCTATCCATT', 'AT')` should return 2.
+occurrences of a pair of characters (`pair`) in a DNA string (`dna`).
+For example, calling the function with `dna` as `'ACTGCTATCCATT'`
+and `pair` as  `'AT'` will return 2.
 
 # Note: dna.count(pair) works!
 
@@ -16,7 +17,9 @@ file=count_substr.py
 
 This is an extension of Exercise ref{bioinf:exer:pairs1}:
 count how many times a certain string appears in another string.
-For example, `count_substr('ACGTTACGGAACG', 'ACG')` should return 2.
+For example, the function returns 2 when called
+with the DNA string `'ACGTTACGGAACG'`
+and the substring `'ACG'`.
 
 __Hint 1.__ For each match of the first character of the
 substring in the main string, check if the next `n` characters

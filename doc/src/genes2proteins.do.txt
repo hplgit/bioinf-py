@@ -13,11 +13,11 @@ way define a specific sequence of amino acids, which amounts to a
 certain protein.  Here is an example of using the mapping from DNA to
 proteins to create the Lactase protein (LPH), using the DNA sequence
 of the Lactase gene (LCT) as underlying code. An important functional
-property of LPH is in diguesting Lactose which is found most notably
+property of LPH is in digesting Lactose which is found most notably
 in milk. Lack of the functionality of LPH leads to digestive problems
 referred to as lactose intolerance. Most mammals and humans lose their
 expression of LCT and therefore their ability to digest milk when they
-stop recieving breast milk.
+stop receiving breast milk.
 
 The file
 !bc
@@ -138,7 +138,7 @@ Python's term for folder is directory, which explains why `isdir` is
 the function name for testing on a folder existence. Observe
 especially that the combination of a folder and a filename is done via
 `os.path.join` rather than just inserting a forward slash, or backward
-slash on Windows: `os.path.join` will insert the right slsah, forward
+slash on Windows: `os.path.join` will insert the right slash, forward
 or backward, depending on the current operating system.
 
 Occasionally, the output folder is nested, say
@@ -169,7 +169,7 @@ by the corresponding 1-letter name as specified in the
 Unfortunately, this first try to simulate this translation process is
 incorrect. The problem is that the translation always begins with the
 amino acid Methionine, code AUG, and ends when one of the stop codons
-is met. We must thus check for the correct start and stop criterias.
+is met. We must thus check for the correct start and stop criteria.
 A fix is
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def create_protein_fixed@congential_lactase_deficiency
@@ -185,7 +185,7 @@ label{bioinf:lactase:milk}
 One type of lactose intolerance is called *Congenital lactase deficiency*.
 This is a rare genetic disorder that causes lactose intolerance from birth,
 and is particularly common in Finland. The disease is caused by a mutation of
-the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
+the base in position 30049 (0-based) of the lactase gene, a mutation from T to
 A. Our goal is to check what happens to the protein if this base is mutated.
 This is a simple task using the previously developed tools:
 

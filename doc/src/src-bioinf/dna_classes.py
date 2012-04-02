@@ -97,7 +97,7 @@ class Gene:
         tofile_with_line_sep(self._dna, filename, chars_per_line)
 
     def count(self, base):
-        """Return no of occurences of base in DNA."""
+        """Return no of occurrences of base in DNA."""
         return self._dna.count(base)
 
     def get_base_frequencies(self):

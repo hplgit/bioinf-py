@@ -1,6 +1,7 @@
 
 % if PRIMER_BOOK:
 ======= Examples from Analyzing DNA =======
+label{bioinf:DNAanalysis}
 
 We shall here continue the bioinformatics applications started
 in Chapter ref{bioinf:basics}. Analysis of DNA sequences is
@@ -140,7 +141,7 @@ results in
 
 idx{dictionary}
 
-The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersone,
+The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersome,
 especially if want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from `base`,
 which is a character, to the corresponding index 0, 1, 2, or 3.
@@ -219,7 +220,7 @@ leads to a slightly more compact version,
 The dictionary of lists data structure can alternatively be replaced
 by a dictionary of dictionaries object, often just called a dict of
 dicts object. That is, `frequency_matrix[base]` is a dictionary with
-key `i` and value equal to the added number of occurences of `base` in
+key `i` and value equal to the added number of occurrences of `base` in
 `dna[i]` for all `dna` strings in the list `dna_list`.  The indexing
 `frequency_matrix['C'][i]` and the values are exactly as in the last
 example; the only difference is whether `frequency_matrix['C']` is a
@@ -356,7 +357,7 @@ would be (list of lists, with rows corresponding to A, C, G, and T):
  [0, 0, 1]]
 !ec
 We see that for position 0,
-which corresponds to the left-most columnin the table, the symbol A has the
+which corresponds to the left-most column in the table, the symbol A has the
 highest frequency (2). The maximum frequencies for the other positions
 are seen to be C for position 1, and A for position 2. The consensus
 string is therefore ACA.  Note that the consensus string does not need to be
