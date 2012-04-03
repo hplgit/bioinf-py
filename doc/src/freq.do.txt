@@ -48,7 +48,7 @@ strings.
 
 In the following we shall present different data structures to
 hold such a table and different ways of computing them.
-The table is known as a *frequency matrix* in bioinformatics,
+The table is known as a *frequency matrix* in bioinformatics
 and this is the term used here too.
 
 
@@ -64,8 +64,9 @@ We need to initialize the lists with the right length and a zero
 for each element, since each list element is to be used as a counter.
 Creating a list of length `n` with object `x` in all positions
 is done by `[x]*n`. Finding the proper length is here carried out by
-inspecting the length of the first element in `dna_list`, assuming
-that all elements have the same length.
+inspecting the length of the first element in `dna_list`, the list of
+all DNA strings to be counted, assuming
+that all elements in this list have the same length.
 
 In the `for` loop we apply the `enumerate` function which is used
 to extract both the element value *and* the element index when
@@ -80,7 +81,7 @@ iterating over a sequence. For example,
 3 t
 !ec
 
-Here is a call and printout of the results:
+Here is a test,
 !bc pycod
 dna_list = ['GGTAG', 'GGTAC', 'GGTGC']
 A, C, G, T = freq_lists(dna_list)
@@ -105,7 +106,7 @@ in the set of DNA strings. Here `i` is an integer, where 0 corresponds to A,
 1 to T, 2 to G, and 3 to C. The frequency is the number of times
 base `i` appears in position `j` in a set of DNA strings.
 Sometimes this number is divided by the number of DNA strings in
-the set so that the frequency is between 0 and 1. Note all
+the set so that the frequency is between 0 and 1. Note that all
 the DNA strings must have the same length.
 
 The simplest way to make a nested list is to insert the
@@ -118,7 +119,7 @@ The simplest way to make a nested list is to insert the
 2
 !ec
 
-Nevertheless, we can illustrate how to compute this type of nested
+Alternatively, we can illustrate how to compute this type of nested
 list directly:
 
 @@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v1@frequency_matrix = freq_list_of_lists_v1\(
@@ -142,10 +143,10 @@ results in
 idx{dictionary}
 
 The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersome,
-especially if want to extend the code to other bioinformatics problems
+especially if we want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from `base`,
 which is a character, to the corresponding index 0, 1, 2, or 3.
-A Python dictionary represents such mappings:
+A Python dictionary may represent such mappings:
 !bc ipy
 >>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 >>> base2index['G']
@@ -153,7 +154,7 @@ A Python dictionary represents such mappings:
 !ec
 With the `base2index` dictionary we do not need the series of
 `if` tests and the alphabet `'ATGC'` could be much larger
-without affecting the length of the code.
+without affecting the length of the code:
 
 @@@CODE src-bioinf/freq.py fromto: def freq_list_of_lists_v2@import numpy
 
@@ -171,14 +172,14 @@ a `numpy` array:
 @@@CODE src-bioinf/freq.py fromto: import numpy@def freq_dict_of_lists_v1
 
 The resulting `frequency_matrix` object can be indexed as
-`[b][i]` or `[b,i]`, with integers `b` and `i`. A typical
-indexing is `frequency_matrix[base2index['C'],i]`.
+`[b][i]` or `[b,i]`, with integers `b` and `i`. Typically, `b` will
+be something line `base2index['C']`.
 
 === Dictionary of Lists ===
 
 Instead of going from a character to an integer index via
 `base2index`, we may prefer to index `frequency_matrix` by the base name
-and the position index directly: like in`['C'][14]`.
+and the position index directly, like in `['C'][14]`.
 This is the most natural syntax for a user of the
 frequency matrix.  The relevant Python data structure is then a
 dictionary of lists. That is, `frequency_matrix` is a dictionary with
@@ -190,7 +191,7 @@ function is
 
 @@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v1@frequency_matrix = freq_dict_of_lists_v1\(
 
-Running
+Running the test code
 
 @@@CODE src-bioinf/freq.py fromto: frequency_matrix = freq_dict_of_lists_v1@def freq_dict_of_lists_v2
 results in the output
@@ -206,12 +207,12 @@ be made more compact by using a dictionary comprehension:
 !bc pycod
 dict = {key: value for key in some_sequence}
 !ec
-Here,
+In our example we set
 !bc pycod
 frequency_matrix = {base: [0]*n for base in 'ACGT'}
 !ec
 Adopting this construction in the `freq_dict_of_lists_v1` function
-leads to a slightly more compact version,
+leads to a slightly more compact version:
 
 @@@CODE src-bioinf/freq.py fromto: def freq_dict_of_lists_v2@def freq_dict_of_dicts_v1
 
@@ -227,7 +228,7 @@ example; the only difference is whether `frequency_matrix['C']` is a
 list or dictionary.
 
 Our function working with `frequency_matrix` as a dict of dicts
-is written
+is written as
 
 @@@CODE src-bioinf/freq.py fromto: def freq_dict_of_dicts_v1@from collections import default
 
@@ -269,9 +270,9 @@ Having `frequency_matrix[base]` as a `numpy` array instead of a list
 does not give any immediate advantage, as the storage and CPU time is
 about the same. The loop over the `dna` string and the associated
 indexing is what consumes all the CPU time.  However, the `numpy`
-arrays provides a potential for increasing efficiency through
+arrays provide a potential for increasing efficiency through
 vectorization, i.e., replacing the element-wise operations on `dna`
-and `frequency_matrix[base]` by operations on the whole arrays at
+and `frequency_matrix[base]` by operations on the entire arrays at
 once.
 
 Let us use the interactive Python shell to
@@ -309,6 +310,7 @@ This recipe can be repeated for all bases:
             i = np.asarray(b, dtype=np.int)
             frequency_matrix[base] = frequency_matrix[base] + i
 !ec
+
 It turns out that we do not need to convert the boolean array `b`
 to an integer array `i`, because doing arithmetics with `b` directly
 is possible: `False` is interpreted as 0 and `True` as 1 in arithmetic
@@ -320,7 +322,6 @@ directly, without first computing the sum of two arrays
 Collecting all these ideas in one function yields the code
 
 @@@CODE src-bioinf/freq.py fromto: def freq_dict_of_arrays_v2@# ----
-
 This vectorized function runs almost 10 times as fast as the
 (scalar) counterpart `freq_list_of_arrays_v1`!
 
@@ -368,7 +369,7 @@ matrix (this is indeed the case for the above example).
 === List of Lists Frequency Matrix ===
 
 Let `frequency_matrix` be a list of lists. For each position `i` we
-run through the "rows" in the frequency matrix and keep track of the
+run through the rows in the frequency matrix and keep track of the
 maximum frequency value and the corresponding letter. If two or
 more letters have the same frequency value we use a dash to
 indicate that this position in the consensus string is undetermined.
@@ -387,7 +388,7 @@ def find_consensus_v1(frequency_matrix):
         pass # right type
     else:
         raise TypeError('frequency_matrix must be list of lists')
-...
+    ...
 !ec
 
 === Dict of Dicts Frequency Matrix ===
@@ -445,11 +446,12 @@ def find_consensus_v4(frequency_matrix, dna_length):
 
 Exercise ref{bioinf:exer:freq:fargs} suggests to make a unified
 `find_consensus` function which works with all of the different
-representation of `frequency_matrix` that we have used.
+representations of `frequency_matrix` that we have used.
 
 The functions making and using the frequency matrix are found
 in the file ${link('freq.py')}.
 
+% if UNFINISHED:
 ===== Probability Matrix =====
 
 *UNFINISHED!*
@@ -481,4 +483,6 @@ for num in range(len(DNA)-len_window+1):
 
 print probabilitiesList
 !ec
+
+% endif
 

@@ -50,7 +50,7 @@ real-world problem solving one should rather utilize BioPython, but
 the sections below acts as an introduction to what is inside packages
 like BioPython.
 
-% else
+% else:
 
 The leading Python software for bioinformatics applications is
 BioPython (found at \emp{http://biopython.org}). The examples
