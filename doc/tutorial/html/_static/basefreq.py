@@ -27,7 +27,7 @@ assert get_base_frequencies_v1(dna) == get_base_frequencies_v2(dna)
 
 # Real data
 import urllib, os
-urlbase = 'http://hplgit.github.com/bioinf-py/doc/src/data/'
+urlbase = 'http://hplgit.github.com/bioinf-py/data/'
 yeast_file = 'yeast_chr1.txt'
 if not os.path.isfile(yeast_file):
     url = urlbase + yeast_file

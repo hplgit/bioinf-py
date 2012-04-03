@@ -176,7 +176,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return no of occurences of base in DNA.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return no of occurrences of base in DNA.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -185,20 +185,21 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
     <span class="k">def</span> <span class="nf">format_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return base frequencies formatted with two decimals.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">format_base_frequencies</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">format_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_base_frequencies</span><span class="p">())</span>
 
     <span class="k">def</span> <span class="nf">mutate_pos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return Gene with a mutation to base at position pos.&quot;&quot;&quot;</span>
         <span class="n">dna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">[:</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">base</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">[</span><span class="n">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
         <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exon_regions</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">mutate_random</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">mutate_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Return Gene with a mutation at a random position.</span>
-<span class="sd">        Mutation into new base with equal probabilities.</span>
+<span class="sd">        Return Gene with n mutations at a random position.</span>
+<span class="sd">        All mutations are equally probable.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mutated_dna</span> <span class="o">=</span> <span class="n">mutate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">)</span>
+        <span class="n">mutated_dna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">mutated_dna</span> <span class="o">=</span> <span class="n">mutate</span><span class="p">(</span><span class="n">mutated_dna</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="n">mutated_dna</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exon_regions</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">mutate_via_markov_chain</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">):</span>
@@ -224,16 +225,16 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Add Gene instances: self + other&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;self + other: append other to self (DNA string).&quot;&quot;&quot;</span>
         <span class="c"># We don&#39;t know what to do with exon regions</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span>
+            <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s">&#39;cannot do Gene + Gene with exon regions&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Increment Gene instance: self += other&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;self += other: append other to self (DNA string).&quot;&quot;&quot;</span>
         <span class="c"># We don&#39;t know what to do with exon regions</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span>

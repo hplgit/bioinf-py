@@ -62,7 +62,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Hans Petter Langtangen, Geir Kjetil Sandve</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Mar 31, 2012</td>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Apr 3, 2012</td>
 </tr>
 </tbody>
 </table>
@@ -80,8 +80,15 @@ for, explore, and use information about genes, nucleic acids, and
 proteins.</p>
 </div>
 <div class="section" id="basic-bioinformatics-examples-in-python">
-<span id="bioinf-basics"></span><h1>Basic Bioinformatics Examples in Python<a class="headerlink" href="#basic-bioinformatics-examples-in-python" title="Permalink to this headline">¶</a></h1>
-<p>Below are some very simple examples on DNA analysis that brings together
+<h1>Basic Bioinformatics Examples in Python<a class="headerlink" href="#basic-bioinformatics-examples-in-python" title="Permalink to this headline">¶</a></h1>
+<p>The leading Python software for bioinformatics applications is
+<a class="reference external" href="http://biopython.org">BioPython</a>. The forthcoming examples are
+simple illustrations of the type of problem settings and corresponding
+Python implementations that are encountered in bioinformatics. For
+real-world problem solving one should rather utilize BioPython, but
+the sections below acts as an introduction to what is inside packages
+like BioPython.</p>
+<p>We start with some very simple examples on DNA analysis which bring together
 basic building blocks in programming: loops, <tt class="docutils literal"><span class="pre">if</span></tt> tests, and functions.</p>
 <div class="section" id="counting-letters-in-dna-strings">
 <span id="bioinf-count"></span><h2>Counting Letters in DNA Strings<a class="headerlink" href="#counting-letters-in-dna-strings" title="Permalink to this headline">¶</a></h2>
@@ -126,7 +133,7 @@ it to a list:</p>
 <span class="go">C</span>
 </pre></div>
 </div>
-<p>In fact, all built-in objects in Python which contain a set of elements in
+<p>In fact, all built-in objects in Python that contain a set of elements in
 a particular sequence allow a <tt class="docutils literal"><span class="pre">for</span></tt> loop construction of the
 type <tt class="docutils literal"><span class="pre">for</span> <span class="pre">element</span> <span class="pre">in</span> <span class="pre">object</span></tt>.
 .. Examples of such objects are</p>
@@ -151,7 +158,7 @@ over the string:</p>
     <span class="n">base</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">dna</span><span class="o">=</span><span class="n">dna</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We have illustrated two alternative ways of writing out text
+<p>We have here illustrated two alternative ways of writing out text
 where the value of variables are to be inserted in &#8220;slots&#8221; in the
 string.</p>
 </div>
@@ -164,7 +171,7 @@ effective for helping you reach the required understanding of performing
 a simulation by hand:
 (i) printing variables, (ii) using a debugger, and (iii) using an
 <a class="reference external" href="http://people.csail.mit.edu/pgbovine/python/tutor.html">online program flow tool</a>.</p>
-<p>Inserting <tt class="docutils literal"><span class="pre">print</span></tt> statements and examining the about is the
+<p>Inserting <tt class="docutils literal"><span class="pre">print</span></tt> statements and examining the variables is the
 simplest approach to investigating
 what is going on:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v2_demo</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
@@ -202,17 +209,17 @@ dna: ATGCGGACCTAT
       4     i = 0 # counter</pre>
 </div>
 <p>Observe the output of the <tt class="docutils literal"><span class="pre">print</span></tt> statements. One can also
-print a variable explicitly:</p>
+print a variable explicitly inside the debugger:</p>
 <div class="highlight-python"><pre>ipdb&gt; print base
 C</pre>
 </div>
 <p>Misunderstanding of the program flow is one of the most frequent
 sources of programming errors, so
 whenever in doubt about any program flow, enter a debugger to establish
-confidence.</p>
+confidence!</p>
 <p id="index-5">The <a class="reference external" href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>
 is, at least for small programs, a splendid alternative to
-debuggers. Go to the webpage, erase the sample code and paste in your
+debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
 statements one by one. The status of variables are
 explained to the right, and the text field below the program shows the output
@@ -300,7 +307,8 @@ function can be condensed to one line using the inline
 <p>The inline <tt class="docutils literal"><span class="pre">if</span></tt> test is in fact redundant in the previous function
 because the value of the condition <tt class="docutils literal"><span class="pre">c</span> <span class="pre">==</span> <span class="pre">base</span></tt> can be used
 directly: it has the value <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>. This saves
-some typing and adds clarity, at least to Python programmers:</p>
+some typing and adds clarity, at least to Python programmers with
+some experience:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v7</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="n">m</span> <span class="o">=</span> <span class="p">[]</span>   <span class="c"># matches for base in dna: m[i]=True if dna[i]==base</span>
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">:</span>
@@ -311,10 +319,11 @@ some typing and adds clarity, at least to Python programmers:</p>
 </div>
 <div class="section" id="list-comprehensions">
 <h3>List Comprehensions<a class="headerlink" href="#list-comprehensions" title="Permalink to this headline">¶</a></h3>
-<span class="target" id="index-6"></span><p id="index-7">Building a list via a <tt class="docutils literal"><span class="pre">for</span></tt> loop can often be condensed to one line
-by using list comprehensions: <tt class="docutils literal"><span class="pre">[expr</span> <span class="pre">for</span> <span class="pre">e</span> <span class="pre">in</span> <span class="pre">sequence]</span></tt>, where
-<tt class="docutils literal"><span class="pre">expr</span></tt> is some expression normally involving the iteration variable
-<tt class="docutils literal"><span class="pre">e</span></tt>. In our last example, we can introduce a list comprehension</p>
+<span class="target" id="index-6"></span><p id="index-7">Building a list with the aid of a <tt class="docutils literal"><span class="pre">for</span></tt> loop can often be condensed to
+a single line by using list comprehensions: <tt class="docutils literal"><span class="pre">[expr</span> <span class="pre">for</span> <span class="pre">e</span> <span class="pre">in</span>
+<span class="pre">sequence]</span></tt>, where <tt class="docutils literal"><span class="pre">expr</span></tt> is some expression normally involving the
+iteration variable <tt class="docutils literal"><span class="pre">e</span></tt>. In our last example, we can introduce a list
+comprehension</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v8</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">]</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
@@ -333,11 +342,11 @@ reduce the function body to a single line:</p>
 species. Making a boolean array with <tt class="docutils literal"><span class="pre">True</span></tt> and <tt class="docutils literal"><span class="pre">False</span></tt> values
 therefore increases the memory usage by a factor of two
 in our sample functions <tt class="docutils literal"><span class="pre">count_v5</span></tt> to <tt class="docutils literal"><span class="pre">count_v9</span></tt>.
-Summing without actually storing an extra list is desireable.
-Fortunately, <tt class="docutils literal"><span class="pre">sum([x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s])</span></tt> can be replaced
-<tt class="docutils literal"><span class="pre">sum(x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s)</span></tt>, where the latter sums the elements (<tt class="docutils literal"><span class="pre">x</span></tt>) in <tt class="docutils literal"><span class="pre">s</span></tt>
+Summing without actually storing an extra list is desirable.
+Fortunately, <tt class="docutils literal"><span class="pre">sum([x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s])</span></tt> can be replaced by
+<tt class="docutils literal"><span class="pre">sum(x</span> <span class="pre">for</span> <span class="pre">x</span> <span class="pre">in</span> <span class="pre">s)</span></tt>, where the latter sums the elements in <tt class="docutils literal"><span class="pre">s</span></tt>
 as <tt class="docutils literal"><span class="pre">x</span></tt> visits the elements of <tt class="docutils literal"><span class="pre">s</span></tt> one by one. Removing the brackets
-therefore avoids first making a list and then applying <tt class="docutils literal"><span class="pre">sum</span></tt> on
+therefore avoids first making a list before applying <tt class="docutils literal"><span class="pre">sum</span></tt> on
 that list. This is a minor modification of the <tt class="docutils literal"><span class="pre">count_v9</span></tt> function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v10</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">base</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dna</span><span class="p">)</span>
@@ -349,14 +358,15 @@ on the CPU time.</p>
 <div class="section" id="extracting-indices">
 <h3>Extracting Indices<a class="headerlink" href="#extracting-indices" title="Permalink to this headline">¶</a></h3>
 <p>Instead of making a boolean list with elements expressing whether
-a character matches the given <tt class="docutils literal"><span class="pre">base</span></tt> or not, we may collect all
+a letter matches the given <tt class="docutils literal"><span class="pre">base</span></tt> or not, we may collect all
 the indices of the matches. This can be done by adding an <tt class="docutils literal"><span class="pre">if</span></tt>
 test to the list comprehension:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v11</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">))</span> <span class="k">if</span> <span class="n">dna</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">base</span><span class="p">])</span>
 </pre></div>
 </div>
-<p>A debugger or the Python Online Tutorial do not help so much to
+<p>A debugger or the Python Online Tutorial do not help so much when
+trying to
 understand this compact code. A better approach is to examine
 the list comprehension in an interactive Python shell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;AATGCTTA&#39;</span>
@@ -368,17 +378,17 @@ the list comprehension in an interactive Python shell:</p>
 <span class="go">A A A</span>
 </pre></div>
 </div>
-<p>The element <tt class="docutils literal"><span class="pre">i</span></tt> in the list comprehension is only made when
-<tt class="docutils literal"><span class="pre">dna[i]</span> <span class="pre">==</span> <span class="pre">base</span></tt>.</p>
+<p>The element <tt class="docutils literal"><span class="pre">i</span></tt> in the list comprehension is only made for those <tt class="docutils literal"><span class="pre">i</span></tt>
+where <tt class="docutils literal"><span class="pre">dna[i]</span> <span class="pre">==</span> <span class="pre">base</span></tt>.</p>
 </div>
 <div class="section" id="using-python-s-library">
 <h3>Using Python&#8217;s Library<a class="headerlink" href="#using-python-s-library" title="Permalink to this headline">¶</a></h3>
 <p>Very often when you set out to do a task in Python, there is already
 functionality for the task in the object itself, in the Python
 libraries, or in third-party libraries found on the Internet.
-Counting how many times a character (or substring) <tt class="docutils literal"><span class="pre">base</span></tt> appears in a
+Counting how many times a letter (or substring) <tt class="docutils literal"><span class="pre">base</span></tt> appears in a
 string <tt class="docutils literal"><span class="pre">dna</span></tt> is obviously a very common task so Python supports
-it by <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>:</p>
+it by the syntax <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 </pre></div>
@@ -387,7 +397,7 @@ it by <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>
 </div>
 <div class="section" id="efficiency-assessment">
 <span id="bioinf-count-cpu"></span><h2>Efficiency Assessment<a class="headerlink" href="#efficiency-assessment" title="Permalink to this headline">¶</a></h2>
-<p>Now we have 11 different versions of how to count the occurences
+<p>Now we have 11 different versions of how to count the occurrences
 of a letter in a string. Which one of these implementations is the fastest?
 To answer the question we need some test data, which should be a
 huge string <tt class="docutils literal"><span class="pre">dna</span></tt>.</p>
@@ -403,18 +413,18 @@ character a large number of times:</p>
 for testing the efficiency of Python functions. Nevertheless, it is
 more exciting to work with a DNA string with letters from the whole
 alphabet A, C, G, and T. To make a DNA string with a random
-composition of the characters we can first make a list of random
-characters and then join all those characters to a string:</p>
+composition of the letters we can first make a list of random
+letters and then join all those letters to a string:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
 <span class="n">alphabet</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s">&#39;ATGC&#39;</span><span class="p">)</span>
 <span class="n">dna</span> <span class="o">=</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)]</span>
-<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>  <span class="c"># join the character elements to a string</span>
+<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span>  <span class="c"># join the list elements to a string</span>
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">random.choice(x)</span></tt> function selects an element in the list
 <tt class="docutils literal"><span class="pre">x</span></tt> at random.</p>
 <p>Note that <tt class="docutils literal"><span class="pre">N</span></tt> is very often a large number. In Python version 2.x,
-<tt class="docutils literal"><span class="pre">range(N)</span></tt> generates a list of <tt class="docutils literal"><span class="pre">N</span></tt> integers. We can avoid this by
+<tt class="docutils literal"><span class="pre">range(N)</span></tt> generates a list of <tt class="docutils literal"><span class="pre">N</span></tt> integers. We can avoid the list by
 using <tt class="docutils literal"><span class="pre">xrange</span></tt> which generates an integer at a time and not the whole
 list. In Python version 3.x, the <tt class="docutils literal"><span class="pre">range</span></tt> function is actually the
 <tt class="docutils literal"><span class="pre">xrange</span></tt> function in version 2.x.  Using <tt class="docutils literal"><span class="pre">xrange</span></tt>, combining the
@@ -433,9 +443,10 @@ function, gives</p>
 </div>
 <div class="section" id="measuring-cpu-time">
 <h3>Measuring CPU Time<a class="headerlink" href="#measuring-cpu-time" title="Permalink to this headline">¶</a></h3>
-<p id="index-10">Our next goal is to see how much time the <tt class="docutils literal"><span class="pre">count_v9</span></tt> and <tt class="docutils literal"><span class="pre">count_v10</span></tt>
-functions spend on counting letters in a huge string as generated
-above. Measuring the time spent in a program can be done by the <tt class="docutils literal"><span class="pre">time</span></tt>
+<p id="index-10">Our next goal is to see how much time the various <tt class="docutils literal"><span class="pre">count_v*</span></tt>
+functions spend on counting letters in a huge string, which is to be
+generated as shown above.
+Measuring the time spent in a program can be done by the <tt class="docutils literal"><span class="pre">time</span></tt>
 module:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
 <span class="o">...</span>
@@ -481,7 +492,7 @@ However, the built-in count functionality of strings
 (<tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>) runs over 30 times faster than the best of our
 handwritten Python functions!
 The reason is that the <tt class="docutils literal"><span class="pre">for</span></tt> loop needed to count in <tt class="docutils literal"><span class="pre">dna.count(base)</span></tt>
-is implemented in C and runs very much faster than loops in Python.</p>
+is actually implemented in C and runs very much faster than loops in Python.</p>
 <p>A clear lesson learned is: google around before you start out to implement
 what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
@@ -550,7 +561,7 @@ all positions, and base T appears once in the beginning and end of the
 strings.</p>
 <p>In the following we shall present different data structures to
 hold such a table and different ways of computing them.
-The table is known as a <em>frequency matrix</em> in bioinformatics,
+The table is known as a <em>frequency matrix</em> in bioinformatics
 and this is the term used here too.</p>
 <div class="section" id="separate-frequency-lists">
 <h3>Separate Frequency Lists<a class="headerlink" href="#separate-frequency-lists" title="Permalink to this headline">¶</a></h3>
@@ -580,8 +591,9 @@ a row. A function computing these lists may look like</p>
 for each element, since each list element is to be used as a counter.
 Creating a list of length <tt class="docutils literal"><span class="pre">n</span></tt> with object <tt class="docutils literal"><span class="pre">x</span></tt> in all positions
 is done by <tt class="docutils literal"><span class="pre">[x]*n</span></tt>. Finding the proper length is here carried out by
-inspecting the length of the first element in <tt class="docutils literal"><span class="pre">dna_list</span></tt>, assuming
-that all elements have the same length.</p>
+inspecting the length of the first element in <tt class="docutils literal"><span class="pre">dna_list</span></tt>, the list of
+all DNA strings to be counted, assuming
+that all elements in this list have the same length.</p>
 <p>In the <tt class="docutils literal"><span class="pre">for</span></tt> loop we apply the <tt class="docutils literal"><span class="pre">enumerate</span></tt> function which is used
 to extract both the element value <em>and</em> the element index when
 iterating over a sequence. For example,</p>
@@ -594,7 +606,7 @@ iterating over a sequence. For example,</p>
 <span class="go">3 t</span>
 </pre></div>
 </div>
-<p>Here is a call and printout of the results:</p>
+<p>Here is a test,</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">dna_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;GGTAG&#39;</span><span class="p">,</span> <span class="s">&#39;GGTAC&#39;</span><span class="p">,</span> <span class="s">&#39;GGTGC&#39;</span><span class="p">]</span>
 <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">freq_lists</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">A</span>
@@ -619,7 +631,7 @@ in the set of DNA strings. Here <tt class="docutils literal"><span class="pre">i
 1 to T, 2 to G, and 3 to C. The frequency is the number of times
 base <tt class="docutils literal"><span class="pre">i</span></tt> appears in position <tt class="docutils literal"><span class="pre">j</span></tt> in a set of DNA strings.
 Sometimes this number is divided by the number of DNA strings in
-the set so that the frequency is between 0 and 1. Note all
+the set so that the frequency is between 0 and 1. Note that all
 the DNA strings must have the same length.</p>
 <p>The simplest way to make a nested list is to insert the
 <tt class="docutils literal"><span class="pre">A</span></tt>, <tt class="docutils literal"><span class="pre">C</span></tt>, <tt class="docutils literal"><span class="pre">G</span></tt>, and <tt class="docutils literal"><span class="pre">T</span></tt> lists into another list:</p>
@@ -630,7 +642,7 @@ the DNA strings must have the same length.</p>
 <span class="go">2</span>
 </pre></div>
 </div>
-<p>Nevertheless, we can illustrate how to compute this type of nested
+<p>Alternatively, we can illustrate how to compute this type of nested
 list directly:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_list_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
     <span class="c"># Create empty frequency_matrix[i][j] = 0</span>
@@ -667,11 +679,11 @@ in the nested list to zero.</p>
 </div>
 <div class="section" id="dictionary-for-more-convenient-indexing">
 <h3>Dictionary for More Convenient Indexing<a class="headerlink" href="#dictionary-for-more-convenient-indexing" title="Permalink to this headline">¶</a></h3>
-<p id="index-12">The <tt class="docutils literal"><span class="pre">if</span></tt> tests in the <tt class="docutils literal"><span class="pre">freq_list_of_lists_v1</span></tt> are somewhat cumbersone,
-especially if want to extend the code to other bioinformatics problems
+<p id="index-12">The <tt class="docutils literal"><span class="pre">if</span></tt> tests in the <tt class="docutils literal"><span class="pre">freq_list_of_lists_v1</span></tt> are somewhat cumbersome,
+especially if we want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from <tt class="docutils literal"><span class="pre">base</span></tt>,
 which is a character, to the corresponding index 0, 1, 2, or 3.
-A Python dictionary represents such mappings:</p>
+A Python dictionary may represent such mappings:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">base2index</span><span class="p">[</span><span class="s">&#39;G&#39;</span><span class="p">]</span>
 <span class="go">2</span>
@@ -679,7 +691,7 @@ A Python dictionary represents such mappings:</p>
 </div>
 <p>With the <tt class="docutils literal"><span class="pre">base2index</span></tt> dictionary we do not need the series of
 <tt class="docutils literal"><span class="pre">if</span></tt> tests and the alphabet <tt class="docutils literal"><span class="pre">'ATGC'</span></tt> could be much larger
-without affecting the length of the code.</p>
+without affecting the length of the code:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_list_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
     <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">]</span>
     <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
@@ -714,14 +726,14 @@ a <tt class="docutils literal"><span class="pre">numpy</span></tt> array:</p>
 </pre></div>
 </div>
 <p>The resulting <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> object can be indexed as
-<tt class="docutils literal"><span class="pre">[b][i]</span></tt> or <tt class="docutils literal"><span class="pre">[b,i]</span></tt>, with integers <tt class="docutils literal"><span class="pre">b</span></tt> and <tt class="docutils literal"><span class="pre">i</span></tt>. A typical
-indexing is <tt class="docutils literal"><span class="pre">frequency_matrix[base2index['C'],i]</span></tt>.</p>
+<tt class="docutils literal"><span class="pre">[b][i]</span></tt> or <tt class="docutils literal"><span class="pre">[b,i]</span></tt>, with integers <tt class="docutils literal"><span class="pre">b</span></tt> and <tt class="docutils literal"><span class="pre">i</span></tt>. Typically, <tt class="docutils literal"><span class="pre">b</span></tt> will
+be something line <tt class="docutils literal"><span class="pre">base2index['C']</span></tt>.</p>
 </div>
 <div class="section" id="dictionary-of-lists">
 <h3>Dictionary of Lists<a class="headerlink" href="#dictionary-of-lists" title="Permalink to this headline">¶</a></h3>
 <p>Instead of going from a character to an integer index via
 <tt class="docutils literal"><span class="pre">base2index</span></tt>, we may prefer to index <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> by the base name
-and the position index directly: like in`[&#8216;C&#8217;][14]`.
+and the position index directly, like in <tt class="docutils literal"><span class="pre">['C'][14]</span></tt>.
 This is the most natural syntax for a user of the
 frequency matrix.  The relevant Python data structure is then a
 dictionary of lists. That is, <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> is a dictionary with
@@ -745,7 +757,7 @@ function is</p>
     <span class="k">return</span> <span class="n">frequency_matrix</span>
 </pre></div>
 </div>
-<p>Running</p>
+<p>Running the test code</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pprint</span>   <span class="c"># for nice printout of nested data structures</span>
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
@@ -763,12 +775,12 @@ be made more compact by using a dictionary comprehension:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">some_sequence</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>Here,</p>
+<p>In our example we set</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
 <p>Adopting this construction in the <tt class="docutils literal"><span class="pre">freq_dict_of_lists_v1</span></tt> function
-leads to a slightly more compact version,</p>
+leads to a slightly more compact version:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_dict_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
     <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
@@ -785,13 +797,13 @@ leads to a slightly more compact version,</p>
 <p>The dictionary of lists data structure can alternatively be replaced
 by a dictionary of dictionaries object, often just called a dict of
 dicts object. That is, <tt class="docutils literal"><span class="pre">frequency_matrix[base]</span></tt> is a dictionary with
-key <tt class="docutils literal"><span class="pre">i</span></tt> and value equal to the added number of occurences of <tt class="docutils literal"><span class="pre">base</span></tt> in
+key <tt class="docutils literal"><span class="pre">i</span></tt> and value equal to the added number of occurrences of <tt class="docutils literal"><span class="pre">base</span></tt> in
 <tt class="docutils literal"><span class="pre">dna[i]</span></tt> for all <tt class="docutils literal"><span class="pre">dna</span></tt> strings in the list <tt class="docutils literal"><span class="pre">dna_list</span></tt>.  The indexing
 <tt class="docutils literal"><span class="pre">frequency_matrix['C'][i]</span></tt> and the values are exactly as in the last
 example; the only difference is whether <tt class="docutils literal"><span class="pre">frequency_matrix['C']</span></tt> is a
 list or dictionary.</p>
 <p>Our function working with <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> as a dict of dicts
-is written</p>
+is written as</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
     <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
@@ -859,9 +871,9 @@ changed to a dict of <tt class="docutils literal"><span class="pre">numpy</span>
 does not give any immediate advantage, as the storage and CPU time is
 about the same. The loop over the <tt class="docutils literal"><span class="pre">dna</span></tt> string and the associated
 indexing is what consumes all the CPU time.  However, the <tt class="docutils literal"><span class="pre">numpy</span></tt>
-arrays provides a potential for increasing efficiency through
+arrays provide a potential for increasing efficiency through
 vectorization, i.e., replacing the element-wise operations on <tt class="docutils literal"><span class="pre">dna</span></tt>
-and <tt class="docutils literal"><span class="pre">frequency_matrix[base]</span></tt> by operations on the whole arrays at
+and <tt class="docutils literal"><span class="pre">frequency_matrix[base]</span></tt> by operations on the entire arrays at
 once.</p>
 <p>Let us use the interactive Python shell to
 explore the possibilities of vectorization.
@@ -952,7 +964,7 @@ would be (list of lists, with rows corresponding to A, C, G, and T):</p>
 </pre></div>
 </div>
 <p>We see that for position 0,
-which corresponds to the left-most columnin the table, the symbol A has the
+which corresponds to the left-most column in the table, the symbol A has the
 highest frequency (2). The maximum frequencies for the other positions
 are seen to be C for position 1, and A for position 2. The consensus
 string is therefore ACA.  Note that the consensus string does not need to be
@@ -961,7 +973,7 @@ matrix (this is indeed the case for the above example).</p>
 <div class="section" id="list-of-lists-frequency-matrix">
 <h3>List of Lists Frequency Matrix<a class="headerlink" href="#list-of-lists-frequency-matrix" title="Permalink to this headline">¶</a></h3>
 <p>Let <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> be a list of lists. For each position <tt class="docutils literal"><span class="pre">i</span></tt> we
-run through the &#8220;rows&#8221; in the frequency matrix and keep track of the
+run through the rows in the frequency matrix and keep track of the
 maximum frequency value and the corresponding letter. If two or
 more letters have the same frequency value we use a dash to
 indicate that this position in the consensus string is undetermined.</p>
@@ -995,7 +1007,7 @@ type is wrong:</p>
         <span class="k">pass</span> <span class="c"># right type</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be list of lists&#39;</span><span class="p">)</span>
-<span class="o">...</span>
+    <span class="o">...</span>
 </pre></div>
 </div>
 </div>
@@ -1074,39 +1086,9 @@ build as an extra argument:</p>
 </div>
 <p>Exercise <a class="reference internal" href="#bioinf-exer-freq-fargs"><em>Allow different types for a function argument</em></a> suggests to make a unified
 <tt class="docutils literal"><span class="pre">find_consensus</span></tt> function which works with all of the different
-representation of <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> that we have used.</p>
+representations of <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt> that we have used.</p>
 <p>The functions making and using the frequency matrix are found
 in the file <tt class="docutils literal"><span class="pre">freq.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/freq.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/freq.py.html">online viewing</a>).</p>
-</div>
-</div>
-<div class="section" id="probability-matrix">
-<h2>Probability Matrix<a class="headerlink" href="#probability-matrix" title="Permalink to this headline">¶</a></h2>
-<p><em>UNFINISHED!</em></p>
-<p>(<strong>hpl</strong>: I didn&#8217;t understand this example, i.e., I see that a
-probability matrix is given for strings of a certain length,
-then we pick out every substring of this length of DNA,
-and computes the probability of the sequence of characters in
-the substring. But what is it good for?)</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">DNA</span><span class="o">=</span><span class="s">&#39;ATCTGATCAA&#39;</span>
-<span class="n">probabilityMatrix</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span>
-                  <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">},</span>
-                  <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
-                  <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">}}</span>
-
-<span class="n">len_window</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">probabilityMatrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
-
-<span class="n">probabilitiesList</span><span class="o">=</span><span class="p">[]</span>
-<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">DNA</span><span class="p">)</span><span class="o">-</span><span class="n">len_window</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">substring</span><span class="o">=</span><span class="n">DNA</span><span class="p">[</span><span class="n">num</span><span class="p">:</span><span class="n">num</span><span class="o">+</span><span class="n">len_window</span><span class="p">]</span>
-
-    <span class="n">prob_value</span><span class="o">=</span><span class="mi">1</span>
-    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">substring</span><span class="p">):</span>
-       <span class="n">prob_value</span> <span class="o">*=</span><span class="n">probabilityMatrix</span><span class="p">[</span><span class="n">value</span><span class="p">][</span><span class="n">index</span><span class="p">]</span>
-
-    <span class="n">probabilitiesList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prob_value</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">probabilitiesList</span>
-</pre></div>
 </div>
 </div>
 <div class="section" id="dot-plots-from-pair-of-dna-sequences">
@@ -1272,13 +1254,12 @@ C or G).  Could this fact force groups of the four symbol frequencies
 to be equal?  The answer is that the A-T and G-C binding does not in principle
 force certain frequencies to be equal, but in practice they usually
 become so because of evolutionary factors related to this pairing.</p>
-<p>The first task is to compute the frequencies of the bases
-A, C, G, and T. That is, the number of times each base occurs
-in the DNA string, divided by the length of the string.
-For example, if the DNA string is ACGGAAA, the length is 7, A appears
-4 times with frequency 4/7, C appears once with frequency 1/7,
-G appears twice with frequency 2/7, and T does not appear so the
-frequency is 0.</p>
+<p>Our first programming task now is to compute the frequencies of the
+bases A, C, G, and T. That is, the number of times each base occurs in
+the DNA string, divided by the length of the string.  For example, if
+the DNA string is ACGGAAA, the length is 7, A appears 4 times with
+frequency 4/7, C appears once with frequency 1/7, G appears twice with
+frequency 2/7, and T does not appear so the frequency is 0.</p>
 <p>From a coding perspective we may create a function for counting how
 many times A, C, G, and T appears in the string and then another
 function for computing the frequencies. In both cases we want
@@ -1332,7 +1313,7 @@ inserted between the items in the result. Lazy programmers would
 probably just do a <tt class="docutils literal"><span class="pre">print</span> <span class="pre">frequencies</span></tt> and live with the
 curly braces in the output and (in general) 16 disturbing decimals.</p>
 <p id="index-13">We can try the frequency computation on real data. The file</p>
-<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt</pre>
+<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/data/yeast_chr1.txt</pre>
 </div>
 <p>contains the DNA for yeast. We can download this file from
 the Internet by</p>
@@ -1348,7 +1329,7 @@ call <tt class="docutils literal"><span class="pre">os.path.isfile(f)</span></tt
 in the current working folder.</p>
 <p>The appropriate download code then becomes</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">urllib</span><span class="o">,</span> <span class="nn">os</span>
-<span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/doc/src/data/&#39;</span>
+<span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 <span class="n">yeast_file</span> <span class="o">=</span> <span class="s">&#39;yeast_chr1.txt&#39;</span>
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">yeast_file</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">urlbase</span> <span class="o">+</span> <span class="n">yeast_file</span>
@@ -1406,21 +1387,21 @@ by non-coding parts (called introns).  The coding parts are
 concatenated to form a string called mRNA, where also occurrences of
 the letter T in the coding parts are substituted by a U. A triplet of
 mRNA letters code for a specific amino acid, which are the building
-blocks of proteins. Consecutive triplets of letters in mRNA in this
-way define a specific sequence of amino acids, which amounts to a
-certain protein.  Here is an example of using the mapping from DNA to
-proteins to create the Lactase protein (LPH), using the DNA sequence
-of the Lactase gene (LCT) as underlying code. An important functional
-property of LPH is in diguesting Lactose which is found most notably
-in milk. Lack of the functionality of LPH leads to digestive problems
-referred to as lactose intolerance. Most mammals and humans lose their
-expression of LCT and therefore their ability to digest milk when they
-stop recieving breast milk.</p>
+blocks of proteins. Consecutive triplets of letters in mRNA define a
+specific sequence of amino acids, which amounts to a certain protein.</p>
+<p>Here is an example of using the mapping from DNA to proteins to create
+the Lactase protein (LPH), using the DNA sequence of the Lactase gene
+(LCT) as underlying code. An important functional property of LPH is
+in digesting Lactose, which is found most notably in milk. Lack of the
+functionality of LPH leads to digestive problems referred to as
+lactose intolerance. Most mammals and humans lose their expression of
+LCT and therefore their ability to digest milk when they stop
+receiving breast milk.</p>
 <p>The file</p>
 <div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv</pre>
 </div>
 <p>contains a mapping of genetic codes to amino acids.
-The file format takes the form</p>
+The file format looks like</p>
 <div class="highlight-python"><pre>UUU     F       Phe     Phenylalanine
 UUC     F       Phe     Phenylalanine
 UUA     L       Leu     Leucine
@@ -1465,8 +1446,8 @@ column) on to the 1-letter name (second column):</p>
     <span class="k">return</span> <span class="n">genetic_code</span>
 </pre></div>
 </div>
-<p>Downloading the
-file, reading it and making the dictionary are done by</p>
+<p>Downloading the file, reading it, and making the dictionary are done
+by</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 <span class="n">genetic_code_file</span> <span class="o">=</span> <span class="s">&#39;genetic_code.tsv&#39;</span>
 <span class="n">download</span><span class="p">(</span><span class="n">urlbase</span><span class="p">,</span> <span class="n">genetic_code_file</span><span class="p">)</span>
@@ -1519,15 +1500,16 @@ and the previously shown <tt class="docutils literal"><span class="pre">read_dna
 data in the file into the string <tt class="docutils literal"><span class="pre">lactase_gene</span></tt>.</p>
 <p>The exon regions are described in a file <tt class="docutils literal"><span class="pre">lactase_exon.tsv</span></tt>, also
 found at the same Internet site as the other files. The file is easily
-downloaded by calling <tt class="docutils literal"><span class="pre">download</span></tt>.  The file format is very simple in
-that each line holds the start and end positions of an exon region:</p>
+transferred to your computer by calling <tt class="docutils literal"><span class="pre">download</span></tt>.  The file format
+is very simple in that each line holds the start and end positions of
+an exon region:</p>
 <div class="highlight-python"><pre>0       651
 3990    4070
 7504    7588
 13177   13280
 15082   15161</pre>
 </div>
-<p>We want to have this information available in a list of (start,end)
+<p>We want to have this information available in a list of (start, end)
 tuples. The following function does the job:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">read_exon_regions_v1</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="n">positions</span> <span class="o">=</span> <span class="p">[]</span>
@@ -1552,7 +1534,7 @@ of the function:</p>
 <p>For simplicity&#8217;s sake, we shall consider mRNA as the concatenation of exons,
 although in reality, additional base pairs are added to each end.
 Having the lactase gene as a string and the exon regions as a list of
-(start,end) tuples, it is straightforward to extract the regions
+(start, end) tuples, it is straightforward to extract the regions
 as substrings, replace T by U, and add all the substrings together:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">create_mRNA</span><span class="p">(</span><span class="n">gene</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
     <span class="n">mrna</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
@@ -1590,22 +1572,21 @@ make a folder:</p>
 the function name for testing on a folder existence. Observe
 especially that the combination of a folder and a filename is done via
 <tt class="docutils literal"><span class="pre">os.path.join</span></tt> rather than just inserting a forward slash, or backward
-slash on Windows: <tt class="docutils literal"><span class="pre">os.path.join</span></tt> will insert the right slsah, forward
+slash on Windows: <tt class="docutils literal"><span class="pre">os.path.join</span></tt> will insert the right slash, forward
 or backward, depending on the current operating system.</p>
 <p>Occasionally, the output folder is nested, say</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">output_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>In that case, <tt class="docutils literal"><span class="pre">os.mkdir(output_folder)</span></tt> may fail because
-the intermediate folder <tt class="docutils literal"><span class="pre">output</span></tt> is missing. Making a folder
-and also all missing intermediate folders is done by <tt class="docutils literal"><span class="pre">os.makedirs</span></tt>.
-We can write a more general file writing function which takes
-a folder name and file name as input and writes the file.
-Let us also add some flexibility in the file format: one can either
-write a fixed number of characters per line, or have the string on just
-one long line. The latter version is specified through <tt class="docutils literal"><span class="pre">chars_per_line='inf'</span></tt>
-(for infinite number of characters per line).</p>
-<p>The flexible file writing function then becomes</p>
+<p>In that case, <tt class="docutils literal"><span class="pre">os.mkdir(output_folder)</span></tt> may fail because the
+intermediate folder <tt class="docutils literal"><span class="pre">output</span></tt> is missing. Making a folder and also all
+missing intermediate folders is done by <tt class="docutils literal"><span class="pre">os.makedirs</span></tt>.  We can write a
+more general file writing function which takes a folder name and file
+name as input and writes the file.  Let us also add some flexibility
+in the file format: one can either write a fixed number of characters
+per line, or have the string on just one long line. The latter version
+is specified through <tt class="docutils literal"><span class="pre">chars_per_line='inf'</span></tt> (for infinite number of
+characters per line).  The flexible file writing function then becomes</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">foldername</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span>
                             <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">foldername</span><span class="p">):</span>
@@ -1638,10 +1619,10 @@ by the corresponding 1-letter name as specified in the
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Unfortunately, this first try to simulate this translation process is
+<p>Unfortunately, this first try to simulate the translation process is
 incorrect. The problem is that the translation always begins with the
 amino acid Methionine, code AUG, and ends when one of the stop codons
-is met. We must thus check for the correct start and stop criterias.
+is met. We must thus check for the correct start and stop criteria.
 A fix is</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">):</span>
     <span class="n">protein_fixed</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
@@ -1673,7 +1654,7 @@ Lenght of the correct protein:  1927</pre>
 <p>One type of lactose intolerance is called <em>Congenital lactase deficiency</em>.
 This is a rare genetic disorder that causes lactose intolerance from birth,
 and is particularly common in Finland. The disease is caused by a mutation of
-the base in posision 30049 (0-based) of the lactase gene, a mutation from T to
+the base in position 30049 (0-based) of the lactase gene, a mutation from T to
 A. Our goal is to check what happens to the protein if this base is mutated.
 This is a simple task using the previously developed tools:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">congential_lactase_deficiency</span><span class="p">(</span>
@@ -1736,9 +1717,11 @@ in the file <tt class="docutils literal"><span class="pre">genes2proteins.py</sp
 <span id="bioinf-random"></span><h2>Random Mutations of Genes<a class="headerlink" href="#random-mutations-of-genes" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="a-simple-mutation-model">
 <h3>A Simple Mutation Model<a class="headerlink" href="#a-simple-mutation-model" title="Permalink to this headline">¶</a></h3>
-<p>Mutation of genes
-is easily modeled by replacing the letter in a randomly
-chosen position of the DNA by a randomly chosen letter.
+<blockquote>
+<div>Mutation of genes</div></blockquote>
+<p>is easily modeled by replacing the letter in a randomly
+chosen position of the DNA by a randomly chosen letter from
+the alphabet A, C, G, and T.
 Python&#8217;s <tt class="docutils literal"><span class="pre">random</span></tt> module can be used
 to generate random numbers. Selecting a random position means
 generating a random index in the DNA string, and the function
@@ -1746,10 +1729,13 @@ generating a random index in the DNA string, and the function
 <tt class="docutils literal"><span class="pre">b</span></tt> (both included). Generating a random
 letter is easiest done by having a list of the actual letters
 and using <tt class="docutils literal"><span class="pre">random.choice(list)</span></tt> to pick an arbitrary element from
-<tt class="docutils literal"><span class="pre">list</span></tt>.
-A function for replacing the letter in a randomly selected position (index)
+<tt class="docutils literal"><span class="pre">list</span></tt>. A function for replacing the letter in a
+randomly selected position (index)
 by a random letter among A, C, G, and T is most straightforwardly
-implemented by converting the DNA string to a list of letters:</p>
+implemented by converting the DNA string to a list of letters, since
+changing a character in a Python string is impossible without
+constructing a new string. However, an element in a list can be
+changed in-place:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">random</span>
 
 <span class="k">def</span> <span class="nf">mutate_v1</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
@@ -1862,14 +1848,14 @@ ideas explored above for the <tt class="docutils literal"><span class="pre">muta
 </pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">time_mutate</span></tt> function in the file <tt class="docutils literal"><span class="pre">mutate.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>) performs
-timing of the generation of test strings and the mutations.  For a DNA
-string of length 100,000 the vectorized function is about 8 times
-faster. With 10,000 mutations on this string, the vectorized version
-is almost 3000 times faster! These numbers stay approximately the same
-also for larger strings and more mutations.  This case study on
-vectorization is a striking example on the fact that a straightforward
-and convenient function like <tt class="docutils literal"><span class="pre">mutate_v1</span></tt> might occasionally be very
-slow for large-scale computations.</p>
+timing of the generation of test strings and the mutations.  To
+generate a DNA string of length 100,000 the vectorized function is
+about 8 times faster. When performing 10,000 mutations on this string,
+the vectorized version is almost 3000 times faster! These numbers stay
+approximately the same also for larger strings and more mutations.
+Hence, this case study on vectorization is a striking example on the fact
+that a straightforward and convenient function like <tt class="docutils literal"><span class="pre">mutate_v1</span></tt> might
+occasionally be very slow for large-scale computations.</p>
 </div>
 <div class="section" id="a-markov-chain-mutation-model">
 <h3>A Markov Chain Mutation Model<a class="headerlink" href="#a-markov-chain-mutation-model" title="Permalink to this headline">¶</a></h3>
@@ -1883,34 +1869,30 @@ between different nucleotides. One reason is that there are different
 mechanisms generating transitions from one base to another. Another
 reason is that there are extensive repair process in living cells, and
 the efficiency of this repair mechanism varies for different
-nucleotides.  Mutation of nucleotides may be modeled using distinct
-probabilities for the transitions from each nucleotide to every other
+nucleotides.</p>
+<p>Mutation of nucleotides may be modeled using distinct probabilities
+for the transitions from each nucleotide to every other
 nucleotide. For example, the probability of replacing A by C may be
-prescribed as (say) 0.2. In total we need 4x4 probabilities since each
-nucleotide can transform into itself (no change) or three others. The
-sum of all four transition probabilities for a given nucleotide must
-sum up to one. Such statistical evolution, based on probabilities for
-transitioning from one state to another, is known as a Markov process
-or Markov chain.</p>
+prescribed as (say) 0.2. In total we need <span class="math">\(4\times 4\)</span>
+probabilities since each nucleotide can transform into itself (no
+change) or three others. The sum of all four transition probabilities
+for a given nucleotide must sum up to one. Such statistical evolution,
+based on probabilities for transitioning from one state to another, is
+known as a Markov process or Markov chain.</p>
 <p>First we need to set up the probability matrix, i.e., the
 <span class="math">\(4\times4\)</span> table of probabilities where each row corresponds to the
 transition of A, C, G, or T into A, C, G, or T. Say the probability
 transition from A to A is 0.2, from A to C is 0.1, from A to G is 0.3,
-and from A to T is 0.4. To select a random transiton based on these
-probabilities we divide the interval <span class="math">\([0,1]\)</span> into slices whose lengths
-correspond to the given probabilities. In this example this means <span class="math">\(0,
-0.2, 0.3, 0.6, 1\)</span>. Then we draw a random number in <span class="math">\([0,1]\)</span> and
-determine which interval between the slices it lies in. The
-probability of hitting an interval equals the transition probability
-for the transition corresponding to that interval. For example, if the
-random number is 0.33, it belongs to the interval <span class="math">\((0.3, 0.6]\)</span>, which
-corresponds to the transiton from A to G.</p>
-<p>Let us generate random transition probabilities. That is,
-we generate three random numbers to divide the interval <span class="math">\([0,1]\)</span> into
-four intervals corresponding to the four possible transitions.
-The interval limits, 0, 1, and three random numbers must be sorted
-in ascending order to form the intervals. We use the function
-<tt class="docutils literal"><span class="pre">random.random()</span></tt> to generate random numbers in <span class="math">\([0,1)\)</span>:</p>
+and from A to T is 0.4.</p>
+<p>Rather than just prescribing some arbitrary transition probabilities
+for test purposes, we can use random numbers for these probabilities.
+To this end, we generate three random numbers to divide the interval
+<span class="math">\([0,1]\)</span> into four intervals corresponding to the four possible
+transitions.  The lengths of the intervals give the transition
+probabilities, and their sum is ensured to be 1.  The interval limits,
+0, 1, and three random numbers must be sorted in ascending order to
+form the intervals. We use the function <tt class="docutils literal"><span class="pre">random.random()</span></tt> to generate
+random numbers in <span class="math">\([0,1)\)</span>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">slice_points</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
     <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">transition_probabilities</span> <span class="o">=</span> <span class="p">[</span><span class="n">slice_points</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">slice_points</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
@@ -1927,7 +1909,7 @@ in ascending order to form the intervals. We use the function
 </pre></div>
 </div>
 <p>To select a transition, we need to draw a random letter
-(A, C, G, or T) according to the probababilities
+(A, C, G, or T) according to the probabilities
 <tt class="docutils literal"><span class="pre">markov_chain[b]</span></tt> where <tt class="docutils literal"><span class="pre">b</span></tt> is the base at the current position.
 Actually, this is a very common operation, namely drawing a
 random value from a <em>discrete probability distribution</em> (<tt class="docutils literal"><span class="pre">markov_chain[b]</span></tt>).
@@ -2106,7 +2088,7 @@ is then the sum of the probabilities in the column corresponding to
 </div>
 <p>Transition into T (<span class="math">\(P(Y=T)\)</span>) has greatest probability (0.3) and this is also
 confirmed by the greatest frequency (0.41).</p>
-<p>The functions performing mutations are located
+<p>The various functions performing mutations are located
 in the file <tt class="docutils literal"><span class="pre">mutate.py</span></tt> (<a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py">download</a> or <a class="reference external" href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html">online viewing</a>).</p>
 </div>
 </div>
@@ -2166,11 +2148,11 @@ types of analysis. The idea of the <tt class="docutils literal"><span class="pre
 functions are methods in the class operating on the DNA string and the
 exon regions stored in the class.  Rather than recoding all the
 functions as methods in the class we shall just let the class &#8220;wrap&#8221;
-the functions. That is, the class methods calls up the functions we
+the functions. That is, the class methods call up the functions we
 already have.  This approach has two advantages: users can either
 choose the function-based or the class-based interface, and the
 programmer can reuse all the ready-made functions when implementing
-the class.</p>
+the class-based interface.</p>
 <p>The selection of functions include</p>
 <blockquote>
 <div><ul class="simple">
@@ -2202,11 +2184,10 @@ of classes <tt class="docutils literal"><span class="pre">Gene</span></tt> and <
 <div class="section" id="basic-features-of-class-gene">
 <h3>Basic Features of class Gene<a class="headerlink" href="#basic-features-of-class-gene" title="Permalink to this headline">¶</a></h3>
 <p>Class <tt class="docutils literal"><span class="pre">Gene</span></tt> is supposed to hold the DNA sequence and
-the associated exon regions. A simple constructor and a few
-methods may take the following form:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dna_functions</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+the associated exon regions. A simple constructor expects the
+exon regions to be specified as a list of (start, end) tuples
+indicating the start and end of each region:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">=</span> <span class="n">dna</span>
 
@@ -2222,13 +2203,22 @@ methods may take the following form:</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">_introns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Region</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">prev_end</span><span class="p">,</span> <span class="n">start</span><span class="p">))</span>
             <span class="n">prev_end</span> <span class="o">=</span> <span class="n">end</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_introns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Region</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)))</span>
+</pre></div>
+</div>
+<p>The methods in class <tt class="docutils literal"><span class="pre">Gene</span></tt> are trivial to implement when we already
+have the functionality in stand-alone functions.
+Here are a few examples on methods:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dna_functions</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+    <span class="o">...</span>
 
     <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Write DNA sequence to file with name filename.&quot;&quot;&quot;</span>
         <span class="n">tofile_with_line_sep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return no of occurences of base in DNA.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Return no of occurrences of base in DNA.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">get_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2237,12 +2227,9 @@ methods may take the following form:</p>
 
     <span class="k">def</span> <span class="nf">format_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return base frequencies formatted with two decimals.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">format_base_frequencies</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_base_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">format_frequencies</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_base_frequencies</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>Observe how the methods just call up existing functions in
-<tt class="docutils literal"><span class="pre">dna_functions.py</span></tt>.</p>
 </div>
 <div class="section" id="flexible-constructor">
 <h3>Flexible Constructor<a class="headerlink" href="#flexible-constructor" title="Permalink to this headline">¶</a></h3>
@@ -2252,17 +2239,19 @@ use that as default value. Second, exon regions at the start and/or
 end of the DNA string will lead to empty intron <tt class="docutils literal"><span class="pre">Region</span></tt> objects so a proper
 test on nonzero length of the introns must be inserted.
 Third, the data for the DNA string and
-the exon regions can either be passed or downloaded and read.
-That is,</p>
+the exon regions can either be passed as arguments or downloaded and read
+from file.
+Two different initializations of <tt class="docutils literal"><span class="pre">Gene</span></tt> objects are therefore</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">g1</span> <span class="o">=</span> <span class="n">Gene</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">)</span>  <span class="c"># user has read data from file</span>
 <span class="n">g2</span> <span class="o">=</span> <span class="n">Gene</span><span class="p">((</span><span class="n">urlbase</span><span class="p">,</span> <span class="n">dna_file</span><span class="p">),</span> <span class="p">(</span><span class="n">urlbase</span><span class="p">,</span> <span class="n">exon_file</span><span class="p">))</span>  <span class="c"># download</span>
 </pre></div>
 </div>
-<p>If the files are already at the computer one can pass <tt class="docutils literal"><span class="pre">None</span></tt> for
-<tt class="docutils literal"><span class="pre">urlbase</span></tt>. The flexible constructor has, not surprisingly, longer
-code than the first version (but illustrates well how the
-concept of overloaded constructors in other languages, like C++ and Java,
-are dealt with in Python):</p>
+<p>One can pass <tt class="docutils literal"><span class="pre">None</span></tt> for <tt class="docutils literal"><span class="pre">urlbase</span></tt> if the files are already at the
+computer. The flexible constructor has, not surprisingly, much longer code
+than the first version. The implementation illustrates well how the concept of
+overloaded constructors in other languages, like C++ and Java, are
+dealt with in Python (overloaded constructors take different types
+of arguments to initialize an instance):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -2348,12 +2337,14 @@ some testing whether asking for mRNA is appropriate.</p>
     <span class="n">dna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">[:</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="n">base</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">[</span><span class="n">pos</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
     <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exon_regions</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">mutate_random</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">mutate_random</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return Gene with a mutation at a random position.</span>
-<span class="sd">    Mutation into new base with equal probabilities.</span>
+<span class="sd">    Return Gene with n mutations at a random position.</span>
+<span class="sd">    All mutations are equally probable.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">mutated_dna</span> <span class="o">=</span> <span class="n">mutate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">)</span>
+    <span class="n">mutated_dna</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">mutated_dna</span> <span class="o">=</span> <span class="n">mutate</span><span class="p">(</span><span class="n">mutated_dna</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="n">mutated_dna</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exon_regions</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">mutate_via_markov_chain</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">):</span>
@@ -2381,11 +2372,11 @@ of the class can be included:</p>
 </div>
 <p>Alternatively, one could access the attributes directly: <tt class="docutils literal"><span class="pre">gene._dna</span></tt>,
 <tt class="docutils literal"><span class="pre">gene._exons</span></tt>, etc. In that case we should remove the leading underscore as
-this underscore signifies to the user of the class that these
+this underscore signals that these
 attributes are considered &#8220;protected&#8221;, i.e., not to be directly accessed
 by the user. The &#8220;protection&#8221; in &#8220;get&#8221; functions is more mental
 than actual since we anyway give the data structures in the hands of
-the user.</p>
+the user and she can do whatever she wants (even delete them).</p>
 <p>Special methods for the length of a gene, adding genes, checking if
 two genes are identical, and printing of compact gene information
 are relevant to add:</p>
@@ -2393,17 +2384,15 @@ are relevant to add:</p>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Add Gene instances: self + other&quot;&quot;&quot;</span>
-    <span class="c"># We don&#39;t know what to do with exon regions</span>
+    <span class="sd">&quot;&quot;&quot;self + other: append other to self (DNA string).&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span>
+        <span class="k">return</span> <span class="n">Gene</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s">&#39;cannot do Gene + Gene with exon regions&#39;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Increment Gene instance: self += other&quot;&quot;&quot;</span>
-    <span class="c"># We don&#39;t know what to do with exon regions</span>
+    <span class="sd">&quot;&quot;&quot;self += other: append other to self (DNA string).&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">other</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_dna</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -2423,6 +2412,30 @@ are relevant to add:</p>
     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_exons</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s">&#39;, </span><span class="si">%d</span><span class="s"> exon regions&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_exons</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span>
+</pre></div>
+</div>
+<p>Here is an interactive session demonstrating how we can work with
+class <tt class="docutils literal"><span class="pre">Gene</span></tt> objects:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dna_classes</span> <span class="kn">import</span> <span class="n">Gene</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g1</span> <span class="o">=</span> <span class="n">Gene</span><span class="p">(</span><span class="s">&#39;ATCCGTAATTGCGCA&#39;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">9</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">g1</span>
+<span class="go">Gene: ATCCGT...TGCGCA, length=15, 2 exon regions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g2</span> <span class="o">=</span> <span class="n">g1</span><span class="o">.</span><span class="n">mutate_random</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">g2</span>
+<span class="go">Gene: ATCCGT...TGTGCT, length=15, 2 exon regions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g1</span> <span class="o">==</span> <span class="n">g2</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g1</span> <span class="o">+=</span> <span class="n">g2</span>  <span class="c"># expect exception</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">cannot do Gene += Gene with exon regions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g1b</span> <span class="o">=</span> <span class="n">Gene</span><span class="p">(</span><span class="n">g1</span><span class="o">.</span><span class="n">get_dna</span><span class="p">(),</span> <span class="bp">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g2b</span> <span class="o">=</span> <span class="n">Gene</span><span class="p">(</span><span class="n">g2</span><span class="o">.</span><span class="n">get_dna</span><span class="p">(),</span> <span class="bp">None</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">g1b</span>
+<span class="go">Gene: ATCCGT...TGCGCA, length=15</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g3</span> <span class="o">=</span> <span class="n">g1b</span> <span class="o">+</span> <span class="n">g2b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g3</span><span class="o">.</span><span class="n">format_base_frequencies</span><span class="p">()</span>
+<span class="go">&#39;A: 0.17, C: 0.23, T: 0.33, G: 0.27&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -2480,7 +2493,7 @@ lactase protein is done with</p>
 </pre></div>
 </div>
 <p>Now, envision that the Lactase gene would instead have been an
-RNA-coding gene. The only necessary changes would have been to exhange
+RNA-coding gene. The only necessary changes would have been to exchange
 <tt class="docutils literal"><span class="pre">ProteinCodingGene</span></tt> by <tt class="docutils literal"><span class="pre">RNACodingGene</span></tt> in the assignment to
 <tt class="docutils literal"><span class="pre">lactase_gene</span></tt>, and one would get out a final RNA product instead of a
 protein.</p>
@@ -2493,15 +2506,18 @@ and Kai Trengereid for contributing to the examples and their implementations.</
 <div class="section" id="find-pairs-of-characters">
 <span id="bioinf-exer-pairs1"></span><h2>Find pairs of characters<a class="headerlink" href="#find-pairs-of-characters" title="Permalink to this headline">¶</a></h2>
 <p>Write a function <tt class="docutils literal"><span class="pre">count_pairs(dna,</span> <span class="pre">pair)</span></tt> that returns the number of
-occurences of a pair of characters (<tt class="docutils literal"><span class="pre">pair</span></tt>) in a DNA string (<tt class="docutils literal"><span class="pre">dna</span></tt>).
-For example, <tt class="docutils literal"><span class="pre">count_pairs('ACTGCTATCCATT',</span> <span class="pre">'AT')</span></tt> should return 2.</p>
+occurrences of a pair of characters (<tt class="docutils literal"><span class="pre">pair</span></tt>) in a DNA string (<tt class="docutils literal"><span class="pre">dna</span></tt>).
+For example, calling the function with <tt class="docutils literal"><span class="pre">dna</span></tt> as <tt class="docutils literal"><span class="pre">'ACTGCTATCCATT'</span></tt>
+and <tt class="docutils literal"><span class="pre">pair</span></tt> as  <tt class="docutils literal"><span class="pre">'AT'</span></tt> will return 2.</p>
 <p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_pairs.py</span></tt></p>
 </div>
 <div class="section" id="count-substrings">
 <span id="bioinf-exer-substr1"></span><h2>Count substrings<a class="headerlink" href="#count-substrings" title="Permalink to this headline">¶</a></h2>
 <p>This is an extension of Exercise <a class="reference internal" href="#bioinf-exer-pairs1"><em>Find pairs of characters</em></a>:
 count how many times a certain string appears in another string.
-For example, <tt class="docutils literal"><span class="pre">count_substr('ACGTTACGGAACG',</span> <span class="pre">'ACG')</span></tt> should return 2.</p>
+For example, the function returns 2 when called
+with the DNA string <tt class="docutils literal"><span class="pre">'ACGTTACGGAACG'</span></tt>
+and the substring <tt class="docutils literal"><span class="pre">'ACG'</span></tt>.</p>
 <p><em>Hint 1.</em> For each match of the first character of the
 substring in the main string, check if the next <tt class="docutils literal"><span class="pre">n</span></tt> characters
 in the main string matches the substring, where <tt class="docutils literal"><span class="pre">n</span></tt> is the length
@@ -2531,14 +2547,15 @@ which counts how many times <tt class="docutils literal"><span class="pre">A</sp
     <span class="k">return</span> <span class="n">counts</span>
 </pre></div>
 </div>
-<p>Unfortunately, this function crashes if other symbols appear in <tt class="docutils literal"><span class="pre">dna</span></tt>.
-Write an enhanced function <tt class="docutils literal"><span class="pre">get_base_counts2</span></tt> which solves this problem.</p>
+<p>Unfortunately, this function crashes if other letters appear in <tt class="docutils literal"><span class="pre">dna</span></tt>.
+Write an enhanced function <tt class="docutils literal"><span class="pre">get_base_counts2</span></tt> which solves this problem.
+Test it on a string like <tt class="docutils literal"><span class="pre">'ADLSTTLLD'</span></tt>.</p>
 <p><em>Filename</em>: <tt class="docutils literal"><span class="pre">get_base_counts2.py</span></tt></p>
 </div>
 <div class="section" id="find-proportion-of-bases-inside-outside-exons">
 <span id="bioinf-exer-ainsouts-exons"></span><h2>Find proportion of bases inside/outside exons<a class="headerlink" href="#find-proportion-of-bases-inside-outside-exons" title="Permalink to this headline">¶</a></h2>
 <p>Consider the lactase gene as described in
-the sections <a class="reference internal" href="#bioinf-gene2protein"><em>Translating Genes into Proteins</em></a> and {bioinf:lactase:milk}.
+the sections <a class="reference internal" href="#bioinf-gene2protein"><em>Translating Genes into Proteins</em></a> and <a class="reference internal" href="#bioinf-lactase-milk"><em>Some Humans Can Drink Milk, While Others Cannot</em></a>.
 What is the proportion of base A inside and outside exons of
 the lactase gene? Write a function <tt class="docutils literal"><span class="pre">get_exons</span></tt>, which returns
 all the substrings of the exon regions concatenated,
@@ -2561,6 +2578,14 @@ reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chain</span></tt> function for 1 million mutations.</p>
 <p><em>Filename</em>: <tt class="docutils literal"><span class="pre">markov_chain_mutation2.py</span></tt></p>
+</div>
+<div class="section" id="extend-the-constructor-in-class-gene">
+<span id="bioinf-exer-gene-randominit"></span><h2>Extend the constructor in class Gene<a class="headerlink" href="#extend-the-constructor-in-class-gene" title="Permalink to this headline">¶</a></h2>
+<p>Modify the constructor in class <tt class="docutils literal"><span class="pre">Gene</span></tt> from the section <a class="reference internal" href="#bioinf-oo"><em>Classes for DNA Analysis</em></a> such
+that giving no arguments to the constructor makes the class call
+up the <tt class="docutils literal"><span class="pre">generate_string</span></tt> method (from the <tt class="docutils literal"><span class="pre">dna_functions</span></tt> module)
+which generates a random DNA sequence.</p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">dna_classes2.py</span></tt></p>
 </div>
 </div>
 
@@ -2610,7 +2635,6 @@ versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chai
 <li><a class="reference internal" href="#dict-of-dicts-frequency-matrix">Dict of Dicts Frequency Matrix</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#probability-matrix">Probability Matrix</a></li>
 <li><a class="reference internal" href="#dot-plots-from-pair-of-dna-sequences">Dot Plots from Pair of DNA Sequences</a><ul>
 <li><a class="reference internal" href="#using-lists-of-lists">Using Lists of Lists</a></li>
 <li><a class="reference internal" href="#using-numerical-python-arrays">Using Numerical Python Arrays</a></li>
@@ -2645,6 +2669,7 @@ versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chai
 <li><a class="reference internal" href="#make-a-function-more-robust">Make a function more robust</a></li>
 <li><a class="reference internal" href="#find-proportion-of-bases-inside-outside-exons">Find proportion of bases inside/outside exons</a></li>
 <li><a class="reference internal" href="#speed-up-markov-chain-mutation">Speed up Markov chain mutation</a></li>
+<li><a class="reference internal" href="#extend-the-constructor-in-class-gene">Extend the constructor in class Gene</a></li>
 </ul>
 </li>
 </ul>
