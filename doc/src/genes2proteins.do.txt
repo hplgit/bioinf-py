@@ -8,23 +8,24 @@ by non-coding parts (called introns).  The coding parts are
 concatenated to form a string called mRNA, where also occurrences of
 the letter T in the coding parts are substituted by a U. A triplet of
 mRNA letters code for a specific amino acid, which are the building
-blocks of proteins. Consecutive triplets of letters in mRNA in this
-way define a specific sequence of amino acids, which amounts to a
-certain protein.  Here is an example of using the mapping from DNA to
-proteins to create the Lactase protein (LPH), using the DNA sequence
-of the Lactase gene (LCT) as underlying code. An important functional
-property of LPH is in digesting Lactose which is found most notably
-in milk. Lack of the functionality of LPH leads to digestive problems
-referred to as lactose intolerance. Most mammals and humans lose their
-expression of LCT and therefore their ability to digest milk when they
-stop receiving breast milk.
+blocks of proteins. Consecutive triplets of letters in mRNA define a
+specific sequence of amino acids, which amounts to a certain protein.
+
+Here is an example of using the mapping from DNA to proteins to create
+the Lactase protein (LPH), using the DNA sequence of the Lactase gene
+(LCT) as underlying code. An important functional property of LPH is
+in digesting Lactose, which is found most notably in milk. Lack of the
+functionality of LPH leads to digestive problems referred to as
+lactose intolerance. Most mammals and humans lose their expression of
+LCT and therefore their ability to digest milk when they stop
+receiving breast milk.
 
 The file
 !bc
 http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
 !ec
 contains a mapping of genetic codes to amino acids.
-The file format takes the form
+The file format looks like
 !bc dat
 UUU     F       Phe     Phenylalanine
 UUC     F       Phe     Phenylalanine
@@ -54,8 +55,8 @@ column) on to the 1-letter name (second column):
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def read_genetic_code_v1@urlbase = 'http
 
-Downloading the
-file, reading it and making the dictionary are done by
+Downloading the file, reading it, and making the dictionary are done
+by
 
 @@@CODE src-bioinf/genes2proteins.py fromto: urlbase = 'http@def read_genetic_code_v2
 
@@ -91,8 +92,9 @@ data in the file into the string `lactase_gene`.
 
 The exon regions are described in a file `lactase_exon.tsv`, also
 found at the same Internet site as the other files. The file is easily
-downloaded by calling `download`.  The file format is very simple in
-that each line holds the start and end positions of an exon region:
+transferred to your computer by calling `download`.  The file format
+is very simple in that each line holds the start and end positions of
+an exon region:
 !bc dat
 0       651
 3990    4070
@@ -100,7 +102,7 @@ that each line holds the start and end positions of an exon region:
 13177   13280
 15082   15161
 !ec
-We want to have this information available in a list of (start,end)
+We want to have this information available in a list of (start, end)
 tuples. The following function does the job:
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def read_exon_regions_v1@def read_exon_regions_v2
@@ -112,7 +114,7 @@ of the function:
 For simplicity's sake, we shall consider mRNA as the concatenation of exons,
 although in reality, additional base pairs are added to each end.
 Having the lactase gene as a string and the exon regions as a list of
-(start,end) tuples, it is straightforward to extract the regions
+(start, end) tuples, it is straightforward to extract the regions
 as substrings, replace T by U, and add all the substrings together:
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def create_mRNA@print '10 last
@@ -145,17 +147,15 @@ Occasionally, the output folder is nested, say
 !bc pycod
 output_folder = os.path.join('output', 'lactase')
 !ec
-In that case, `os.mkdir(output_folder)` may fail because
-the intermediate folder `output` is missing. Making a folder
-and also all missing intermediate folders is done by `os.makedirs`.
-We can write a more general file writing function which takes
-a folder name and file name as input and writes the file.
-Let us also add some flexibility in the file format: one can either
-write a fixed number of characters per line, or have the string on just
-one long line. The latter version is specified through `chars_per_line='inf'`
-(for infinite number of characters per line).
-
-The flexible file writing function then becomes
+In that case, `os.mkdir(output_folder)` may fail because the
+intermediate folder `output` is missing. Making a folder and also all
+missing intermediate folders is done by `os.makedirs`.  We can write a
+more general file writing function which takes a folder name and file
+name as input and writes the file.  Let us also add some flexibility
+in the file format: one can either write a fixed number of characters
+per line, or have the string on just one long line. The latter version
+is specified through `chars_per_line='inf'` (for infinite number of
+characters per line).  The flexible file writing function then becomes
 
 @@@CODE src-bioinf/genes2proteins.py fromto: def tofile_with_line_sep_v2@tofile_with_line_sep_v2\(mrna
 
@@ -166,7 +166,7 @@ by the corresponding 1-letter name as specified in the
 @@@CODE src-bioinf/genes2proteins.py fromto: def create_protein\(@lactase_protein\.txt
 
 
-Unfortunately, this first try to simulate this translation process is
+Unfortunately, this first try to simulate the translation process is
 incorrect. The problem is that the translation always begins with the
 amino acid Methionine, code AUG, and ends when one of the stop codons
 is met. We must thus check for the correct start and stop criteria.

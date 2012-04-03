@@ -14,13 +14,12 @@ to be equal?  The answer is that the A-T and G-C binding does not in principle
 force certain frequencies to be equal, but in practice they usually
 become so because of evolutionary factors related to this pairing.
 
-The first task is to compute the frequencies of the bases
-A, C, G, and T. That is, the number of times each base occurs
-in the DNA string, divided by the length of the string.
-For example, if the DNA string is ACGGAAA, the length is 7, A appears
-4 times with frequency 4/7, C appears once with frequency 1/7,
-G appears twice with frequency 2/7, and T does not appear so the
-frequency is 0.
+Our first programming task now is to compute the frequencies of the
+bases A, C, G, and T. That is, the number of times each base occurs in
+the DNA string, divided by the length of the string.  For example, if
+the DNA string is ACGGAAA, the length is 7, A appears 4 times with
+frequency 4/7, C appears once with frequency 1/7, G appears twice with
+frequency 2/7, and T does not appear so the frequency is 0.
 
 From a coding perspective we may create a function for counting how
 many times A, C, G, and T appears in the string and then another
@@ -59,7 +58,7 @@ idx{`urllib`}
 
 We can try the frequency computation on real data. The file
 !bc
-http://hplgit.github.com/bioinf-py/doc/src/data/yeast_chr1.txt
+http://hplgit.github.com/bioinf-py/data/yeast_chr1.txt
 !ec
 contains the DNA for yeast. We can download this file from
 the Internet by
@@ -93,12 +92,12 @@ recover the DNA string:
 As usual, an alternative programming solution can be devised:
 
 @@@CODE src-bioinf/basefreq.py fromto: def read_dnafile_v2@assert get_base_freq
-
 The output becomes
 !bc dat
 Base frequencies of yeast DNA (length 230208):
 A: 0.30, C: 0.19, T: 0.30, G: 0.20
 !ec
+
 The varying frequency of different nucleotides in DNA is referred to
 as nucleotide bias. The nucleotide bias varies between organisms, and
 have a range of biological implications. For many organisms the
