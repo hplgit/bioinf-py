@@ -1,5 +1,5 @@
 #!/bin/sh
-python ~/hg/programs/spellcheck.py -d dictionary.txt *.do.txt
+python ~/hg/programs/spellcheck.py -d .dict4spell.txt *.do.txt
 if [ $? -ne 0 ]; then
   echo "Misspellings!"  # use mydict.txt~.all~ as new dictionary.txt?
   exit 1
