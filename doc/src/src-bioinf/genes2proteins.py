@@ -170,7 +170,8 @@ def create_protein(mrna, genetic_code):
 
 genetic_code = read_genetic_code_v1('genetic_code.tsv')
 protein = create_protein(mrna, genetic_code)
-tofile_with_line_sep_v2(protein, 'output', 'lactase_protein.txt', 70)
+tofile_with_line_sep_v2(protein, 'output',
+                        'lactase_protein.txt', 70)
 
 def create_protein_fixed(mrna, genetic_code):
     protein_fixed = ''
@@ -185,7 +186,8 @@ def create_protein_fixed(mrna, genetic_code):
     return protein_fixed
 
 protein = create_protein_fixed(mrna, genetic_code)
-tofile_with_line_sep_v2(protein, 'output', 'lactase_protein_fixed.txt', 70)
+tofile_with_line_sep_v2(protein, 'output',
+                        'lactase_protein_fixed.txt', 70)
 
 print '10 last amino acids of the correct lactase protein: ', \
       protein[-10:]

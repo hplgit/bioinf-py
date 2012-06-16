@@ -1,7 +1,7 @@
 #!/bin/sh
 
 rm -rf __tmp.do.txt
-python ~/hg/programs/spellcheck.py -d .dict4spell.txt *.do.txt
+doconce spellcheck -d .dict4spell.txt *.do.txt
 if [ $? -ne 0 ]; then
   echo "Misspellings!"  # use mydict.txt~.all~ as new dictionary.txt?
   exit 1
