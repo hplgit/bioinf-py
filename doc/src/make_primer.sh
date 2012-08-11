@@ -44,6 +44,7 @@ doconce grab --from 'Speed up Markov chain mutation' --to- 'Extend the construct
 # Modify exercises
 for file in bioinf_ch*_ex.p.tex; do
 doconce subst '\\subsection\{' '\\begin{exercise}\n\\exerentry{' $file
-doconce subst 'Filename: \\code\{(.+?)\}\.' 'Name of program file: \\code{\g<1>}.\n\\hfill $\\diamond$\n\\end{exercise}' $file
+doconce subst '\\emph\{Filename\}: \\code\{(.+?)\}\.' 'Name of program file: \\code{\g<1>}.\n' $file
+doconce subst '% --- end of exercise' '\\hfill $\\diamond$\n\\end{exercise}' $file
 done
 

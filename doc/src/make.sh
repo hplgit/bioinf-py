@@ -13,7 +13,7 @@ static=_static-bioinf
 rm -rf $static
 mkdir $static
 
-# Generate pygments versions of Python files
+# Generate nicely formatted code as pygments versions of Python files
 cd src-bioinf
 pyg="pygmentize -f html -O full,style=emacs"
 for file in *.py; do
@@ -40,6 +40,7 @@ pdflatex -shell-escape $main
 cp -r sphinx-rootdir/_build/html ../tutorial/
 cp $main.pdf ../tutorial/bioinf-py.pdf
 cp $main.html ../tutorial/bioinf-py.html
+cp figs-bioinf/*.jpg ../tutorial/figs-bioinf/
 
 
 

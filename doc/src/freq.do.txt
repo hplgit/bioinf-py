@@ -218,9 +218,10 @@ leads to a slightly more compact version:
 
 idx{`max` function}
 
-A side mark on computing the maximum length of the DNA strings can be
-made as there are several alternative ways of doing this.
-The classical use of `max` is to apply it to a list as done above:
+As an additional comment on computing the maximum length of the DNA
+strings can be made as there are several alternative ways of doing
+this.  The classical use of `max` is to apply it to a list as done
+above:
 !bc pycod
 n = max([len(dna) for dna in dna_list])
 !ec
