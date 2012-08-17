@@ -1,4 +1,6 @@
 #!/bin/sh
+opt="--skip_inline_comments"
+
 doconce spellcheck -d .dict4spell.txt *.do.txt
 if [ $? -ne 0 ]; then
   echo "Misspellings!"  # use mydict.txt~.all~ as new dictionary.txt?
@@ -7,7 +9,7 @@ fi
 
 main=wrap_bioinf
 
-doconce format html $main
+doconce format html $main $opt
 
 static=_static-bioinf
 rm -rf $static
@@ -22,14 +24,14 @@ done
 cp *.py ../$static
 cd ..
 
-doconce format sphinx $main PRIMER_BOOK=False EBOOK=False --skip_inline_comments
+doconce format sphinx $main PRIMER_BOOK=False EBOOK=False $opt
 rm -rf sphinx-rootdir
 doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=pyramid $main
 python automake-sphinx.py
 # Note: duplicate links warnings occur, but that is okay (we use the
 # same repeated link text for local files)
 
-doconce format pdflatex $main PRIMER_BOOK=False EBOOK=False --skip_inline_comments
+doconce format pdflatex $main PRIMER_BOOK=False EBOOK=False $opt
 ptex2tex -DMINTED $main
 pdflatex -shell-escape $main
 makeindex $main

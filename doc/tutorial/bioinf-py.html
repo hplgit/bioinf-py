@@ -9,33 +9,25 @@ Automatically generated HTML file from Doconce source
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Doconce: http://code.google.com/p/doconce/" />
 
+<!--
+Color definitions:  http://www.december.com/html/spec/color0.html
+CSS examples:       http://www.w3schools.com/css/css_examples.asp
+-->
+
 <style type="text/css">
     body {
       margin-top: 1.0em;
-      <!-- background-color: #e1c931; -->
-      background-color: #000000;
+      background-color: #ffffff;
       font-family: Helvetica, Arial, FreeSans, san-serif;
       color: #000000;
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
     h1 { font-size: 1.8em; color: #1e36ce; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #1e36ce; }
     h3 { color: #1e36ce; }
-    <! -- h4 { color: #1e36ce; } -->
-    a { color: #1e36ce; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    <!-- white on black: pre { background: #000; color: #fff; padding: 15px;} -->
-    <!-- black on white: pre { background: #fff; color: #000; padding: 15px;} -->
-    pre { background: #EDEDED; color: #000; padding: 15px;}
-    <!-- http://www.december.com/html/spec/color0.html -->
+    a { color: #1e36ce; text-decoration:none; }
+    pre { background: #ededed; color: #000; padding: 15px;}
+    p { text-indent: 0px; }
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
 </style>
 
 <!-- Use MathJax to render mathematics -->
@@ -43,19 +35,23 @@ Automatically generated HTML file from Doconce source
 MathJax.Hub.Config({
   TeX: {
      equationNumbers: {  autoNumber: "AMS"  },
-     extensions: ["AMSmath.js"]
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js"]
   }
 });
 </script>
 <script type="text/javascript"
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+<!-- Fix slow MathJax rendering in IE8 -->
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
 
 </head>
 
-<body bgcolor="white">
-<!-- ---------------------------- main content ------------------------>
+<body>
     
+
+<!-- ---------------------------- main content ------------------------>
+
 <title>Illustrating Python via Bioinformatics Examples</title>
 
 <center><h1>Illustrating Python via Bioinformatics Examples</h1></center>  <! -- document title -->
@@ -78,7 +74,7 @@ MathJax.Hub.Config({
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 
 
-<center><h4>Aug 11, 2012</h4></center> <!-- date -->
+<center><h4>Aug 17, 2012</h4></center> <!-- date -->
 <p>
 
 <p>
@@ -334,11 +330,11 @@ debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
 statements one by one. The status of variables are
 explained to the right, and the text field below the program shows the output
-from <tt>print</tt> statements.  An example is shown in Figure <a href="#bioinf:fig:pot">bioinf:fig:pot</a>.
+from <tt>print</tt> statements.  An example is shown in Figure <a href="bioinf:fig:pot">1</a>.
 
 <p>
 <center><hr>
-<caption><i>Visual execution of a program using the Python Online Tutor. <a name="bioinf:fig:pot"></a></i></caption>
+<caption><i>Figure 1:  Visual execution of a program using the Python Online Tutor. <a name="bioinf:fig:pot"></a> </i></caption>
 <p><img src="figs-bioinf/python_online_tutor.jpg" align="bottom" width=600></p>
 </center>
 
@@ -1539,13 +1535,6 @@ in the file <tt>freq.py</tt> (<a href="http://hplgit.github.com/bioinf-py/doc/tu
 <p>
 
 <p>
-[<b>hpl</b>: <em>I don't get what dot plots are good for. Even when comparing two
-identical strings the dots don't show a strong correlation (because
-there are just 4 letters to choose among the chances of having
-the same letter in pos i and j of the two strings is significant.
-There should be something visual here.</em>]
-
-<p>
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say <tt>d1</tt> and <tt>d2</tt>,
 by organizing <tt>d1</tt>
@@ -1696,11 +1685,11 @@ s <span style="color: #666666">=</span> make_string_expanded(M2)
 Unless the join operation as used here is well understood, it is highly
 recommended to paste the above code into the <a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>, step
 through the code, and watch how variables change their content.
-Figure <a href="#bioinf:fig:pot2">bioinf:fig:pot2</a> shows a snapshot of this type of code investigation.
+Figure <a href="bioinf:fig:pot2">2</a> shows a snapshot of this type of code investigation.
 
 <p>
 <center><hr>
-<caption><i>Illustration of how join operations work (<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>). <a name="bioinf:fig:pot2"></a></i></caption>
+<caption><i>Figure 2:  Illustration of how join operations work (<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html">Python Online Tutor</a>). <a name="bioinf:fig:pot2"></a> </i></caption>
 <p><img src="figs-bioinf/pot_join.jpg" align="bottom" width=850></p>
 </center>
 
@@ -1725,10 +1714,6 @@ is well suited as data structure to hold a dot plot.
 <span style="color: #AA22FF; font-weight: bold">print</span> dotplot_numpy(dna_x, dna_y)
 </pre></div>
 <p>
-
-<p>
-[<b>hpl</b>: <em>we should have a real plot with matplotlib here for a somewhat large
-string. I have the code, but need a good illustrative example...</em>]
 
 <p>
 The two dot plot functions are available
@@ -2395,9 +2380,6 @@ world, e.g., Africa and Northern Europe. This is an example of convergent
 evolution: the acquisition of the same biological trait in unrelated
 lineages. The prevalence of lactose intolerance varies widely, from around 5%
 in northern Europe, to close to 100% in south-east Asia.
-
-<p>
-[<b>hpl</b>: <em>Very attractive example!</em>]
 
 <p>
 The functions analyzing the lactase gene are found
@@ -3417,10 +3399,17 @@ Write a function <tt>count_pairs(dna, pair)</tt> that returns the number of
 occurrences of a pair of characters (<tt>pair</tt>) in a DNA string (<tt>dna</tt>).
 For example, calling the function with <tt>dna</tt> as <tt>'ACTGCTATCCATT'</tt>
 and <tt>pair</tt> as  <tt>'AT'</tt> will return 2.
-<em>Filename</em>: <tt>count_pairs.py</tt>
 
 <p>
 <!-- Note: dna.count(pair) works! -->
+<em>Filename</em>: <tt>count_pairs.py</tt>.
+
+<p>
+<!-- --- end of exercise -->
+
+<p>
+
+<p>
 
 <h3>Count substrings <a name="bioinf:exer:substr1"></a>  <a name="___sec49"></a></h3>
 <p>
@@ -3431,16 +3420,20 @@ count how many times a certain string appears in another string.
 For example, the function returns 2 when called
 with the DNA string <tt>'ACGTTACGGAACG'</tt>
 and the substring <tt>'ACG'</tt>.
+<em>Filename</em>: <tt>count_substr.py</tt>.
 
 <p>
-<b>Hint 1.</b> For each match of the first character of the
+<b>Hint.</b> For each match of the first character of the
 substring in the main string, check if the next <tt>n</tt> characters
 in the main string matches the substring, where <tt>n</tt> is the length
-of the substring. Use slices like <tt>s[3:9]</tt> to pick out a substring of <tt>s</tt>.
-<em>Filename</em>: <tt>count_substr.py</tt>
+of the substring. Use slices like <tt>s</tt> to pick out a substring of <tt>s</tt>.
 
 <p>
-<!-- Bla-bla -->
+<!-- --- end of exercise -->
+
+<p>
+
+<p>
 
 <h3>Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></a>  <a name="___sec50"></a></h3>
 <p>
@@ -3452,7 +3445,10 @@ different representations of the frequency matrix. Make a unified
 <tt>find_consensus</tt> function which accepts different data structures
 for the <tt>frequency_matrix</tt>. Test on the type of data structure and
 perform the necessary actions.
-<em>Filename</em>: <tt>find_consensus.py</tt>
+<em>Filename</em>: <tt>find_consensus.py</tt>.
+
+<p>
+<!-- --- end of exercise -->
 
 <p>
 
@@ -3480,10 +3476,17 @@ which counts how many times <tt>A</tt>, <tt>C</tt>, <tt>G</tt>, and
 Unfortunately, this function crashes if other letters appear in <tt>dna</tt>.
 Write an enhanced function <tt>get_base_counts2</tt> which solves this problem.
 Test it on a string like <tt>'ADLSTTLLD'</tt>.
-<em>Filename</em>: <tt>get_base_counts2.py</tt>
 
 <p>
 <!-- Hints: defaultdict or test on if base in counts: ... else counts[base]=1 -->
+<em>Filename</em>: <tt>get_base_counts2.py</tt>.
+
+<p>
+<!-- --- end of exercise -->
+
+<p>
+
+<p>
 
 <h3>Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></a>  <a name="___sec52"></a></h3>
 <p>
@@ -3499,7 +3502,10 @@ returns all the substrings between the exon regions concatenated.
 The function <tt>get_base_frequencies</tt> from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>
 can then be used to analyze the frequencies of bases A, C, G, and T
 in the two strings.
-<em>Filename</em>: <tt>prop_A_exons.py</tt>
+<em>Filename</em>: <tt>prop_A_exons.py</tt>.
+
+<p>
+<!-- --- end of exercise -->
 
 <p>
 
@@ -3518,7 +3524,10 @@ merging the two functions, (ii) pre-computing interval limits for each
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the <tt>mutate_via_markov_chain</tt> function for 1 million mutations.
-<em>Filename</em>: <tt>markov_chain_mutation2.py</tt>
+<em>Filename</em>: <tt>markov_chain_mutation2.py</tt>.
+
+<p>
+<!-- --- end of exercise -->
 
 <p>
 
@@ -3532,9 +3541,10 @@ Modify the constructor in class <tt>Gene</tt> from the section <a href="#bioinf:
 that giving no arguments to the constructor makes the class call
 up the <tt>generate_string</tt> method (from the <tt>dna_functions</tt> module)
 which generates a random DNA sequence.
-<em>Filename</em>: <tt>dna_classes2.py</tt>
+<em>Filename</em>: <tt>dna_classes2.py</tt>.
 
 <p>
+<!-- --- end of exercise -->
 
 <!-- ---------------------------- end of main content ----------------->
 </body>

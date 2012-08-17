@@ -249,7 +249,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="n">genetic_code</span> <span class="o">=</span> <span class="n">read_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_protein.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;lactase_protein.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">):</span>
     <span class="n">protein_fixed</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
@@ -264,7 +265,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="k">return</span> <span class="n">protein_fixed</span>
 
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="s">&#39;10 last amino acids of the correct lactase protein: &#39;</span><span class="p">,</span> \
       <span class="n">protein</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>

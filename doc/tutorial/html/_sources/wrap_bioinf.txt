@@ -6,7 +6,7 @@ Illustrating Python via Bioinformatics Examples
 
 :Author: Hans Petter Langtangen, Geir Kjetil Sandve
 
-:Date: Apr 3, 2012
+:Date: Aug 17, 2012
 
 .. index:: bioinformatics
 
@@ -72,8 +72,10 @@ and if so, increase a counter. Looping over the letters is
 obvious if the letters are stored in a list. This is easily
 done by converting a string to a list:
 
->>> list('ATGC')
-['A', 'T', 'G', 'C']
+.. code-block:: python
+
+        >>> list('ATGC')
+        ['A', 'T', 'G', 'C']
 
 Our first solution becomes
 
@@ -99,12 +101,14 @@ String Iteration
 Python allows us to iterate directly over a string without converting
 it to a list:
 
->>> for c in 'ATGC':
-...     print c
-A
-T
-G
-C
+.. code-block:: python
+
+        >>> for c in 'ATGC':
+        ...     print c
+        A
+        T
+        G
+        C
 
 In fact, all built-in objects in Python that contain a set of elements in
 a particular sequence allow a ``for`` loop construction of the
@@ -435,13 +439,15 @@ trying to
 understand this compact code. A better approach is to examine
 the list comprehension in an interactive Python shell:
 
->>> dna = 'AATGCTTA'
->>> base = 'A'
->>> indices = [i for i in range(len(dna)) if dna[i] == base]
->>> indices
-[0, 1, 7]
->>> print dna[0], dna[1], dna[7]  # check
-A A A
+.. code-block:: python
+
+        >>> dna = 'AATGCTTA'
+        >>> base = 'A'
+        >>> indices = [i for i in range(len(dna)) if dna[i] == base]
+        >>> indices
+        [0, 1, 7]
+        >>> print dna[0], dna[1], dna[7]  # check
+        A A A
 
 The element ``i`` in the list comprehension is only made for those ``i``
 where ``dna[i] == base``.
@@ -699,13 +705,15 @@ In the ``for`` loop we apply the ``enumerate`` function which is used
 to extract both the element value *and* the element index when
 iterating over a sequence. For example,
 
->>> for index, base in enumerate(['t', 'e', 's', 't']):
-...   print index, base
-...
-0 t
-1 e
-2 s
-3 t
+.. code-block:: python
+
+        >>> for index, base in enumerate(['t', 'e', 's', 't']):
+        ...   print index, base
+        ...
+        0 t
+        1 e
+        2 s
+        3 t
 
 
 Here is a test,
@@ -810,9 +818,11 @@ where the alphabet is larger. What we want is a mapping from ``base``,
 which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary may represent such mappings:
 
->>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
->>> base2index['G']
-2
+.. code-block:: python
+
+        >>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+        >>> base2index['G']
+        2
 
 With the ``base2index`` dictionary we do not need the series of
 ``if`` tests and the alphabet ``'ATGC'`` could be much larger
@@ -942,6 +952,36 @@ leads to a slightly more compact version:
         
             return frequency_matrix
 
+
+
+.. index:: max function
+
+
+As an additional comment on computing the maximum length of the DNA
+strings can be made as there are several alternative ways of doing
+this.  The classical use of ``max`` is to apply it to a list as done
+above:
+
+.. code-block:: python
+
+        n = max([len(dna) for dna in dna_list])
+
+However, for very long lists it is possible to avoid the memory demands
+of storing the result of the list comprehension, i.e., the list of
+lengths. Instead ``max`` can work with the lengths as they are computed:
+
+.. code-block:: python
+
+        n = max(len(dna) for dna in dna_list)
+
+It is also possible to write
+
+.. code-block:: python
+
+        n = max(dna_list, key=len)
+
+Here, ``len`` is applied to each element in ``dna_list``, and the
+maximum of the resulting values is returned.
 
 Dictionary of Dictionaries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2003,6 +2043,7 @@ by the corresponding 1-letter name as specified in the
         
         genetic_code = read_genetic_code_v1('genetic_code.tsv')
         protein = create_protein(mrna, genetic_code)
+        tofile_with_line_sep_v2(protein, 'output',
 
 
 
@@ -2028,7 +2069,8 @@ A fix is
             return protein_fixed
         
         protein = create_protein_fixed(mrna, genetic_code)
-        tofile_with_line_sep_v2(protein, 'output', 'lactase_protein_fixed.txt', 70)
+        tofile_with_line_sep_v2(protein, 'output',
+                                'lactase_protein_fixed.txt', 70)
         
         print '10 last amino acids of the correct lactase protein: ', \ 
               protein[-10:]
@@ -2966,26 +3008,28 @@ are relevant to add:
 Here is an interactive session demonstrating how we can work with
 class ``Gene`` objects:
 
->>> from dna_classes import Gene
->>> g1 = Gene('ATCCGTAATTGCGCA', [(2,4), (6,9)])
->>> print g1
-Gene: ATCCGT...TGCGCA, length=15, 2 exon regions
->>> g2 = g1.mutate_random(10)
->>> print g2
-Gene: ATCCGT...TGTGCT, length=15, 2 exon regions
->>> g1 == g2
-False
->>> g1 += g2  # expect exception
-Traceback (most recent call last):
-...
-ValueError: cannot do Gene += Gene with exon regions
->>> g1b = Gene(g1.get_dna(), None)
->>> g2b = Gene(g2.get_dna(), None)
->>> print g1b
-Gene: ATCCGT...TGCGCA, length=15
->>> g3 = g1b + g2b
->>> g3.format_base_frequencies()
-'A: 0.17, C: 0.23, T: 0.33, G: 0.27'
+.. code-block:: python
+
+        >>> from dna_classes import Gene
+        >>> g1 = Gene('ATCCGTAATTGCGCA', [(2,4), (6,9)])
+        >>> print g1
+        Gene: ATCCGT...TGCGCA, length=15, 2 exon regions
+        >>> g2 = g1.mutate_random(10)
+        >>> print g2
+        Gene: ATCCGT...TGTGCT, length=15, 2 exon regions
+        >>> g1 == g2
+        False
+        >>> g1 += g2  # expect exception
+        Traceback (most recent call last):
+        ...
+        ValueError: cannot do Gene += Gene with exon regions
+        >>> g1b = Gene(g1.get_dna(), None)
+        >>> g2b = Gene(g2.get_dna(), None)
+        >>> print g1b
+        Gene: ATCCGT...TGCGCA, length=15
+        >>> g3 = g1b + g2b
+        >>> g3.format_base_frequencies()
+        'A: 0.17, C: 0.23, T: 0.33, G: 0.27'
 
 
 
@@ -3078,8 +3122,11 @@ and ``pair`` as  ``'AT'`` will return 2.
 
 .. Note: dna.count(pair) works!
 
+*Filename*: ``count_pairs.py``.
 
-*Filename*: ``count_pairs.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:substr1:
 
@@ -3091,13 +3138,16 @@ count how many times a certain string appears in another string.
 For example, the function returns 2 when called
 with the DNA string ``'ACGTTACGGAACG'``
 and the substring ``'ACG'``.
+*Filename*: ``count_substr.py``.
 
-*Hint 1.* For each match of the first character of the
+*Hint.* For each match of the first character of the
 substring in the main string, check if the next ``n`` characters
 in the main string matches the substring, where ``n`` is the length
 of the substring. Use slices like ``s[3:9]`` to pick out a substring of ``s``.
 
-*Filename*: ``count_substr.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:freq:fargs:
 
@@ -3110,8 +3160,11 @@ different representations of the frequency matrix. Make a unified
 ``find_consensus`` function which accepts different data structures
 for the ``frequency_matrix``. Test on the type of data structure and
 perform the necessary actions.
+*Filename*: ``find_consensus.py``.
 
-*Filename*: ``find_consensus.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:get_base_counts2:
 
@@ -3138,8 +3191,11 @@ Test it on a string like ``'ADLSTTLLD'``.
 
 .. Hints: defaultdict or test on if base in counts: ... else counts[base]=1
 
+*Filename*: ``get_base_counts2.py``.
 
-*Filename*: ``get_base_counts2.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:Ainsouts:exons:
 
@@ -3156,8 +3212,11 @@ returns all the substrings between the exon regions concatenated.
 The function ``get_base_frequencies`` from the section :ref:`bioinf:basefreq`
 can then be used to analyze the frequencies of bases A, C, G, and T
 in the two strings.
+*Filename*: ``prop_A_exons.py``.
 
-*Filename*: ``prop_A_exons.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:Markov:chain:eff:
 
@@ -3173,8 +3232,11 @@ merging the two functions, (ii) pre-computing interval limits for each
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the ``mutate_via_markov_chain`` function for 1 million mutations.
+*Filename*: ``markov_chain_mutation2.py``.
 
-*Filename*: ``markov_chain_mutation2.py``
+.. --- end of exercise
+
+
 
 .. _bioinf:exer:Gene:randominit:
 
@@ -3185,5 +3247,6 @@ Modify the constructor in class ``Gene`` from the section :ref:`bioinf:oo` such
 that giving no arguments to the constructor makes the class call
 up the ``generate_string`` method (from the ``dna_functions`` module)
 which generates a random DNA sequence.
+*Filename*: ``dna_classes2.py``.
 
-*Filename*: ``dna_classes2.py``
+.. --- end of exercise

@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Illustrating Python via Bioinformatics Examples &mdash; Illustrating Python via Examples from Bioinformatics 1.0 documentation</title>
+    <title>Illustrating Python via Bioinformatics Examples &mdash; Illustrating Python via Examples from Bioinformatics 0.9 documentation</title>
     
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '1.0',
+        VERSION:     '0.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Illustrating Python via Examples from Bioinformatics 1.0 documentation" href="index.html" />
+    <link rel="top" title="Illustrating Python via Examples from Bioinformatics 0.9 documentation" href="index.html" />
     <link rel="prev" title="Illustrating Python via Examples from Bioinformatics" href="index.html" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
@@ -45,7 +45,7 @@
         <li class="right" >
           <a href="index.html" title="Illustrating Python via Examples from Bioinformatics"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 0.9 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -62,7 +62,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Hans Petter Langtangen, Geir Kjetil Sandve</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Apr 3, 2012</td>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Aug 17, 2012</td>
 </tr>
 </tbody>
 </table>
@@ -195,23 +195,25 @@ program <tt class="docutils literal"><span class="pre">count_v2_demo.py</span></
 a debugger: <tt class="docutils literal"><span class="pre">run</span> <span class="pre">-d</span> <span class="pre">count_v2_demo.py</span></tt>. Use <tt class="docutils literal"><span class="pre">s</span></tt> (for step) to
 step through each statement, or <tt class="docutils literal"><span class="pre">n</span></tt> (for next) for proceeding to the
 next statement without stepping through a function that is called.</p>
-<div class="highlight-python"><pre>ipdb&gt; s
-&gt; /some/disk/user/bioinf/src/count_v2_demo.py(2)count_v2_demo()
-1     1 def count_v1_demo(dna, base):
-----&gt; 2     print 'dna:', dna
-      3     print 'base:', base
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipdb</span><span class="o">&gt;</span> <span class="n">s</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">disk</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">bioinf</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">count_v2_demo</span><span class="o">.</span><span class="n">py</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="n">count_v2_demo</span><span class="p">()</span>
+<span class="mi">1</span>     <span class="mi">1</span> <span class="k">def</span> <span class="nf">count_v1_demo</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
+<span class="o">----&gt;</span> <span class="mi">2</span>     <span class="k">print</span> <span class="s">&#39;dna:&#39;</span><span class="p">,</span> <span class="n">dna</span>
+      <span class="mi">3</span>     <span class="k">print</span> <span class="s">&#39;base:&#39;</span><span class="p">,</span> <span class="n">base</span>
 
-ipdb&gt; s
-dna: ATGCGGACCTAT
-&gt; /some/disk/user/bioinf/src/count_v2_demo.py(3)count_v2_demo()
-      2     print 'dna:', dna
-----&gt; 3     print 'base:', base
-      4     i = 0 # counter</pre>
+<span class="n">ipdb</span><span class="o">&gt;</span> <span class="n">s</span>
+<span class="n">dna</span><span class="p">:</span> <span class="n">ATGCGGACCTAT</span>
+<span class="o">&gt;</span> <span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">disk</span><span class="o">/</span><span class="n">user</span><span class="o">/</span><span class="n">bioinf</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">count_v2_demo</span><span class="o">.</span><span class="n">py</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="n">count_v2_demo</span><span class="p">()</span>
+      <span class="mi">2</span>     <span class="k">print</span> <span class="s">&#39;dna:&#39;</span><span class="p">,</span> <span class="n">dna</span>
+<span class="o">----&gt;</span> <span class="mi">3</span>     <span class="k">print</span> <span class="s">&#39;base:&#39;</span><span class="p">,</span> <span class="n">base</span>
+      <span class="mi">4</span>     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># counter</span>
+</pre></div>
 </div>
 <p>Observe the output of the <tt class="docutils literal"><span class="pre">print</span></tt> statements. One can also
 print a variable explicitly inside the debugger:</p>
-<div class="highlight-python"><pre>ipdb&gt; print base
-C</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ipdb</span><span class="o">&gt;</span> <span class="k">print</span> <span class="n">base</span>
+<span class="n">C</span>
+</pre></div>
 </div>
 <p>Misunderstanding of the program flow is one of the most frequent
 sources of programming errors, so
@@ -791,6 +793,25 @@ leads to a slightly more compact version:</p>
     <span class="k">return</span> <span class="n">frequency_matrix</span>
 </pre></div>
 </div>
+<p id="index-13">As an additional comment on computing the maximum length of the DNA
+strings can be made as there are several alternative ways of doing
+this.  The classical use of <tt class="docutils literal"><span class="pre">max</span></tt> is to apply it to a list as done
+above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>However, for very long lists it is possible to avoid the memory demands
+of storing the result of the list comprehension, i.e., the list of
+lengths. Instead <tt class="docutils literal"><span class="pre">max</span></tt> can work with the lengths as they are computed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It is also possible to write</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">dna_list</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, <tt class="docutils literal"><span class="pre">len</span></tt> is applied to each element in <tt class="docutils literal"><span class="pre">dna_list</span></tt>, and the
+maximum of the resulting values is returned.</p>
 </div>
 <div class="section" id="dictionary-of-dictionaries">
 <h3>Dictionary of Dictionaries<a class="headerlink" href="#dictionary-of-dictionaries" title="Permalink to this headline">¶</a></h3>
@@ -1056,11 +1077,12 @@ by <tt class="docutils literal"><span class="pre">frequency_matrix['A']</span></
 </pre></div>
 </div>
 <p>with output</p>
-<div class="highlight-python"><pre>{'A': {0: 0, 1: 0, 2: 0, 3: 2, 4: 0},
- 'C': {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
- 'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
- 'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
-Consensus string: GGTAC</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span>
+ <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span>
+ <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+ <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">0</span><span class="p">}}</span>
+<span class="n">Consensus</span> <span class="n">string</span><span class="p">:</span> <span class="n">GGTAC</span>
+</pre></div>
 </div>
 <p>Let us try <tt class="docutils literal"><span class="pre">find_consensus_v3</span></tt> with the dict of defaultdicts
 as input (<tt class="docutils literal"><span class="pre">freq_dicts_of_dicts_v2</span></tt>). The code runs fine, but
@@ -1075,7 +1097,8 @@ Printing out <tt class="docutils literal"><span class="pre">frequency_matrix</sp
 </pre></div>
 </div>
 <p>where our <tt class="docutils literal"><span class="pre">X</span></tt> is a short form for text like</p>
-<div class="highlight-python"><pre>`&lt;function &lt;lambda&gt; at 0xfaede8&gt;`</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="sb">`&lt;function &lt;lambda&gt; at 0xfaede8&gt;`</span>
+</pre></div>
 </div>
 <p>We see that the length of a defaultdict will only count the nonzero
 entries. Hence, to use a defaultdict our function must get the length of the DNA string to
@@ -1104,18 +1127,19 @@ by organizing <tt class="docutils literal"><span class="pre">d1</span></tt>
 along the x-axis and <tt class="docutils literal"><span class="pre">d2</span></tt> along the y-axis of a plot.
 When <tt class="docutils literal"><span class="pre">d1[i]</span> <span class="pre">==</span> <span class="pre">d2[j]</span></tt> we mark this by drawing a dot at location
 <tt class="docutils literal"><span class="pre">i,j</span></tt> in the plot. An example is</p>
-<div class="highlight-python"><pre>1 0 0 1 0 0 0 1 0 0 0 1
-0 1 1 0 0 0 0 0 0 1 1 0
-0 1 1 0 0 0 0 0 0 1 1 0
-1 0 0 1 0 0 0 1 0 0 0 1
-0 0 0 0 1 0 0 0 1 0 0 0
-0 0 0 0 0 1 1 0 0 0 0 0
-0 0 0 0 0 1 1 0 0 0 0 0
-1 0 0 1 0 0 0 1 0 0 0 1
-0 0 0 0 1 0 0 0 1 0 0 0
-0 1 1 0 0 0 0 0 0 1 1 0
-0 1 1 0 0 0 0 0 0 1 1 0
-1 0 0 1 0 0 0 1 0 0 0 1</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+</pre></div>
 </div>
 <p>The origin is in the upper left corner, which means that the
 first string has its indices running to the right 0, 1, 2, and so forth,
@@ -1162,18 +1186,19 @@ is a possible way:</p>
 </pre></div>
 </div>
 <p>The output becomes</p>
-<div class="highlight-python"><pre>1 0 0 1 0 0 0 1 0 0 0 1
-0 1 1 0 0 0 0 0 0 1 1 0
-0 1 1 0 0 0 0 0 0 1 1 0
-1 0 0 1 0 0 0 1 0 0 0 1
-0 0 0 0 1 0 0 0 1 0 0 0
-0 0 0 0 0 1 1 0 0 0 0 0
-0 0 0 0 0 1 1 0 0 0 0 0
-1 0 0 1 0 0 0 1 0 0 0 1
-0 0 0 0 1 0 0 0 1 0 0 0
-0 1 1 0 0 0 0 0 0 1 1 0
-0 1 1 0 0 0 0 0 0 1 1 0
-1 0 0 1 0 0 0 1 0 0 0 1</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+<span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">0</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span>
+</pre></div>
 </div>
 <p>One can, alternatively, translate the list of lists to a multi-line string
 containing the whole plot as a string object.
@@ -1302,8 +1327,9 @@ function for computing all the base frequencies:</p>
 </pre></div>
 </div>
 <p>gives the result</p>
-<div class="highlight-python"><pre>Base frequencies of sequence 'ACCAGAGT':
-A: 0.38, C: 0.25, T: 0.12, G: 0.25</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Base</span> <span class="n">frequencies</span> <span class="n">of</span> <span class="n">sequence</span> <span class="s">&#39;ACCAGAGT&#39;</span><span class="p">:</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.38</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.25</span>
+</pre></div>
 </div>
 <p>The <tt class="docutils literal"><span class="pre">format_frequencies</span></tt> function was made for nice printout of
 the frequencies with 2 decimals. The one-line code is an effective
@@ -1312,8 +1338,9 @@ combination of a dictionary, list comprehension, and the
 inserted between the items in the result. Lazy programmers would
 probably just do a <tt class="docutils literal"><span class="pre">print</span> <span class="pre">frequencies</span></tt> and live with the
 curly braces in the output and (in general) 16 disturbing decimals.</p>
-<p id="index-13">We can try the frequency computation on real data. The file</p>
-<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/data/yeast_chr1.txt</pre>
+<p id="index-14">We can try the frequency computation on real data. The file</p>
+<div class="highlight-py"><div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">hplgit</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bioinf</span><span class="o">-</span><span class="n">py</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">yeast_chr1</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
 </div>
 <p>contains the DNA for yeast. We can download this file from
 the Internet by</p>
@@ -1363,8 +1390,9 @@ recover the DNA string:</p>
 </pre></div>
 </div>
 <p>The output becomes</p>
-<div class="highlight-python"><pre>Base frequencies of yeast DNA (length 230208):
-A: 0.30, C: 0.19, T: 0.30, G: 0.20</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Base</span> <span class="n">frequencies</span> <span class="n">of</span> <span class="n">yeast</span> <span class="n">DNA</span> <span class="p">(</span><span class="n">length</span> <span class="mi">230208</span><span class="p">):</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.30</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.19</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.30</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.20</span>
+</pre></div>
 </div>
 <p>The varying frequency of different nucleotides in DNA is referred to
 as nucleotide bias. The nucleotide bias varies between organisms, and
@@ -1398,22 +1426,24 @@ lactose intolerance. Most mammals and humans lose their expression of
 LCT and therefore their ability to digest milk when they stop
 receiving breast milk.</p>
 <p>The file</p>
-<div class="highlight-py"><pre>http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv</pre>
+<div class="highlight-py"><div class="highlight"><pre><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">hplgit</span><span class="o">.</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">bioinf</span><span class="o">-</span><span class="n">py</span><span class="o">/</span><span class="n">doc</span><span class="o">/</span><span class="n">src</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">genetic_code</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
 </div>
 <p>contains a mapping of genetic codes to amino acids.
 The file format looks like</p>
-<div class="highlight-python"><pre>UUU     F       Phe     Phenylalanine
-UUC     F       Phe     Phenylalanine
-UUA     L       Leu     Leucine
-UUG     L       Leu     Leucine
-CUU     L       Leu     Leucine
-CUC     L       Leu     Leucine
-CUA     L       Leu     Leucine
-CUG     L       Leu     Leucine
-AUU     I       Ile     Isoleucine
-AUC     I       Ile     Isoleucine
-AUA     I       Ile     Isoleucine
-AUG     M       Met     Methionine (Start)</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">UUU</span>     <span class="n">F</span>       <span class="n">Phe</span>     <span class="n">Phenylalanine</span>
+<span class="n">UUC</span>     <span class="n">F</span>       <span class="n">Phe</span>     <span class="n">Phenylalanine</span>
+<span class="n">UUA</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">UUG</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">CUU</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">CUC</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">CUA</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">CUG</span>     <span class="n">L</span>       <span class="n">Leu</span>     <span class="n">Leucine</span>
+<span class="n">AUU</span>     <span class="n">I</span>       <span class="n">Ile</span>     <span class="n">Isoleucine</span>
+<span class="n">AUC</span>     <span class="n">I</span>       <span class="n">Ile</span>     <span class="n">Isoleucine</span>
+<span class="n">AUA</span>     <span class="n">I</span>       <span class="n">Ile</span>     <span class="n">Isoleucine</span>
+<span class="n">AUG</span>     <span class="n">M</span>       <span class="n">Met</span>     <span class="n">Methionine</span> <span class="p">(</span><span class="n">Start</span><span class="p">)</span>
+</pre></div>
 </div>
 <p>The first column is the genetic code (triplet in mRNA),
 while the other columns represent
@@ -1503,11 +1533,12 @@ found at the same Internet site as the other files. The file is easily
 transferred to your computer by calling <tt class="docutils literal"><span class="pre">download</span></tt>.  The file format
 is very simple in that each line holds the start and end positions of
 an exon region:</p>
-<div class="highlight-python"><pre>0       651
-3990    4070
-7504    7588
-13177   13280
-15082   15161</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">0</span>       <span class="mi">651</span>
+<span class="mi">3990</span>    <span class="mi">4070</span>
+<span class="mi">7504</span>    <span class="mi">7588</span>
+<span class="mi">13177</span>   <span class="mi">13280</span>
+<span class="mi">15082</span>   <span class="mi">15161</span>
+</pre></div>
 </div>
 <p>We want to have this information available in a list of (start, end)
 tuples. The following function does the job:</p>
@@ -1617,6 +1648,7 @@ by the corresponding 1-letter name as specified in the
 
 <span class="n">genetic_code</span> <span class="o">=</span> <span class="n">read_genetic_code_v1</span><span class="p">(</span><span class="s">&#39;genetic_code.tsv&#39;</span><span class="p">)</span>
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>Unfortunately, this first try to simulate the translation process is
@@ -1637,7 +1669,8 @@ A fix is</p>
     <span class="k">return</span> <span class="n">protein_fixed</span>
 
 <span class="n">protein</span> <span class="o">=</span> <span class="n">create_protein_fixed</span><span class="p">(</span><span class="n">mrna</span><span class="p">,</span> <span class="n">genetic_code</span><span class="p">)</span>
-<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span> <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">tofile_with_line_sep_v2</span><span class="p">(</span><span class="n">protein</span><span class="p">,</span> <span class="s">&#39;output&#39;</span><span class="p">,</span>
+                        <span class="s">&#39;lactase_protein_fixed.txt&#39;</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
 
 <span class="k">print</span> <span class="s">&#39;10 last amino acids of the correct lactase protein: &#39;</span><span class="p">,</span> \
       <span class="n">protein</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]</span>
@@ -1645,8 +1678,9 @@ A fix is</p>
 </pre></div>
 </div>
 <p>The output, needed below for comparison, becomes</p>
-<div class="highlight-python"><pre>10 last amino acids of the correct lactase protein:  QQELSPVSSF
-Lenght of the correct protein:  1927</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">10</span> <span class="n">last</span> <span class="n">amino</span> <span class="n">acids</span> <span class="n">of</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">lactase</span> <span class="n">protein</span><span class="p">:</span>  <span class="n">QQELSPVSSF</span>
+<span class="n">Lenght</span> <span class="n">of</span> <span class="n">the</span> <span class="n">correct</span> <span class="n">protein</span><span class="p">:</span>  <span class="mi">1927</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="some-humans-can-drink-milk-while-others-cannot">
@@ -1694,8 +1728,9 @@ This is a simple task using the previously developed tools:</p>
 </pre></div>
 </div>
 <p>The output, to be compared with the non-mutated gene above, is now</p>
-<div class="highlight-python"><pre>10 last amino acids of the mutated lactase protein: GFIWSAASAA
-Lenght of the mutated lactase protein: 1389</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">10</span> <span class="n">last</span> <span class="n">amino</span> <span class="n">acids</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mutated</span> <span class="n">lactase</span> <span class="n">protein</span><span class="p">:</span> <span class="n">GFIWSAASAA</span>
+<span class="n">Lenght</span> <span class="n">of</span> <span class="n">the</span> <span class="n">mutated</span> <span class="n">lactase</span> <span class="n">protein</span><span class="p">:</span> <span class="mi">1389</span>
+</pre></div>
 </div>
 <p>As we can see, the translation stops prematurely, creating a much smaller
 protein, which will not have the required characteristics of the lactase
@@ -1761,10 +1796,11 @@ of times and see how the frequencies of the bases A, C, G, and T change:</p>
 </pre></div>
 </div>
 <p>Here is the output from a run:</p>
-<div class="highlight-python"><pre>Starting DNA: ACGGAGATTTCGGTATGCAT
-A: 0.25, C: 0.15, T: 0.30, G: 0.30
-DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
-A: 0.35, C: 0.25, T: 0.10, G: 0.30</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Starting</span> <span class="n">DNA</span><span class="p">:</span> <span class="n">ACGGAGATTTCGGTATGCAT</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.30</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.30</span>
+<span class="n">DNA</span> <span class="n">after</span> <span class="mi">10000</span> <span class="n">mutations</span><span class="p">:</span> <span class="n">AACCAATCCGACGAGGAGTG</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.10</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.30</span>
+</pre></div>
 </div>
 </div>
 <div class="section" id="vectorized-version">
@@ -2028,27 +2064,28 @@ enhancements of simulating mutations via these functions.</p>
 integer <tt class="docutils literal"><span class="pre">i</span></tt>. This call makes the
 sequence of random numbers the same every time the program is run and
 is very useful for debugging. An example on the output may look like</p>
-<div class="highlight-python"><pre>Starting DNA: TTACGGAGATTTCGGTATGCAT
-A: 0.23, C: 0.14, T: 0.36, G: 0.27
-Transition probabilities:
-{'A': {'A': 0.4288890546751146,
-       'C': 0.4219086988655296,
-       'G': 0.00668870644455688,
-       'T': 0.14251354001479888},
- 'C': {'A': 0.24999667668640035,
-       'C': 0.04718309085408834,
-       'G': 0.6250440975238185,
-       'T': 0.0777761349356928},
- 'G': {'A': 0.16022955651881965,
-       'C': 0.34652746609882423,
-       'G': 0.1328031742612512,
-       'T': 0.3604398031211049},
- 'T': {'A': 0.20609823213950174,
-       'C': 0.17641112746655452,
-       'G': 0.010267621176125452,
-       'T': 0.6072230192178183}}
-DNA after 10000 mutations (Markov chain): GGTTTAAGTCAGCTATGATTCT
-A: 0.23, C: 0.14, T: 0.41, G: 0.23</pre>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Starting</span> <span class="n">DNA</span><span class="p">:</span> <span class="n">TTACGGAGATTTCGGTATGCAT</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.23</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.36</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.27</span>
+<span class="n">Transition</span> <span class="n">probabilities</span><span class="p">:</span>
+<span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.4288890546751146</span><span class="p">,</span>
+       <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.4219086988655296</span><span class="p">,</span>
+       <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.00668870644455688</span><span class="p">,</span>
+       <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.14251354001479888</span><span class="p">},</span>
+ <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.24999667668640035</span><span class="p">,</span>
+       <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.04718309085408834</span><span class="p">,</span>
+       <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.6250440975238185</span><span class="p">,</span>
+       <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.0777761349356928</span><span class="p">},</span>
+ <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.16022955651881965</span><span class="p">,</span>
+       <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.34652746609882423</span><span class="p">,</span>
+       <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.1328031742612512</span><span class="p">,</span>
+       <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.3604398031211049</span><span class="p">},</span>
+ <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mf">0.20609823213950174</span><span class="p">,</span>
+       <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mf">0.17641112746655452</span><span class="p">,</span>
+       <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mf">0.010267621176125452</span><span class="p">,</span>
+       <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mf">0.6072230192178183</span><span class="p">}}</span>
+<span class="n">DNA</span> <span class="n">after</span> <span class="mi">10000</span> <span class="n">mutations</span> <span class="p">(</span><span class="n">Markov</span> <span class="n">chain</span><span class="p">):</span> <span class="n">GGTTTAAGTCAGCTATGATTCT</span>
+<span class="n">A</span><span class="p">:</span> <span class="mf">0.23</span><span class="p">,</span> <span class="n">C</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span> <span class="n">T</span><span class="p">:</span> <span class="mf">0.41</span><span class="p">,</span> <span class="n">G</span><span class="p">:</span> <span class="mf">0.23</span>
+</pre></div>
 </div>
 <p>Note that the mutated DNA should contain more nucleotides of the
 type where the total probability of transitioning into that particular
@@ -2509,7 +2546,7 @@ and Kai Trengereid for contributing to the examples and their implementations.</
 occurrences of a pair of characters (<tt class="docutils literal"><span class="pre">pair</span></tt>) in a DNA string (<tt class="docutils literal"><span class="pre">dna</span></tt>).
 For example, calling the function with <tt class="docutils literal"><span class="pre">dna</span></tt> as <tt class="docutils literal"><span class="pre">'ACTGCTATCCATT'</span></tt>
 and <tt class="docutils literal"><span class="pre">pair</span></tt> as  <tt class="docutils literal"><span class="pre">'AT'</span></tt> will return 2.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_pairs.py</span></tt></p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_pairs.py</span></tt>.</p>
 </div>
 <div class="section" id="count-substrings">
 <span id="bioinf-exer-substr1"></span><h2>Count substrings<a class="headerlink" href="#count-substrings" title="Permalink to this headline">¶</a></h2>
@@ -2517,12 +2554,12 @@ and <tt class="docutils literal"><span class="pre">pair</span></tt> as  <tt clas
 count how many times a certain string appears in another string.
 For example, the function returns 2 when called
 with the DNA string <tt class="docutils literal"><span class="pre">'ACGTTACGGAACG'</span></tt>
-and the substring <tt class="docutils literal"><span class="pre">'ACG'</span></tt>.</p>
-<p><em>Hint 1.</em> For each match of the first character of the
+and the substring <tt class="docutils literal"><span class="pre">'ACG'</span></tt>.
+<em>Filename</em>: <tt class="docutils literal"><span class="pre">count_substr.py</span></tt>.</p>
+<p><em>Hint.</em> For each match of the first character of the
 substring in the main string, check if the next <tt class="docutils literal"><span class="pre">n</span></tt> characters
 in the main string matches the substring, where <tt class="docutils literal"><span class="pre">n</span></tt> is the length
 of the substring. Use slices like <tt class="docutils literal"><span class="pre">s[3:9]</span></tt> to pick out a substring of <tt class="docutils literal"><span class="pre">s</span></tt>.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">count_substr.py</span></tt></p>
 </div>
 <div class="section" id="allow-different-types-for-a-function-argument">
 <span id="bioinf-exer-freq-fargs"></span><h2>Allow different types for a function argument<a class="headerlink" href="#allow-different-types-for-a-function-argument" title="Permalink to this headline">¶</a></h2>
@@ -2531,8 +2568,8 @@ the section <a class="reference internal" href="#bioinf-freq-analysis"><em>Analy
 different representations of the frequency matrix. Make a unified
 <tt class="docutils literal"><span class="pre">find_consensus</span></tt> function which accepts different data structures
 for the <tt class="docutils literal"><span class="pre">frequency_matrix</span></tt>. Test on the type of data structure and
-perform the necessary actions.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">find_consensus.py</span></tt></p>
+perform the necessary actions.
+<em>Filename</em>: <tt class="docutils literal"><span class="pre">find_consensus.py</span></tt>.</p>
 </div>
 <div class="section" id="make-a-function-more-robust">
 <span id="bioinf-exer-get-base-counts2"></span><h2>Make a function more robust<a class="headerlink" href="#make-a-function-more-robust" title="Permalink to this headline">¶</a></h2>
@@ -2550,7 +2587,7 @@ which counts how many times <tt class="docutils literal"><span class="pre">A</sp
 <p>Unfortunately, this function crashes if other letters appear in <tt class="docutils literal"><span class="pre">dna</span></tt>.
 Write an enhanced function <tt class="docutils literal"><span class="pre">get_base_counts2</span></tt> which solves this problem.
 Test it on a string like <tt class="docutils literal"><span class="pre">'ADLSTTLLD'</span></tt>.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">get_base_counts2.py</span></tt></p>
+<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">get_base_counts2.py</span></tt>.</p>
 </div>
 <div class="section" id="find-proportion-of-bases-inside-outside-exons">
 <span id="bioinf-exer-ainsouts-exons"></span><h2>Find proportion of bases inside/outside exons<a class="headerlink" href="#find-proportion-of-bases-inside-outside-exons" title="Permalink to this headline">¶</a></h2>
@@ -2563,8 +2600,8 @@ and a function <tt class="docutils literal"><span class="pre">get_introns</span>
 returns all the substrings between the exon regions concatenated.
 The function <tt class="docutils literal"><span class="pre">get_base_frequencies</span></tt> from the section <a class="reference internal" href="#bioinf-basefreq"><em>Finding Base Frequencies</em></a>
 can then be used to analyze the frequencies of bases A, C, G, and T
-in the two strings.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">prop_A_exons.py</span></tt></p>
+in the two strings.
+<em>Filename</em>: <tt class="docutils literal"><span class="pre">prop_A_exons.py</span></tt>.</p>
 </div>
 <div class="section" id="speed-up-markov-chain-mutation">
 <span id="bioinf-exer-markov-chain-eff"></span><h2>Speed up Markov chain mutation<a class="headerlink" href="#speed-up-markov-chain-mutation" title="Permalink to this headline">¶</a></h2>
@@ -2576,16 +2613,16 @@ merging the two functions, (ii) pre-computing interval limits for each
 <tt class="docutils literal"><span class="pre">from_base</span></tt>, and (iii) adding a loop over <tt class="docutils literal"><span class="pre">N</span></tt> mutations, one can
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
-versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chain</span></tt> function for 1 million mutations.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">markov_chain_mutation2.py</span></tt></p>
+versus the <tt class="docutils literal"><span class="pre">mutate_via_markov_chain</span></tt> function for 1 million mutations.
+<em>Filename</em>: <tt class="docutils literal"><span class="pre">markov_chain_mutation2.py</span></tt>.</p>
 </div>
 <div class="section" id="extend-the-constructor-in-class-gene">
 <span id="bioinf-exer-gene-randominit"></span><h2>Extend the constructor in class Gene<a class="headerlink" href="#extend-the-constructor-in-class-gene" title="Permalink to this headline">¶</a></h2>
 <p>Modify the constructor in class <tt class="docutils literal"><span class="pre">Gene</span></tt> from the section <a class="reference internal" href="#bioinf-oo"><em>Classes for DNA Analysis</em></a> such
 that giving no arguments to the constructor makes the class call
 up the <tt class="docutils literal"><span class="pre">generate_string</span></tt> method (from the <tt class="docutils literal"><span class="pre">dna_functions</span></tt> module)
-which generates a random DNA sequence.</p>
-<p><em>Filename</em>: <tt class="docutils literal"><span class="pre">dna_classes2.py</span></tt></p>
+which generates a random DNA sequence.
+<em>Filename</em>: <tt class="docutils literal"><span class="pre">dna_classes2.py</span></tt>.</p>
 </div>
 </div>
 
@@ -2703,12 +2740,12 @@ which generates a random DNA sequence.</p>
         <li class="right" >
           <a href="index.html" title="Illustrating Python via Examples from Bioinformatics"
              >previous</a> |</li>
-        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 1.0 documentation</a> &raquo;</li> 
+        <li><a href="index.html">Illustrating Python via Examples from Bioinformatics 0.9 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-        &copy; Copyright 2012, 0.9.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+        &copy; Copyright 2012, H. P. Langtangen and G. K. Sandve.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
