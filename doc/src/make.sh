@@ -7,7 +7,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-main=wrap_bioinf
+main=main_bioinf
 
 doconce format html $main $opt
 
@@ -27,7 +27,7 @@ cd ..
 doconce format sphinx $main PRIMER_BOOK=False EBOOK=False $opt
 rm -rf sphinx-rootdir
 doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=pyramid $main
-python automake-sphinx.py
+python automake_sphinx.py
 # Note: duplicate links warnings occur, but that is okay (we use the
 # same repeated link text for local files)
 
@@ -42,7 +42,7 @@ pdflatex -shell-escape $main
 cp -r sphinx-rootdir/_build/html ../tutorial/
 cp $main.pdf ../tutorial/bioinf-py.pdf
 cp $main.html ../tutorial/bioinf-py.html
-cp figs-bioinf/*.jpg ../tutorial/figs-bioinf/
+cp fig-bioinf/*.jpg ../tutorial/fig-bioinf/
 
 
 

@@ -131,7 +131,7 @@ statements one by one. The status of variables are
 explained to the right, and the text field below the program shows the output
 from `print` statements.  An example is shown in Figure ref{bioinf:fig:pot}.
 
-FIGURE: [figs-bioinf/python_online_tutor.jpg, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
+FIGURE: [fig-bioinf/python_online_tutor.jpg, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
 
 === Index Iteration ===
 

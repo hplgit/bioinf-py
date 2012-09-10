@@ -104,7 +104,7 @@ recommended to paste the above code into the "Python Online Tutor": "http://peop
 through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [figs-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
+FIGURE: [fig-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
