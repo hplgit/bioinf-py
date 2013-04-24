@@ -100,11 +100,12 @@ comprehensive code could be made so that each step can be examined:
 @@@CODE src-bioinf/dotplot.py fromto: def make_string_expanded@# end of testing join operations in detail
 
 Unless the join operation as used here is well understood, it is highly
-recommended to paste the above code into the "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html", step
-through the code, and watch how variables change their content.
+recommended to paste the above code into the
+"Python Online Tutor": "http://www.pythontutor.com/",
+step through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [fig-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"). label{bioinf:fig:pot2}
+FIGURE: [fig-bioinf/pot_join.jpg, width=850] Illustration of how join operations work ("Python Online Tutor": "http://www.pythontutor.com/"). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 

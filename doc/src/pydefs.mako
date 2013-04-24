@@ -1,6 +1,7 @@
-## This file is not in current use.
 ## defs.mako defines similar functions and is include via
-## the namespace tag.
+## the namespace tag. However, the defss.mako functions
+## introduces undesired newlines, while plain Python functions
+## here provides the desired text.
 
 <%
 # This is Python code block.

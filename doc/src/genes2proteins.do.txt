@@ -1,4 +1,4 @@
-===== Translating Genes into Proteins ======
+===== Translating Genes into Proteins =====
 label{bioinf:gene2protein}
 
 An important usage of DNA is for cells to store information on their
@@ -179,7 +179,7 @@ The output, needed below for comparison, becomes
 Lenght of the correct protein:  1927
 !ec
 
-===== Some Humans Can Drink Milk, While Others Cannot ======
+===== Some Humans Can Drink Milk, While Others Cannot =====
 label{bioinf:lactase:milk}
 
 One type of lactose intolerance is called *Congenital lactase deficiency*.

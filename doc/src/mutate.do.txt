@@ -1,4 +1,4 @@
-===== Random Mutations of Genes ======
+===== Random Mutations of Genes =====
 label{bioinf:random}
 
 === A Simple Mutation Model ===

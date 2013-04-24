@@ -117,13 +117,7 @@ confidence!
 
 idx{Python Online Tutor}
 
-The "Python Online Tutor": "http://people.csail.mit.edu/pgbovine/python/tutor.html"
-% if PRIMER_BOOK:
-at
-!bc
-http://people.csail.mit.edu/pgbovine/python/tutor.html
-!ec
-% endif
+The "Python Online Tutor": "http://www.pythontutor.com/"
 is, at least for small programs, a splendid alternative to
 debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press *Visual execution*, then *Forward* to execute
@@ -238,8 +232,8 @@ test to the list comprehension:
 
 @@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
 
-A debugger or the Python Online Tutorial do not help so much when
-trying to
+A debugger or the "Python Online Tutor": "http://www.pythontutor.com/"
+do not help so much when trying to
 understand this compact code. A better approach is to examine
 the list comprehension in an interactive Python shell:
 !bc ipy
