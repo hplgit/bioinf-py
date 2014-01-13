@@ -7,19 +7,8 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-doconce format latex bioinf PRIMER_BOOK=True EBOOK=False --skip_inline_comments
-
-doconce replace Section Chapter bioinf.p.tex
-doconce replace bpycod bcod bioinf.p.tex
-doconce replace epycod ecod bioinf.p.tex
-doconce replace bpypro bpro bioinf.p.tex
-doconce replace epypro epro bioinf.p.tex
-doconce replace 'figs-bioinf/' 'figs/' bioinf.p.tex
-doconce replace 'paragraph{' 'para{' bioinf.p.tex
-doconce replace '\para{Hint 1.}' 'Hint: ' bioinf.p.tex
-
-# not ebook:
-doconce replace '\href' '\myhref' bioinf.p.tex
+#doconce format latex bioinf PRIMER_BOOK=True EBOOK=False --skip_inline_comments
+# things are written with mako, EBOOK and PRIMER_BOOK as mako var...but it will work in mako I think
 
 # Grab regions
 doconce grab --from 'Mixing Loops,' --to- 'Examples from Analyzing DNA' bioinf.p.tex > bioinf_ch3.p.tex
@@ -37,7 +26,7 @@ doconce grab --from 'Find pairs of' --to- 'Allow different types' bioinf.p.tex >
 
 doconce grab --from 'Allow different types'  --to- 'Speed up Markov chain mutation' bioinf.p.tex > bioinf_ch6_ex.p.tex
 
-doconce grab --from 'Speed up Markov chain mutation' --to- 'Extend the constructor in class Gene' bioinf.p.tex > bioinf_ch8_ex.p.tex
+doconce grab --from 'Speed up Markov chain mutation' --to- 'Extend the constructor in class Gene' Acknowledgment bioinf.p.tex > bioinf_ch8_ex.p.tex
 
 # drop exer for class.do.txt
 
