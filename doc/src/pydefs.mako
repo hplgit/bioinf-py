@@ -24,6 +24,15 @@ def primer_book_comment(text):
     """A comment to appear in the Primer book only."""
     return text if PRIMER_BOOK else ''
 
+def not_primer_book_comment(text):
+    """A comment to appear when the text is not included in the Primer book."""
+    return text if not PRIMER_BOOK else ''
+
+src_path = 'https://github.com/hplgit/bioinf-py/tree/master/doc/src/src-bioinf'
+src_path = 'http://tinyurl.com/q4qpjbt'
+
+# These are not used:
+
 def primer_pbook_comment(text):
     """A comment to appear in the Primer book only."""
     return text if PRIMER_BOOK and not EBOOK else ''
@@ -32,17 +41,15 @@ def primer_ebook_comment(text):
     """A comment to appear in the Primer book only."""
     return text if PRIMER_BOOK and EBOOK else ''
 
-def not_primer_book_comment(text):
-    """A comment to appear when the text is not included in the Primer book."""
-    return text if not PRIMER_BOOK else ''
-
-
 def link(filename, primer_src_dir=None):
     """
     Generate text for link to a source code file.
     Primer book: filename. (primer_src_dir is given early in the chapter.)
     Primer ebook: link to _static/filename and info on filename.
     Else: link to _static/filename.
+
+    NOTE: This function is outdated. Now we use a simple variable
+    for the URL of the repo.
     """
     # typical text: "...can be found in the file ${link('file', 'dir')}.
     urlbase = 'http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/'

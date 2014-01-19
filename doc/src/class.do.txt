@@ -60,8 +60,8 @@ The selection of functions include
  * `create_protein_fixed` for proper creation of a protein sequence (string)
 
 The set of plain functions for DNA analysis is found
-in the file ${link('dna_functions.py')}, while
-${link('dna_classes.py')} contains the implementations
+in the file "`dna_functions.py`": "${src_path}/g<1>", while
+"`dna_classes.py`": "${src_path}/g<1>" contains the implementations
 of classes `Gene` and `Region`.
 
 === Basic Features of class Gene ===

@@ -86,7 +86,7 @@ idx{using a debugger}
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
 is printed out. Start `ipython` in a terminal window and run the
-program ${link("count_v2_demo.py")} with
+program "`count_v2_demo.py`": "${src_path}/g<1>" with
 a debugger: `run -d count_v2_demo.py`. Use `s` (for step) to
 step through each statement, or `n` (for next) for proceeding to the
 next statement without stepping through a function that is called.
@@ -355,7 +355,7 @@ done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
 All the functions presented above, including the timings,
-can be found in the file ${link('count.py')}.
+can be found in the file "`count.py`": "${src_path}/g<1>".
 
 #=== Testing with Real Data ===
 

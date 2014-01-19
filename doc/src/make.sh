@@ -7,9 +7,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-main=main_bioinf
+name=main_bioinf
 
-doconce format html $main $opt
+doconce format html $name PRIMER_BOOK=False EBOOK=False $opt
+
+# ------
+# The technique here was to make pygments files and link to them
+# in _static-* (links mako function, but the new technique is to
+# link to nicely typeset files at gihub.com
 
 static=_static-bioinf
 rm -rf $static
@@ -23,26 +28,29 @@ for file in *.py; do
 done
 cp *.py ../$static
 cd ..
+# ------
 
-doconce format sphinx $main PRIMER_BOOK=False EBOOK=False $opt
+doconce format sphinx $name PRIMER_BOOK=False EBOOK=False $opt
 rm -rf sphinx-rootdir
-doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=pyramid $main
+doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=cbc $name
 python automake_sphinx.py
 # Note: duplicate links warnings occur, but that is okay (we use the
 # same repeated link text for local files)
 
-doconce format pdflatex $main PRIMER_BOOK=False EBOOK=False $opt
-ptex2tex -DMINTED $main
-pdflatex -shell-escape $main
-makeindex $main
-pdflatex -shell-escape $main
-pdflatex -shell-escape $main
+doconce format pdflatex $name PRIMER_BOOK=False EBOOK=False $opt --device=paper
+ptex2tex -DMINTED $name
+pdflatex -shell-escape $name
+makeindex $name
+pdflatex -shell-escape $name
+pdflatex -shell-escape $name
 
 # Move
-cp -r sphinx-rootdir/_build/html ../tutorial/
-cp $main.pdf ../tutorial/bioinf-py.pdf
-cp $main.html ../tutorial/bioinf-py.html
-cp fig-bioinf/*.jpg ../tutorial/fig-bioinf/
+dest=../pub
+rm -rf $dest/html
+cp -r sphinx-rootdir/_build/html $dest
+cp $name.pdf $dest/bioinf-py.pdf
+cp $name.html $dest/bioinf-py.html
+cp fig-bioinf/*.jpg $dest/fig-bioinf/
 
 
 

@@ -471,7 +471,7 @@ Exercise ref{bioinf:exer:freq:fargs} suggests to make a unified
 representations of `frequency_matrix` that we have used.
 
 The functions making and using the frequency matrix are found
-in the file ${link('freq.py')}.
+in the file "`freq.py`": "${src_path}/g<1>".
 
 % if UNFINISHED:
 ===== Probability Matrix =====

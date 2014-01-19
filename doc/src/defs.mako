@@ -1,3 +1,5 @@
+## Attempts to use mako functions (instead of python functions)
+## but it did not work out
 
 <%def name="primer_book_comment(text)">
 % if PRIMER_BOOK:

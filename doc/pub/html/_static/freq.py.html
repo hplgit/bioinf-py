@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="content-type" content="text/html; charset=latin1">
+  <style type="text/css">
+td.linenos { background-color: #f0f0f0; padding-right: 10px; }
+span.lineno { background-color: #f0f0f0; padding: 0 5px 0 5px; }
+pre { line-height: 125%; }
+body .hll { background-color: #ffffcc }
+body  { background: #f8f8f8; }
+body .c { color: #008800; font-style: italic } /* Comment */
+body .err { border: 1px solid #FF0000 } /* Error */
+body .k { color: #AA22FF; font-weight: bold } /* Keyword */
+body .o { color: #666666 } /* Operator */
+body .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+body .cp { color: #008800 } /* Comment.Preproc */
+body .c1 { color: #008800; font-style: italic } /* Comment.Single */
+body .cs { color: #008800; font-weight: bold } /* Comment.Special */
+body .gd { color: #A00000 } /* Generic.Deleted */
+body .ge { font-style: italic } /* Generic.Emph */
+body .gr { color: #FF0000 } /* Generic.Error */
+body .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+body .gi { color: #00A000 } /* Generic.Inserted */
+body .go { color: #888888 } /* Generic.Output */
+body .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+body .gs { font-weight: bold } /* Generic.Strong */
+body .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+body .gt { color: #0044DD } /* Generic.Traceback */
+body .kc { color: #AA22FF; font-weight: bold } /* Keyword.Constant */
+body .kd { color: #AA22FF; font-weight: bold } /* Keyword.Declaration */
+body .kn { color: #AA22FF; font-weight: bold } /* Keyword.Namespace */
+body .kp { color: #AA22FF } /* Keyword.Pseudo */
+body .kr { color: #AA22FF; font-weight: bold } /* Keyword.Reserved */
+body .kt { color: #00BB00; font-weight: bold } /* Keyword.Type */
+body .m { color: #666666 } /* Literal.Number */
+body .s { color: #BB4444 } /* Literal.String */
+body .na { color: #BB4444 } /* Name.Attribute */
+body .nb { color: #AA22FF } /* Name.Builtin */
+body .nc { color: #0000FF } /* Name.Class */
+body .no { color: #880000 } /* Name.Constant */
+body .nd { color: #AA22FF } /* Name.Decorator */
+body .ni { color: #999999; font-weight: bold } /* Name.Entity */
+body .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+body .nf { color: #00A000 } /* Name.Function */
+body .nl { color: #A0A000 } /* Name.Label */
+body .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+body .nt { color: #008000; font-weight: bold } /* Name.Tag */
+body .nv { color: #B8860B } /* Name.Variable */
+body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mf { color: #666666 } /* Literal.Number.Float */
+body .mh { color: #666666 } /* Literal.Number.Hex */
+body .mi { color: #666666 } /* Literal.Number.Integer */
+body .mo { color: #666666 } /* Literal.Number.Oct */
+body .sb { color: #BB4444 } /* Literal.String.Backtick */
+body .sc { color: #BB4444 } /* Literal.String.Char */
+body .sd { color: #BB4444; font-style: italic } /* Literal.String.Doc */
+body .s2 { color: #BB4444 } /* Literal.String.Double */
+body .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+body .sh { color: #BB4444 } /* Literal.String.Heredoc */
+body .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+body .sx { color: #008000 } /* Literal.String.Other */
+body .sr { color: #BB6688 } /* Literal.String.Regex */
+body .s1 { color: #BB4444 } /* Literal.String.Single */
+body .ss { color: #B8860B } /* Literal.String.Symbol */
+body .bp { color: #AA22FF } /* Name.Builtin.Pseudo */
+body .vc { color: #B8860B } /* Name.Variable.Class */
+body .vg { color: #B8860B } /* Name.Variable.Global */
+body .vi { color: #B8860B } /* Name.Variable.Instance */
+body .il { color: #666666 } /* Literal.Number.Integer.Long */
+
+  </style>
+</head>
+<body>
+<h2></h2>
+
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">freq_lists</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
+                <span class="n">C</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
+                <span class="n">G</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
+                <span class="n">T</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">T</span>
+
+<span class="n">dna_list</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;GGTAG&#39;</span><span class="p">,</span> <span class="s">&#39;GGTAC&#39;</span><span class="p">,</span> <span class="s">&#39;GGTGC&#39;</span><span class="p">]</span>
+<span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">T</span> <span class="o">=</span> <span class="n">freq_lists</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">A</span>
+<span class="k">print</span> <span class="n">C</span>
+<span class="k">print</span> <span class="n">G</span>
+<span class="k">print</span> <span class="n">T</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">T</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">freq_list_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="c"># Create empty frequency_matrix[i][j] = 0</span>
+    <span class="c"># i=0,1,2,3 corresponds to A,T,G,C</span>
+    <span class="c"># j=0,...,length of dna_list[0]</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+          <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;A&#39;</span><span class="p">:</span>
+              <span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+          <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;C&#39;</span><span class="p">:</span>
+              <span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+          <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;G&#39;</span><span class="p">:</span>
+              <span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+          <span class="k">elif</span> <span class="n">base</span> <span class="o">==</span> <span class="s">&#39;T&#39;</span><span class="p">:</span>
+              <span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_list_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">frequency_matrix</span>
+
+<span class="k">def</span> <span class="nf">freq_list_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">]</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">freq_numpy</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+
+<span class="k">def</span> <span class="nf">freq_dict_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pprint</span>   <span class="c"># for nice printout of nested data structures</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">n</span> <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="p">{</span><span class="n">index</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">)}</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_dicts_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">0</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_list_of_lists_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_arrays_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dna</span><span class="p">):</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="k">def</span> <span class="nf">freq_dict_of_arrays_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">dna</span><span class="p">)</span> <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">])</span>
+    <span class="n">frequency_matrix</span> <span class="o">=</span> <span class="p">{</span><span class="n">base</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">dna</span> <span class="ow">in</span> <span class="n">dna_list</span><span class="p">:</span>
+        <span class="n">dna</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACCT&#39;</span><span class="p">:</span>
+            <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dna</span> <span class="o">==</span> <span class="n">base</span>
+
+    <span class="k">return</span> <span class="n">frequency_matrix</span>
+
+<span class="c"># -----------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">find_consensus_v1</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dna_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+
+<span class="k">def</span> <span class="nf">find_consensus_v2</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> \
+       <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c"># right type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be list of lists&#39;</span><span class="p">)</span>
+
+    <span class="n">base2index</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;A&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;C&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;G&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#39;T&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dna_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base2index</span><span class="p">[</span><span class="n">base</span><span class="p">]][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_list_of_lists_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_consensus_v2</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">find_consensus_v3</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> \
+       <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c"># right type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be dict of dicts&#39;</span><span class="p">)</span>
+
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="n">dna_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Consensus string:&#39;</span><span class="p">,</span> <span class="n">find_consensus_v3</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+
+<span class="c"># Does not work with defaultdict because 0 is not counted</span>
+<span class="c"># when doing len(frequency_matrix)</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_dicts_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">find_consensus_v3</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">),</span> <span class="s">&#39; (wrong due to len(defaultdict))&#39;</span>
+
+<span class="k">def</span> <span class="nf">find_consensus_v4</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="n">dna_length</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> \
+       <span class="nb">isinstance</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">pass</span> <span class="c"># right type</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&#39;frequency_matrix must be dict of dicts&#39;</span><span class="p">)</span>
+
+    <span class="n">consensus</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dna_length</span><span class="p">):</span>  <span class="c"># loop over positions in string</span>
+        <span class="n">max_freq</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>            <span class="c"># holds the max freq. for this i</span>
+        <span class="n">max_freq_base</span> <span class="o">=</span> <span class="bp">None</span>     <span class="c"># holds the corresponding base</span>
+
+        <span class="k">for</span> <span class="n">base</span> <span class="ow">in</span> <span class="s">&#39;ACGT&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq</span> <span class="o">=</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="n">base</span>
+            <span class="k">elif</span> <span class="n">frequency_matrix</span><span class="p">[</span><span class="n">base</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">max_freq</span><span class="p">:</span>
+                <span class="n">max_freq_base</span> <span class="o">=</span> <span class="s">&#39;-&#39;</span> <span class="c"># more than one base as max</span>
+
+        <span class="n">consensus</span> <span class="o">+=</span> <span class="n">max_freq_base</span>  <span class="c"># add new base with max freq</span>
+    <span class="k">return</span> <span class="n">consensus</span>
+
+<span class="k">print</span> <span class="n">find_consensus_v4</span><span class="p">(</span><span class="n">frequency_matrix</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="kn">import</span> <span class="nn">random</span><span class="o">,</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">generate_string</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s">&#39;ACGT&#39;</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+
+<span class="n">dna_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">generate_string</span><span class="p">(</span><span class="mi">500000</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="k">print</span> <span class="s">&#39;Testing efficiency of vectorized code on long strings.......&#39;</span>
+<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_arrays_v1</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">frequency_matrix</span> <span class="o">=</span> <span class="n">freq_dict_of_arrays_v2</span><span class="p">(</span><span class="n">dna_list</span><span class="p">)</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+<span class="n">factor</span> <span class="o">=</span> <span class="p">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="n">t1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;freq_dict_of_arrays: v1 (scalar) / v2 (vectorized):&#39;</span><span class="p">,</span> <span class="n">factor</span>
+<span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;tmp.npy&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dna_list</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">))</span>
+</pre></div>
+</body>
+</html>

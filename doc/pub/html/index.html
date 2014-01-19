@@ -1,0 +1,166 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Illustrating Python via Examples from Bioinformatics</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.9',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Illustrating Python via Examples from Bioinformatics" href="#" />
+    <link rel="next" title="Illustrating Python via Bioinformatics Examples" href="main_bioinf.html" /> 
+  
+   <style type=text/css>
+     div.admonition {
+       background-color: whiteSmoke;
+       border: 1px solid #bababa;
+     }
+   </style>
+  </head>
+
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="main_bioinf.html" title="Illustrating Python via Bioinformatics Examples"
+             accesskey="N">next</a> |</li>
+        <li><a href="#">Illustrating Python via Examples from Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="illustrating-python-via-examples-from-bioinformatics">
+<h1>Illustrating Python via Examples from Bioinformatics<a class="headerlink" href="#illustrating-python-via-examples-from-bioinformatics" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html">Illustrating Python via Bioinformatics Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#basic-bioinformatics-examples-in-python">Basic Bioinformatics Examples in Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#counting-letters-in-dna-strings">Counting Letters in DNA Strings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#efficiency-assessment">Efficiency Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#computing-frequencies">Computing Frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#analyzing-the-frequency-matrix">Analyzing the Frequency Matrix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#dot-plots-from-pair-of-dna-sequences">Dot Plots from Pair of DNA Sequences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#finding-base-frequencies">Finding Base Frequencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#translating-genes-into-proteins">Translating Genes into Proteins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#some-humans-can-drink-milk-while-others-cannot">Some Humans Can Drink Milk, While Others Cannot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#random-mutations-of-genes">Random Mutations of Genes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#classes-for-dna-analysis">Classes for DNA Analysis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#class-for-regions">Class for Regions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#class-for-genes">Class for Genes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#subclasses">Subclasses</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#exercises">Exercises</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-1-find-pairs-of-characters">Exercise 1: Find pairs of characters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-2-count-substrings">Exercise 2: Count substrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-3-allow-different-types-for-a-function-argument">Exercise 3: Allow different types for a function argument</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-4-make-a-function-more-robust">Exercise 4: Make a function more robust</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-5-find-proportion-of-bases-inside-outside-exons">Exercise 5: Find proportion of bases inside/outside exons</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-6-speed-up-markov-chain-mutation">Exercise 6: Speed up Markov chain mutation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-7-extend-the-constructor-in-class-gene">Exercise 7: Extend the constructor in class Gene</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="#">
+              <img class="logo" src="_static/cbc_logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="#">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Illustrating Python via Examples from Bioinformatics</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  <h4>Next topic</h4>
+  <p class="topless"><a href="main_bioinf.html"
+                        title="next chapter">Illustrating Python via Bioinformatics Examples</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="main_bioinf.html" title="Illustrating Python via Bioinformatics Examples"
+             >next</a> |</li>
+        <li><a href="#">Illustrating Python via Examples from Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+<div class="wrapper">
+  <div class="footer">
+  <a href="http://cbc.simula.no"><img src="_static/cbc_banner.png" width="100%"><a>
+  </div>
+</div>
+
+  </body>
+</html>

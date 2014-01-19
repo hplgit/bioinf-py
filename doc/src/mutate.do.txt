@@ -100,7 +100,7 @@ ideas explored above for the `mutate_v2` function:
 
 @@@CODE src-bioinf/mutate.py fromto: def generate_string_v2@def time_mutate
 
-The `time_mutate` function in the file ${link('mutate.py')} performs
+The `time_mutate` function in the file "`mutate.py`": "${src_path}/g<1>" performs
 timing of the generation of test strings and the mutations.  To
 generate a DNA string of length 100,000 the vectorized function is
 about 8 times faster. When performing 10,000 mutations on this string,
@@ -206,7 +206,7 @@ This test is only approximate, but does bring evidence to the correctness
 of the implementation of the `draw` function.
 
 A vectorized version of `draw` can also be made. We refer to the
-source code file ${link("mutate.py")} for details (the function is relatively
+source code file "mutate.py": "${src_path}/g<1>" for details (the function is relatively
 complicated).
 
 Now we have all the tools needed to run the Markov chain of
