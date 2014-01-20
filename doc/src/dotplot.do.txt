@@ -118,4 +118,4 @@ is well suited as data structure to hold a dot plot.
 string. I have the code, but need a good illustrative example...]
 
 The two dot plot functions are available
-in the file "`dotplot.py`": "${src_path}/g<1>".
+in the file "`dotplot.py`": "$src_path/dotplot.py".

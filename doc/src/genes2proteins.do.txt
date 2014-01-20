@@ -213,5 +213,5 @@ in northern Europe, to close to 100% in south-east Asia.
 [hpl: Very attractive example!]
 
 The functions analyzing the lactase gene are found
-in the file "`genes2proteins.py`": "${src_path}/g<1>".
+in the file "`genes2proteins.py`": "$src_path/genes2proteins.py".
 
