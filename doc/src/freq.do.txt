@@ -4,7 +4,7 @@
 label{bioinf:DNAanalysis}
 
 We shall here continue the bioinformatics applications started
-in Chapter ref{bioinf:basics}. Analysis of DNA sequences is
+in Section ref{bioinf:basics}. Analysis of DNA sequences is
 conveniently done in Python, much with the aid of lists, dictionaries,
 `numpy` arrays, strings, and files. This will be illustrated
 through a series of examples.
@@ -478,12 +478,6 @@ in the file "`freq.py`": "${src_path}/freq.py".
 ===== Probability Matrix =====
 
 *UNFINISHED!*
-
-[hpl: I didn't understand this example, i.e., I see that a
-probability matrix is given for strings of a certain length,
-then we pick out every substring of this length of DNA,
-and computes the probability of the sequence of characters in
-the substring. But what is it good for?]
 
 !bc pycod
 DNA='ATCTGATCAA'

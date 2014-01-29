@@ -277,7 +277,7 @@ protein.
 __Acknowledgments.__
 % if PRIMER_BOOK:
 The bioinformatics examples in
-Chapters~\ref{bioinf:basics},
+Sections~\ref{bioinf:basics},
 \ref{bioinf:DNAanalysis}, \ref{bioinf:random}, and \ref{bioinf:oo}
 were prepared by Geir Kjetil Sandve with help from
 Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,

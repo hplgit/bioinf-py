@@ -1,11 +1,6 @@
 ===== Dot Plots from Pair of DNA Sequences =====
 label{bioinf:dotplot}
 
-[hpl: I don't get what dot plots are good for. Even when comparing two
-identical strings the dots don't show a strong correlation (because
-there are just 4 letters to choose among the chances of having
-the same letter in pos i and j of the two strings is significant.
-There should be something visual here.]
 
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say `d1` and `d2`,
@@ -113,9 +108,6 @@ A Numerical Python array, with integer elements that equal 0 or 1,
 is well suited as data structure to hold a dot plot.
 
 @@@CODE src-bioinf/dotplot.py fromto: def dotplot_numpy@dna_x = 'ATT
-
-[hpl: we should have a real plot with matplotlib here for a somewhat large
-string. I have the code, but need a good illustrative example...]
 
 The two dot plot functions are available
 in the file "`dotplot.py`": "${src_path}/dotplot.py".

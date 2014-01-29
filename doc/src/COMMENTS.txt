@@ -1,0 +1,18 @@
+[hpl: I don't get what dot plots are good for. Even when comparing two
+identical strings the dots don't show a strong correlation (because
+there are just 4 letters to choose among the chances of having
+the same letter in pos i and j of the two strings is significant.
+There should be something visual here.]
+
+[hpl: we should have a real plot with matplotlib here for a somewhat large
+string, testing the dotplot numpy function.
+I have the code, but need a good illustrative example...]
+
+[hpl: I didn't understand the example under Probability Matrix
+in freq.do.txt, i.e., I see that a
+probability matrix is given for strings of a certain length,
+then we pick out every substring of this length of DNA,
+and computes the probability of the sequence of characters in
+the substring. But what is it good for?]
+
+

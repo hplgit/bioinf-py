@@ -78,7 +78,7 @@ The appropriate download code then becomes
 @@@CODE src-bioinf/basefreq.py fromto: import urllib@def read_dnafile_v1
 A copy of the file on the Internet is now in the current working folder
 under the name `yeast_chr1.txt`.
-${primer_book_comment(r"""(See Chapter ref{sec:files:urllib} for
+${primer_book_comment(r"""(See Section ref{sec:files:urllib} for
 more information about \emp{urllib} and downloading files from
 the Internet.)""")}
 

@@ -54,7 +54,7 @@ like BioPython.
 
 The leading Python software for bioinformatics applications is
 BioPython (found at `http://biopython.org`). The examples
-in this book (below and Chapters ref{bioinf:DNAanalysis},
+in this book (below and Sections ref{bioinf:DNAanalysis},
 ref{bioinf:random}, and ref{bioinf:oo}) are
 simple illustrations of the type of problem settings and corresponding
 Python implementations that are encountered in bioinformatics. For
