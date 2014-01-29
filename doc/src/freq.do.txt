@@ -142,7 +142,8 @@ results in
 
 idx{dictionary}
 
-The `if` tests in the `freq_list_of_lists_v1` are somewhat cumbersome,
+The series of `if` tests in the Python function `freq_list_of_lists_v1`
+are somewhat cumbersome,
 especially if we want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from `base`,
 which is a character, to the corresponding index 0, 1, 2, or 3.
@@ -282,7 +283,7 @@ d = dict([(key, value) for key in sequence])
 
 === Using Arrays and Vectorization ===
 
-The dict of lists data structure for `frequency_matrix` can easily be
+The `frequency_matrix` dict of lists for can easily be
 changed to a dict of `numpy` arrays: just replace the initialization
 `[0]*n` by `np.zeros(n, dtype=np.int)`. The indexing remains the same:
 
@@ -471,7 +472,7 @@ Exercise ref{bioinf:exer:freq:fargs} suggests to make a unified
 representations of `frequency_matrix` that we have used.
 
 The functions making and using the frequency matrix are found
-in the file "`freq.py`": "$src_path/freq.py".
+in the file "`freq.py`": "${src_path}/freq.py".
 
 % if UNFINISHED:
 ===== Probability Matrix =====

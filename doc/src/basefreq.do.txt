@@ -113,4 +113,4 @@ interested reader can, e.g., find more details in
 #probability than C and G.
 
 The functions computing base frequencies are available
-in the file "`basefreq.py`": "$src_path/basefreq.py".
+in the file "`basefreq.py`": "${src_path}/basefreq.py".
