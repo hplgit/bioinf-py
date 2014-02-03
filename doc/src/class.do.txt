@@ -30,7 +30,7 @@ The class for gene will be longer and more complex than class
 types of analysis. The idea of the `Gene` class is that these
 functions are methods in the class operating on the DNA string and the
 exon regions stored in the class.  Rather than recoding all the
-functions as methods in the class we shall just let the class "wrap"
+functions as methods in the class we shall just let the class ``wrap''
 the functions. That is, the class methods call up the functions we
 already have.  This approach has two advantages: users can either
 choose the function-based or the class-based interface, and the
@@ -158,15 +158,15 @@ Methods for creating a mutated gene are also included:
 
 @@@CODE src-bioinf/dna_classes.py fromto: def mutate_pos@def get_dna
 
-Some "get" methods that give access to the fundamental attributes
+Some ``get'' methods that give access to the fundamental attributes
 of the class can be included:
 
 @@@CODE src-bioinf/dna_classes.py fromto: def get_dna@def __len
 Alternatively, one could access the attributes directly: `gene._dna`,
 `gene._exons`, etc. In that case we should remove the leading underscore as
 this underscore signals that these
-attributes are considered "protected", i.e., not to be directly accessed
-by the user. The "protection" in "get" functions is more mental
+attributes are considered ``protected'', i.e., not to be directly accessed
+by the user. The ``protection'' in ``get'' functions is more mental
 than actual since we anyway give the data structures in the hands of
 the user and she can do whatever she wants (even delete them).
 
