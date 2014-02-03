@@ -58,7 +58,7 @@ over the string:
 @@@CODE src-bioinf/count.py fromto: def count_v2\(dna@def count_v2_demo
 
 We have here illustrated two alternative ways of writing out text
-where the value of variables are to be inserted in "slots" in the
+where the value of variables are to be inserted in ``slots'' in the
 string.
 
 === Program Flow ===
