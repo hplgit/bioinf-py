@@ -115,6 +115,7 @@ sources of programming errors, so
 whenever in doubt about any program flow, enter a debugger to establish
 confidence!
 
+% if not PRIMER_BOOK:
 idx{Python Online Tutor}
 
 The "Python Online Tutor": "http://www.pythontutor.com/"
@@ -126,6 +127,8 @@ explained to the right, and the text field below the program shows the output
 from `print` statements.  An example is shown in Figure ref{bioinf:fig:pot}.
 
 FIGURE: [fig-bioinf/python_online_tutor.jpg, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
+
+% endif
 
 === Index Iteration ===
 
