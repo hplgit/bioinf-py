@@ -100,7 +100,7 @@ recommended to paste the above code into the
 step through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [fig-bioinf/pot_join.jpg, width=850] Illustration of how join operations work (using the Python Online Tutor). label{bioinf:fig:pot2}
+FIGURE: [fig-bioinf/pot_join, width=850] Illustration of how join operations work (using the Python Online Tutor). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
