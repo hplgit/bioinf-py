@@ -186,14 +186,14 @@ value is the random choice.
 A complete function creating all the transition probabilities and
 storing them in a dictionary of dictionaries takes the form
 
-@@@CODE src-bioinf/mutate.py fromto: def create_markov@def test_transition_probabilities
+@@@CODE src-bioinf/mutate.py fromto: def create_markov@def check_transition_probabilities
 
 It is natural to develop a function for checking that the generated
 probabilities are consistent. The transition from a particular base
 into one of the four bases happens with probability 1, which means that
 the probabilities in a row must sum up to 1:
 
-@@@CODE src-bioinf/mutate.py fromto: def test_transition@probabilities\(mc
+@@@CODE src-bioinf/mutate.py fromto: def check_transition@probabilities\(mc
 
 Another test is to check that `draw` actually draws random values
 in accordance with the underlying probabilities. To this end, we draw
@@ -201,7 +201,7 @@ a large number of values, `N`, count the frequencies of the various values,
 divide by `N` and compare the empirical normalized frequencies
 with the probabilities:
 
-@@@CODE src-bioinf/mutate.py fromto: def test_draw_approx@def test_draw_vec_approx
+@@@CODE src-bioinf/mutate.py fromto: def check_draw_approx@def check_draw_vec_approx
 This test is only approximate, but does bring evidence to the correctness
 of the implementation of the `draw` function.
 
