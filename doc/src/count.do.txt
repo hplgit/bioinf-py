@@ -61,6 +61,8 @@ We have here illustrated two alternative ways of writing out text
 where the value of variables are to be inserted in ``slots'' in the
 string.
 
+% if not PRIMER_BOOK:
+
 === Program Flow ===
 
 It is fundamental for correct programming to understand how
@@ -68,8 +70,10 @@ to simulate a program by hand, statement by
 statement. Three tools are
 effective for helping you reach the required understanding of performing
 a simulation by hand:
-(i) printing variables, (ii) using a debugger, and (iii) using an
-"online program flow tool": "http://people.csail.mit.edu/pgbovine/python/tutor.html".
+
+ o printing variables and messages,
+ o using a debugger,
+ o using the "Online Python Tutor": "http://www.pythontutor.com/".[[[
 
 Inserting `print` statements and examining the variables is the
 simplest approach to investigating
@@ -110,15 +114,10 @@ print a variable explicitly inside the debugger:
 ipdb> print base
 C
 !ec
-Misunderstanding of the program flow is one of the most frequent
-sources of programming errors, so
-whenever in doubt about any program flow, enter a debugger to establish
-confidence!
 
-% if not PRIMER_BOOK:
-idx{Python Online Tutor}
+idx{Online Python Tutor}
 
-The "Python Online Tutor": "http://www.pythontutor.com/"
+The "Online Python Tutor": "http://www.pythontutor.com/"
 is, at least for small programs, a splendid alternative to
 debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press *Visual execution*, then *Forward* to execute
@@ -126,7 +125,12 @@ statements one by one. The status of variables are
 explained to the right, and the text field below the program shows the output
 from `print` statements.  An example is shown in Figure ref{bioinf:fig:pot}.
 
-FIGURE: [fig-bioinf/python_online_tutor, width=600] Visual execution of a program using the Python Online Tutor. label{bioinf:fig:pot}
+FIGURE: [fig-bioinf/python_online_tutor, width=600 frac=1.1] Visual execution of a program using the Online Python Tutor. label{bioinf:fig:pot}
+
+Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so whenever in doubt about any program
+flow, use one of the three mentioned techniques to establish
+confidence!
 
 % endif
 
@@ -136,7 +140,7 @@ Although it is natural in Python to iterate over the letters in a
 string (or more generally over elements in a sequence), programmers
 with experience from other languages (Fortran, C and Java are
 examples) are used to `for` loops with an integer counter running over
-a all indices in a string or array:
+all indices in a string or array:
 
 @@@CODE src-bioinf/count.py fromto: def count_v3@def count_v4
 
@@ -218,7 +222,7 @@ Summing without actually storing an extra list is desirable.
 Fortunately, `sum([x for x in s])` can be replaced by
 `sum(x for x in s)`, where the latter sums the elements in `s`
 as `x` visits the elements of `s` one by one. Removing the brackets
-therefore avoids first making a list before applying `sum` on
+therefore avoids first making a list before applying `sum` to
 that list. This is a minor modification of the `count_v9` function:
 
 @@@CODE src-bioinf/count.py fromto: def count_v10@def count_v11
@@ -235,10 +239,11 @@ test to the list comprehension:
 
 @@@CODE src-bioinf/count.py fromto: def count_v11@def count_v12
 
-A debugger or the "Python Online Tutor": "http://www.pythontutor.com/"
-do not help so much when trying to
-understand this compact code. A better approach is to examine
-the list comprehension in an interactive Python shell:
+The "Online Python Tutor": "http://www.pythontutor.com/" is
+really helpful to reach an understanding of this compact code.
+Alternatively, you may play with the constructions in an
+interactive Python shell:
+
 !bc ipy
 >>> dna = 'AATGCTTA'
 >>> base = 'A'
@@ -248,7 +253,8 @@ the list comprehension in an interactive Python shell:
 >>> print dna[0], dna[1], dna[7]  # check
 A A A
 !ec
-The element `i` in the list comprehension is only made for those `i`
+Observe that the element `i` in the list comprehension is only
+made for those `i`
 where `dna[i] == base`.
 
 === Using Python's Library ===
@@ -304,8 +310,14 @@ list. In Python version 3.x, the `range` function is actually the
 statements, and wrapping the construction of a random DNA string in a
 function, gives
 
-@@@CODE src-bioinf/count.py fromto: import random@import time
+!bc pycod
+import random
 
+def generate_string(N, alphabet='ACGT'):
+    return ''.join([random.choice(alphabet) for i in xrange(N)])
+
+dna = generate_string(600000)
+!ec
 The call `generate_string(10)` may generate something like `AATGGCAGAA`.
 
 === Measuring CPU Time ===
@@ -332,7 +344,20 @@ and writing files, `time.time()` is the appropriate function to call.
 Running through all our functions made so far and recording timings can be
 done by
 
-@@@CODE src-bioinf/count.py fromto: import time@for cpu_time
+!bc pycod
+import time
+functions = [count_v1, count_v2, count_v3, count_v4,
+             count_v5, count_v6, count_v7, count_v8,
+             count_v9, count_v10, count_v11, count_v12]
+timings = []  # timings[i] holds CPU time for functions[i]
+
+for function in functions:
+    t0 = time.clock()
+    function(dna, 'A')
+    t1 = time.clock()
+    cpu_time = t1 - t0
+    timings.append(cpu_time)
+!ec
 
 In Python, functions are ordinary objects so making a list of
 functions is no more special than making a list of strings or numbers.
@@ -340,7 +365,11 @@ functions is no more special than making a list of strings or numbers.
 We can now iterate over `timings` and `functions` simultaneously via `zip`
 to make a nice printout of the results:
 
-@@@CODE src-bioinf/count.py fromto: for cpu_time@# Time count
+!bc pycod
+for cpu_time, function in zip(timings, functions):
+    print '{f:<9s}: {cpu:.2f} s'.format(
+        f=function.func_name, cpu=cpu_time)
+!ec
 
 Timings on a MacBook Air 11 running Ubuntu show that
 the functions using `list.append` require almost the double of
@@ -357,7 +386,55 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
-All the functions presented above, including the timings,
+===== Verifying the implementations =====
+label{bioinf:count:verify}
+
+It remains to automate verification of our 12 implementations
+of counting letters in DNA strings. We make a function that
+first computes a certainly correct answer and then
+calls all the `count_*`, stored in the `functions` list, to check
+that each call has the correct result:
+
+!bc pycod
+def test_count_all():
+    dna = 'ATTTGCGGTCCAAA'
+    exact = dna.count('A')
+    for f in functions:
+        if f(dna, 'A') != exact:
+            print f.__name__, 'failed'
+!ec
+Here, we belive in `dna.count('A')` as the correct answer.
+
+We might take this test function one step further and adopt the
+conventions in the "Nose": "https://nose.readthedocs.org"
+testing framework for Python code.
+These conventions say that the test function should
+
+ * have a name starting with `test_`;
+ * have no arguments;
+ * let a boolean variable, say `success`, be `True` if a test
+   passes and be `False` if the test fails;
+ * store a message about what failed in some string, say `msg`;
+ * use the construction `assert success, msg`, which will
+   abort the program and write out `msg` if `success` is `False`.
+
+idx{`f.__name__` (name of func. `f`)}
+
+The nose test framework can search for all Python files in a folder
+tree, run all `test_*()` functions, and report how many of the
+tests that failed, if we adopt the conventions above.
+Our test function now becomes
+
+@@@CODE src-bioinf/count.py fromto: def test_count_all@if __name__
+It is worth notifying that the name of a function `f`, as a string object,
+is given by `f.__name__`, and we make use of this information to
+construct an informative message string `msg` in case a test fails.
+
+It is a good habit to write such test functions since the execution
+of all tests in all files can be fully automated. Every time you to
+a change in some file you can with minimum effort rerun all tests.
+
+All the functions presented above, including the timings and tests,
 can be found in the file "`count.py`": "${src_path}/count.py".
 
 #=== Testing with Real Data ===
