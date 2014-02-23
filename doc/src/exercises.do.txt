@@ -17,7 +17,7 @@ file=count_substr.py
 
 This is an extension of Exercise ref{bioinf:exer:pairs1}:
 count how many times a certain string appears in another string.
-For example, the function returns 2 when called
+For example, the function returns 3 when called
 with the DNA string `'ACGTTACGGAACG'`
 and the substring `'ACG'`.
 
