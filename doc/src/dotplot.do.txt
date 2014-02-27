@@ -96,11 +96,11 @@ comprehensive code could be made so that each step can be examined:
 
 Unless the join operation as used here is well understood, it is highly
 recommended to paste the above code into the
-"Python Online Tutor": "http://www.pythontutor.com/",
+"Online Python Tutor": "http://www.pythontutor.com/",
 step through the code, and watch how variables change their content.
 Figure ref{bioinf:fig:pot2} shows a snapshot of this type of code investigation.
 
-FIGURE: [fig-bioinf/pot_join, width=850] Illustration of how join operations work (using the Python Online Tutor). label{bioinf:fig:pot2}
+FIGURE: [fig-bioinf/pot_join, width=850] Illustration of how join operations work (using the Online Python Tutor). label{bioinf:fig:pot2}
 
 === Using Numerical Python Arrays ===
 
