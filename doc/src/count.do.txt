@@ -24,7 +24,7 @@ in the string, test if the current letter equals the desired one,
 and if so, increase a counter. Looping over the letters is
 obvious if the letters are stored in a list. This is easily
 done by converting a string to a list:
-!bc ipy
+!bc pyshell
 >>> list('ATGC')
 ['A', 'T', 'G', 'C']
 !ec
@@ -38,7 +38,7 @@ idx{string iteration}
 
 Python allows us to iterate directly over a string without converting
 it to a list:
-!bc ipy
+!bc pyshell
 >>> for c in 'ATGC':
 ...     print c
 A
@@ -83,7 +83,7 @@ what is going on:
 
 idx{using a debugger}
 
-# Note: do not use !bc ipy for debugging sessions since
+# Note: do not use !bc pyshell for debugging sessions since
 # sphinx treats ipy as interactive sessions and therefore
 # drops any environment (it is automatically handled)
 
@@ -244,7 +244,7 @@ really helpful to reach an understanding of this compact code.
 Alternatively, you may play with the constructions in an
 interactive Python shell:
 
-!bc ipy
+!bc pyshell
 >>> dna = 'AATGCTTA'
 >>> base = 'A'
 >>> indices = [i for i in range(len(dna)) if dna[i] == base]

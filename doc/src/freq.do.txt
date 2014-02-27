@@ -71,7 +71,7 @@ that all elements in this list have the same length.
 In the `for` loop we apply the `enumerate` function which is used
 to extract both the element value *and* the element index when
 iterating over a sequence. For example,
-!bc ipy
+!bc pyshell
 >>> for index, base in enumerate(['t', 'e', 's', 't']):
 ...   print index, base
 ...
@@ -148,7 +148,7 @@ especially if we want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from `base`,
 which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary may represent such mappings:
-!bc ipy
+!bc pyshell
 >>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
 >>> base2index['G']
 2

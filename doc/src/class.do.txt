@@ -214,7 +214,7 @@ are relevant to add:
 
 Here is an interactive session demonstrating how we can work with
 class `Gene` objects:
-!bc ipy
+!bc pyshell
 >>> from dna_classes import Gene
 >>> g1 = Gene('ATCCGTAATTGCGCA', [(2,4), (6,9)])
 >>> print g1
@@ -261,12 +261,12 @@ without implementing a subclass version of this method.
 
 The two subclasses of `Gene` may take this simple form:
 
-@@@CODE src-bioinf/dna_classes.py fromto: class RNACoding@def _test\(
+@@@CODE src-bioinf/dna_classes.py fromto: class RNACoding@def test_lactase_gene
 
 A demonstration of how to load the lactase gene and create the
 lactase protein is done with
 
-@@@CODE src-bioinf/dna_classes.py fromto: def _test\(@# Manual downloading and
+@@@CODE src-bioinf/dna_classes.py fromto: def test_lactase_gene@# Manual downloading and
 
 Now, envision that the Lactase gene would instead have been an
 RNA-coding gene. The only necessary changes would have been to exchange
