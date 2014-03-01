@@ -28,7 +28,7 @@ changed in-place:
 
 @@@CODE src-bioinf/mutate.py fromto: import random@def get_base_frequencies_v2
 
-Using the functions `get_base_frequencies_v2` and `format_frequencies`
+Using `get_base_frequencies_v2` and `format_frequencies`
 from Section ref{bioinf:basefreq}, we can easily mutate a gene a number
 of times and see how the frequencies of the bases A, C, G, and T change:
 

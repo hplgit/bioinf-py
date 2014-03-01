@@ -403,7 +403,7 @@ def test_count_all():
         if f(dna, 'A') != exact:
             print f.__name__, 'failed'
 !ec
-Here, we belive in `dna.count('A')` as the correct answer.
+Here, we believe in `dna.count('A')` as the correct answer.
 
 We might take this test function one step further and adopt the
 conventions in the "Nose": "https://nose.readthedocs.org"
