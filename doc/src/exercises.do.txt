@@ -36,7 +36,7 @@ file=find_consensus.py
 Consider the family of `find_consensus_v*` functions from
 Section ref{bioinf:freq:analysis}. The different versions work on
 different representations of the frequency matrix. Make a unified
-`find_consensus` function which accepts different data structures
+`find_consensus` function that accepts different data structures
 for the `frequency_matrix`. Test on the type of data structure and
 perform the necessary actions.
 

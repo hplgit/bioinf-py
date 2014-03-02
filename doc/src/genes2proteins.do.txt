@@ -150,7 +150,7 @@ output_folder = os.path.join('output', 'lactase')
 In that case, `os.mkdir(output_folder)` may fail because the
 intermediate folder `output` is missing. Making a folder and also all
 missing intermediate folders is done by `os.makedirs`.  We can write a
-more general file writing function which takes a folder name and file
+more general file writing function that takes a folder name and file
 name as input and writes the file.  Let us also add some flexibility
 in the file format: one can either write a fixed number of characters
 per line, or have the string on just one long line. The latter version
