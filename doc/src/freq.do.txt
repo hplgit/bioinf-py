@@ -68,7 +68,9 @@ inspecting the length of the first element in `dna_list`, the list of
 all DNA strings to be counted, assuming
 that all elements in this list have the same length.
 
-In the `for` loop we apply the `enumerate` function which is used
+idx{`enumerate`}
+
+In the `for` loop we apply the `enumerate` function, which is used
 to extract both the element value *and* the element index when
 iterating over a sequence. For example,
 !bc pyshell

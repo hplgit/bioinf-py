@@ -240,8 +240,8 @@ Gene: ATCCGT...TGCGCA, length=15
 
 ===== Subclasses =====
 
-There are two fundamental types of genes: the most common type which
-codes for proteins (indirectly via mRNA) and the type which only codes
+There are two fundamental types of genes: the most common type that
+codes for proteins (indirectly via mRNA) and the type that only codes
 for RNA (without being further processed to proteins).
 The product of a gene, mRNA or protein, depends on the type of gene we have.
 It is then natural to create two subclasses for the two types of
