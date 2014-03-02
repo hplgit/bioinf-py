@@ -406,7 +406,7 @@ def test_count_all():
 Here, we believe in `dna.count('A')` as the correct answer.
 
 We might take this test function one step further and adopt the
-conventions in the "Nose": "https://nose.readthedocs.org"
+conventions in the "nose": "https://nose.readthedocs.org"
 testing framework for Python code.
 These conventions say that the test function should
 
