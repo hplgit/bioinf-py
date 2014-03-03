@@ -73,7 +73,7 @@ a simulation by hand:
 
  o printing variables and messages,
  o using a debugger,
- o using the "Online Python Tutor": "http://www.pythontutor.com/".[[[
+ o using the "Online Python Tutor": "http://www.pythontutor.com/".
 
 Inserting `print` statements and examining the variables is the
 simplest approach to investigating
@@ -389,11 +389,16 @@ you can (easily) come up with.
 ===== Verifying the implementations =====
 label{bioinf:count:verify}
 
-It remains to automate verification of our 12 implementations
-of counting letters in DNA strings. We make a function that
-first computes a certainly correct answer and then
-calls all the `count_*`, stored in the `functions` list, to check
-that each call has the correct result:
+idx{test function}
+idx{`nose` package}
+idx{`test_*()` function}
+idx{`assert` statement}
+
+We end this section with showing how to make tests that verify our 12
+counting functions. To this end, we make a new function that first
+computes a certainly correct answer to a counting problem and then
+calls all the `count_*` functions, stored in the list `functions`, to
+check that each call has the correct result:
 
 !bc pycod
 def test_count_all():
@@ -408,33 +413,38 @@ Here, we believe in `dna.count('A')` as the correct answer.
 We might take this test function one step further and adopt the
 conventions in the "nose": "https://nose.readthedocs.org"
 testing framework for Python code.
+% if PRIMER_BOOK:
+(See Section ref{sec:nose} for more information about nose.)
+% endif
+
 These conventions say that the test function should
 
  * have a name starting with `test_`;
  * have no arguments;
  * let a boolean variable, say `success`, be `True` if a test
    passes and be `False` if the test fails;
- * store a message about what failed in some string, say `msg`;
+ * create a message about what failed, stored in some string, say `msg`;
  * use the construction `assert success, msg`, which will
-   abort the program and write out `msg` if `success` is `False`.
+   abort the program and write out the error message
+   `msg` if `success` is `False`.
 
 idx{`f.__name__` (name of func. `f`)}
 
 The nose test framework can search for all Python files in a folder
 tree, run all `test_*()` functions, and report how many of the
 tests that failed, if we adopt the conventions above.
-Our test function now becomes
+Our revised test function becomes
 
 @@@CODE src-bioinf/count.py fromto: def test_count_all@if __name__
 It is worth notifying that the name of a function `f`, as a string object,
 is given by `f.__name__`, and we make use of this information to
-construct an informative message string `msg` in case a test fails.
+construct an informative message in case a test fails.
 
 It is a good habit to write such test functions since the execution
 of all tests in all files can be fully automated. Every time you to
 a change in some file you can with minimum effort rerun all tests.
 
-All the functions presented above, including the timings and tests,
+The entire suite of functions presented above, including the timings and tests,
 can be found in the file "`count.py`": "${src_path}/count.py".
 
 #=== Testing with Real Data ===
