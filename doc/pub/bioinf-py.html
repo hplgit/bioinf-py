@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <!--
 Automatically generated HTML file from Doconce source
 (https://github.com/hplgit/doconce/)
@@ -8,7 +7,7 @@ Automatically generated HTML file from Doconce source
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="Doconce: https://github.com/hplgit/doconce/" />
 <meta name="description" content="Illustrating Python via Bioinformatics Examples">
-<meta name="keywords" content="bioinformatics,DNA,list iteration,string iteration,using a debugger,Python Online Tutor,list comprehension,random strings,CPU time measurements,frequency matrix,dictionary">
+<meta name="keywords" content="bioinformatics,DNA,list iteration,string iteration,using a debugger,Online Python Tutor,list comprehension,random strings,CPU time measurements,test function,nose tests,pytest tests,frequency matrix,dictionary">
 
 
 
@@ -67,33 +66,37 @@ Automatically generated HTML file from Doconce source
                'bioinf:count:cpu'),
               (' Generating Random DNA Strings ', 3, None, '___sec15'),
               (' Measuring CPU Time ', 3, None, '___sec16'),
+              (' Verifying the implementations ',
+               2,
+               'bioinf:count:verify',
+               'bioinf:count:verify'),
               (' Computing Frequencies ', 2, 'bioinf:freqm', 'bioinf:freqm'),
-              (' Separate Frequency Lists ', 3, None, '___sec18'),
-              (' Nested List ', 3, None, '___sec19'),
+              (' Separate Frequency Lists ', 3, None, '___sec19'),
+              (' Nested List ', 3, None, '___sec20'),
               (' Dictionary for More Convenient Indexing ',
                3,
                None,
-               '___sec20'),
-              (' Numerical Python Array ', 3, None, '___sec21'),
-              (' Dictionary of Lists ', 3, None, '___sec22'),
-              (' Dictionary of Dictionaries ', 3, None, '___sec23'),
+               '___sec21'),
+              (' Numerical Python Array ', 3, None, '___sec22'),
+              (' Dictionary of Lists ', 3, None, '___sec23'),
+              (' Dictionary of Dictionaries ', 3, None, '___sec24'),
               (' Using Dictionaries with Default Values ',
                3,
                None,
-               '___sec24'),
-              (' Using Arrays and Vectorization ', 3, None, '___sec25'),
+               '___sec25'),
+              (' Using Arrays and Vectorization ', 3, None, '___sec26'),
               (' Analyzing the Frequency Matrix ',
                2,
                'bioinf:freq:analysis',
                'bioinf:freq:analysis'),
-              (' List of Lists Frequency Matrix ', 3, None, '___sec27'),
-              (' Dict of Dicts Frequency Matrix ', 3, None, '___sec28'),
+              (' List of Lists Frequency Matrix ', 3, None, '___sec28'),
+              (' Dict of Dicts Frequency Matrix ', 3, None, '___sec29'),
               (' Dot Plots from Pair of DNA Sequences ',
                2,
                'bioinf:dotplot',
                'bioinf:dotplot'),
-              (' Using Lists of Lists ', 3, None, '___sec30'),
-              (' Using Numerical Python Arrays ', 3, None, '___sec31'),
+              (' Using Lists of Lists ', 3, None, '___sec31'),
+              (' Using Numerical Python Arrays ', 3, None, '___sec32'),
               (' Finding Base Frequencies ',
                2,
                'bioinf:basefreq',
@@ -110,17 +113,17 @@ Automatically generated HTML file from Doconce source
                2,
                'bioinf:random',
                'bioinf:random'),
-              (' A Simple Mutation Model ', 3, None, '___sec36'),
-              (' Vectorized Version ', 3, None, '___sec37'),
-              (' A Markov Chain Mutation Model ', 3, None, '___sec38'),
+              (' A Simple Mutation Model ', 3, None, '___sec37'),
+              (' Vectorized Version ', 3, None, '___sec38'),
+              (' A Markov Chain Mutation Model ', 3, None, '___sec39'),
               (' Classes for DNA Analysis ', 1, 'bioinf:oo', 'bioinf:oo'),
-              (' Class for Regions ', 2, None, '___sec40'),
-              (' Class for Genes ', 2, None, '___sec41'),
-              (' Basic Features of class Gene ', 3, None, '___sec42'),
-              (' Flexible Constructor ', 3, None, '___sec43'),
-              (' Other Methods ', 3, None, '___sec44'),
-              (' Subclasses ', 2, None, '___sec45'),
-              (' Exercises ', 1, None, '___sec46'),
+              (' Class for Regions ', 2, None, '___sec41'),
+              (' Class for Genes ', 2, None, '___sec42'),
+              (' Basic Features of class Gene ', 3, None, '___sec43'),
+              (' Flexible Constructor ', 3, None, '___sec44'),
+              (' Other Methods ', 3, None, '___sec45'),
+              (' Subclasses ', 2, None, '___sec46'),
+              (' Exercises ', 1, None, '___sec47'),
               (' Exercise 1: Find pairs of characters ',
                2,
                'bioinf:exer:pairs1',
@@ -198,7 +201,7 @@ MathJax.Hub.Config({
 <center>[1] <b>Center for Biomedical Computing, Simula Research Laboratory</b></center>
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 <p>
-<center><h4>Jan 19, 2014</h4></center> <!-- date -->
+<center><h4>May 8, 2014</h4></center> <!-- date -->
 <p>
 Life is definitely digital. The genetic code of all living organisms
 are represented by a long sequence of simple molecules called
@@ -213,9 +216,8 @@ a scientific discipline addressing the use of computers to search
 for, explore, and use information about genes, nucleic acids, and
 proteins.
 
-<h2>Basic Bioinformatics Examples in Python  <a name="___sec0"></a></h2>
+<h1>Basic Bioinformatics Examples in Python  <a name="___sec0"></a></h1>
 
-<p>
 The leading Python software for bioinformatics applications is
 <a href="http://biopython.org" target="_self">BioPython</a>. The forthcoming examples are
 simple illustrations of the type of problem settings and corresponding
@@ -228,12 +230,11 @@ like BioPython.
 <a name="bioinf:basics"></a>
 
 <p>
-We start with some very simple examples on DNA analysis which bring together
+We start with some very simple examples on DNA analysis that bring together
 basic building blocks in programming: loops, <code>if</code> tests, and functions.
 
-<h3>Counting Letters in DNA Strings <a name="bioinf:count"></a></h3>
+<h2>Counting Letters in DNA Strings <a name="bioinf:count"></a></h2>
 
-<p>
 Given some string <code>dna</code> containing the letters A, C, G, or T,
 representing the bases that make up DNA, we ask the question: how
 many times does a certain base occur in the DNA string?
@@ -244,9 +245,8 @@ base A occur in this string, the answer is 3.
 A general Python implementation answering this problem can be done
 in many ways. Several possible solutions are presented below.
 
-<h4>List Iteration  <a name="___sec2"></a></h4>
+<h3>List Iteration  <a name="___sec2"></a></h3>
 
-<p>
 The most straightforward solution is to loop over the letters
 in the string, test if the current letter equals the desired one,
 and if so, increase a counter. Looping over the letters is
@@ -254,9 +254,9 @@ obvious if the letters are stored in a list. This is easily
 done by converting a string to a list:
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; list(&#39;ATGC&#39;)
-[&#39;A&#39;, &#39;T&#39;, &#39;G&#39;, &#39;C&#39;]
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000">list</span>(<span style="color: #BA2121">&#39;ATGC&#39;</span>)
+[<span style="color: #BA2121">&#39;A&#39;</span>, <span style="color: #BA2121">&#39;T&#39;</span>, <span style="color: #BA2121">&#39;G&#39;</span>, <span style="color: #BA2121">&#39;C&#39;</span>]
 </pre></div>
 <p>
 Our first solution becomes
@@ -273,16 +273,15 @@ Our first solution becomes
     <span style="color: #008000; font-weight: bold">return</span> i
 </pre></div>
 
-<h4>String Iteration  <a name="___sec3"></a></h4>
+<h3>String Iteration  <a name="___sec3"></a></h3>
 
-<p>
 Python allows us to iterate directly over a string without converting
 it to a list:
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; for c in &#39;ATGC&#39;:
-...     print c
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>:
+<span style="color: #666666">...</span>     <span style="color: #008000; font-weight: bold">print</span> c
 A
 T
 G
@@ -322,21 +321,23 @@ n <span style="color: #666666">=</span> count_v2(dna, base)
 </pre></div>
 <p>
 We have here illustrated two alternative ways of writing out text
-where the value of variables are to be inserted in "slots" in the
+where the value of variables are to be inserted in &quot;slots&quot; in the
 string.
 
-<h4>Program Flow  <a name="___sec4"></a></h4>
+<h3>Program Flow  <a name="___sec4"></a></h3>
 
-<p>
 It is fundamental for correct programming to understand how
 to simulate a program by hand, statement by
 statement. Three tools are
 effective for helping you reach the required understanding of performing
 a simulation by hand:
-(i) printing variables, (ii) using a debugger, and (iii) using an
-<a href="http://people.csail.mit.edu/pgbovine/python/tutor.html" target="_self">online program flow tool</a>.
 
-<p>
+<ol>
+<li> printing variables and messages,</li>
+<li> using a debugger,</li>
+<li> using the <a href="http://www.pythontutor.com/" target="_self">Online Python Tutor</a>.</li>
+</ol>
+
 Inserting <code>print</code> statements and examining the variables is the
 simplest approach to investigating
 what is going on:
@@ -358,7 +359,7 @@ what is going on:
 n <span style="color: #666666">=</span> count_v2_demo(<span style="color: #BA2121">&#39;ATGCGGACCTAT&#39;</span>, <span style="color: #BA2121">&#39;C&#39;</span>)
 </pre></div>
 <p>
-<!-- Note: do not use !bc ipy for debugging sessions since -->
+<!-- Note: do not use !bc pyshell for debugging sessions since -->
 <!-- sphinx treats ipy as interactive sessions and therefore -->
 <!-- drops any environment (it is automatically handled) -->
 
@@ -366,7 +367,7 @@ n <span style="color: #666666">=</span> count_v2_demo(<span style="color: #BA212
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
 is printed out. Start <code>ipython</code> in a terminal window and run the
-program <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>count_v2_demo.py</tt></a> with
+program <a href="http://tinyurl.com/q4qpjbt/count_v2_demo.py" target="_self"><tt>count_v2_demo.py</tt></a> with
 a debugger: <code>run -d count_v2_demo.py</code>. Use <code>s</code> (for step) to
 step through each statement, or <code>n</code> (for next) for proceeding to the
 next statement without stepping through a function that is called.
@@ -396,13 +397,7 @@ print a variable explicitly inside the debugger:
 C
 </pre></div>
 <p>
-Misunderstanding of the program flow is one of the most frequent
-sources of programming errors, so
-whenever in doubt about any program flow, enter a debugger to establish
-confidence!
-
-<p>
-The <a href="http://www.pythontutor.com/" target="_self">Python Online Tutor</a>
+The <a href="http://www.pythontutor.com/" target="_self">Online Python Tutor</a>
 is, at least for small programs, a splendid alternative to
 debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press <em>Visual execution</em>, then <em>Forward</em> to execute
@@ -413,18 +408,23 @@ from <code>print</code> statements.  An example is shown in Figure <a href="#bio
 <p>
 <center> <!-- figure -->
 <hr class="figure">
-<center><p class="caption">Figure 1:  Visual execution of a program using the Python Online Tutor. <a name="bioinf:fig:pot"></a> </p></center>
+<center><p class="caption">Figure 1:  Visual execution of a program using the Online Python Tutor. <a name="bioinf:fig:pot"></a> </p></center>
 <p><img src="fig-bioinf/python_online_tutor.jpg" align="bottom" width=600></p>
 </center>
 
-<h4>Index Iteration  <a name="___sec5"></a></h4>
-
 <p>
+Misunderstanding of the program flow is one of the most frequent
+sources of programming errors, so whenever in doubt about any program
+flow, use one of the three mentioned techniques to establish
+confidence!
+
+<h3>Index Iteration  <a name="___sec5"></a></h3>
+
 Although it is natural in Python to iterate over the letters in a
 string (or more generally over elements in a sequence), programmers
 with experience from other languages (Fortran, C and Java are
 examples) are used to <code>for</code> loops with an integer counter running over
-a all indices in a string or array:
+all indices in a string or array:
 
 <p>
 
@@ -444,9 +444,8 @@ string <code>dna</code>. The <code>range(x)</code> function returns a list of in
 <code>0</code>, <code>1</code>, ..., <code>x-1</code>, implying that <code>range(len(dna))</code> generates
 all the legal indices for <code>dna</code>.
 
-<h4>While Loops  <a name="___sec6"></a></h4>
+<h3>While Loops  <a name="___sec6"></a></h3>
 
-<p>
 The <code>while</code> loop equivalent to the last function reads
 
 <p>
@@ -465,9 +464,8 @@ The <code>while</code> loop equivalent to the last function reads
 Correct indentation is here crucial: a typical error is to fail
 indenting the <code>j += 1</code> line correctly.
 
-<h4>Summing a Boolean List  <a name="___sec7"></a></h4>
+<h3>Summing a Boolean List  <a name="___sec7"></a></h3>
 
-<p>
 The idea now is to create a list <code>m</code> where <code>m[i]</code> is <code>True</code> if
 <code>dna[i]</code> equals the letter we search for (<code>base</code>).
 The number of <code>True</code> values in <code>m</code> is then the number of <code>base</code>
@@ -490,9 +488,8 @@ A possible function doing this is
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h4>Inline If Test  <a name="___sec8"></a></h4>
+<h3>Inline If Test  <a name="___sec8"></a></h3>
 
-<p>
 Shorter, more compact code is often a goal if the compactness
 enhances readability. The four-line <code>if</code> test in the previous
 function can be condensed to one line using the inline
@@ -508,9 +505,8 @@ function can be condensed to one line using the inline
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h4>Using Boolean Values Directly  <a name="___sec9"></a></h4>
+<h3>Using Boolean Values Directly  <a name="___sec9"></a></h3>
 
-<p>
 The inline <code>if</code> test is in fact redundant in the previous function
 because the value of the condition <code>c == base</code> can be used
 directly: it has the value <code>True</code> or <code>False</code>. This saves
@@ -527,9 +523,8 @@ some experience:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h4>List Comprehensions  <a name="___sec10"></a></h4>
+<h3>List Comprehensions  <a name="___sec10"></a></h3>
 
-<p>
 Building a list with the aid of a <code>for</code> loop can often be condensed to
 a single line by using list comprehensions: <code>[expr for e in
 sequence]</code>, where <code>expr</code> is some expression normally involving the
@@ -554,9 +549,8 @@ reduce the function body to a single line:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>([c <span style="color: #666666">==</span> base <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna])
 </pre></div>
 
-<h4>Using a Sum Iterator  <a name="___sec11"></a></h4>
+<h3>Using a Sum Iterator  <a name="___sec11"></a></h3>
 
-<p>
 The DNA string is usually huge - 3 billion letters for the human
 species. Making a boolean array with <code>True</code> and <code>False</code> values
 therefore increases the memory usage by a factor of two
@@ -565,7 +559,7 @@ Summing without actually storing an extra list is desirable.
 Fortunately, <code>sum([x for x in s])</code> can be replaced by
 <code>sum(x for x in s)</code>, where the latter sums the elements in <code>s</code>
 as <code>x</code> visits the elements of <code>s</code> one by one. Removing the brackets
-therefore avoids first making a list before applying <code>sum</code> on
+therefore avoids first making a list before applying <code>sum</code> to
 that list. This is a minor modification of the <code>count_v9</code> function:
 
 <p>
@@ -578,9 +572,8 @@ that list. This is a minor modification of the <code>count_v9</code> function:
 Below we shall measure the impact of the various program constructs
 on the CPU time.
 
-<h4>Extracting Indices  <a name="___sec12"></a></h4>
+<h3>Extracting Indices  <a name="___sec12"></a></h3>
 
-<p>
 Instead of making a boolean list with elements expressing whether
 a letter matches the given <code>base</code> or not, we may collect all
 the indices of the matches. This can be done by adding an <code>if</code>
@@ -593,28 +586,29 @@ test to the list comprehension:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">len</span>([i <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(dna)) <span style="color: #008000; font-weight: bold">if</span> dna[i] <span style="color: #666666">==</span> base])
 </pre></div>
 <p>
-A debugger or the <a href="http://www.pythontutor.com/" target="_self">Python Online Tutor</a>
-do not help so much when trying to
-understand this compact code. A better approach is to examine
-the list comprehension in an interactive Python shell:
+The <a href="http://www.pythontutor.com/" target="_self">Online Python Tutor</a> is
+really helpful to reach an understanding of this compact code.
+Alternatively, you may play with the constructions in an
+interactive Python shell:
+
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; dna = &#39;AATGCTTA&#39;
-&gt;&gt;&gt; base = &#39;A&#39;
-&gt;&gt;&gt; indices = [i for i in range(len(dna)) if dna[i] == base]
-&gt;&gt;&gt; indices
-[0, 1, 7]
-&gt;&gt;&gt; print dna[0], dna[1], dna[7]  # check
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;AATGCTTA&#39;</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> base <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;A&#39;</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> indices <span style="color: #666666">=</span> [i <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(dna)) <span style="color: #008000; font-weight: bold">if</span> dna[i] <span style="color: #666666">==</span> base]
+<span style="color: #666666">&gt;&gt;&gt;</span> indices
+[<span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">7</span>]
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">print</span> dna[<span style="color: #666666">0</span>], dna[<span style="color: #666666">1</span>], dna[<span style="color: #666666">7</span>]  <span style="color: #408080; font-style: italic"># check</span>
 A A A
 </pre></div>
 <p>
-The element <code>i</code> in the list comprehension is only made for those <code>i</code>
+Observe that the element <code>i</code> in the list comprehension is only
+made for those <code>i</code>
 where <code>dna[i] == base</code>.
 
-<h4>Using Python's Library  <a name="___sec13"></a></h4>
+<h3>Using Python's Library  <a name="___sec13"></a></h3>
 
-<p>
 Very often when you set out to do a task in Python, there is already
 functionality for the task in the object itself, in the Python
 libraries, or in third-party libraries found on the Internet.
@@ -627,19 +621,19 @@ it by the syntax <code>dna.count(base)</code>:
 <!-- code=python (from !bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v12</span>(dna, base):
     <span style="color: #008000; font-weight: bold">return</span> dna<span style="color: #666666">.</span>count(base)
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">compare_efficiency</span>():
 </pre></div>
 
-<h3>Efficiency Assessment <a name="bioinf:count:cpu"></a></h3>
+<h2>Efficiency Assessment <a name="bioinf:count:cpu"></a></h2>
 
-<p>
 Now we have 11 different versions of how to count the occurrences
 of a letter in a string. Which one of these implementations is the fastest?
 To answer the question we need some test data, which should be a
 huge string <code>dna</code>.
 
-<h4>Generating Random DNA Strings  <a name="___sec15"></a></h4>
+<h3>Generating Random DNA Strings  <a name="___sec15"></a></h3>
 
-<p>
 The simplest way of generating a long string is to repeat a
 character a large number of times:
 <p>
@@ -685,14 +679,12 @@ function, gives
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #BA2121">&#39;&#39;</span><span style="color: #666666">.</span>join([random<span style="color: #666666">.</span>choice(alphabet) <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">xrange</span>(N)])
 
 dna <span style="color: #666666">=</span> generate_string(<span style="color: #666666">600000</span>)
-<span style="color: #408080; font-style: italic">#dna = generate_string(6000000)</span>
 </pre></div>
 <p>
 The call <code>generate_string(10)</code> may generate something like <code>AATGGCAGAA</code>.
 
-<h4>Measuring CPU Time  <a name="___sec16"></a></h4>
+<h3>Measuring CPU Time  <a name="___sec16"></a></h3>
 
-<p>
 Our next goal is to see how much time the various <code>count_v*</code>
 functions spend on counting letters in a huge string, which is to be
 generated as shown above.
@@ -765,16 +757,82 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
+<h2>Verifying the implementations <a name="bioinf:count:verify"></a></h2>
+
+We end this section with showing how to make tests that verify our 12
+counting functions. To this end, we make a new function that first
+computes a certainly correct answer to a counting problem and then
+calls all the <code>count_*</code> functions, stored in the list <code>functions</code>, to
+check that each call has the correct result:
+
 <p>
-All the functions presented above, including the timings,
-can be found in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>count.py</tt></a>.
+
+<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_count_all</span>():
+    dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ATTTGCGGTCCAAA&#39;</span>
+    exact <span style="color: #666666">=</span> dna<span style="color: #666666">.</span>count(<span style="color: #BA2121">&#39;A&#39;</span>)
+    <span style="color: #008000; font-weight: bold">for</span> f <span style="color: #AA22FF; font-weight: bold">in</span> functions:
+        <span style="color: #008000; font-weight: bold">if</span> f(dna, <span style="color: #BA2121">&#39;A&#39;</span>) <span style="color: #666666">!=</span> exact:
+            <span style="color: #008000; font-weight: bold">print</span> f<span style="color: #666666">.</span>__name__, <span style="color: #BA2121">&#39;failed&#39;</span>
+</pre></div>
+<p>
+Here, we believe in <code>dna.count('A')</code> as the correct answer.
+
+<p>
+We might take this test function one step further and adopt the
+conventions in the <a href="http://pytest.org" target="_self">pytest</a> and
+<a href="https://nose.readthedocs.org" target="_self">nose</a>
+testing frameworks for Python code.
+
+<p>
+These conventions say that the test function should
+
+<ul>
+ <li> have a name starting with <code>test_</code>;</li>
+ <li> have no arguments;</li>
+ <li> let a boolean variable, say <code>success</code>, be <code>True</code> if a test
+   passes and be <code>False</code> if the test fails;</li>
+ <li> create a message about what failed, stored in some string, say <code>msg</code>;</li>
+ <li> use the construction <code>assert success, msg</code>, which will
+   abort the program and write out the error message
+   <code>msg</code> if <code>success</code> is <code>False</code>.</li>
+</ul>
+
+The pytest and nose test frameworks can search for all Python files in
+a folder tree, run all <code>test_*()</code> functions, and report how many of
+the tests that failed, if we adopt the conventions above.  Our revised
+test function becomes
+
+<p>
+
+<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_count_all</span>():
+    dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ATTTGCGGTCCAAA&#39;</span>
+    exact <span style="color: #666666">=</span> dna<span style="color: #666666">.</span>count(<span style="color: #BA2121">&#39;A&#39;</span>)
+    <span style="color: #008000; font-weight: bold">for</span> f <span style="color: #AA22FF; font-weight: bold">in</span> functions:
+        success <span style="color: #666666">=</span> f(dna, <span style="color: #BA2121">&#39;A&#39;</span>) <span style="color: #666666">==</span> exact
+        msg <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121"> failed&#39;</span> <span style="color: #666666">%</span> f<span style="color: #666666">.</span>__name__
+        <span style="color: #008000; font-weight: bold">assert</span> success, msg
+</pre></div>
+<p>
+It is worth notifying that the name of a function <code>f</code>, as a string object,
+is given by <code>f.__name__</code>, and we make use of this information to
+construct an informative message in case a test fails.
+
+<p>
+It is a good habit to write such test functions since the execution
+of all tests in all files can be fully automated. Every time you to
+a change in some file you can with minimum effort rerun all tests.
+
+<p>
+The entire suite of functions presented above, including the timings and tests,
+can be found in the file <a href="http://tinyurl.com/q4qpjbt/count.py" target="_self"><tt>count.py</tt></a>.
 
 <p>
 <!-- === Testing with Real Data === -->
 
-<h3>Computing Frequencies <a name="bioinf:freqm"></a></h3>
+<h2>Computing Frequencies <a name="bioinf:freqm"></a></h2>
 
-<p>
 Your genetic code is essentially the same from you are born until you
 die, and the same in your blood and your brain.  Which genes that are
 turned on and off make the difference between the cells. This
@@ -795,11 +853,15 @@ TAG, GGT, and GGG, the table becomes
 
 <p>
 <table border="1">
-<tr><td align="center"><b> base </b></td> <td align="center"><b>  0   </b></td> <td align="center"><b>  1   </b></td> <td align="center"><b>  2   </b></td> </tr>
+<thead>
+<tr><th align="center">base</th> <th align="center"> 0  </th> <th align="center"> 1  </th> <th align="center"> 2  </th> </tr>
+</thead>
+<tbody>
 <tr><td align="left">   A       </td> <td align="center">   0       </td> <td align="center">   1       </td> <td align="center">   0       </td> </tr>
 <tr><td align="left">   C       </td> <td align="center">   0       </td> <td align="center">   0       </td> <td align="center">   0       </td> </tr>
 <tr><td align="left">   G       </td> <td align="center">   2       </td> <td align="center">   2       </td> <td align="center">   2       </td> </tr>
 <tr><td align="left">   T       </td> <td align="center">   1       </td> <td align="center">   0       </td> <td align="center">   1       </td> </tr>
+</tbody>
 </table>
 <p>
 From this table we can read that base A appears once in index 1 in the
@@ -813,9 +875,8 @@ hold such a table and different ways of computing them.
 The table is known as a <em>frequency matrix</em> in bioinformatics
 and this is the term used here too.
 
-<h4>Separate Frequency Lists  <a name="___sec18"></a></h4>
+<h3>Separate Frequency Lists  <a name="___sec19"></a></h3>
 
-<p>
 Since we know that there are only four rows in the frequency matrix,
 an obvious data structure would be four lists, each holding
 a row. A function computing these lists may look like
@@ -851,19 +912,19 @@ all DNA strings to be counted, assuming
 that all elements in this list have the same length.
 
 <p>
-In the <code>for</code> loop we apply the <code>enumerate</code> function which is used
+In the <code>for</code> loop we apply the <code>enumerate</code> function, which is used
 to extract both the element value <em>and</em> the element index when
 iterating over a sequence. For example,
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; for index, base in enumerate([&#39;t&#39;, &#39;e&#39;, &#39;s&#39;, &#39;t&#39;]):
-...   print index, base
-...
-0 t
-1 e
-2 s
-3 t
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">for</span> index, base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>([<span style="color: #BA2121">&#39;t&#39;</span>, <span style="color: #BA2121">&#39;e&#39;</span>, <span style="color: #BA2121">&#39;s&#39;</span>, <span style="color: #BA2121">&#39;t&#39;</span>]):
+<span style="color: #666666">...</span>   <span style="color: #008000; font-weight: bold">print</span> index, base
+<span style="color: #666666">...</span>
+<span style="color: #666666">0</span> t
+<span style="color: #666666">1</span> e
+<span style="color: #666666">2</span> s
+<span style="color: #666666">3</span> t
 </pre></div>
 <p>
 Here is a test,
@@ -888,9 +949,8 @@ with output
 [0, 0, 3, 0, 0]
 </pre></div>
 
-<h4>Nested List  <a name="___sec19"></a></h4>
+<h3>Nested List  <a name="___sec20"></a></h3>
 
-<p>
 The frequency matrix can also be represented as a nested list <code>M</code>
 such that <code>M[i][j]</code> is the frequency of base <code>i</code> in position <code>j</code>
 in the set of DNA strings. Here <code>i</code> is an integer, where 0 corresponds to A,
@@ -959,20 +1019,20 @@ results in
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
 </pre></div>
 
-<h4>Dictionary for More Convenient Indexing  <a name="___sec20"></a></h4>
+<h3>Dictionary for More Convenient Indexing  <a name="___sec21"></a></h3>
 
-<p>
-The <code>if</code> tests in the <code>freq_list_of_lists_v1</code> are somewhat cumbersome,
+The series of <code>if</code> tests in the Python function <code>freq_list_of_lists_v1</code>
+are somewhat cumbersome,
 especially if we want to extend the code to other bioinformatics problems
 where the alphabet is larger. What we want is a mapping from <code>base</code>,
 which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary may represent such mappings:
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; base2index = {&#39;A&#39;: 0, &#39;C&#39;: 1, &#39;G&#39;: 2, &#39;T&#39;: 3}
-&gt;&gt;&gt; base2index[&#39;G&#39;]
-2
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> base2index <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">1</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">2</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">3</span>}
+<span style="color: #666666">&gt;&gt;&gt;</span> base2index[<span style="color: #BA2121">&#39;G&#39;</span>]
+<span style="color: #666666">2</span>
 </pre></div>
 <p>
 With the <code>base2index</code> dictionary we do not need the series of
@@ -992,9 +1052,8 @@ without affecting the length of the code:
     <span style="color: #008000; font-weight: bold">return</span> frequency_matrix
 </pre></div>
 
-<h4>Numerical Python Array  <a name="___sec21"></a></h4>
+<h3>Numerical Python Array  <a name="___sec22"></a></h3>
 
-<p>
 As long as each sublist in a list of lists has the same length, a
 list of lists can be replaced by a Numerical Python (<code>numpy</code>) array.
 Processing of such arrays is often much more efficient than
@@ -1023,9 +1082,8 @@ The resulting <code>frequency_matrix</code> object can be indexed as
 <code>[b][i]</code> or <code>[b,i]</code>, with integers <code>b</code> and <code>i</code>. Typically, <code>b</code> will
 be something line <code>base2index['C']</code>.
 
-<h4>Dictionary of Lists  <a name="___sec22"></a></h4>
+<h3>Dictionary of Lists  <a name="___sec23"></a></h3>
 
-<p>
 Instead of going from a character to an integer index via
 <code>base2index</code>, we may prefer to index <code>frequency_matrix</code> by the base name
 and the position index directly, like in <code>['C'][14]</code>.
@@ -1136,9 +1194,8 @@ It is also possible to write
 Here, <code>len</code> is applied to each element in <code>dna_list</code>, and the
 maximum of the resulting values is returned.
 
-<h4>Dictionary of Dictionaries  <a name="___sec23"></a></h4>
+<h3>Dictionary of Dictionaries  <a name="___sec24"></a></h3>
 
-<p>
 The dictionary of lists data structure can alternatively be replaced
 by a dictionary of dictionaries object, often just called a dict of
 dicts object. That is, <code>frequency_matrix[base]</code> is a dictionary with
@@ -1166,9 +1223,8 @@ is written as
     <span style="color: #008000; font-weight: bold">return</span> frequency_matrix
 </pre></div>
 
-<h4>Using Dictionaries with Default Values  <a name="___sec24"></a></h4>
+<h3>Using Dictionaries with Default Values  <a name="___sec25"></a></h3>
 
-<p>
 The manual initialization of each subdictionary to zero,
 <p>
 
@@ -1215,10 +1271,9 @@ is then constructed as
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">d <span style="color: #666666">=</span> <span style="color: #008000">dict</span>([(key, value) <span style="color: #008000; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> sequence])
 </pre></div>
 
-<h4>Using Arrays and Vectorization  <a name="___sec25"></a></h4>
+<h3>Using Arrays and Vectorization  <a name="___sec26"></a></h3>
 
-<p>
-The dict of lists data structure for <code>frequency_matrix</code> can easily be
+The <code>frequency_matrix</code> dict of lists for can easily be
 changed to a dict of <code>numpy</code> arrays: just replace the initialization
 <code>[0]*n</code> by <code>np.zeros(n, dtype=np.int)</code>. The indexing remains the same:
 
@@ -1324,9 +1379,8 @@ This vectorized function runs almost 10 times as fast as the
 <p>
 <!-- memory mapped files? -->
 
-<h3>Analyzing the Frequency Matrix <a name="bioinf:freq:analysis"></a></h3>
+<h2>Analyzing the Frequency Matrix <a name="bioinf:freq:analysis"></a></h2>
 
-<p>
 Having built a frequency matrix out of a collection of DNA strings, it
 is time to use it for analysis.
 The short DNA strings that a frequency matrix is built out of, is
@@ -1366,9 +1420,8 @@ string is therefore ACA.  Note that the consensus string does not need to be
 equal to any of the substrings that formed the basis of the frequency
 matrix (this is indeed the case for the above example).
 
-<h4>List of Lists Frequency Matrix  <a name="___sec27"></a></h4>
+<h3>List of Lists Frequency Matrix  <a name="___sec28"></a></h3>
 
-<p>
 Let <code>frequency_matrix</code> be a list of lists. For each position <code>i</code> we
 run through the rows in the frequency matrix and keep track of the
 maximum frequency value and the corresponding letter. If two or
@@ -1416,13 +1469,10 @@ type is wrong:
     <span style="color: #666666">...</span>
 </pre></div>
 
-<h4>Dict of Dicts Frequency Matrix  <a name="___sec28"></a></h4>
+<h3>Dict of Dicts Frequency Matrix  <a name="___sec29"></a></h3>
 
-<p>
 How must the <code>find_consensus_v1</code> function be altered if <code>frequency_matrix</code>
 is a dict of dicts?
-
-<p>
 
 <ol>
  <li> The <code>base2index</code> dict is no longer needed.</li>
@@ -1519,11 +1569,10 @@ representations of <code>frequency_matrix</code> that we have used.
 
 <p>
 The functions making and using the frequency matrix are found
-in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>freq.py</tt></a>.
+in the file <a href="http://tinyurl.com/q4qpjbt/freq.py" target="_self"><tt>freq.py</tt></a>.
 
-<h3>Dot Plots from Pair of DNA Sequences <a name="bioinf:dotplot"></a></h3>
+<h2>Dot Plots from Pair of DNA Sequences <a name="bioinf:dotplot"></a></h2>
 
-<p>
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say <code>d1</code> and <code>d2</code>,
 by organizing <code>d1</code>
@@ -1570,9 +1619,8 @@ each position in the "x string" we run through all positions in the "y
 string" and mark those where the characters match with 1.
 The algorithm will be clear when presented with specific Python code.
 
-<h4>Using Lists of Lists  <a name="___sec30"></a></h4>
+<h3>Using Lists of Lists  <a name="___sec31"></a></h3>
 
-<p>
 Since the plot is essentially a table, a list of lists is therefore
 a natural data structure. The following function creates the
 list of lists:
@@ -1667,20 +1715,19 @@ s <span style="color: #666666">=</span> make_string_expanded(M2)
 <p>
 Unless the join operation as used here is well understood, it is highly
 recommended to paste the above code into the
-<a href="http://www.pythontutor.com/" target="_self">Python Online Tutor</a>,
+<a href="http://www.pythontutor.com/" target="_self">Online Python Tutor</a>,
 step through the code, and watch how variables change their content.
 Figure <a href="#bioinf:fig:pot2">2</a> shows a snapshot of this type of code investigation.
 
 <p>
 <center> <!-- figure -->
 <hr class="figure">
-<center><p class="caption">Figure 2:  Illustration of how join operations work (using the Python Online Tutor). <a name="bioinf:fig:pot2"></a> </p></center>
+<center><p class="caption">Figure 2:  Illustration of how join operations work (using the Online Python Tutor). <a name="bioinf:fig:pot2"></a> </p></center>
 <p><img src="fig-bioinf/pot_join.jpg" align="bottom" width=850></p>
 </center>
 
-<h4>Using Numerical Python Arrays  <a name="___sec31"></a></h4>
+<h3>Using Numerical Python Arrays  <a name="___sec32"></a></h3>
 
-<p>
 A Numerical Python array, with integer elements that equal 0 or 1,
 is well suited as data structure to hold a dot plot.
 
@@ -1699,11 +1746,10 @@ is well suited as data structure to hold a dot plot.
 </pre></div>
 <p>
 The two dot plot functions are available
-in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>dotplot.py</tt></a>.
+in the file <a href="http://tinyurl.com/q4qpjbt/dotplot.py" target="_self"><tt>dotplot.py</tt></a>.
 
-<h3>Finding Base Frequencies <a name="bioinf:basefreq"></a></h3>
+<h2>Finding Base Frequencies <a name="bioinf:basefreq"></a></h2>
 
-<p>
 DNA consists of four molecules called nucleotides, or bases, and can
 be represented as a string of the letters A, C, G, and T. But this
 does not mean that all four nucleotides need to be similarly
@@ -1897,11 +1943,10 @@ interested reader can, e.g., find more details in
 
 <p>
 The functions computing base frequencies are available
-in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>basefreq.py</tt></a>.
+in the file <a href="http://tinyurl.com/q4qpjbt/basefreq.py" target="_self"><tt>basefreq.py</tt></a>.
 
-<h3>Translating Genes into Proteins <a name="bioinf:gene2protein"></a></h3>
+<h2>Translating Genes into Proteins <a name="bioinf:gene2protein"></a></h2>
 
-<p>
 An important usage of DNA is for cells to store information on their
 arsenal of proteins. Briefly, a gene is, in essence, a region of the
 DNA, consisting of several coding parts (called exons), interspersed
@@ -2173,7 +2218,7 @@ Occasionally, the output folder is nested, say
 In that case, <code>os.mkdir(output_folder)</code> may fail because the
 intermediate folder <code>output</code> is missing. Making a folder and also all
 missing intermediate folders is done by <code>os.makedirs</code>.  We can write a
-more general file writing function which takes a folder name and file
+more general file writing function that takes a folder name and file
 name as input and writes the file.  Let us also add some flexibility
 in the file format: one can either write a fixed number of characters
 per line, or have the string on just one long line. The latter version
@@ -2258,9 +2303,8 @@ The output, needed below for comparison, becomes
 Lenght of the correct protein:  1927
 </pre></div>
 
-<h3>Some Humans Can Drink Milk, While Others Cannot <a name="bioinf:lactase:milk"></a></h3>
+<h2>Some Humans Can Drink Milk, While Others Cannot <a name="bioinf:lactase:milk"></a></h2>
 
-<p>
 One type of lactose intolerance is called <em>Congenital lactase deficiency</em>.
 This is a rare genetic disorder that causes lactose intolerance from birth,
 and is particularly common in Finland. The disease is caused by a mutation of
@@ -2332,13 +2376,12 @@ in northern Europe, to close to 100% in south-east Asia.
 
 <p>
 The functions analyzing the lactase gene are found
-in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>genes2proteins.py</tt></a>.
+in the file <a href="http://tinyurl.com/q4qpjbt/genes2proteins.py" target="_self"><tt>genes2proteins.py</tt></a>.
 
-<h3>Random Mutations of Genes <a name="bioinf:random"></a></h3>
+<h2>Random Mutations of Genes <a name="bioinf:random"></a></h2>
 
-<h4>A Simple Mutation Model  <a name="___sec36"></a></h4>
+<h3>A Simple Mutation Model  <a name="___sec37"></a></h3>
 
-<p>
  Mutation of genes
 is easily modeled by replacing the letter in a randomly
 chosen position of the DNA by a randomly chosen letter from
@@ -2370,7 +2413,7 @@ changed in-place:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #BA2121">&#39;&#39;</span><span style="color: #666666">.</span>join(dna_list)
 </pre></div>
 <p>
-Using the functions <code>get_base_frequencies_v2</code> and <code>format_frequencies</code>
+Using <code>get_base_frequencies_v2</code> and <code>format_frequencies</code>
 from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>, we can easily mutate a gene a number
 of times and see how the frequencies of the bases A, C, G, and T change:
 
@@ -2399,9 +2442,8 @@ DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
 A: 0.35, C: 0.25, T: 0.10, G: 0.30
 </pre></div>
 
-<h4>Vectorized Version  <a name="___sec37"></a></h4>
+<h3>Vectorized Version  <a name="___sec38"></a></h3>
 
-<p>
 The efficiency of the <code>mutate_v1</code> function with its surrounding loop can be
 significantly increased up by performing all the mutations at
 once using <code>numpy</code> arrays. This speed-up is of interest for long <code>dna</code>
@@ -2508,7 +2550,7 @@ ideas explored above for the <code>mutate_v2</code> function:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #BA2121">&#39;&#39;</span><span style="color: #666666">.</span>join(dna<span style="color: #666666">.</span>tolist())
 </pre></div>
 <p>
-The <code>time_mutate</code> function in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>mutate.py</tt></a> performs
+The <code>time_mutate</code> function in the file <a href="http://tinyurl.com/q4qpjbt/mutate.py" target="_self"><tt>mutate.py</tt></a> performs
 timing of the generation of test strings and the mutations.  To
 generate a DNA string of length 100,000 the vectorized function is
 about 8 times faster. When performing 10,000 mutations on this string,
@@ -2518,9 +2560,8 @@ Hence, this case study on vectorization is a striking example on the fact
 that a straightforward and convenient function like <code>mutate_v1</code> might
 occasionally be very slow for large-scale computations.
 
-<h4>A Markov Chain Mutation Model  <a name="___sec38"></a></h4>
+<h3>A Markov Chain Mutation Model  <a name="___sec39"></a></h3>
 
-<p>
 The observed rate at which mutations occur at a given position in the
 genome is not independent of the type of nucleotide (base) at that
 position, as was assumed in the previous simple mutation model.  We
@@ -2652,7 +2693,7 @@ the probabilities in a row must sum up to 1:
 <p>
 
 <!-- code=python (from !bc pycod) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_transition_probabilities</span>(markov_chain):
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">check_transition_probabilities</span>(markov_chain):
     <span style="color: #008000; font-weight: bold">for</span> from_base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>:
         s <span style="color: #666666">=</span> <span style="color: #008000">sum</span>(markov_chain[from_base][to_base]
                 <span style="color: #008000; font-weight: bold">for</span> to_base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>)
@@ -2670,7 +2711,7 @@ with the probabilities:
 <p>
 
 <!-- code=python (from !bc pycod) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_draw_approx</span>(discrete_probdist, N<span style="color: #666666">=1000000</span>):
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">check_draw_approx</span>(discrete_probdist, N<span style="color: #666666">=1000000</span>):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    See if draw results in frequencies approx equal to</span>
 <span style="color: #BA2121; font-style: italic">    the probability distribution.</span>
@@ -2691,7 +2732,8 @@ of the implementation of the <code>draw</code> function.
 
 <p>
 A vectorized version of <code>draw</code> can also be made. We refer to the
-source code file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self">mutate.py</a> for details (the function is relatively
+source code file <a href="http://tinyurl.com/q4qpjbt/mutate.py" target="_self"><tt>mutate.py</tt></a>
+for details (the function is relatively
 complicated).
 
 <p>
@@ -2813,20 +2855,18 @@ confirmed by the greatest frequency (0.41).
 
 <p>
 The various functions performing mutations are located
-in the file <code>mutate.py</code> (<a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py" target="_self">download</a> or <a href="http://hplgit.github.com/bioinf-py/doc/tutorial/html/_static/mutate.py.html" target="_self">online viewing</a>).
+in the file <a href="http://tinyurl.com/q4qpjbt/mutate.py" target="_self"><tt>mutate.py</tt></a>.
 
-<h2>Classes for DNA Analysis <a name="bioinf:oo"></a></h2>
+<h1>Classes for DNA Analysis <a name="bioinf:oo"></a></h1>
 
-<p>
 We shall here exemplify the use of classes for performing
 DNA analysis as explained  in the previous text.
 Basically, we create a class <code>Gene</code> to represent a DNA sequence (string)
 and a class <code>Region</code> to represent a subsequence (substring), typically an
 exon or intron.
 
-<h3>Class for Regions  <a name="___sec40"></a></h3>
+<h2>Class for Regions  <a name="___sec41"></a></h2>
 
-<p>
 The class for representing a region of a DNA string is quite simple:
 
 <p>
@@ -2859,8 +2899,6 @@ The class for representing a region of a DNA string is quite simple:
 Besides storing the substring and giving access to it through <code>get_region</code>,
 we have also included the possibility to
 
-<p>
-
 <ul>
   <li> say <code>len(r)</code> if <code>r</code> is a <code>Region</code> instance</li>
   <li> check if two <code>Region</code> instances are equal</li>
@@ -2871,15 +2909,14 @@ we have also included the possibility to
 The latter two operations are convenient for making one large string out
 of all exon or intron regions.
 
-<h3>Class for Genes  <a name="___sec41"></a></h3>
+<h2>Class for Genes  <a name="___sec42"></a></h2>
 
-<p>
 The class for gene will be longer and more complex than class
 <code>Region</code>. We already have a bunch of functions performing various
 types of analysis. The idea of the <code>Gene</code> class is that these
 functions are methods in the class operating on the DNA string and the
 exon regions stored in the class.  Rather than recoding all the
-functions as methods in the class we shall just let the class "wrap"
+functions as methods in the class we shall just let the class &quot;wrap&quot;
 the functions. That is, the class methods call up the functions we
 already have.  This approach has two advantages: users can either
 choose the function-based or the class-based interface, and the
@@ -2888,8 +2925,6 @@ the class-based interface.
 
 <p>
 The selection of functions include
-
-<p>
 
 <ul>
  <li> <code>generate_string</code> for generating a random string from some alphabet</li>
@@ -2914,13 +2949,12 @@ The selection of functions include
 </ul>
 
 The set of plain functions for DNA analysis is found
-in the file <a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>dna_functions.py</tt></a>, while
-<a href="http://tinyurl.com/q4qpjbt/g<1>" target="_self"><tt>dna_classes.py</tt></a> contains the implementations
+in the file <a href="http://tinyurl.com/q4qpjbt/dna_functions.py" target="_self"><tt>dna_functions.py</tt></a>, while
+<a href="http://tinyurl.com/q4qpjbt/dna_classes.py" target="_self"><tt>dna_classes.py</tt></a> contains the implementations
 of classes <code>Gene</code> and <code>Region</code>.
 
-<h4>Basic Features of class Gene  <a name="___sec42"></a></h4>
+<h3>Basic Features of class Gene  <a name="___sec43"></a></h3>
 
-<p>
 Class <code>Gene</code> is supposed to hold the DNA sequence and
 the associated exon regions. A simple constructor expects the
 exon regions to be specified as a list of (start, end) tuples
@@ -2974,9 +3008,8 @@ Here are a few examples on methods:
         <span style="color: #008000; font-weight: bold">return</span> format_frequencies(<span style="color: #008000">self</span><span style="color: #666666">.</span>get_base_frequencies())
 </pre></div>
 
-<h4>Flexible Constructor  <a name="___sec43"></a></h4>
+<h3>Flexible Constructor  <a name="___sec44"></a></h3>
 
-<p>
 The constructor can be made more flexible. First, the exon regions
 may not be known so we should allow <code>None</code> as value and in fact
 use that as default value. Second, exon regions at the start and/or
@@ -3068,9 +3101,8 @@ of the data structures supplied as the <code>dna</code> and <code>exon_regions</
 arguments. This can well be done to ensure safe use also when there is only
 one allowed type per argument.
 
-<h4>Other Methods  <a name="___sec44"></a></h4>
+<h3>Other Methods  <a name="___sec45"></a></h3>
 
-<p>
 A <code>create_mRNA</code> method, returning the mRNA as a string, can be coded as
 
 <p>
@@ -3120,7 +3152,7 @@ Methods for creating a mutated gene are also included:
         <span style="color: #008000; font-weight: bold">return</span> Gene(mutated_dna, <span style="color: #008000">self</span><span style="color: #666666">.</span>_exon_regions)
 </pre></div>
 <p>
-Some "get" methods that give access to the fundamental attributes
+Some &quot;get&quot; methods that give access to the fundamental attributes
 of the class can be included:
 
 <p>
@@ -3139,8 +3171,8 @@ of the class can be included:
 Alternatively, one could access the attributes directly: <code>gene._dna</code>,
 <code>gene._exons</code>, etc. In that case we should remove the leading underscore as
 this underscore signals that these
-attributes are considered "protected", i.e., not to be directly accessed
-by the user. The "protection" in "get" functions is more mental
+attributes are considered &quot;protected&quot;, i.e., not to be directly accessed
+by the user. The &quot;protection&quot; in &quot;get&quot; functions is more mental
 than actual since we anyway give the data structures in the hands of
 the user and she can do whatever she wants (even delete them).
 
@@ -3189,34 +3221,33 @@ Here is an interactive session demonstrating how we can work with
 class <code>Gene</code> objects:
 <p>
 
-<!-- code=text (from !bc ipy) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&gt;&gt;&gt; from dna_classes import Gene
-&gt;&gt;&gt; g1 = Gene(&#39;ATCCGTAATTGCGCA&#39;, [(2,4), (6,9)])
-&gt;&gt;&gt; print g1
-Gene: ATCCGT...TGCGCA, length=15, 2 exon regions
-&gt;&gt;&gt; g2 = g1.mutate_random(10)
-&gt;&gt;&gt; print g2
-Gene: ATCCGT...TGTGCT, length=15, 2 exon regions
-&gt;&gt;&gt; g1 == g2
-False
-&gt;&gt;&gt; g1 += g2  # expect exception
+<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">dna_classes</span> <span style="color: #008000; font-weight: bold">import</span> Gene
+<span style="color: #666666">&gt;&gt;&gt;</span> g1 <span style="color: #666666">=</span> Gene(<span style="color: #BA2121">&#39;ATCCGTAATTGCGCA&#39;</span>, [(<span style="color: #666666">2</span>,<span style="color: #666666">4</span>), (<span style="color: #666666">6</span>,<span style="color: #666666">9</span>)])
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">print</span> g1
+Gene: ATCCGT<span style="color: #666666">...</span>TGCGCA, length<span style="color: #666666">=15</span>, <span style="color: #666666">2</span> exon regions
+<span style="color: #666666">&gt;&gt;&gt;</span> g2 <span style="color: #666666">=</span> g1<span style="color: #666666">.</span>mutate_random(<span style="color: #666666">10</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">print</span> g2
+Gene: ATCCGT<span style="color: #666666">...</span>TGTGCT, length<span style="color: #666666">=15</span>, <span style="color: #666666">2</span> exon regions
+<span style="color: #666666">&gt;&gt;&gt;</span> g1 <span style="color: #666666">==</span> g2
+<span style="color: #008000">False</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> g1 <span style="color: #666666">+=</span> g2  <span style="color: #408080; font-style: italic"># expect exception</span>
 Traceback (most recent call last):
-...
-ValueError: cannot do Gene += Gene with exon regions
-&gt;&gt;&gt; g1b = Gene(g1.get_dna(), None)
-&gt;&gt;&gt; g2b = Gene(g2.get_dna(), None)
-&gt;&gt;&gt; print g1b
-Gene: ATCCGT...TGCGCA, length=15
-&gt;&gt;&gt; g3 = g1b + g2b
-&gt;&gt;&gt; g3.format_base_frequencies()
-&#39;A: 0.17, C: 0.23, T: 0.33, G: 0.27&#39;
+<span style="color: #666666">...</span>
+<span style="color: #D2413A; font-weight: bold">ValueError</span>: cannot do Gene <span style="color: #666666">+=</span> Gene <span style="color: #008000; font-weight: bold">with</span> exon regions
+<span style="color: #666666">&gt;&gt;&gt;</span> g1b <span style="color: #666666">=</span> Gene(g1<span style="color: #666666">.</span>get_dna(), <span style="color: #008000">None</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> g2b <span style="color: #666666">=</span> Gene(g2<span style="color: #666666">.</span>get_dna(), <span style="color: #008000">None</span>)
+<span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">print</span> g1b
+Gene: ATCCGT<span style="color: #666666">...</span>TGCGCA, length<span style="color: #666666">=15</span>
+<span style="color: #666666">&gt;&gt;&gt;</span> g3 <span style="color: #666666">=</span> g1b <span style="color: #666666">+</span> g2b
+<span style="color: #666666">&gt;&gt;&gt;</span> g3<span style="color: #666666">.</span>format_base_frequencies()
+<span style="color: #BA2121">&#39;A: 0.17, C: 0.23, T: 0.33, G: 0.27&#39;</span>
 </pre></div>
 
-<h3>Subclasses  <a name="___sec45"></a></h3>
+<h2>Subclasses  <a name="___sec46"></a></h2>
 
-<p>
-There are two fundamental types of genes: the most common type which
-codes for proteins (indirectly via mRNA) and the type which only codes
+There are two fundamental types of genes: the most common type that
+codes for proteins (indirectly via mRNA) and the type that only codes
 for RNA (without being further processed to proteins).
 The product of a gene, mRNA or protein, depends on the type of gene we have.
 It is then natural to create two subclasses for the two types of
@@ -3268,7 +3299,7 @@ lactase protein is done with
 <p>
 
 <!-- code=python (from !bc pycod) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">_test</span>():
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_lactase_gene</span>():
     urlbase <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
     lactase_gene_file <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;lactase_gene.txt&#39;</span>
     lactase_exon_file <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;lactase_exon.tsv&#39;</span>
@@ -3291,22 +3322,20 @@ protein.
 The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
 and Kai Trengereid for contributing to the examples and their implementations.
 
-<h2>Exercises  <a name="___sec46"></a></h2>
+<h1>Exercises  <a name="___sec47"></a></h1>
 
-<p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 1: Find pairs of characters <a name="bioinf:exer:pairs1"></a></h3>
+<h2>Exercise 1: Find pairs of characters <a name="bioinf:exer:pairs1"></a></h2>
 
-<p>
 Write a function <code>count_pairs(dna, pair)</code> that returns the number of
 occurrences of a pair of characters (<code>pair</code>) in a DNA string (<code>dna</code>).
 For example, calling the function with <code>dna</code> as <code>'ACTGCTATCCATT'</code>
 and <code>pair</code> as  <code>'AT'</code> will return 2.
+Filename: <code>count_pairs.py</code>.
 
 <p>
 <!-- Note: dna.count(pair) works! -->
-Filename: <code>count_pairs.py</code>.
 
 <p>
 <!-- --- end exercise --- -->
@@ -3314,12 +3343,11 @@ Filename: <code>count_pairs.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 2: Count substrings <a name="bioinf:exer:substr1"></a></h3>
+<h2>Exercise 2: Count substrings <a name="bioinf:exer:substr1"></a></h2>
 
-<p>
 This is an extension of <a href="#bioinf:exer:pairs1">Exercise 1: Find pairs of characters</a>:
 count how many times a certain string appears in another string.
-For example, the function returns 2 when called
+For example, the function returns 3 when called
 with the DNA string <code>'ACGTTACGGAACG'</code>
 and the substring <code>'ACG'</code>.
 
@@ -3343,13 +3371,12 @@ Filename: <code>count_substr.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 3: Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></a></h3>
+<h2>Exercise 3: Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></a></h2>
 
-<p>
 Consider the family of <code>find_consensus_v*</code> functions from
-the section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
+The section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
 different representations of the frequency matrix. Make a unified
-<code>find_consensus</code> function which accepts different data structures
+<code>find_consensus</code> function that accepts different data structures
 for the <code>frequency_matrix</code>. Test on the type of data structure and
 perform the necessary actions.
 Filename: <code>find_consensus.py</code>.
@@ -3360,11 +3387,10 @@ Filename: <code>find_consensus.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 4: Make a function more robust <a name="bioinf:exer:get_base_counts2"></a></h3>
+<h2>Exercise 4: Make a function more robust <a name="bioinf:exer:get_base_counts2"></a></h2>
 
-<p>
 Consider the function <code>get_base_counts(dna)</code>
-(from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>),
+from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>,
 which counts how many times <code>A</code>, <code>C</code>, <code>G</code>, and
 <code>T</code> appears in the string <code>dna</code>:
 
@@ -3381,10 +3407,10 @@ which counts how many times <code>A</code>, <code>C</code>, <code>G</code>, and
 Unfortunately, this function crashes if other letters appear in <code>dna</code>.
 Write an enhanced function <code>get_base_counts2</code> which solves this problem.
 Test it on a string like <code>'ADLSTTLLD'</code>.
+Filename: <code>get_base_counts2.py</code>.
 
 <p>
 <!-- Hints: defaultdict or test on if base in counts: ... else counts[base]=1 -->
-Filename: <code>get_base_counts2.py</code>.
 
 <p>
 <!-- --- end exercise --- -->
@@ -3392,19 +3418,28 @@ Filename: <code>get_base_counts2.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 5: Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></a></h3>
+<h2>Exercise 5: Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></a></h2>
+
+Consider the lactase gene as described in
+The sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and <a href="#bioinf:lactase:milk">Some Humans Can Drink Milk, While Others Cannot</a>.
+What is the proportion of base A inside and outside exons of
+the lactase gene?
 
 <p>
-Consider the lactase gene as described in
-the sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and <a href="#bioinf:lactase:milk">Some Humans Can Drink Milk, While Others Cannot</a>.
-What is the proportion of base A inside and outside exons of
-the lactase gene? Write a function <code>get_exons</code>, which returns
-all the substrings of the exon regions concatenated,
-and a function <code>get_introns</code>, which
+<!-- --- begin hint in exercise --- -->
+
+<p>
+<b>Hint.</b>
+Write a function <code>get_exons</code>, which returns
+all the substrings of the exon regions concatenated.
+Also write a function <code>get_introns</code>, which
 returns all the substrings between the exon regions concatenated.
 The function <code>get_base_frequencies</code> from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>
 can then be used to analyze the frequencies of bases A, C, G, and T
 in the two strings.
+
+<p>
+<!-- --- end hint in exercise --- -->
 Filename: <code>prop_A_exons.py</code>.
 
 <p>
@@ -3413,15 +3448,14 @@ Filename: <code>prop_A_exons.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 6: Speed up Markov chain mutation <a name="bioinf:exer:Markov:chain:eff"></a></h3>
+<h2>Exercise 6: Speed up Markov chain mutation <a name="bioinf:exer:Markov:chain:eff"></a></h2>
 
-<p>
 The functions <code>transition</code> and <code>mutate_via_markov_chain</code> from the section <a href="#bioinf:random">Random Mutations of Genes</a> were made for being easy to read and understand.  Upon
 closer inspection, we realize that the <code>transition</code> function
 constructs the <code>interval_limits</code> every time a random transition is to
-be computed, and we want to run a large number of transitions.  By (i)
-merging the two functions, (ii) pre-computing interval limits for each
-<code>from_base</code>, and (iii) adding a loop over <code>N</code> mutations, one can
+be computed, and we want to run a large number of transitions.  By
+merging the two functions, pre-computing interval limits for each
+<code>from_base</code>, and adding a loop over <code>N</code> mutations, one can
 reduce the computation of interval limits to a minimum. Perform such
 an efficiency enhancement.  Measure the CPU time of this new function
 versus the <code>mutate_via_markov_chain</code> function for 1 million mutations.
@@ -3433,9 +3467,8 @@ Filename: <code>markov_chain_mutation2.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h3>Exercise 7: Extend the constructor in class Gene <a name="bioinf:exer:Gene:randominit"></a></h3>
+<h2>Exercise 7: Extend the constructor in class Gene <a name="bioinf:exer:Gene:randominit"></a></h2>
 
-<p>
 Modify the constructor in class <code>Gene</code> from the section <a href="#bioinf:oo">Classes for DNA Analysis</a> such
 that giving no arguments to the constructor makes the class call
 up the <code>generate_string</code> method (from the <code>dna_functions</code> module)
