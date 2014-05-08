@@ -197,7 +197,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="k">print</span> <span class="n">mc</span>
 <span class="k">print</span> <span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">][</span><span class="s">&#39;T&#39;</span><span class="p">]</span> <span class="c"># probability of transition from A to T</span>
 
-<span class="k">def</span> <span class="nf">test_transition_probabilities</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">check_transition_probabilities</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">from_base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">markov_chain</span><span class="p">[</span><span class="n">from_base</span><span class="p">][</span><span class="n">to_base</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">to_base</span> <span class="ow">in</span> <span class="s">&#39;ATGC&#39;</span><span class="p">)</span>
@@ -205,7 +205,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Wrong sum: </span><span class="si">%s</span><span class="s"> for &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> \
                              <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">from_base</span><span class="p">))</span>
 
-<span class="n">test_transition_probabilities</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
+<span class="n">check_transition_probabilities</span><span class="p">(</span><span class="n">mc</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">draw</span><span class="p">(</span><span class="n">discrete_probdist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -239,7 +239,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">values</span>
 
-<span class="k">def</span> <span class="nf">test_draw_approx</span><span class="p">(</span><span class="n">discrete_probdist</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000000</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">check_draw_approx</span><span class="p">(</span><span class="n">discrete_probdist</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000000</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    See if draw results in frequencies approx equal to</span>
 <span class="sd">    the probability distribution.</span>
@@ -254,7 +254,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
                      <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">discrete_probdist</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
                      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">])</span>
 
-<span class="k">def</span> <span class="nf">test_draw_vec_approx</span><span class="p">(</span><span class="n">discrete_probdist</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000000</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">check_draw_vec_approx</span><span class="p">(</span><span class="n">discrete_probdist</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">1000000</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    See if draw_vec results in frequencies approx equal to</span>
 <span class="sd">    the probability distribution.</span>
@@ -270,8 +270,8 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
                      <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">frequencies</span><span class="p">[</span><span class="n">v</span><span class="p">],</span> <span class="n">discrete_probdist</span><span class="p">[</span><span class="n">v</span><span class="p">])</span>
                      <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">frequencies</span><span class="p">])</span>
 
-<span class="n">test_draw_approx</span><span class="p">(</span><span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
-<span class="n">test_draw_vec_approx</span><span class="p">(</span><span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
+<span class="n">check_draw_approx</span><span class="p">(</span><span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
+<span class="n">check_draw_vec_approx</span><span class="p">(</span><span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
     <span class="k">print</span> <span class="s">&#39;A to&#39;</span><span class="p">,</span> <span class="n">draw</span><span class="p">(</span><span class="n">mc</span><span class="p">[</span><span class="s">&#39;A&#39;</span><span class="p">])</span>
 

@@ -91,40 +91,52 @@ def count_v11(dna, base):
 def count_v12(dna, base):
     return dna.count(base)
 
-import random
+def compare_efficiency():
+    import random
 
-def generate_string(N, alphabet='ACGT'):
-    return ''.join([random.choice(alphabet) for i in xrange(N)])
+    def generate_string(N, alphabet='ACGT'):
+        return ''.join([random.choice(alphabet) for i in xrange(N)])
 
-dna = generate_string(600000)
-#dna = generate_string(6000000)
+    dna = generate_string(600000)
+    #dna = generate_string(6000000)
 
-import time
-functions = [count_v1, count_v2, count_v3, count_v4,
-             count_v5, count_v6, count_v7, count_v8,
-             count_v9, count_v10, count_v11, count_v12]
-timings = []  # timings[i] holds CPU time for functions[i]
+    import time
+    functions = [count_v1, count_v2, count_v3, count_v4,
+                 count_v5, count_v6, count_v7, count_v8,
+                 count_v9, count_v10, count_v11, count_v12]
+    timings = []  # timings[i] holds CPU time for functions[i]
 
-for function in functions:
+    for function in functions:
+        t0 = time.clock()
+        function(dna, 'A')
+        t1 = time.clock()
+        cpu_time = t1 - t0
+        timings.append(cpu_time)
+
+    for cpu_time, function in zip(timings, functions):
+        print '{f:<9s}: {cpu:.2f} s'.format(
+            f=function.func_name, cpu=cpu_time)
+
+    # Time count_v12 better: repeat 100 times because it's so fast
     t0 = time.clock()
-    function(dna, 'A')
+    for i in range(100):
+        count_v12(dna, 'A')
     t1 = time.clock()
-    cpu_time = t1 - t0
-    timings.append(cpu_time)
+    print '{f:<9s}: {cpu:.2e} s'.format(
+        f='count_v12', cpu=(t1-t0)/100.)
 
-for cpu_time, function in zip(timings, functions):
-    print '{f:<9s}: {cpu:.2f} s'.format(
-        f=function.func_name, cpu=cpu_time)
+def test_count_all():
+    dna = 'ATTTGCGGTCCAAA'
+    exact = dna.count('A')
+    for f in functions:
+        success = f(dna, 'A') == exact
+        msg = '%s failed' % f.__name__
+        assert success, msg
 
-# Time count_v12 better: repeat 100 times because it's so fast
-t0 = time.clock()
-for i in range(100):
-    count_v12(dna, 'A')
-t1 = time.clock()
-print '{f:<9s}: {cpu:.2e} s'.format(
-    f='count_v12', cpu=(t1-t0)/100.)
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) >= 2 and sys.argv[1] == 'verify':
+        test_count_all()
+    elif len(sys.argv) >= 2 and sys.argv[1] == 'efficiency':
+        compare_efficiency()
 
-dna = 'ATTTGCGGTCCAAA'
-exact = count_v12(dna, 'A')
-for f in functions:
-    assert f(dna, 'A') == exact

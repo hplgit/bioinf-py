@@ -279,7 +279,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="k">return</span> <span class="n">create_protein_fixed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">create_mRNA</span><span class="p">(),</span>
                                     <span class="bp">self</span><span class="o">.</span><span class="n">genetic_code</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="nf">_test</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">test_lactase_gene</span><span class="p">():</span>
     <span class="n">urlbase</span> <span class="o">=</span> <span class="s">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
     <span class="n">lactase_gene_file</span> <span class="o">=</span> <span class="s">&#39;lactase_gene.txt&#39;</span>
     <span class="n">lactase_exon_file</span> <span class="o">=</span> <span class="s">&#39;lactase_exon.tsv&#39;</span>
@@ -303,7 +303,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
     <span class="k">assert</span> <span class="n">lactase_gene</span> <span class="o">==</span> <span class="n">lactase_gene2</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">_test</span><span class="p">()</span>
+    <span class="n">test_lactase_gene</span><span class="p">()</span>
 </pre></div>
 </body>
 </html>

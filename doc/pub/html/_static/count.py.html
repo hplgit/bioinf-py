@@ -170,43 +170,54 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 <span class="k">def</span> <span class="nf">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="n">base</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">random</span>
+<span class="k">def</span> <span class="nf">compare_efficiency</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">random</span>
 
-<span class="k">def</span> <span class="nf">generate_string</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s">&#39;ACGT&#39;</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+    <span class="k">def</span> <span class="nf">generate_string</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">alphabet</span><span class="o">=</span><span class="s">&#39;ACGT&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">alphabet</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
 
-<span class="n">dna</span> <span class="o">=</span> <span class="n">generate_string</span><span class="p">(</span><span class="mi">600000</span><span class="p">)</span>
-<span class="c">#dna = generate_string(6000000)</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="n">generate_string</span><span class="p">(</span><span class="mi">600000</span><span class="p">)</span>
+    <span class="c">#dna = generate_string(6000000)</span>
 
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_v1</span><span class="p">,</span> <span class="n">count_v2</span><span class="p">,</span> <span class="n">count_v3</span><span class="p">,</span> <span class="n">count_v4</span><span class="p">,</span>
-             <span class="n">count_v5</span><span class="p">,</span> <span class="n">count_v6</span><span class="p">,</span> <span class="n">count_v7</span><span class="p">,</span> <span class="n">count_v8</span><span class="p">,</span>
-             <span class="n">count_v9</span><span class="p">,</span> <span class="n">count_v10</span><span class="p">,</span> <span class="n">count_v11</span><span class="p">,</span> <span class="n">count_v12</span><span class="p">]</span>
-<span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># timings[i] holds CPU time for functions[i]</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_v1</span><span class="p">,</span> <span class="n">count_v2</span><span class="p">,</span> <span class="n">count_v3</span><span class="p">,</span> <span class="n">count_v4</span><span class="p">,</span>
+                 <span class="n">count_v5</span><span class="p">,</span> <span class="n">count_v6</span><span class="p">,</span> <span class="n">count_v7</span><span class="p">,</span> <span class="n">count_v8</span><span class="p">,</span>
+                 <span class="n">count_v9</span><span class="p">,</span> <span class="n">count_v10</span><span class="p">,</span> <span class="n">count_v11</span><span class="p">,</span> <span class="n">count_v12</span><span class="p">]</span>
+    <span class="n">timings</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># timings[i] holds CPU time for functions[i]</span>
 
-<span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+        <span class="n">function</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
+        <span class="n">cpu_time</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpu_time</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">cpu_time</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">timings</span><span class="p">,</span> <span class="n">functions</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;{f:&lt;9s}: {cpu:.2f} s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">f</span><span class="o">=</span><span class="n">function</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="n">cpu</span><span class="o">=</span><span class="n">cpu_time</span><span class="p">)</span>
+
+    <span class="c"># Time count_v12 better: repeat 100 times because it&#39;s so fast</span>
     <span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-    <span class="n">function</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
     <span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-    <span class="n">cpu_time</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span>
-    <span class="n">timings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpu_time</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;{f:&lt;9s}: {cpu:.2e} s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">f</span><span class="o">=</span><span class="s">&#39;count_v12&#39;</span><span class="p">,</span> <span class="n">cpu</span><span class="o">=</span><span class="p">(</span><span class="n">t1</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="mf">100.</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">cpu_time</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">timings</span><span class="p">,</span> <span class="n">functions</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s">&#39;{f:&lt;9s}: {cpu:.2f} s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-        <span class="n">f</span><span class="o">=</span><span class="n">function</span><span class="o">.</span><span class="n">func_name</span><span class="p">,</span> <span class="n">cpu</span><span class="o">=</span><span class="n">cpu_time</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_count_all</span><span class="p">():</span>
+    <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ATTTGCGGTCCAAA&#39;</span>
+    <span class="n">exact</span> <span class="o">=</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">exact</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> failed&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="k">assert</span> <span class="n">success</span><span class="p">,</span> <span class="n">msg</span>
 
-<span class="c"># Time count_v12 better: repeat 100 times because it&#39;s so fast</span>
-<span class="n">t0</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">()</span>
-<span class="k">print</span> <span class="s">&#39;{f:&lt;9s}: {cpu:.2e} s&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-    <span class="n">f</span><span class="o">=</span><span class="s">&#39;count_v12&#39;</span><span class="p">,</span> <span class="n">cpu</span><span class="o">=</span><span class="p">(</span><span class="n">t1</span><span class="o">-</span><span class="n">t0</span><span class="p">)</span><span class="o">/</span><span class="mf">100.</span><span class="p">)</span>
-
-<span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ATTTGCGGTCCAAA&#39;</span>
-<span class="n">exact</span> <span class="o">=</span> <span class="n">count_v12</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
-    <span class="k">assert</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">exact</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;verify&#39;</span><span class="p">:</span>
+        <span class="n">test_count_all</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;efficiency&#39;</span><span class="p">:</span>
+        <span class="n">compare_efficiency</span><span class="p">()</span>
 </pre></div>
 </body>
 </html>
