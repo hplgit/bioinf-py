@@ -79,7 +79,7 @@ The appropriate download code then becomes
 A copy of the file on the Internet is now in the current working folder
 under the name `yeast_chr1.txt`.
 ${primer_book_comment(r"""(See Section ref{sec:files:urllib} for
-more information about \emp{urllib} and downloading files from
+more information about `urllib` and downloading files from
 the Internet.)""")}
 
 The `yeast_chr1.txt` files contains the DNA string split over many lines.

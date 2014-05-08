@@ -9,8 +9,6 @@ fi
 
 name=main_bioinf
 
-doconce format html $name PRIMER_BOOK=False EBOOK=False $opt
-
 # ------
 # The technique here was to make pygments files and link to them
 # in _static-* (links mako function, but the new technique is to
@@ -29,6 +27,8 @@ done
 cp *.py ../$static
 cd ..
 # ------
+
+doconce format html $name PRIMER_BOOK=False EBOOK=False $opt --html_style=bootswatch_readable
 
 doconce format sphinx $name PRIMER_BOOK=False EBOOK=False $opt
 rm -rf sphinx-rootdir
