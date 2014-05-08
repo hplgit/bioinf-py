@@ -1,7 +1,12 @@
 label{bioinf:basics}
 
-We start with some very simple examples on DNA analysis that bring together
+We shall start with some very simple examples on DNA analysis that
+bring together
 basic building blocks in programming: loops, `if` tests, and functions.
+% if not PRIMER_BOOK:
+As reader you should be somewhat familiar with these building blocks
+in general and also know about the specific Python syntax.
+% endif
 
 ===== Counting Letters in DNA Strings =====
 label{bioinf:count}
@@ -386,7 +391,7 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
-===== Verifying the implementations =====
+===== Verifying the Implementations =====
 label{bioinf:count:verify}
 
 idx{test function}

@@ -30,19 +30,27 @@ proteins.
 Basic Bioinformatics Examples in Python
 =======================================
 
-The leading Python software for bioinformatics applications is
-`BioPython <http://biopython.org>`_. The forthcoming examples are
+The instructions to the computer how the analysis is going to
+be performed are specified using the `Python <http://python.org>`_
+programming language.
+The forthcoming examples are
 simple illustrations of the type of problem settings and corresponding
-Python implementations that are encountered in bioinformatics. For
-real-world problem solving one should rather utilize BioPython, but
-the sections below acts as an introduction to what is inside packages
-like BioPython.
+Python implementations that are encountered in bioinformatics.
+However, the leading Python software for bioinformatics applications is
+`BioPython <http://biopython.org>`_ and for
+real-world problem solving one should rather utilize BioPython instead
+of home-made solutions. The aim of
+the sections below is to illustrate the nature of bioinformatics analysis
+and introduce what is inside packages like BioPython.
 
 
 
 
-We start with some very simple examples on DNA analysis that bring together
+We shall start with some very simple examples on DNA analysis that
+bring together
 basic building blocks in programming: loops, ``if`` tests, and functions.
+As reader you should be somewhat familiar with these building blocks
+in general and also know about the specific Python syntax.
 
 .. _bioinf:count:
 
@@ -617,7 +625,7 @@ you can (easily) come up with.
 
 .. _bioinf:count:verify:
 
-Verifying the implementations
+Verifying the Implementations
 -----------------------------
 
 

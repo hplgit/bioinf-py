@@ -11,30 +11,11 @@ Automatically generated HTML file from Doconce source
 
 
 
-<style type="text/css">
-    /* blueish style */
-
-    /* Color definitions:  http://www.december.com/html/spec/color0.html
-       CSS examples:       http://www.w3schools.com/css/css_examples.asp */
-
-    body {
-      margin-top: 1.0em;
-      background-color: #ffffff;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    h1 { font-size: 1.8em; color: #1e36ce; }
-    h2 { font-size: 1.6em; color: #1e36ce; }
-    h3 { font-size: 1.4em; color: #1e36ce; }
-    a { color: #1e36ce; text-decoration:none; }
-    tt { font-family: "Courier New", Courier; }
-    
-    p { text-indent: 0px; }
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    p.caption { width: 80%; font-style: normal; text-align: left; }
-    hr.figure { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-
-</style>
+<!-- Bootstrap style: bootswatch_readable -->
+<link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css" rel="stylesheet">
+<!-- not necessary
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+-->
 
 </head>
 
@@ -66,7 +47,7 @@ Automatically generated HTML file from Doconce source
                'bioinf:count:cpu'),
               (' Generating Random DNA Strings ', 3, None, '___sec15'),
               (' Measuring CPU Time ', 3, None, '___sec16'),
-              (' Verifying the implementations ',
+              (' Verifying the Implementations ',
                2,
                'bioinf:count:verify',
                'bioinf:count:verify'),
@@ -176,11 +157,94 @@ MathJax.Hub.Config({
 
 
     
+<!-- Bootstrap navigation bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="main_bioinf.html">Illustrating Python via Bioinformatics Examples</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+     <!-- navigation toc: " Basic Bioinformatics Examples in Python " --> <li>  <a href="#___sec0"> Basic Bioinformatics Examples in Python </a></li>
+     <!-- navigation toc: " Counting Letters in DNA Strings " --> <li> &nbsp;  <a href="#bioinf:count"> Counting Letters in DNA Strings </a></li>
+     <!-- navigation toc: " List Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec2"> List Iteration </a></li>
+     <!-- navigation toc: " String Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec3"> String Iteration </a></li>
+     <!-- navigation toc: " Program Flow " --> <li> &nbsp; &nbsp;  <a href="#___sec4"> Program Flow </a></li>
+     <!-- navigation toc: " Index Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec5"> Index Iteration </a></li>
+     <!-- navigation toc: " While Loops " --> <li> &nbsp; &nbsp;  <a href="#___sec6"> While Loops </a></li>
+     <!-- navigation toc: " Summing a Boolean List " --> <li> &nbsp; &nbsp;  <a href="#___sec7"> Summing a Boolean List </a></li>
+     <!-- navigation toc: " Inline If Test " --> <li> &nbsp; &nbsp;  <a href="#___sec8"> Inline If Test </a></li>
+     <!-- navigation toc: " Using Boolean Values Directly " --> <li> &nbsp; &nbsp;  <a href="#___sec9"> Using Boolean Values Directly </a></li>
+     <!-- navigation toc: " List Comprehensions " --> <li> &nbsp; &nbsp;  <a href="#___sec10"> List Comprehensions </a></li>
+     <!-- navigation toc: " Using a Sum Iterator " --> <li> &nbsp; &nbsp;  <a href="#___sec11"> Using a Sum Iterator </a></li>
+     <!-- navigation toc: " Extracting Indices " --> <li> &nbsp; &nbsp;  <a href="#___sec12"> Extracting Indices </a></li>
+     <!-- navigation toc: " Using Python's Library " --> <li> &nbsp; &nbsp;  <a href="#___sec13"> Using Python's Library </a></li>
+     <!-- navigation toc: " Efficiency Assessment " --> <li> &nbsp;  <a href="#bioinf:count:cpu"> Efficiency Assessment </a></li>
+     <!-- navigation toc: " Generating Random DNA Strings " --> <li> &nbsp; &nbsp;  <a href="#___sec15"> Generating Random DNA Strings </a></li>
+     <!-- navigation toc: " Measuring CPU Time " --> <li> &nbsp; &nbsp;  <a href="#___sec16"> Measuring CPU Time </a></li>
+     <!-- navigation toc: " Verifying the Implementations " --> <li> &nbsp;  <a href="#bioinf:count:verify"> Verifying the Implementations </a></li>
+     <!-- navigation toc: " Computing Frequencies " --> <li> &nbsp;  <a href="#bioinf:freqm"> Computing Frequencies </a></li>
+     <!-- navigation toc: " Separate Frequency Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec19"> Separate Frequency Lists </a></li>
+     <!-- navigation toc: " Nested List " --> <li> &nbsp; &nbsp;  <a href="#___sec20"> Nested List </a></li>
+     <!-- navigation toc: " Dictionary for More Convenient Indexing " --> <li> &nbsp; &nbsp;  <a href="#___sec21"> Dictionary for More Convenient Indexing </a></li>
+     <!-- navigation toc: " Numerical Python Array " --> <li> &nbsp; &nbsp;  <a href="#___sec22"> Numerical Python Array </a></li>
+     <!-- navigation toc: " Dictionary of Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec23"> Dictionary of Lists </a></li>
+     <!-- navigation toc: " Dictionary of Dictionaries " --> <li> &nbsp; &nbsp;  <a href="#___sec24"> Dictionary of Dictionaries </a></li>
+     <!-- navigation toc: " Using Dictionaries with Default Values " --> <li> &nbsp; &nbsp;  <a href="#___sec25"> Using Dictionaries with Default Values </a></li>
+     <!-- navigation toc: " Using Arrays and Vectorization " --> <li> &nbsp; &nbsp;  <a href="#___sec26"> Using Arrays and Vectorization </a></li>
+     <!-- navigation toc: " Analyzing the Frequency Matrix " --> <li> &nbsp;  <a href="#bioinf:freq:analysis"> Analyzing the Frequency Matrix </a></li>
+     <!-- navigation toc: " List of Lists Frequency Matrix " --> <li> &nbsp; &nbsp;  <a href="#___sec28"> List of Lists Frequency Matrix </a></li>
+     <!-- navigation toc: " Dict of Dicts Frequency Matrix " --> <li> &nbsp; &nbsp;  <a href="#___sec29"> Dict of Dicts Frequency Matrix </a></li>
+     <!-- navigation toc: " Dot Plots from Pair of DNA Sequences " --> <li> &nbsp;  <a href="#bioinf:dotplot"> Dot Plots from Pair of DNA Sequences </a></li>
+     <!-- navigation toc: " Using Lists of Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec31"> Using Lists of Lists </a></li>
+     <!-- navigation toc: " Using Numerical Python Arrays " --> <li> &nbsp; &nbsp;  <a href="#___sec32"> Using Numerical Python Arrays </a></li>
+     <!-- navigation toc: " Finding Base Frequencies " --> <li> &nbsp;  <a href="#bioinf:basefreq"> Finding Base Frequencies </a></li>
+     <!-- navigation toc: " Translating Genes into Proteins " --> <li> &nbsp;  <a href="#bioinf:gene2protein"> Translating Genes into Proteins </a></li>
+     <!-- navigation toc: " Some Humans Can Drink Milk, While Others Cannot " --> <li> &nbsp;  <a href="#bioinf:lactase:milk"> Some Humans Can Drink Milk, While Others Cannot </a></li>
+     <!-- navigation toc: " Random Mutations of Genes " --> <li> &nbsp;  <a href="#bioinf:random"> Random Mutations of Genes </a></li>
+     <!-- navigation toc: " A Simple Mutation Model " --> <li> &nbsp; &nbsp;  <a href="#___sec37"> A Simple Mutation Model </a></li>
+     <!-- navigation toc: " Vectorized Version " --> <li> &nbsp; &nbsp;  <a href="#___sec38"> Vectorized Version </a></li>
+     <!-- navigation toc: " A Markov Chain Mutation Model " --> <li> &nbsp; &nbsp;  <a href="#___sec39"> A Markov Chain Mutation Model </a></li>
+     <!-- navigation toc: " Classes for DNA Analysis " --> <li>  <a href="#bioinf:oo"> Classes for DNA Analysis </a></li>
+     <!-- navigation toc: " Class for Regions " --> <li> &nbsp;  <a href="#___sec41"> Class for Regions </a></li>
+     <!-- navigation toc: " Class for Genes " --> <li> &nbsp;  <a href="#___sec42"> Class for Genes </a></li>
+     <!-- navigation toc: " Basic Features of class Gene " --> <li> &nbsp; &nbsp;  <a href="#___sec43"> Basic Features of class Gene </a></li>
+     <!-- navigation toc: " Flexible Constructor " --> <li> &nbsp; &nbsp;  <a href="#___sec44"> Flexible Constructor </a></li>
+     <!-- navigation toc: " Other Methods " --> <li> &nbsp; &nbsp;  <a href="#___sec45"> Other Methods </a></li>
+     <!-- navigation toc: " Subclasses " --> <li> &nbsp;  <a href="#___sec46"> Subclasses </a></li>
+     <!-- navigation toc: " Exercises " --> <li>  <a href="#___sec47"> Exercises </a></li>
+     <!-- navigation toc: " Exercise 1: Find pairs of characters " --> <li> &nbsp;  <a href="#bioinf:exer:pairs1"> Exercise 1: Find pairs of characters </a></li>
+     <!-- navigation toc: " Exercise 2: Count substrings " --> <li> &nbsp;  <a href="#bioinf:exer:substr1"> Exercise 2: Count substrings </a></li>
+     <!-- navigation toc: " Exercise 3: Allow different types for a function argument " --> <li> &nbsp;  <a href="#bioinf:exer:freq:fargs"> Exercise 3: Allow different types for a function argument </a></li>
+     <!-- navigation toc: " Exercise 4: Make a function more robust " --> <li> &nbsp;  <a href="#bioinf:exer:get_base_counts2"> Exercise 4: Make a function more robust </a></li>
+     <!-- navigation toc: " Exercise 5: Find proportion of bases inside/outside exons " --> <li> &nbsp;  <a href="#bioinf:exer:Ainsouts:exons"> Exercise 5: Find proportion of bases inside/outside exons </a></li>
+     <!-- navigation toc: " Exercise 6: Speed up Markov chain mutation " --> <li> &nbsp;  <a href="#bioinf:exer:Markov:chain:eff"> Exercise 6: Speed up Markov chain mutation </a></li>
+     <!-- navigation toc: " Exercise 7: Extend the constructor in class Gene " --> <li> &nbsp;  <a href="#bioinf:exer:Gene:randominit"> Exercise 7: Extend the constructor in class Gene </a></li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<div class="container">
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
+
 <!-- ------------------- main content ---------------------- -->
 
 
 <title>Illustrating Python via Bioinformatics Examples</title>
 
+<div class="jumbotron">
 <center><h1>Illustrating Python via Bioinformatics Examples</h1></center>  <!-- document title -->
 
 <p>
@@ -216,22 +280,35 @@ a scientific discipline addressing the use of computers to search
 for, explore, and use information about genes, nucleic acids, and
 proteins.
 
+<p>
+
+
+</div> <!-- end jumbotron -->
+
 <h1>Basic Bioinformatics Examples in Python  <a name="___sec0"></a></h1>
 
-The leading Python software for bioinformatics applications is
-<a href="http://biopython.org" target="_self">BioPython</a>. The forthcoming examples are
+The instructions to the computer how the analysis is going to
+be performed are specified using the <a href="http://python.org" target="_self">Python</a>
+programming language.
+The forthcoming examples are
 simple illustrations of the type of problem settings and corresponding
-Python implementations that are encountered in bioinformatics. For
-real-world problem solving one should rather utilize BioPython, but
-the sections below acts as an introduction to what is inside packages
-like BioPython.
+Python implementations that are encountered in bioinformatics.
+However, the leading Python software for bioinformatics applications is
+<a href="http://biopython.org" target="_self">BioPython</a> and for
+real-world problem solving one should rather utilize BioPython instead
+of home-made solutions. The aim of
+the sections below is to illustrate the nature of bioinformatics analysis
+and introduce what is inside packages like BioPython.
 
 <p>
 <a name="bioinf:basics"></a>
 
 <p>
-We start with some very simple examples on DNA analysis that bring together
+We shall start with some very simple examples on DNA analysis that
+bring together
 basic building blocks in programming: loops, <code>if</code> tests, and functions.
+As reader you should be somewhat familiar with these building blocks
+in general and also know about the specific Python syntax.
 
 <h2>Counting Letters in DNA Strings <a name="bioinf:count"></a></h2>
 
@@ -757,7 +834,7 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
-<h2>Verifying the implementations <a name="bioinf:count:verify"></a></h2>
+<h2>Verifying the Implementations <a name="bioinf:count:verify"></a></h2>
 
 We end this section with showing how to make tests that verify our 12
 counting functions. To this end, we make a new function that first
@@ -852,9 +929,12 @@ For example, if our set of DNA sequences are
 TAG, GGT, and GGG, the table becomes
 
 <p>
-<table border="1">
+
+<div class="row">
+  <div class="col-xs-5">
+    <table class="table table-striped table-hover table-condensed">
 <thead>
-<tr><th align="center">base</th> <th align="center"> 0  </th> <th align="center"> 1  </th> <th align="center"> 2  </th> </tr>
+<tr><td align="center"><b>base</b></td> <td align="center"><b> 0  </b></td> <td align="center"><b> 1  </b></td> <td align="center"><b> 2  </b></td> </tr>
 </thead>
 <tbody>
 <tr><td align="left">   A       </td> <td align="center">   0       </td> <td align="center">   1       </td> <td align="center">   0       </td> </tr>
@@ -862,7 +942,9 @@ TAG, GGT, and GGG, the table becomes
 <tr><td align="left">   G       </td> <td align="center">   2       </td> <td align="center">   2       </td> <td align="center">   2       </td> </tr>
 <tr><td align="left">   T       </td> <td align="center">   1       </td> <td align="center">   0       </td> <td align="center">   1       </td> </tr>
 </tbody>
-</table>
+    </table>
+  </div>
+</div> <!-- col-xs-5 -->
 <p>
 From this table we can read that base A appears once in index 1 in the
 DNA strings, base C does not appear at all, base G appears twice in
@@ -3479,6 +3561,17 @@ Filename: <code>dna_classes2.py</code>.
 <!-- --- end exercise --- -->
 
 <!-- ------------------- end of main content --------------- -->
+
+</div>  <!-- end container -->
+<!-- include javascript, jQuery *first* -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap footer
+<footer>
+<a href="http://..."><img width="250" align=right src="http://..."></a>
+</footer>
+-->
 
 
 </body>
