@@ -1,7 +1,12 @@
 label{bioinf:basics}
 
-We start with some very simple examples on DNA analysis that bring together
+We shall start with some very simple examples on DNA analysis that
+bring together
 basic building blocks in programming: loops, `if` tests, and functions.
+% if not PRIMER_BOOK:
+As reader you should be somewhat familiar with these building blocks
+in general and also know about the specific Python syntax.
+% endif
 
 ===== Counting Letters in DNA Strings =====
 label{bioinf:count}
@@ -386,11 +391,12 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
-===== Verifying the implementations =====
+===== Verifying the Implementations =====
 label{bioinf:count:verify}
 
 idx{test function}
-idx{`nose` package}
+idx{nose tests}
+idx{pytest tests}
 idx{`test_*()` function}
 idx{`assert` statement}
 
@@ -411,10 +417,11 @@ def test_count_all():
 Here, we believe in `dna.count('A')` as the correct answer.
 
 We might take this test function one step further and adopt the
-conventions in the "nose": "https://nose.readthedocs.org"
-testing framework for Python code.
+conventions in the "pytest": "http://pytest.org" and
+"nose": "https://nose.readthedocs.org"
+testing frameworks for Python code.
 % if PRIMER_BOOK:
-(See Section ref{sec:nose} for more information about nose.)
+(See Section ref{sec:nose} for more information about pytest and nose.)
 % endif
 
 These conventions say that the test function should
@@ -430,10 +437,10 @@ These conventions say that the test function should
 
 idx{`f.__name__` (name of func. `f`)}
 
-The nose test framework can search for all Python files in a folder
-tree, run all `test_*()` functions, and report how many of the
-tests that failed, if we adopt the conventions above.
-Our revised test function becomes
+The pytest and nose test frameworks can search for all Python files in
+a folder tree, run all `test_*()` functions, and report how many of
+the tests that failed, if we adopt the conventions above.  Our revised
+test function becomes
 
 @@@CODE src-bioinf/count.py fromto: def test_count_all@if __name__
 It is worth notifying that the name of a function `f`, as a string object,
