@@ -15,7 +15,7 @@
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.9',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -27,10 +27,28 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/sidebar.js"></script>
+
+        <script src="http://sagecell.sagemath.org/static/jquery.min.js"></script>
+        <script src="http://sagecell.sagemath.org/static/embedded_sagecell.js"></script>
+
+        <script>sagecell.makeSagecell({inputLocation: ".sage"});</script>
+
+        <style type="text/css">
+                .sagecell .CodeMirror-scroll {
+                        overflow-y: hidden;
+                        overflow-x: auto;
+                }
+                .sagecell .CodeMirror {
+                        height: auto;
+                }
+        </style>
+
+    
     <link rel="top" title="Illustrating Python via Examples from Bioinformatics" href="#" />
-    <link rel="next" title="Illustrating Python via Bioinformatics Examples" href="main_bioinf.html" /> 
+    <link rel="next" title="Illustrating Python via Bioinformatics Examples" href="main_bioinf.html" />
+ 
   
-   <style type=text/css>
+   <style type="text/css">
      div.admonition {
        background-color: whiteSmoke;
        border: 1px solid #bababa;
@@ -62,34 +80,36 @@
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html">Illustrating Python via Bioinformatics Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#basic-bioinformatics-examples-in-python">Basic Bioinformatics Examples in Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#counting-letters-in-dna-strings">Counting Letters in DNA Strings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#efficiency-assessment">Efficiency Assessment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#verifying-the-implementations">Verifying the Implementations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#computing-frequencies">Computing Frequencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#analyzing-the-frequency-matrix">Analyzing the Frequency Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#dot-plots-from-pair-of-dna-sequences">Dot Plots from Pair of DNA Sequences</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#finding-base-frequencies">Finding Base Frequencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#translating-genes-into-proteins">Translating Genes into Proteins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#some-humans-can-drink-milk-while-others-cannot">Some Humans Can Drink Milk, While Others Cannot</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#random-mutations-of-genes">Random Mutations of Genes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html">Illustrating Python via Bioinformatics Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#basic-bioinformatics-examples-in-python">Basic Bioinformatics Examples in Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#counting-letters-in-dna-strings">Counting Letters in DNA Strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#efficiency-assessment">Efficiency Assessment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#verifying-the-implementations">Verifying the Implementations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#computing-frequencies">Computing Frequencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#analyzing-the-frequency-matrix">Analyzing the Frequency Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#dot-plots-from-pair-of-dna-sequences">Dot Plots from Pair of DNA Sequences</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#finding-base-frequencies">Finding Base Frequencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#translating-genes-into-proteins">Translating Genes into Proteins</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#some-humans-can-drink-milk-while-others-cannot">Some Humans Can Drink Milk, While Others Cannot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#random-mutations-of-genes">Random Mutations of Genes</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#classes-for-dna-analysis">Classes for DNA Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#class-for-regions">Class for Regions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#class-for-genes">Class for Genes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#subclasses">Subclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#classes-for-dna-analysis">Classes for DNA Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#class-for-regions">Class for Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#class-for-genes">Class for Genes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#subclasses">Subclasses</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="main_bioinf.html#exercises">Exercises</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-1-find-pairs-of-characters">Exercise 1: Find pairs of characters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-2-count-substrings">Exercise 2: Count substrings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-3-allow-different-types-for-a-function-argument">Exercise 3: Allow different types for a function argument</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-4-make-a-function-more-robust">Exercise 4: Make a function more robust</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-5-find-proportion-of-bases-inside-outside-exons">Exercise 5: Find proportion of bases inside/outside exons</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-6-speed-up-markov-chain-mutation">Exercise 6: Speed up Markov chain mutation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercise-7-extend-the-constructor-in-class-gene">Exercise 7: Extend the constructor in class Gene</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main_bioinf.html#exercises">Exercises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-1-find-pairs-of-characters">Exercise 1: Find pairs of characters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-2-count-substrings">Exercise 2: Count substrings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-3-allow-different-types-for-a-function-argument">Exercise 3: Allow different types for a function argument</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-4-make-a-function-more-robust">Exercise 4: Make a function more robust</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-5-find-proportion-of-bases-inside-outside-exons">Exercise 5: Find proportion of bases inside/outside exons</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-6-speed-up-markov-chain-mutation">Exercise 6: Speed up Markov chain mutation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="main_bioinf.html#exercise-7-extend-the-constructor-in-class-gene">Exercise 7: Extend the constructor in class Gene</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
