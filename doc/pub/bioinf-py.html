@@ -1,21 +1,22 @@
 <!--
-Automatically generated HTML file from Doconce source
+Automatically generated HTML file from DocOnce source
 (https://github.com/hplgit/doconce/)
 -->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Doconce: https://github.com/hplgit/doconce/" />
+<meta name="generator" content="DocOnce: https://github.com/hplgit/doconce/" />
 <meta name="description" content="Illustrating Python via Bioinformatics Examples">
 <meta name="keywords" content="bioinformatics,DNA,list iteration,string iteration,using a debugger,Online Python Tutor,list comprehension,random strings,CPU time measurements,test function,nose tests,pytest tests,frequency matrix,dictionary">
 
-
+<title>Illustrating Python via Bioinformatics Examples</title>
 
 <!-- Bootstrap style: bootswatch_readable -->
 <link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/readable/bootstrap.min.css" rel="stylesheet">
 <!-- not necessary
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 -->
+
 
 </head>
 
@@ -143,16 +144,13 @@ end of tocinfo -->
 MathJax.Hub.Config({
   TeX: {
      equationNumbers: {  autoNumber: "AMS"  },
-     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js"]
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js", "color.js"]
   }
 });
 </script>
 <script type="text/javascript"
  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<!-- Fix slow MathJax rendering in IE8 -->
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
-
 
 
 
@@ -172,68 +170,16 @@ MathJax.Hub.Config({
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
         <ul class="dropdown-menu">
-     <!-- navigation toc: " Basic Bioinformatics Examples in Python " --> <li>  <a href="#___sec0"> Basic Bioinformatics Examples in Python </a></li>
-     <!-- navigation toc: " Counting Letters in DNA Strings " --> <li> &nbsp;  <a href="#bioinf:count"> Counting Letters in DNA Strings </a></li>
-     <!-- navigation toc: " List Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec2"> List Iteration </a></li>
-     <!-- navigation toc: " String Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec3"> String Iteration </a></li>
-     <!-- navigation toc: " Program Flow " --> <li> &nbsp; &nbsp;  <a href="#___sec4"> Program Flow </a></li>
-     <!-- navigation toc: " Index Iteration " --> <li> &nbsp; &nbsp;  <a href="#___sec5"> Index Iteration </a></li>
-     <!-- navigation toc: " While Loops " --> <li> &nbsp; &nbsp;  <a href="#___sec6"> While Loops </a></li>
-     <!-- navigation toc: " Summing a Boolean List " --> <li> &nbsp; &nbsp;  <a href="#___sec7"> Summing a Boolean List </a></li>
-     <!-- navigation toc: " Inline If Test " --> <li> &nbsp; &nbsp;  <a href="#___sec8"> Inline If Test </a></li>
-     <!-- navigation toc: " Using Boolean Values Directly " --> <li> &nbsp; &nbsp;  <a href="#___sec9"> Using Boolean Values Directly </a></li>
-     <!-- navigation toc: " List Comprehensions " --> <li> &nbsp; &nbsp;  <a href="#___sec10"> List Comprehensions </a></li>
-     <!-- navigation toc: " Using a Sum Iterator " --> <li> &nbsp; &nbsp;  <a href="#___sec11"> Using a Sum Iterator </a></li>
-     <!-- navigation toc: " Extracting Indices " --> <li> &nbsp; &nbsp;  <a href="#___sec12"> Extracting Indices </a></li>
-     <!-- navigation toc: " Using Python's Library " --> <li> &nbsp; &nbsp;  <a href="#___sec13"> Using Python's Library </a></li>
-     <!-- navigation toc: " Efficiency Assessment " --> <li> &nbsp;  <a href="#bioinf:count:cpu"> Efficiency Assessment </a></li>
-     <!-- navigation toc: " Generating Random DNA Strings " --> <li> &nbsp; &nbsp;  <a href="#___sec15"> Generating Random DNA Strings </a></li>
-     <!-- navigation toc: " Measuring CPU Time " --> <li> &nbsp; &nbsp;  <a href="#___sec16"> Measuring CPU Time </a></li>
-     <!-- navigation toc: " Verifying the Implementations " --> <li> &nbsp;  <a href="#bioinf:count:verify"> Verifying the Implementations </a></li>
-     <!-- navigation toc: " Computing Frequencies " --> <li> &nbsp;  <a href="#bioinf:freqm"> Computing Frequencies </a></li>
-     <!-- navigation toc: " Separate Frequency Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec19"> Separate Frequency Lists </a></li>
-     <!-- navigation toc: " Nested List " --> <li> &nbsp; &nbsp;  <a href="#___sec20"> Nested List </a></li>
-     <!-- navigation toc: " Dictionary for More Convenient Indexing " --> <li> &nbsp; &nbsp;  <a href="#___sec21"> Dictionary for More Convenient Indexing </a></li>
-     <!-- navigation toc: " Numerical Python Array " --> <li> &nbsp; &nbsp;  <a href="#___sec22"> Numerical Python Array </a></li>
-     <!-- navigation toc: " Dictionary of Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec23"> Dictionary of Lists </a></li>
-     <!-- navigation toc: " Dictionary of Dictionaries " --> <li> &nbsp; &nbsp;  <a href="#___sec24"> Dictionary of Dictionaries </a></li>
-     <!-- navigation toc: " Using Dictionaries with Default Values " --> <li> &nbsp; &nbsp;  <a href="#___sec25"> Using Dictionaries with Default Values </a></li>
-     <!-- navigation toc: " Using Arrays and Vectorization " --> <li> &nbsp; &nbsp;  <a href="#___sec26"> Using Arrays and Vectorization </a></li>
-     <!-- navigation toc: " Analyzing the Frequency Matrix " --> <li> &nbsp;  <a href="#bioinf:freq:analysis"> Analyzing the Frequency Matrix </a></li>
-     <!-- navigation toc: " List of Lists Frequency Matrix " --> <li> &nbsp; &nbsp;  <a href="#___sec28"> List of Lists Frequency Matrix </a></li>
-     <!-- navigation toc: " Dict of Dicts Frequency Matrix " --> <li> &nbsp; &nbsp;  <a href="#___sec29"> Dict of Dicts Frequency Matrix </a></li>
-     <!-- navigation toc: " Dot Plots from Pair of DNA Sequences " --> <li> &nbsp;  <a href="#bioinf:dotplot"> Dot Plots from Pair of DNA Sequences </a></li>
-     <!-- navigation toc: " Using Lists of Lists " --> <li> &nbsp; &nbsp;  <a href="#___sec31"> Using Lists of Lists </a></li>
-     <!-- navigation toc: " Using Numerical Python Arrays " --> <li> &nbsp; &nbsp;  <a href="#___sec32"> Using Numerical Python Arrays </a></li>
-     <!-- navigation toc: " Finding Base Frequencies " --> <li> &nbsp;  <a href="#bioinf:basefreq"> Finding Base Frequencies </a></li>
-     <!-- navigation toc: " Translating Genes into Proteins " --> <li> &nbsp;  <a href="#bioinf:gene2protein"> Translating Genes into Proteins </a></li>
-     <!-- navigation toc: " Some Humans Can Drink Milk, While Others Cannot " --> <li> &nbsp;  <a href="#bioinf:lactase:milk"> Some Humans Can Drink Milk, While Others Cannot </a></li>
-     <!-- navigation toc: " Random Mutations of Genes " --> <li> &nbsp;  <a href="#bioinf:random"> Random Mutations of Genes </a></li>
-     <!-- navigation toc: " A Simple Mutation Model " --> <li> &nbsp; &nbsp;  <a href="#___sec37"> A Simple Mutation Model </a></li>
-     <!-- navigation toc: " Vectorized Version " --> <li> &nbsp; &nbsp;  <a href="#___sec38"> Vectorized Version </a></li>
-     <!-- navigation toc: " A Markov Chain Mutation Model " --> <li> &nbsp; &nbsp;  <a href="#___sec39"> A Markov Chain Mutation Model </a></li>
-     <!-- navigation toc: " Classes for DNA Analysis " --> <li>  <a href="#bioinf:oo"> Classes for DNA Analysis </a></li>
-     <!-- navigation toc: " Class for Regions " --> <li> &nbsp;  <a href="#___sec41"> Class for Regions </a></li>
-     <!-- navigation toc: " Class for Genes " --> <li> &nbsp;  <a href="#___sec42"> Class for Genes </a></li>
-     <!-- navigation toc: " Basic Features of class Gene " --> <li> &nbsp; &nbsp;  <a href="#___sec43"> Basic Features of class Gene </a></li>
-     <!-- navigation toc: " Flexible Constructor " --> <li> &nbsp; &nbsp;  <a href="#___sec44"> Flexible Constructor </a></li>
-     <!-- navigation toc: " Other Methods " --> <li> &nbsp; &nbsp;  <a href="#___sec45"> Other Methods </a></li>
-     <!-- navigation toc: " Subclasses " --> <li> &nbsp;  <a href="#___sec46"> Subclasses </a></li>
-     <!-- navigation toc: " Exercises " --> <li>  <a href="#___sec47"> Exercises </a></li>
-     <!-- navigation toc: " Exercise 1: Find pairs of characters " --> <li> &nbsp;  <a href="#bioinf:exer:pairs1"> Exercise 1: Find pairs of characters </a></li>
-     <!-- navigation toc: " Exercise 2: Count substrings " --> <li> &nbsp;  <a href="#bioinf:exer:substr1"> Exercise 2: Count substrings </a></li>
-     <!-- navigation toc: " Exercise 3: Allow different types for a function argument " --> <li> &nbsp;  <a href="#bioinf:exer:freq:fargs"> Exercise 3: Allow different types for a function argument </a></li>
-     <!-- navigation toc: " Exercise 4: Make a function more robust " --> <li> &nbsp;  <a href="#bioinf:exer:get_base_counts2"> Exercise 4: Make a function more robust </a></li>
-     <!-- navigation toc: " Exercise 5: Find proportion of bases inside/outside exons " --> <li> &nbsp;  <a href="#bioinf:exer:Ainsouts:exons"> Exercise 5: Find proportion of bases inside/outside exons </a></li>
-     <!-- navigation toc: " Exercise 6: Speed up Markov chain mutation " --> <li> &nbsp;  <a href="#bioinf:exer:Markov:chain:eff"> Exercise 6: Speed up Markov chain mutation </a></li>
-     <!-- navigation toc: " Exercise 7: Extend the constructor in class Gene " --> <li> &nbsp;  <a href="#bioinf:exer:Gene:randominit"> Exercise 7: Extend the constructor in class Gene </a></li>
+     <!-- navigation toc: --> <li><a href="#___sec0" style="font-size: 80%;">Basic Bioinformatics Examples in Python</a></li>
+     <!-- navigation toc: --> <li><a href="#bioinf:oo" style="font-size: 80%;">Classes for DNA Analysis</a></li>
+     <!-- navigation toc: --> <li><a href="#___sec47" style="font-size: 80%;">Exercises</a></li>
 
         </ul>
       </li>
     </ul>
   </div>
 </div>
-</div>
+</div> <!-- end of navigation bar -->
 
 <div class="container">
 
@@ -242,7 +188,6 @@ MathJax.Hub.Config({
 <!-- ------------------- main content ---------------------- -->
 
 
-<title>Illustrating Python via Bioinformatics Examples</title>
 
 <div class="jumbotron">
 <center><h1>Illustrating Python via Bioinformatics Examples</h1></center>  <!-- document title -->
@@ -265,7 +210,7 @@ MathJax.Hub.Config({
 <center>[1] <b>Center for Biomedical Computing, Simula Research Laboratory</b></center>
 <center>[2] <b>Department of Informatics, University of Oslo</b></center>
 <p>
-<center><h4>May 8, 2014</h4></center> <!-- date -->
+<center><h4>Oct 18, 2014</h4></center> <!-- date -->
 <p>
 Life is definitely digital. The genetic code of all living organisms
 are represented by a long sequence of simple molecules called
@@ -285,8 +230,9 @@ proteins.
 
 </div> <!-- end jumbotron -->
 
-<h1>Basic Bioinformatics Examples in Python  <a name="___sec0"></a></h1>
+<h1 id="___sec0">Basic Bioinformatics Examples in Python <a name="___sec0"></a></h1>
 
+<p>
 The instructions to the computer how the analysis is going to
 be performed are specified using the <a href="http://python.org" target="_self">Python</a>
 programming language.
@@ -310,8 +256,9 @@ basic building blocks in programming: loops, <code>if</code> tests, and function
 As reader you should be somewhat familiar with these building blocks
 in general and also know about the specific Python syntax.
 
-<h2>Counting Letters in DNA Strings <a name="bioinf:count"></a></h2>
+<h2 id="bioinf:count">Counting Letters in DNA Strings<a name="bioinf:count"></a></h2>
 
+<p>
 Given some string <code>dna</code> containing the letters A, C, G, or T,
 representing the bases that make up DNA, we ask the question: how
 many times does a certain base occur in the DNA string?
@@ -322,8 +269,9 @@ base A occur in this string, the answer is 3.
 A general Python implementation answering this problem can be done
 in many ways. Several possible solutions are presented below.
 
-<h3>List Iteration  <a name="___sec2"></a></h3>
+<h3 id="___sec2">List Iteration <a name="___sec2"></a></h3>
 
+<p>
 The most straightforward solution is to loop over the letters
 in the string, test if the current letter equals the desired one,
 and if so, increase a counter. Looping over the letters is
@@ -331,7 +279,7 @@ obvious if the letters are stored in a list. This is easily
 done by converting a string to a list:
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000">list</span>(<span style="color: #BA2121">&#39;ATGC&#39;</span>)
 [<span style="color: #BA2121">&#39;A&#39;</span>, <span style="color: #BA2121">&#39;T&#39;</span>, <span style="color: #BA2121">&#39;G&#39;</span>, <span style="color: #BA2121">&#39;C&#39;</span>]
 </pre></div>
@@ -340,7 +288,7 @@ Our first solution becomes
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v1</span>(dna, base):
     dna <span style="color: #666666">=</span> <span style="color: #008000">list</span>(dna)  <span style="color: #408080; font-style: italic"># convert string to list of letters</span>
     i <span style="color: #666666">=</span> <span style="color: #666666">0</span>            <span style="color: #408080; font-style: italic"># counter</span>
@@ -350,13 +298,14 @@ Our first solution becomes
     <span style="color: #008000; font-weight: bold">return</span> i
 </pre></div>
 
-<h3>String Iteration  <a name="___sec3"></a></h3>
+<h3 id="___sec3">String Iteration <a name="___sec3"></a></h3>
 
+<p>
 Python allows us to iterate directly over a string without converting
 it to a list:
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>:
 <span style="color: #666666">...</span>     <span style="color: #008000; font-weight: bold">print</span> c
 A
@@ -377,7 +326,7 @@ over the string:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v2</span>(dna, base):
     i <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #408080; font-style: italic"># counter</span>
     <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -401,8 +350,9 @@ We have here illustrated two alternative ways of writing out text
 where the value of variables are to be inserted in &quot;slots&quot; in the
 string.
 
-<h3>Program Flow  <a name="___sec4"></a></h3>
+<h3 id="___sec4">Program Flow <a name="___sec4"></a></h3>
 
+<p>
 It is fundamental for correct programming to understand how
 to simulate a program by hand, statement by
 statement. Three tools are
@@ -421,7 +371,7 @@ what is going on:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v2_demo</span>(dna, base):
     <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&#39;dna:&#39;</span>, dna
     <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&#39;base:&#39;</span>, base
@@ -450,7 +400,7 @@ step through each statement, or <code>n</code> (for next) for proceeding to the
 next statement without stepping through a function that is called.
 <p>
 
-<!-- code=text (from !bc cod) typeset with pygments style "default" -->
+<!-- code=text (!bc cod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">ipdb&gt; s
 &gt; /some/disk/user/bioinf/src/count_v2_demo.py(2)count_v2_demo()
 1     1 def count_v1_demo(dna, base):
@@ -469,7 +419,7 @@ Observe the output of the <code>print</code> statements. One can also
 print a variable explicitly inside the debugger:
 <p>
 
-<!-- code=text (from !bc cod) typeset with pygments style "default" -->
+<!-- code=text (!bc cod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">ipdb&gt; print base
 C
 </pre></div>
@@ -495,8 +445,9 @@ sources of programming errors, so whenever in doubt about any program
 flow, use one of the three mentioned techniques to establish
 confidence!
 
-<h3>Index Iteration  <a name="___sec5"></a></h3>
+<h3 id="___sec5">Index Iteration <a name="___sec5"></a></h3>
 
+<p>
 Although it is natural in Python to iterate over the letters in a
 string (or more generally over elements in a sequence), programmers
 with experience from other languages (Fortran, C and Java are
@@ -505,7 +456,7 @@ all indices in a string or array:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v3</span>(dna, base):
     i <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #408080; font-style: italic"># counter</span>
     <span style="color: #008000; font-weight: bold">for</span> j <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(dna)):
@@ -521,13 +472,14 @@ string <code>dna</code>. The <code>range(x)</code> function returns a list of in
 <code>0</code>, <code>1</code>, ..., <code>x-1</code>, implying that <code>range(len(dna))</code> generates
 all the legal indices for <code>dna</code>.
 
-<h3>While Loops  <a name="___sec6"></a></h3>
+<h3 id="___sec6">While Loops <a name="___sec6"></a></h3>
 
+<p>
 The <code>while</code> loop equivalent to the last function reads
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v4</span>(dna, base):
     i <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #408080; font-style: italic"># counter</span>
     j <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #408080; font-style: italic"># string index</span>
@@ -541,8 +493,9 @@ The <code>while</code> loop equivalent to the last function reads
 Correct indentation is here crucial: a typical error is to fail
 indenting the <code>j += 1</code> line correctly.
 
-<h3>Summing a Boolean List  <a name="___sec7"></a></h3>
+<h3 id="___sec7">Summing a Boolean List <a name="___sec7"></a></h3>
 
+<p>
 The idea now is to create a list <code>m</code> where <code>m[i]</code> is <code>True</code> if
 <code>dna[i]</code> equals the letter we search for (<code>base</code>).
 The number of <code>True</code> values in <code>m</code> is then the number of <code>base</code>
@@ -554,7 +507,7 @@ A possible function doing this is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v5</span>(dna, base):
     m <span style="color: #666666">=</span> []   <span style="color: #408080; font-style: italic"># matches for base in dna: m[i]=True if dna[i]==base</span>
     <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -565,8 +518,9 @@ A possible function doing this is
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h3>Inline If Test  <a name="___sec8"></a></h3>
+<h3 id="___sec8">Inline If Test <a name="___sec8"></a></h3>
 
+<p>
 Shorter, more compact code is often a goal if the compactness
 enhances readability. The four-line <code>if</code> test in the previous
 function can be condensed to one line using the inline
@@ -574,7 +528,7 @@ function can be condensed to one line using the inline
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v6</span>(dna, base):
     m <span style="color: #666666">=</span> []   <span style="color: #408080; font-style: italic"># matches for base in dna: m[i]=True if dna[i]==base</span>
     <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -582,8 +536,9 @@ function can be condensed to one line using the inline
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h3>Using Boolean Values Directly  <a name="___sec9"></a></h3>
+<h3 id="___sec9">Using Boolean Values Directly <a name="___sec9"></a></h3>
 
+<p>
 The inline <code>if</code> test is in fact redundant in the previous function
 because the value of the condition <code>c == base</code> can be used
 directly: it has the value <code>True</code> or <code>False</code>. This saves
@@ -592,7 +547,7 @@ some experience:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v7</span>(dna, base):
     m <span style="color: #666666">=</span> []   <span style="color: #408080; font-style: italic"># matches for base in dna: m[i]=True if dna[i]==base</span>
     <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -600,8 +555,9 @@ some experience:
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
 </pre></div>
 
-<h3>List Comprehensions  <a name="___sec10"></a></h3>
+<h3 id="___sec10">List Comprehensions <a name="___sec10"></a></h3>
 
+<p>
 Building a list with the aid of a <code>for</code> loop can often be condensed to
 a single line by using list comprehensions: <code>[expr for e in
 sequence]</code>, where <code>expr</code> is some expression normally involving the
@@ -610,7 +566,7 @@ comprehension
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v8</span>(dna, base):
     m <span style="color: #666666">=</span> [c <span style="color: #666666">==</span> base <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna]
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(m)
@@ -621,13 +577,14 @@ reduce the function body to a single line:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v9</span>(dna, base):
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>([c <span style="color: #666666">==</span> base <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna])
 </pre></div>
 
-<h3>Using a Sum Iterator  <a name="___sec11"></a></h3>
+<h3 id="___sec11">Using a Sum Iterator <a name="___sec11"></a></h3>
 
+<p>
 The DNA string is usually huge - 3 billion letters for the human
 species. Making a boolean array with <code>True</code> and <code>False</code> values
 therefore increases the memory usage by a factor of two
@@ -641,7 +598,7 @@ that list. This is a minor modification of the <code>count_v9</code> function:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v10</span>(dna, base):
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">sum</span>(c <span style="color: #666666">==</span> base <span style="color: #008000; font-weight: bold">for</span> c <span style="color: #AA22FF; font-weight: bold">in</span> dna)
 </pre></div>
@@ -649,8 +606,9 @@ that list. This is a minor modification of the <code>count_v9</code> function:
 Below we shall measure the impact of the various program constructs
 on the CPU time.
 
-<h3>Extracting Indices  <a name="___sec12"></a></h3>
+<h3 id="___sec12">Extracting Indices <a name="___sec12"></a></h3>
 
+<p>
 Instead of making a boolean list with elements expressing whether
 a letter matches the given <code>base</code> or not, we may collect all
 the indices of the matches. This can be done by adding an <code>if</code>
@@ -658,7 +616,7 @@ test to the list comprehension:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v11</span>(dna, base):
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">len</span>([i <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(dna)) <span style="color: #008000; font-weight: bold">if</span> dna[i] <span style="color: #666666">==</span> base])
 </pre></div>
@@ -670,7 +628,7 @@ interactive Python shell:
 
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;AATGCTTA&#39;</span>
 <span style="color: #666666">&gt;&gt;&gt;</span> base <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;A&#39;</span>
 <span style="color: #666666">&gt;&gt;&gt;</span> indices <span style="color: #666666">=</span> [i <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(dna)) <span style="color: #008000; font-weight: bold">if</span> dna[i] <span style="color: #666666">==</span> base]
@@ -684,8 +642,9 @@ Observe that the element <code>i</code> in the list comprehension is only
 made for those <code>i</code>
 where <code>dna[i] == base</code>.
 
-<h3>Using Python's Library  <a name="___sec13"></a></h3>
+<h3 id="___sec13">Using Python's Library <a name="___sec13"></a></h3>
 
+<p>
 Very often when you set out to do a task in Python, there is already
 functionality for the task in the object itself, in the Python
 libraries, or in third-party libraries found on the Internet.
@@ -695,27 +654,29 @@ it by the syntax <code>dna.count(base)</code>:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">count_v12</span>(dna, base):
     <span style="color: #008000; font-weight: bold">return</span> dna<span style="color: #666666">.</span>count(base)
 
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">compare_efficiency</span>():
 </pre></div>
 
-<h2>Efficiency Assessment <a name="bioinf:count:cpu"></a></h2>
+<h2 id="bioinf:count:cpu">Efficiency Assessment<a name="bioinf:count:cpu"></a></h2>
 
+<p>
 Now we have 11 different versions of how to count the occurrences
 of a letter in a string. Which one of these implementations is the fastest?
 To answer the question we need some test data, which should be a
 huge string <code>dna</code>.
 
-<h3>Generating Random DNA Strings  <a name="___sec15"></a></h3>
+<h3 id="___sec15">Generating Random DNA Strings <a name="___sec15"></a></h3>
 
+<p>
 The simplest way of generating a long string is to repeat a
 character a large number of times:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">N <span style="color: #666666">=</span> <span style="color: #666666">1000000</span>
 dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;A&#39;</span><span style="color: #666666">*</span>N
 </pre></div>
@@ -728,7 +689,7 @@ composition of the letters we can first make a list of random
 letters and then join all those letters to a string:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">random</span>
 alphabet <span style="color: #666666">=</span> <span style="color: #008000">list</span>(<span style="color: #BA2121">&#39;ATGC&#39;</span>)
 dna <span style="color: #666666">=</span> [random<span style="color: #666666">.</span>choice(alphabet) <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(N)]
@@ -749,7 +710,7 @@ function, gives
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">random</span>
 
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">generate_string</span>(N, alphabet<span style="color: #666666">=</span><span style="color: #BA2121">&#39;ACGT&#39;</span>):
@@ -760,8 +721,9 @@ dna <span style="color: #666666">=</span> generate_string(<span style="color: #6
 <p>
 The call <code>generate_string(10)</code> may generate something like <code>AATGGCAGAA</code>.
 
-<h3>Measuring CPU Time  <a name="___sec16"></a></h3>
+<h3 id="___sec16">Measuring CPU Time <a name="___sec16"></a></h3>
 
+<p>
 Our next goal is to see how much time the various <code>count_v*</code>
 functions spend on counting letters in a huge string, which is to be
 generated as shown above.
@@ -769,7 +731,7 @@ Measuring the time spent in a program can be done by the <code>time</code>
 module:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">time</span>
 <span style="color: #666666">...</span>
 t0 <span style="color: #666666">=</span> time<span style="color: #666666">.</span>clock()
@@ -788,7 +750,7 @@ done by
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">time</span>
 functions <span style="color: #666666">=</span> [count_v1, count_v2, count_v3, count_v4,
              count_v5, count_v6, count_v7, count_v8,
@@ -812,7 +774,7 @@ to make a nice printout of the results:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">for</span> cpu_time, function <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">zip</span>(timings, functions):
     <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&#39;{f:&lt;9s}: {cpu:.2f} s&#39;</span><span style="color: #666666">.</span>format(
         f<span style="color: #666666">=</span>function<span style="color: #666666">.</span>func_name, cpu<span style="color: #666666">=</span>cpu_time)
@@ -834,8 +796,9 @@ what seems to be a quite common task. Others have probably already
 done it for you, and most likely is their solution much better than what
 you can (easily) come up with.
 
-<h2>Verifying the Implementations <a name="bioinf:count:verify"></a></h2>
+<h2 id="bioinf:count:verify">Verifying the Implementations<a name="bioinf:count:verify"></a></h2>
 
+<p>
 We end this section with showing how to make tests that verify our 12
 counting functions. To this end, we make a new function that first
 computes a certainly correct answer to a counting problem and then
@@ -844,7 +807,7 @@ check that each call has the correct result:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_count_all</span>():
     dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ATTTGCGGTCCAAA&#39;</span>
     exact <span style="color: #666666">=</span> dna<span style="color: #666666">.</span>count(<span style="color: #BA2121">&#39;A&#39;</span>)
@@ -882,7 +845,7 @@ test function becomes
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_count_all</span>():
     dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ATTTGCGGTCCAAA&#39;</span>
     exact <span style="color: #666666">=</span> dna<span style="color: #666666">.</span>count(<span style="color: #BA2121">&#39;A&#39;</span>)
@@ -908,8 +871,9 @@ can be found in the file <a href="http://tinyurl.com/q4qpjbt/count.py" target="_
 <p>
 <!-- === Testing with Real Data === -->
 
-<h2>Computing Frequencies <a name="bioinf:freqm"></a></h2>
+<h2 id="bioinf:freqm">Computing Frequencies<a name="bioinf:freqm"></a></h2>
 
+<p>
 Your genetic code is essentially the same from you are born until you
 die, and the same in your blood and your brain.  Which genes that are
 turned on and off make the difference between the cells. This
@@ -931,20 +895,20 @@ TAG, GGT, and GGG, the table becomes
 <p>
 
 <div class="row">
-  <div class="col-xs-5">
+  <div class="col-xs-0">
     <table class="table table-striped table-hover table-condensed">
 <thead>
-<tr><td align="center"><b>base</b></td> <td align="center"><b> 0  </b></td> <td align="center"><b> 1  </b></td> <td align="center"><b> 2  </b></td> </tr>
+<tr><td align="center"><b>base</b></td> <td align="center"><b>0</b></td> <td align="center"><b>1</b></td> <td align="center"><b>2</b></td> </tr>
 </thead>
 <tbody>
-<tr><td align="left">   A       </td> <td align="center">   0       </td> <td align="center">   1       </td> <td align="center">   0       </td> </tr>
-<tr><td align="left">   C       </td> <td align="center">   0       </td> <td align="center">   0       </td> <td align="center">   0       </td> </tr>
-<tr><td align="left">   G       </td> <td align="center">   2       </td> <td align="center">   2       </td> <td align="center">   2       </td> </tr>
-<tr><td align="left">   T       </td> <td align="center">   1       </td> <td align="center">   0       </td> <td align="center">   1       </td> </tr>
+<tr><td align="left">   A       </td> <td align="center">   0    </td> <td align="center">   1    </td> <td align="center">   0    </td> </tr>
+<tr><td align="left">   C       </td> <td align="center">   0    </td> <td align="center">   0    </td> <td align="center">   0    </td> </tr>
+<tr><td align="left">   G       </td> <td align="center">   2    </td> <td align="center">   2    </td> <td align="center">   2    </td> </tr>
+<tr><td align="left">   T       </td> <td align="center">   1    </td> <td align="center">   0    </td> <td align="center">   1    </td> </tr>
 </tbody>
     </table>
   </div>
-</div> <!-- col-xs-5 -->
+</div> <!-- col-xs-0 -->
 <p>
 From this table we can read that base A appears once in index 1 in the
 DNA strings, base C does not appear at all, base G appears twice in
@@ -957,15 +921,16 @@ hold such a table and different ways of computing them.
 The table is known as a <em>frequency matrix</em> in bioinformatics
 and this is the term used here too.
 
-<h3>Separate Frequency Lists  <a name="___sec19"></a></h3>
+<h3 id="___sec19">Separate Frequency Lists <a name="___sec19"></a></h3>
 
+<p>
 Since we know that there are only four rows in the frequency matrix,
 an obvious data structure would be four lists, each holding
 a row. A function computing these lists may look like
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_lists</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">len</span>(dna_list[<span style="color: #666666">0</span>])
     A <span style="color: #666666">=</span> [<span style="color: #666666">0</span>]<span style="color: #666666">*</span>n
@@ -999,7 +964,7 @@ to extract both the element value <em>and</em> the element index when
 iterating over a sequence. For example,
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">for</span> index, base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>([<span style="color: #BA2121">&#39;t&#39;</span>, <span style="color: #BA2121">&#39;e&#39;</span>, <span style="color: #BA2121">&#39;s&#39;</span>, <span style="color: #BA2121">&#39;t&#39;</span>]):
 <span style="color: #666666">...</span>   <span style="color: #008000; font-weight: bold">print</span> index, base
 <span style="color: #666666">...</span>
@@ -1012,7 +977,7 @@ iterating over a sequence. For example,
 Here is a test,
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna_list <span style="color: #666666">=</span> [<span style="color: #BA2121">&#39;GGTAG&#39;</span>, <span style="color: #BA2121">&#39;GGTAC&#39;</span>, <span style="color: #BA2121">&#39;GGTGC&#39;</span>]
 A, C, G, T <span style="color: #666666">=</span> freq_lists(dna_list)
 <span style="color: #008000; font-weight: bold">print</span> A
@@ -1024,15 +989,16 @@ A, C, G, T <span style="color: #666666">=</span> freq_lists(dna_list)
 with output
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[0, 0, 0, 2, 0]
 [0, 0, 0, 0, 2]
 [3, 3, 0, 1, 1]
 [0, 0, 3, 0, 0]
 </pre></div>
 
-<h3>Nested List  <a name="___sec20"></a></h3>
+<h3 id="___sec20">Nested List <a name="___sec20"></a></h3>
 
+<p>
 The frequency matrix can also be represented as a nested list <code>M</code>
 such that <code>M[i][j]</code> is the frequency of base <code>i</code> in position <code>j</code>
 in the set of DNA strings. Here <code>i</code> is an integer, where 0 corresponds to A,
@@ -1047,7 +1013,7 @@ The simplest way to make a nested list is to insert the
 <code>A</code>, <code>C</code>, <code>G</code>, and <code>T</code> lists into another list:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> frequency_matrix <span style="color: #666666">=</span> [A, C, G, T]
 <span style="color: #666666">&gt;&gt;&gt;</span> frequency_matrix[<span style="color: #666666">2</span>][<span style="color: #666666">3</span>]
 <span style="color: #666666">2</span>
@@ -1060,7 +1026,7 @@ list directly:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_list_of_lists_v1</span>(dna_list):
     <span style="color: #408080; font-style: italic"># Create empty frequency_matrix[i][j] = 0</span>
     <span style="color: #408080; font-style: italic"># i=0,1,2,3 corresponds to A,T,G,C</span>
@@ -1088,7 +1054,7 @@ in the nested list to zero.
 A call and printout,
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna_list <span style="color: #666666">=</span> [<span style="color: #BA2121">&#39;GGTAG&#39;</span>, <span style="color: #BA2121">&#39;GGTAC&#39;</span>, <span style="color: #BA2121">&#39;GGTGC&#39;</span>]
 frequency_matrix <span style="color: #666666">=</span> freq_list_of_lists_v1(dna_list)
 <span style="color: #008000; font-weight: bold">print</span> frequency_matrix
@@ -1097,12 +1063,13 @@ frequency_matrix <span style="color: #666666">=</span> freq_list_of_lists_v1(dna
 results in
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
 </pre></div>
 
-<h3>Dictionary for More Convenient Indexing  <a name="___sec21"></a></h3>
+<h3 id="___sec21">Dictionary for More Convenient Indexing <a name="___sec21"></a></h3>
 
+<p>
 The series of <code>if</code> tests in the Python function <code>freq_list_of_lists_v1</code>
 are somewhat cumbersome,
 especially if we want to extend the code to other bioinformatics problems
@@ -1111,7 +1078,7 @@ which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary may represent such mappings:
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> base2index <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">1</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">2</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">3</span>}
 <span style="color: #666666">&gt;&gt;&gt;</span> base2index[<span style="color: #BA2121">&#39;G&#39;</span>]
 <span style="color: #666666">2</span>
@@ -1123,7 +1090,7 @@ without affecting the length of the code:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_list_of_lists_v2</span>(dna_list):
     frequency_matrix <span style="color: #666666">=</span> [[<span style="color: #666666">0</span> <span style="color: #008000; font-weight: bold">for</span> v <span style="color: #AA22FF; font-weight: bold">in</span> dna_list[<span style="color: #666666">0</span>]] <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ACGT&#39;</span>]
     base2index <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">1</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">2</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">3</span>}
@@ -1134,8 +1101,9 @@ without affecting the length of the code:
     <span style="color: #008000; font-weight: bold">return</span> frequency_matrix
 </pre></div>
 
-<h3>Numerical Python Array  <a name="___sec22"></a></h3>
+<h3 id="___sec22">Numerical Python Array <a name="___sec22"></a></h3>
 
+<p>
 As long as each sublist in a list of lists has the same length, a
 list of lists can be replaced by a Numerical Python (<code>numpy</code>) array.
 Processing of such arrays is often much more efficient than
@@ -1147,7 +1115,7 @@ a <code>numpy</code> array:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
 
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_numpy</span>(dna_list):
@@ -1164,8 +1132,9 @@ The resulting <code>frequency_matrix</code> object can be indexed as
 <code>[b][i]</code> or <code>[b,i]</code>, with integers <code>b</code> and <code>i</code>. Typically, <code>b</code> will
 be something line <code>base2index['C']</code>.
 
-<h3>Dictionary of Lists  <a name="___sec23"></a></h3>
+<h3 id="___sec23">Dictionary of Lists <a name="___sec23"></a></h3>
 
+<p>
 Instead of going from a character to an integer index via
 <code>base2index</code>, we may prefer to index <code>frequency_matrix</code> by the base name
 and the position index directly, like in <code>['C'][14]</code>.
@@ -1180,7 +1149,7 @@ function is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_lists_v1</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
     frequency_matrix <span style="color: #666666">=</span> {
@@ -1200,7 +1169,7 @@ Running the test code
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">frequency_matrix <span style="color: #666666">=</span> freq_dict_of_lists_v1(dna_list)
 <span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">pprint</span>   <span style="color: #408080; font-style: italic"># for nice printout of nested data structures</span>
 pprint<span style="color: #666666">.</span>pprint(frequency_matrix)
@@ -1209,7 +1178,7 @@ pprint<span style="color: #666666">.</span>pprint(frequency_matrix)
 results in the output
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">{&#39;A&#39;: [0, 0, 0, 2, 0],
  &#39;C&#39;: [0, 0, 0, 0, 2],
  &#39;G&#39;: [3, 3, 0, 1, 1],
@@ -1220,14 +1189,14 @@ The initialization of <code>frequency_matrix</code> in the above code can
 be made more compact by using a dictionary comprehension:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000">dict</span> <span style="color: #666666">=</span> {key: value <span style="color: #008000; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> some_sequence}
 </pre></div>
 <p>
 In our example we set
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">frequency_matrix <span style="color: #666666">=</span> {base: [<span style="color: #666666">0</span>]<span style="color: #666666">*</span>n <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ACGT&#39;</span>}
 </pre></div>
 <p>
@@ -1236,7 +1205,7 @@ leads to a slightly more compact version:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_lists_v2</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
     frequency_matrix <span style="color: #666666">=</span> {base: [<span style="color: #666666">0</span>]<span style="color: #666666">*</span>n <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ACGT&#39;</span>}
@@ -1253,7 +1222,7 @@ this.  The classical use of <code>max</code> is to apply it to a list as done
 above:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
 </pre></div>
 <p>
@@ -1262,22 +1231,23 @@ of storing the result of the list comprehension, i.e., the list of
 lengths. Instead <code>max</code> can work with the lengths as they are computed:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">n <span style="color: #666666">=</span> <span style="color: #008000">max</span>(<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list)
 </pre></div>
 <p>
 It is also possible to write
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">n <span style="color: #666666">=</span> <span style="color: #008000">max</span>(dna_list, key<span style="color: #666666">=</span><span style="color: #008000">len</span>)
 </pre></div>
 <p>
 Here, <code>len</code> is applied to each element in <code>dna_list</code>, and the
 maximum of the resulting values is returned.
 
-<h3>Dictionary of Dictionaries  <a name="___sec24"></a></h3>
+<h3 id="___sec24">Dictionary of Dictionaries <a name="___sec24"></a></h3>
 
+<p>
 The dictionary of lists data structure can alternatively be replaced
 by a dictionary of dictionaries object, often just called a dict of
 dicts object. That is, <code>frequency_matrix[base]</code> is a dictionary with
@@ -1293,7 +1263,7 @@ is written as
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_dicts_v1</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
     frequency_matrix <span style="color: #666666">=</span> {base: {index: <span style="color: #666666">0</span> <span style="color: #008000; font-weight: bold">for</span> index <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(n)}
@@ -1305,12 +1275,13 @@ is written as
     <span style="color: #008000; font-weight: bold">return</span> frequency_matrix
 </pre></div>
 
-<h3>Using Dictionaries with Default Values  <a name="___sec25"></a></h3>
+<h3 id="___sec25">Using Dictionaries with Default Values <a name="___sec25"></a></h3>
 
+<p>
 The manual initialization of each subdictionary to zero,
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    frequency_matrix <span style="color: #666666">=</span> {base: {index: <span style="color: #666666">0</span> <span style="color: #008000; font-weight: bold">for</span> index <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(n)}
                         <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ACGT&#39;</span>}
 </pre></div>
@@ -1322,7 +1293,7 @@ This construction simplifies the previous function a bit:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">collections</span> <span style="color: #008000; font-weight: bold">import</span> defaultdict
 
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_dicts_v2</span>(dna_list):
@@ -1342,26 +1313,27 @@ simulated in earlier versions by making (key, value) tuples via
 list comprehensions. A dictionary comprehension
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">d <span style="color: #666666">=</span> {key: value <span style="color: #008000; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> sequence}
 </pre></div>
 <p>
 is then constructed as
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">d <span style="color: #666666">=</span> <span style="color: #008000">dict</span>([(key, value) <span style="color: #008000; font-weight: bold">for</span> key <span style="color: #AA22FF; font-weight: bold">in</span> sequence])
 </pre></div>
 
-<h3>Using Arrays and Vectorization  <a name="___sec26"></a></h3>
+<h3 id="___sec26">Using Arrays and Vectorization <a name="___sec26"></a></h3>
 
+<p>
 The <code>frequency_matrix</code> dict of lists for can easily be
 changed to a dict of <code>numpy</code> arrays: just replace the initialization
 <code>[0]*n</code> by <code>np.zeros(n, dtype=np.int)</code>. The indexing remains the same:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_arrays_v1</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
     frequency_matrix <span style="color: #666666">=</span> {base: np<span style="color: #666666">.</span>zeros(n, dtype<span style="color: #666666">=</span>np<span style="color: #666666">.</span>int)
@@ -1388,7 +1360,7 @@ explore the possibilities of vectorization.
 We first convert the string to a <code>numpy</code> array of characters:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ACAT&#39;</span>
 <span style="color: #666666">&gt;&gt;&gt;</span> dna <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array(dna, dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;c&#39;</span>)
 <span style="color: #666666">&gt;&gt;&gt;</span> dna
@@ -1400,7 +1372,7 @@ For a given base, say A, we can in one vectorized operation find
 which locations in <code>dna</code> that contain <code>A</code>:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> b <span style="color: #666666">=</span> dna <span style="color: #666666">==</span> <span style="color: #BA2121">&#39;A&#39;</span>
 <span style="color: #666666">&gt;&gt;&gt;</span> b
 array([ <span style="color: #008000">True</span>, <span style="color: #008000">False</span>,  <span style="color: #008000">True</span>, <span style="color: #008000">False</span>], dtype<span style="color: #666666">=</span><span style="color: #008000">bool</span>)
@@ -1411,7 +1383,7 @@ update the frequency counts
 for all indices by adding <code>i</code> to <code>frequency_matrix['A']</code>:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> i <span style="color: #666666">=</span> np<span style="color: #666666">.</span>asarray(b, dtype<span style="color: #666666">=</span>np<span style="color: #666666">.</span>int)
 <span style="color: #666666">&gt;&gt;&gt;</span> i
 array([<span style="color: #666666">1</span>, <span style="color: #666666">0</span>, <span style="color: #666666">1</span>, <span style="color: #666666">0</span>])
@@ -1421,7 +1393,7 @@ array([<span style="color: #666666">1</span>, <span style="color: #666666">0</sp
 This recipe can be repeated for all bases:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list:
         dna <span style="color: #666666">=</span> np<span style="color: #666666">.</span>array(dna, dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;c&#39;</span>)
         <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ACGT&#39;</span>:
@@ -1442,7 +1414,7 @@ Collecting all these ideas in one function yields the code
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">freq_dict_of_arrays_v2</span>(dna_list):
     n <span style="color: #666666">=</span> <span style="color: #008000">max</span>([<span style="color: #008000">len</span>(dna) <span style="color: #008000; font-weight: bold">for</span> dna <span style="color: #AA22FF; font-weight: bold">in</span> dna_list])
     frequency_matrix <span style="color: #666666">=</span> {base: np<span style="color: #666666">.</span>zeros(n, dtype<span style="color: #666666">=</span>np<span style="color: #666666">.</span>int)
@@ -1461,8 +1433,9 @@ This vectorized function runs almost 10 times as fast as the
 <p>
 <!-- memory mapped files? -->
 
-<h2>Analyzing the Frequency Matrix <a name="bioinf:freq:analysis"></a></h2>
+<h2 id="bioinf:freq:analysis">Analyzing the Frequency Matrix<a name="bioinf:freq:analysis"></a></h2>
 
+<p>
 Having built a frequency matrix out of a collection of DNA strings, it
 is time to use it for analysis.
 The short DNA strings that a frequency matrix is built out of, is
@@ -1487,7 +1460,7 @@ given three substrings ACT, CCA and AGA, the frequency matrix
 would be (list of lists, with rows corresponding to A, C, G, and T):
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[[2, 0, 2]
  [1, 2, 0]
  [0, 1, 0]
@@ -1502,8 +1475,9 @@ string is therefore ACA.  Note that the consensus string does not need to be
 equal to any of the substrings that formed the basis of the frequency
 matrix (this is indeed the case for the above example).
 
-<h3>List of Lists Frequency Matrix  <a name="___sec28"></a></h3>
+<h3 id="___sec28">List of Lists Frequency Matrix <a name="___sec28"></a></h3>
 
+<p>
 Let <code>frequency_matrix</code> be a list of lists. For each position <code>i</code> we
 run through the rows in the frequency matrix and keep track of the
 maximum frequency value and the corresponding letter. If two or
@@ -1515,7 +1489,7 @@ The following function computes the consensus string:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">find_consensus_v1</span>(frequency_matrix):
     base2index <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">1</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">2</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">3</span>}
     consensus <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;</span>
@@ -1541,7 +1515,7 @@ we should insert a test and raise an exception if the
 type is wrong:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">find_consensus_v1</span>(frequency_matrix):
     <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">isinstance</span>(frequency_matrix, <span style="color: #008000">list</span>) <span style="color: #AA22FF; font-weight: bold">and</span> \ 
        <span style="color: #008000">isinstance</span>(frequency_matrix[<span style="color: #666666">0</span>], <span style="color: #008000">list</span>):
@@ -1551,8 +1525,9 @@ type is wrong:
     <span style="color: #666666">...</span>
 </pre></div>
 
-<h3>Dict of Dicts Frequency Matrix  <a name="___sec29"></a></h3>
+<h3 id="___sec29">Dict of Dicts Frequency Matrix <a name="___sec29"></a></h3>
 
+<p>
 How must the <code>find_consensus_v1</code> function be altered if <code>frequency_matrix</code>
 is a dict of dicts?
 
@@ -1567,7 +1542,7 @@ The updated function becomes
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">find_consensus_v3</span>(frequency_matrix):
     <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">isinstance</span>(frequency_matrix, <span style="color: #008000">dict</span>) <span style="color: #AA22FF; font-weight: bold">and</span> \ 
        <span style="color: #008000">isinstance</span>(frequency_matrix[<span style="color: #BA2121">&#39;A&#39;</span>], <span style="color: #008000">dict</span>):
@@ -1596,7 +1571,7 @@ The updated function becomes
 Here is a test:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">frequency_matrix <span style="color: #666666">=</span> freq_dict_of_dicts_v1(dna_list)
 pprint<span style="color: #666666">.</span>pprint(frequency_matrix)
 <span style="color: #008000; font-weight: bold">print</span> find_consensus_v3(frequency_matrix)
@@ -1605,7 +1580,7 @@ pprint<span style="color: #666666">.</span>pprint(frequency_matrix)
 with output
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">{&#39;A&#39;: {0: 0, 1: 0, 2: 0, 3: 2, 4: 0},
  &#39;C&#39;: {0: 0, 1: 0, 2: 0, 3: 0, 4: 2},
  &#39;G&#39;: {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
@@ -1621,7 +1596,7 @@ the <code>A</code> dict in <code>frequency_matrix</code> is 1.
 Printing out <code>frequency_matrix</code> yields
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">{<span style="color: #BA2121">&#39;A&#39;</span>: defaultdict(X, {<span style="color: #666666">3</span>: <span style="color: #666666">2</span>}),
  <span style="color: #BA2121">&#39;C&#39;</span>: defaultdict(X, {<span style="color: #666666">4</span>: <span style="color: #666666">2</span>}),
  <span style="color: #BA2121">&#39;G&#39;</span>: defaultdict(X, {<span style="color: #666666">0</span>: <span style="color: #666666">3</span>, <span style="color: #666666">1</span>: <span style="color: #666666">3</span>, <span style="color: #666666">3</span>: <span style="color: #666666">1</span>, <span style="color: #666666">4</span>: <span style="color: #666666">1</span>}),
@@ -1631,7 +1606,7 @@ Printing out <code>frequency_matrix</code> yields
 where our <code>X</code> is a short form for text like
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BA2121">`&lt;function &lt;lambda&gt; at 0xfaede8&gt;`</span>
 </pre></div>
 <p>
@@ -1640,7 +1615,7 @@ entries. Hence, to use a defaultdict our function must get the length of the DNA
 build as an extra argument:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">find_consensus_v4</span>(frequency_matrix, dna_length):
     <span style="color: #666666">...</span>
 </pre></div>
@@ -1653,8 +1628,9 @@ representations of <code>frequency_matrix</code> that we have used.
 The functions making and using the frequency matrix are found
 in the file <a href="http://tinyurl.com/q4qpjbt/freq.py" target="_self"><tt>freq.py</tt></a>.
 
-<h2>Dot Plots from Pair of DNA Sequences <a name="bioinf:dotplot"></a></h2>
+<h2 id="bioinf:dotplot">Dot Plots from Pair of DNA Sequences<a name="bioinf:dotplot"></a></h2>
 
+<p>
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say <code>d1</code> and <code>d2</code>,
 by organizing <code>d1</code>
@@ -1663,7 +1639,7 @@ When <code>d1[i] == d2[j]</code> we mark this by drawing a dot at location
 <code>i,j</code> in the plot. An example is
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">1 0 0 1 0 0 0 1 0 0 0 1
 0 1 1 0 0 0 0 0 0 1 1 0
 0 1 1 0 0 0 0 0 0 1 1 0
@@ -1701,15 +1677,16 @@ each position in the "x string" we run through all positions in the "y
 string" and mark those where the characters match with 1.
 The algorithm will be clear when presented with specific Python code.
 
-<h3>Using Lists of Lists  <a name="___sec31"></a></h3>
+<h3 id="___sec31">Using Lists of Lists <a name="___sec31"></a></h3>
 
+<p>
 Since the plot is essentially a table, a list of lists is therefore
 a natural data structure. The following function creates the
 list of lists:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">dotplot_list_of_lists</span>(dna_x, dna_y):
     dotplot_matrix <span style="color: #666666">=</span> [[<span style="color: #BA2121">&#39;0&#39;</span> <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> dna_x] <span style="color: #008000; font-weight: bold">for</span> y <span style="color: #AA22FF; font-weight: bold">in</span> dna_y]
     <span style="color: #008000; font-weight: bold">for</span> x_index, x_value <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>(dna_x):
@@ -1724,7 +1701,7 @@ is a possible way:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna_x <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;TAATGCCTGAAT&#39;</span>
 dna_y <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;CTCTATGCC&#39;</span>
 
@@ -1738,7 +1715,7 @@ M <span style="color: #666666">=</span> dotplot_list_of_lists(dna_x, dna_x)
 The output becomes
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">1 0 0 1 0 0 0 1 0 0 0 1
 0 1 1 0 0 0 0 0 0 1 1 0
 0 1 1 0 0 0 0 0 0 1 1 0
@@ -1759,7 +1736,7 @@ This implies joining all the characters in each row and then joining
 all the rows:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">rows <span style="color: #666666">=</span> [<span style="color: #BA2121">&#39; &#39;</span><span style="color: #666666">.</span>join(row) <span style="color: #008000; font-weight: bold">for</span> row <span style="color: #AA22FF; font-weight: bold">in</span> dotplot_matrix]
 plot <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span><span style="color: #666666">.</span>join(rows)
 <span style="color: #408080; font-style: italic"># or combined</span>
@@ -1778,7 +1755,7 @@ comprehensive code could be made so that each step can be examined:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">make_string_expanded</span>(dotplot_matrix):
     rows <span style="color: #666666">=</span> []
     <span style="color: #008000; font-weight: bold">for</span> row <span style="color: #AA22FF; font-weight: bold">in</span> dotplot_matrix:
@@ -1808,14 +1785,15 @@ Figure <a href="#bioinf:fig:pot2">2</a> shows a snapshot of this type of code in
 <p><img src="fig-bioinf/pot_join.jpg" align="bottom" width=850></p>
 </center>
 
-<h3>Using Numerical Python Arrays  <a name="___sec32"></a></h3>
+<h3 id="___sec32">Using Numerical Python Arrays <a name="___sec32"></a></h3>
 
+<p>
 A Numerical Python array, with integer elements that equal 0 or 1,
 is well suited as data structure to hold a dot plot.
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">dotplot_numpy</span>(dna_x, dna_y):
     dotplot_matrix <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros((<span style="color: #008000">len</span>(dna_y), <span style="color: #008000">len</span>(dna_x)), np<span style="color: #666666">.</span>int)
     <span style="color: #008000; font-weight: bold">for</span> x_index, x_value <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">enumerate</span>(dna_x):
@@ -1830,8 +1808,9 @@ is well suited as data structure to hold a dot plot.
 The two dot plot functions are available
 in the file <a href="http://tinyurl.com/q4qpjbt/dotplot.py" target="_self"><tt>dotplot.py</tt></a>.
 
-<h2>Finding Base Frequencies <a name="bioinf:basefreq"></a></h2>
+<h2 id="bioinf:basefreq">Finding Base Frequencies<a name="bioinf:basefreq"></a></h2>
 
+<p>
 DNA consists of four molecules called nucleotides, or bases, and can
 be represented as a string of the letters A, C, G, and T. But this
 does not mean that all four nucleotides need to be similarly
@@ -1863,7 +1842,7 @@ Counting is done by
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_base_counts</span>(dna):
     counts <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">0</span>}
     <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -1875,7 +1854,7 @@ This function can then be used to compute the base frequencies:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_base_frequencies_v1</span>(dna):
     counts <span style="color: #666666">=</span> get_base_counts(dna)
     <span style="color: #008000; font-weight: bold">return</span> {base: count<span style="color: #666666">*1.0/</span><span style="color: #008000">len</span>(dna)
@@ -1889,7 +1868,7 @@ function for computing all the base frequencies:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_base_frequencies_v2</span>(dna):
         <span style="color: #008000; font-weight: bold">return</span> {base: dna<span style="color: #666666">.</span>count(base)<span style="color: #666666">/</span><span style="color: #008000">float</span>(<span style="color: #008000">len</span>(dna))
                 <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>}
@@ -1899,7 +1878,7 @@ A little test,
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ACCAGAGT&#39;</span>
 frequencies <span style="color: #666666">=</span> get_base_frequencies_v2(dna)
 
@@ -1914,7 +1893,7 @@ frequencies <span style="color: #666666">=</span> get_base_frequencies_v2(dna)
 gives the result
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Base frequencies of sequence &#39;ACCAGAGT&#39;:
 A: 0.38, C: 0.25, T: 0.12, G: 0.25
 </pre></div>
@@ -1939,7 +1918,7 @@ contains the DNA for yeast. We can download this file from
 the Internet by
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">urllib<span style="color: #666666">.</span>urlretrieve(url, filename<span style="color: #666666">=</span>name_of_local_file)
 </pre></div>
 <p>
@@ -1956,7 +1935,7 @@ The appropriate download code then becomes
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">urllib</span><span style="color: #666666">,</span> <span style="color: #0000FF; font-weight: bold">os</span>
 urlbase <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 yeast_file <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;yeast_chr1.txt&#39;</span>
@@ -1976,7 +1955,7 @@ recover the DNA string:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_dnafile_v1</span>(filename):
     lines <span style="color: #666666">=</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>)<span style="color: #666666">.</span>readlines()
     <span style="color: #408080; font-style: italic"># Remove newlines in each line (line.strip()) and join</span>
@@ -1988,7 +1967,7 @@ As usual, an alternative programming solution can be devised:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_dnafile_v2</span>(filename):
     dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;</span>
     <span style="color: #008000; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>):
@@ -2004,7 +1983,7 @@ yeast_freq <span style="color: #666666">=</span> get_base_frequencies_v2(dna)
 The output becomes
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Base frequencies of yeast DNA (length 230208):
 A: 0.30, C: 0.19, T: 0.30, G: 0.20
 </pre></div>
@@ -2027,8 +2006,9 @@ interested reader can, e.g., find more details in
 The functions computing base frequencies are available
 in the file <a href="http://tinyurl.com/q4qpjbt/basefreq.py" target="_self"><tt>basefreq.py</tt></a>.
 
-<h2>Translating Genes into Proteins <a name="bioinf:gene2protein"></a></h2>
+<h2 id="bioinf:gene2protein">Translating Genes into Proteins<a name="bioinf:gene2protein"></a></h2>
 
+<p>
 An important usage of DNA is for cells to store information on their
 arsenal of proteins. Briefly, a gene is, in essence, a region of the
 DNA, consisting of several coding parts (called exons), interspersed
@@ -2061,7 +2041,7 @@ contains a mapping of genetic codes to amino acids.
 The file format looks like
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">UUU     F       Phe     Phenylalanine
 UUC     F       Phe     Phenylalanine
 UUA     L       Leu     Leucine
@@ -2087,7 +2067,7 @@ this robust function:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">download</span>(urlbase, filename):
     <span style="color: #008000; font-weight: bold">if</span> <span style="color: #AA22FF; font-weight: bold">not</span> os<span style="color: #666666">.</span>path<span style="color: #666666">.</span>isfile(filename):
         url <span style="color: #666666">=</span> urlbase <span style="color: #666666">+</span> filename
@@ -2107,7 +2087,7 @@ column) on to the 1-letter name (second column):
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_genetic_code_v1</span>(filename):
     infile <span style="color: #666666">=</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>)
     genetic_code <span style="color: #666666">=</span> {}
@@ -2122,7 +2102,7 @@ by
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">urlbase <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
 genetic_code_file <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;genetic_code.tsv&#39;</span>
 download(urlbase, genetic_code_file)
@@ -2135,7 +2115,7 @@ converting the 2-lists to key-value pairs in a dictionary:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_genetic_code_v2</span>(filename):
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">dict</span>([line<span style="color: #666666">.</span>split()[<span style="color: #666666">0</span>:<span style="color: #666666">2</span>] <span style="color: #008000; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>)])
 </pre></div>
@@ -2148,7 +2128,7 @@ a dictionary of dictionaries:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_genetic_code_v3</span>(filename):
     genetic_code <span style="color: #666666">=</span> {}
     <span style="color: #008000; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>):
@@ -2164,7 +2144,7 @@ An alternative way of writing the last function is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_genetic_code_v4</span>(filename):
     genetic_code <span style="color: #666666">=</span> {}
     <span style="color: #008000; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>):
@@ -2196,7 +2176,7 @@ is very simple in that each line holds the start and end positions of
 an exon region:
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0       651
 3990    4070
 7504    7588
@@ -2209,7 +2189,7 @@ tuples. The following function does the job:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_exon_regions_v1</span>(filename):
     positions <span style="color: #666666">=</span> []
     infile <span style="color: #666666">=</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>)
@@ -2226,7 +2206,7 @@ of the function:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">read_exon_regions_v2</span>(filename):
     <span style="color: #008000; font-weight: bold">return</span> [<span style="color: #008000">tuple</span>(<span style="color: #008000">int</span>(x) <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> line<span style="color: #666666">.</span>split())
             <span style="color: #008000; font-weight: bold">for</span> line <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;r&#39;</span>)]
@@ -2242,7 +2222,7 @@ as substrings, replace T by U, and add all the substrings together:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">create_mRNA</span>(gene, exon_regions):
     mrna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;</span>
     <span style="color: #008000; font-weight: bold">for</span> start, end <span style="color: #AA22FF; font-weight: bold">in</span> exon_regions:
@@ -2259,7 +2239,7 @@ An appropriate function doing this is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">tofile_with_line_sep_v1</span>(text, filename, chars_per_line<span style="color: #666666">=70</span>):
     outfile <span style="color: #666666">=</span> <span style="color: #008000">open</span>(filename, <span style="color: #BA2121">&#39;w&#39;</span>)
     <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">xrange</span>(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(text), chars_per_line):
@@ -2274,7 +2254,7 @@ Python has good support for testing if a folder exists, and if not,
 make a folder:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">output_folder <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;output&#39;</span>
 <span style="color: #008000; font-weight: bold">if</span> <span style="color: #AA22FF; font-weight: bold">not</span> os<span style="color: #666666">.</span>path<span style="color: #666666">.</span>isdir(output_folder):
     os<span style="color: #666666">.</span>mkdir(output_folder)
@@ -2293,7 +2273,7 @@ or backward, depending on the current operating system.
 Occasionally, the output folder is nested, say
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">output_folder <span style="color: #666666">=</span> os<span style="color: #666666">.</span>path<span style="color: #666666">.</span>join(<span style="color: #BA2121">&#39;output&#39;</span>, <span style="color: #BA2121">&#39;lactase&#39;</span>)
 </pre></div>
 <p>
@@ -2309,7 +2289,7 @@ characters per line).  The flexible file writing function then becomes
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">tofile_with_line_sep_v2</span>(text, foldername, filename,
                             chars_per_line<span style="color: #666666">=70</span>):
     <span style="color: #008000; font-weight: bold">if</span> <span style="color: #AA22FF; font-weight: bold">not</span> os<span style="color: #666666">.</span>path<span style="color: #666666">.</span>isdir(foldername):
@@ -2333,7 +2313,7 @@ by the corresponding 1-letter name as specified in the
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">create_protein</span>(mrna, genetic_code):
     protein <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;</span>
     <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">xrange</span>(<span style="color: #008000">len</span>(mrna)<span style="color: #666666">/3</span>):
@@ -2355,7 +2335,7 @@ A fix is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">create_protein_fixed</span>(mrna, genetic_code):
     protein_fixed <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;</span>
     trans_start_pos <span style="color: #666666">=</span> mrna<span style="color: #666666">.</span>find(<span style="color: #BA2121">&#39;AUG&#39;</span>)
@@ -2380,13 +2360,14 @@ tofile_with_line_sep_v2(protein, <span style="color: #BA2121">&#39;output&#39;</
 The output, needed below for comparison, becomes
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">10 last amino acids of the correct lactase protein:  QQELSPVSSF
 Lenght of the correct protein:  1927
 </pre></div>
 
-<h2>Some Humans Can Drink Milk, While Others Cannot <a name="bioinf:lactase:milk"></a></h2>
+<h2 id="bioinf:lactase:milk">Some Humans Can Drink Milk, While Others Cannot<a name="bioinf:lactase:milk"></a></h2>
 
+<p>
 One type of lactose intolerance is called <em>Congenital lactase deficiency</em>.
 This is a rare genetic disorder that causes lactose intolerance from birth,
 and is particularly common in Finland. The disease is caused by a mutation of
@@ -2396,7 +2377,7 @@ This is a simple task using the previously developed tools:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">congential_lactase_deficiency</span>(
     lactase_gene,
     genetic_code,
@@ -2436,7 +2417,7 @@ mutated_protein <span style="color: #666666">=</span> congential_lactase_deficie
 The output, to be compared with the non-mutated gene above, is now
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">10 last amino acids of the mutated lactase protein: GFIWSAASAA
 Lenght of the mutated lactase protein: 1389
 </pre></div>
@@ -2460,10 +2441,11 @@ in northern Europe, to close to 100% in south-east Asia.
 The functions analyzing the lactase gene are found
 in the file <a href="http://tinyurl.com/q4qpjbt/genes2proteins.py" target="_self"><tt>genes2proteins.py</tt></a>.
 
-<h2>Random Mutations of Genes <a name="bioinf:random"></a></h2>
+<h2 id="bioinf:random">Random Mutations of Genes<a name="bioinf:random"></a></h2>
 
-<h3>A Simple Mutation Model  <a name="___sec37"></a></h3>
+<h3 id="___sec37">A Simple Mutation Model <a name="___sec37"></a></h3>
 
+<p>
  Mutation of genes
 is easily modeled by replacing the letter in a randomly
 chosen position of the DNA by a randomly chosen letter from
@@ -2485,7 +2467,7 @@ changed in-place:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">random</span>
 
 <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">mutate_v1</span>(dna):
@@ -2501,7 +2483,7 @@ of times and see how the frequencies of the bases A, C, G, and T change:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;ACGGAGATTTCGGTATGCAT&#39;</span>
 <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&#39;Starting DNA:&#39;</span>, dna
 <span style="color: #008000; font-weight: bold">print</span> format_frequencies(get_base_frequencies_v2(dna))
@@ -2517,15 +2499,16 @@ nmutations <span style="color: #666666">=</span> <span style="color: #666666">10
 Here is the output from a run:
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Starting DNA: ACGGAGATTTCGGTATGCAT
 A: 0.25, C: 0.15, T: 0.30, G: 0.30
 DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
 A: 0.35, C: 0.25, T: 0.10, G: 0.30
 </pre></div>
 
-<h3>Vectorized Version  <a name="___sec38"></a></h3>
+<h3 id="___sec38">Vectorized Version <a name="___sec38"></a></h3>
 
+<p>
 The efficiency of the <code>mutate_v1</code> function with its surrounding loop can be
 significantly increased up by performing all the mutations at
 once using <code>numpy</code> arrays. This speed-up is of interest for long <code>dna</code>
@@ -2543,7 +2526,7 @@ Drawing <code>N</code> mutation sites is a matter of drawing <code>N</code> rand
 integers among the legal indices:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
 mutation_sites <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>random_integers(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(dna)<span style="color: #666666">-1</span>, size<span style="color: #666666">=</span>N)
 </pre></div>
@@ -2551,7 +2534,7 @@ mutation_sites <span style="color: #666666">=</span> np<span style="color: #6666
 Drawing <code>N</code> bases, represented as the integers 0-3, is similarly done by
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">new_bases_i <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>random_integers(<span style="color: #666666">0</span>, <span style="color: #666666">3</span>, N)
 </pre></div>
 <p>
@@ -2561,7 +2544,7 @@ equals 1, and inserting the character <code>'C'</code> in a companion
 array of characters:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">new_bases_c <span style="color: #666666">=</span> np<span style="color: #666666">.</span>zeros(N, dtype<span style="color: #666666">=</span><span style="color: #BA2121">&#39;c&#39;</span>)
 indices <span style="color: #666666">=</span> new_bases_i <span style="color: #666666">==</span> <span style="color: #666666">1</span>
 new_bases_c[indices] <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;C&#39;</span>
@@ -2572,7 +2555,7 @@ Thereafter, <code>new_bases_c</code> must be inserted in <code>dna</code> for al
 indices corresponding to the randomly drawn mutation sites,
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna[mutation_sites] <span style="color: #666666">=</span> new_bases_c
 </pre></div>
 <p>
@@ -2585,7 +2568,7 @@ The complete vectorized functions can now be expressed as follows:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
 <span style="color: #408080; font-style: italic"># Use integers in random numpy arrays and map these</span>
 <span style="color: #408080; font-style: italic"># to characters according to</span>
@@ -2611,7 +2594,7 @@ letters is
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">generate_string_v1</span>(N, alphabet<span style="color: #666666">=</span><span style="color: #BA2121">&#39;ACGT&#39;</span>):
     <span style="color: #008000; font-weight: bold">return</span> <span style="color: #BA2121">&#39;&#39;</span><span style="color: #666666">.</span>join([random<span style="color: #666666">.</span>choice(alphabet) <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">xrange</span>(N)])
 </pre></div>
@@ -2621,7 +2604,7 @@ ideas explored above for the <code>mutate_v2</code> function:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">generate_string_v2</span>(N, alphabet<span style="color: #666666">=</span><span style="color: #BA2121">&#39;ACGT&#39;</span>):
     <span style="color: #408080; font-style: italic"># Draw random integers 0,1,2,3 to represent bases</span>
     dna_i <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>random_integers(<span style="color: #666666">0</span>, <span style="color: #666666">3</span>, N)
@@ -2642,8 +2625,9 @@ Hence, this case study on vectorization is a striking example on the fact
 that a straightforward and convenient function like <code>mutate_v1</code> might
 occasionally be very slow for large-scale computations.
 
-<h3>A Markov Chain Mutation Model  <a name="___sec39"></a></h3>
+<h3 id="___sec39">A Markov Chain Mutation Model <a name="___sec39"></a></h3>
 
+<p>
 The observed rate at which mutations occur at a given position in the
 genome is not independent of the type of nucleotide (base) at that
 position, as was assumed in the previous simple mutation model.  We
@@ -2688,7 +2672,7 @@ form the intervals. We use the function <code>random.random()</code> to generate
 random numbers in \( [0,1) \):
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">slice_points <span style="color: #666666">=</span> <span style="color: #008000">sorted</span>(
     [<span style="color: #666666">0</span>] <span style="color: #666666">+</span> [random<span style="color: #666666">.</span>random() <span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">3</span>)] <span style="color: #666666">+</span> [<span style="color: #666666">1</span>])
 transition_probabilities <span style="color: #666666">=</span> [slice_points[i<span style="color: #666666">+1</span>] <span style="color: #666666">-</span> slice_points[i]
@@ -2698,14 +2682,14 @@ transition_probabilities <span style="color: #666666">=</span> [slice_points[i<s
 The transition probabilities are handy to have available as a dictionary:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">markov_chain[<span style="color: #BA2121">&#39;A&#39;</span>] <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">...</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">...</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">...</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">...</span>}
 </pre></div>
 <p>
 which can be computed by
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">markov_chain[<span style="color: #BA2121">&#39;A&#39;</span>] <span style="color: #666666">=</span> {base: p <span style="color: #008000; font-weight: bold">for</span> base, p <span style="color: #AA22FF; font-weight: bold">in</span>
                      <span style="color: #008000">zip</span>(<span style="color: #BA2121">&#39;ACGT&#39;</span>, transition_probabilities)}
 </pre></div>
@@ -2721,7 +2705,7 @@ a dictionary:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">draw</span>(discrete_probdist):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    Draw random value from discrete probability distribution</span>
@@ -2748,7 +2732,7 @@ storing them in a dictionary of dictionaries takes the form
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">create_markov_chain</span>():
     markov_chain <span style="color: #666666">=</span> {}
     <span style="color: #008000; font-weight: bold">for</span> from_base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>:
@@ -2774,7 +2758,7 @@ the probabilities in a row must sum up to 1:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">check_transition_probabilities</span>(markov_chain):
     <span style="color: #008000; font-weight: bold">for</span> from_base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>:
         s <span style="color: #666666">=</span> <span style="color: #008000">sum</span>(markov_chain[from_base][to_base]
@@ -2792,7 +2776,7 @@ with the probabilities:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">check_draw_approx</span>(discrete_probdist, N<span style="color: #666666">=1000000</span>):
     <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
 <span style="color: #BA2121; font-style: italic">    See if draw results in frequencies approx equal to</span>
@@ -2824,7 +2808,7 @@ transitions for a randomly selected position in a DNA sequence:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">mutate_via_markov_chain</span>(dna, markov_chain):
     dna_list <span style="color: #666666">=</span> <span style="color: #008000">list</span>(dna)
     mutation_site <span style="color: #666666">=</span> random<span style="color: #666666">.</span>randint(<span style="color: #666666">0</span>, <span style="color: #008000">len</span>(dna_list) <span style="color: #666666">-</span> <span style="color: #666666">1</span>)
@@ -2842,7 +2826,7 @@ Here is a simulation of mutations using the method based on Markov chains:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">dna <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;TTACGGAGATTTCGGTATGCAT&#39;</span>
 <span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&#39;Starting DNA:&#39;</span>, dna
 <span style="color: #008000; font-weight: bold">print</span> format_frequencies(get_base_frequencies_v2(dna))
@@ -2865,7 +2849,7 @@ sequence of random numbers the same every time the program is run and
 is very useful for debugging. An example on the output may look like
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Starting DNA: TTACGGAGATTTCGGTATGCAT
 A: 0.23, C: 0.14, T: 0.36, G: 0.27
 Transition probabilities:
@@ -2916,7 +2900,7 @@ is then the sum of the probabilities in the column corresponding to
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">transition_into_bases</span>(markov_chain):
     <span style="color: #008000; font-weight: bold">return</span> {to_base: <span style="color: #008000">sum</span>(markov_chain[from_base][to_base]
                          <span style="color: #008000; font-weight: bold">for</span> from_base <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #BA2121">&#39;ATGC&#39;</span>)<span style="color: #666666">/4.0</span>
@@ -2928,7 +2912,7 @@ is then the sum of the probabilities in the column corresponding to
 The \( P(X=b) \) probabilities corresponding to the example run above reads
 <p>
 
-<!-- code=text (from !bc dat) typeset with pygments style "default" -->
+<!-- code=text (!bc dat) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">{&#39;A&#39;: 0.26, &#39;C&#39;: 0.25, &#39;T&#39;: 0.30, &#39;G&#39;: 0.19}
 </pre></div>
 <p>
@@ -2939,21 +2923,23 @@ confirmed by the greatest frequency (0.41).
 The various functions performing mutations are located
 in the file <a href="http://tinyurl.com/q4qpjbt/mutate.py" target="_self"><tt>mutate.py</tt></a>.
 
-<h1>Classes for DNA Analysis <a name="bioinf:oo"></a></h1>
+<h1 id="bioinf:oo">Classes for DNA Analysis<a name="bioinf:oo"></a></h1>
 
+<p>
 We shall here exemplify the use of classes for performing
 DNA analysis as explained  in the previous text.
 Basically, we create a class <code>Gene</code> to represent a DNA sequence (string)
 and a class <code>Region</code> to represent a subsequence (substring), typically an
 exon or intron.
 
-<h2>Class for Regions  <a name="___sec41"></a></h2>
+<h2 id="___sec41">Class for Regions <a name="___sec41"></a></h2>
 
+<p>
 The class for representing a region of a DNA string is quite simple:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Region</span>:
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>, dna, start, end):
         <span style="color: #008000">self</span><span style="color: #666666">.</span>_region <span style="color: #666666">=</span> dna[start:end]
@@ -2991,8 +2977,9 @@ we have also included the possibility to
 The latter two operations are convenient for making one large string out
 of all exon or intron regions.
 
-<h2>Class for Genes  <a name="___sec42"></a></h2>
+<h2 id="___sec42">Class for Genes <a name="___sec42"></a></h2>
 
+<p>
 The class for gene will be longer and more complex than class
 <code>Region</code>. We already have a bunch of functions performing various
 types of analysis. The idea of the <code>Gene</code> class is that these
@@ -3035,15 +3022,16 @@ in the file <a href="http://tinyurl.com/q4qpjbt/dna_functions.py" target="_self"
 <a href="http://tinyurl.com/q4qpjbt/dna_classes.py" target="_self"><tt>dna_classes.py</tt></a> contains the implementations
 of classes <code>Gene</code> and <code>Region</code>.
 
-<h3>Basic Features of class Gene  <a name="___sec43"></a></h3>
+<h3 id="___sec43">Basic Features of class Gene <a name="___sec43"></a></h3>
 
+<p>
 Class <code>Gene</code> is supposed to hold the DNA sequence and
 the associated exon regions. A simple constructor expects the
 exon regions to be specified as a list of (start, end) tuples
 indicating the start and end of each region:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Gene</span>:
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>, dna, exon_regions):
         <span style="color: #008000">self</span><span style="color: #666666">.</span>_dna <span style="color: #666666">=</span> dna
@@ -3067,7 +3055,7 @@ have the functionality in stand-alone functions.
 Here are a few examples on methods:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">dna_functions</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
 
 <span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Gene</span>:
@@ -3090,8 +3078,9 @@ Here are a few examples on methods:
         <span style="color: #008000; font-weight: bold">return</span> format_frequencies(<span style="color: #008000">self</span><span style="color: #666666">.</span>get_base_frequencies())
 </pre></div>
 
-<h3>Flexible Constructor  <a name="___sec44"></a></h3>
+<h3 id="___sec44">Flexible Constructor <a name="___sec44"></a></h3>
 
+<p>
 The constructor can be made more flexible. First, the exon regions
 may not be known so we should allow <code>None</code> as value and in fact
 use that as default value. Second, exon regions at the start and/or
@@ -3103,7 +3092,7 @@ from file.
 Two different initializations of <code>Gene</code> objects are therefore
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">g1 <span style="color: #666666">=</span> Gene(dna, exon_regions)  <span style="color: #408080; font-style: italic"># user has read data from file</span>
 g2 <span style="color: #666666">=</span> Gene((urlbase, dna_file), (urlbase, exon_file))  <span style="color: #408080; font-style: italic"># download</span>
 </pre></div>
@@ -3117,7 +3106,7 @@ of arguments to initialize an instance):
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">Gene</span>:
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>, dna, exon_regions):
         <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
@@ -3183,13 +3172,14 @@ of the data structures supplied as the <code>dna</code> and <code>exon_regions</
 arguments. This can well be done to ensure safe use also when there is only
 one allowed type per argument.
 
-<h3>Other Methods  <a name="___sec45"></a></h3>
+<h3 id="___sec45">Other Methods <a name="___sec45"></a></h3>
 
+<p>
 A <code>create_mRNA</code> method, returning the mRNA as a string, can be coded as
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">create_mRNA</span>(<span style="color: #008000">self</span>):
         <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;Return string for mRNA.&quot;&quot;&quot;</span>
         <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>_exons <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #AA22FF; font-weight: bold">not</span> <span style="color: #008000">None</span>:
@@ -3207,7 +3197,7 @@ Methods for creating a mutated gene are also included:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">mutate_pos</span>(<span style="color: #008000">self</span>, pos, base):
         <span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;Return Gene with a mutation to base at position pos.&quot;&quot;&quot;</span>
         dna <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>_dna[:pos] <span style="color: #666666">+</span> base <span style="color: #666666">+</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>_dna[pos<span style="color: #666666">+1</span>:]
@@ -3239,7 +3229,7 @@ of the class can be included:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_dna</span>(<span style="color: #008000">self</span>):
         <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>_dna
 
@@ -3264,7 +3254,7 @@ two genes are identical, and printing of compact gene information
 are relevant to add:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__len__</span>(<span style="color: #008000">self</span>):
         <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">len</span>(<span style="color: #008000">self</span><span style="color: #666666">.</span>_dna)
 
@@ -3303,7 +3293,7 @@ Here is an interactive session demonstrating how we can work with
 class <code>Gene</code> objects:
 <p>
 
-<!-- code=python (from !bc pyshell) typeset with pygments style "default" -->
+<!-- code=python (!bc pyshell) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">dna_classes</span> <span style="color: #008000; font-weight: bold">import</span> Gene
 <span style="color: #666666">&gt;&gt;&gt;</span> g1 <span style="color: #666666">=</span> Gene(<span style="color: #BA2121">&#39;ATCCGTAATTGCGCA&#39;</span>, [(<span style="color: #666666">2</span>,<span style="color: #666666">4</span>), (<span style="color: #666666">6</span>,<span style="color: #666666">9</span>)])
 <span style="color: #666666">&gt;&gt;&gt;</span> <span style="color: #008000; font-weight: bold">print</span> g1
@@ -3326,8 +3316,9 @@ Gene: ATCCGT<span style="color: #666666">...</span>TGCGCA, length<span style="co
 <span style="color: #BA2121">&#39;A: 0.17, C: 0.23, T: 0.33, G: 0.27&#39;</span>
 </pre></div>
 
-<h2>Subclasses  <a name="___sec46"></a></h2>
+<h2 id="___sec46">Subclasses <a name="___sec46"></a></h2>
 
+<p>
 There are two fundamental types of genes: the most common type that
 codes for proteins (indirectly via mRNA) and the type that only codes
 for RNA (without being further processed to proteins).
@@ -3340,7 +3331,7 @@ of that type of gene.
 The <code>get_product</code> method can be declared in class <code>Gene</code>:
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_product</span>(<span style="color: #008000">self</span>):
         <span style="color: #008000; font-weight: bold">raise</span> <span style="color: #D2413A; font-weight: bold">NotImplementedError</span>(
             <span style="color: #BA2121">&#39;Subclass </span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121"> must implement get_product&#39;</span> <span style="color: #666666">%</span> \ 
@@ -3356,7 +3347,7 @@ The two subclasses of <code>Gene</code> may take this simple form:
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">RNACodingGene</span>(Gene):
     <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_product</span>(<span style="color: #008000">self</span>):
         <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>create_mRNA()
@@ -3380,7 +3371,7 @@ lactase protein is done with
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">test_lactase_gene</span>():
     urlbase <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;http://hplgit.github.com/bioinf-py/data/&#39;</span>
     lactase_gene_file <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;lactase_gene.txt&#39;</span>
@@ -3404,12 +3395,14 @@ protein.
 The authors want to thank Sveinung Gundersen, Ksenia Khelik, Halfdan Rydbeck,
 and Kai Trengereid for contributing to the examples and their implementations.
 
-<h1>Exercises  <a name="___sec47"></a></h1>
+<h1 id="___sec47">Exercises <a name="___sec47"></a></h1>
 
+<p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 1: Find pairs of characters <a name="bioinf:exer:pairs1"></a></h2>
+<h2 id="bioinf:exer:pairs1">Exercise 1: Find pairs of characters<a name="bioinf:exer:pairs1"></a></h2>
 
+<p>
 Write a function <code>count_pairs(dna, pair)</code> that returns the number of
 occurrences of a pair of characters (<code>pair</code>) in a DNA string (<code>dna</code>).
 For example, calling the function with <code>dna</code> as <code>'ACTGCTATCCATT'</code>
@@ -3425,8 +3418,9 @@ Filename: <code>count_pairs.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 2: Count substrings <a name="bioinf:exer:substr1"></a></h2>
+<h2 id="bioinf:exer:substr1">Exercise 2: Count substrings<a name="bioinf:exer:substr1"></a></h2>
 
+<p>
 This is an extension of <a href="#bioinf:exer:pairs1">Exercise 1: Find pairs of characters</a>:
 count how many times a certain string appears in another string.
 For example, the function returns 3 when called
@@ -3453,10 +3447,11 @@ Filename: <code>count_substr.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 3: Allow different types for a function argument <a name="bioinf:exer:freq:fargs"></a></h2>
+<h2 id="bioinf:exer:freq:fargs">Exercise 3: Allow different types for a function argument<a name="bioinf:exer:freq:fargs"></a></h2>
 
+<p>
 Consider the family of <code>find_consensus_v*</code> functions from
-The section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
+the section <a href="#bioinf:freq:analysis">Analyzing the Frequency Matrix</a>. The different versions work on
 different representations of the frequency matrix. Make a unified
 <code>find_consensus</code> function that accepts different data structures
 for the <code>frequency_matrix</code>. Test on the type of data structure and
@@ -3469,8 +3464,9 @@ Filename: <code>find_consensus.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 4: Make a function more robust <a name="bioinf:exer:get_base_counts2"></a></h2>
+<h2 id="bioinf:exer:get_base_counts2">Exercise 4: Make a function more robust<a name="bioinf:exer:get_base_counts2"></a></h2>
 
+<p>
 Consider the function <code>get_base_counts(dna)</code>
 from the section <a href="#bioinf:basefreq">Finding Base Frequencies</a>,
 which counts how many times <code>A</code>, <code>C</code>, <code>G</code>, and
@@ -3478,7 +3474,7 @@ which counts how many times <code>A</code>, <code>C</code>, <code>G</code>, and
 
 <p>
 
-<!-- code=python (from !bc pycod) typeset with pygments style "default" -->
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">get_base_counts</span>(dna):
     counts <span style="color: #666666">=</span> {<span style="color: #BA2121">&#39;A&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;T&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;G&#39;</span>: <span style="color: #666666">0</span>, <span style="color: #BA2121">&#39;C&#39;</span>: <span style="color: #666666">0</span>}
     <span style="color: #008000; font-weight: bold">for</span> base <span style="color: #AA22FF; font-weight: bold">in</span> dna:
@@ -3500,10 +3496,11 @@ Filename: <code>get_base_counts2.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 5: Find proportion of bases inside/outside exons <a name="bioinf:exer:Ainsouts:exons"></a></h2>
+<h2 id="bioinf:exer:Ainsouts:exons">Exercise 5: Find proportion of bases inside/outside exons<a name="bioinf:exer:Ainsouts:exons"></a></h2>
 
+<p>
 Consider the lactase gene as described in
-The sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and <a href="#bioinf:lactase:milk">Some Humans Can Drink Milk, While Others Cannot</a>.
+the sections <a href="#bioinf:gene2protein">Translating Genes into Proteins</a> and <a href="#bioinf:lactase:milk">Some Humans Can Drink Milk, While Others Cannot</a>.
 What is the proportion of base A inside and outside exons of
 the lactase gene?
 
@@ -3530,8 +3527,9 @@ Filename: <code>prop_A_exons.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 6: Speed up Markov chain mutation <a name="bioinf:exer:Markov:chain:eff"></a></h2>
+<h2 id="bioinf:exer:Markov:chain:eff">Exercise 6: Speed up Markov chain mutation<a name="bioinf:exer:Markov:chain:eff"></a></h2>
 
+<p>
 The functions <code>transition</code> and <code>mutate_via_markov_chain</code> from the section <a href="#bioinf:random">Random Mutations of Genes</a> were made for being easy to read and understand.  Upon
 closer inspection, we realize that the <code>transition</code> function
 constructs the <code>interval_limits</code> every time a random transition is to
@@ -3549,8 +3547,9 @@ Filename: <code>markov_chain_mutation2.py</code>.
 <p>
 <!-- --- begin exercise --- -->
 
-<h2>Exercise 7: Extend the constructor in class Gene <a name="bioinf:exer:Gene:randominit"></a></h2>
+<h2 id="bioinf:exer:Gene:randominit">Exercise 7: Extend the constructor in class Gene<a name="bioinf:exer:Gene:randominit"></a></h2>
 
+<p>
 Modify the constructor in class <code>Gene</code> from the section <a href="#bioinf:oo">Classes for DNA Analysis</a> such
 that giving no arguments to the constructor makes the class call
 up the <code>generate_string</code> method (from the <code>dna_functions</code> module)

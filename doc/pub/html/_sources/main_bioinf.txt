@@ -1,17 +1,17 @@
-.. Automatically generated reST file from Doconce source
+.. Automatically generated Sphinx-extended reStructuredText file from DocOnce source
    (https://github.com/hplgit/doconce/)
 
-Illustrating Python via Bioinformatics Examples
-===============================================
+.. !split
 
-:Author: Hans Petter Langtangen, Geir Kjetil Sandve
-:Date: May 8, 2014
+Illustrating Python via Bioinformatics Examples
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+:Authors: Hans Petter Langtangen, Geir Kjetil Sandve
+:Date: Oct 18, 2014
 
 .. index:: bioinformatics
 
-
 .. index:: DNA
-
 
 Life is definitely digital. The genetic code of all living organisms
 are represented by a long sequence of simple molecules called
@@ -26,25 +26,21 @@ a scientific discipline addressing the use of computers to search
 for, explore, and use information about genes, nucleic acids, and
 proteins.
 
-
 Basic Bioinformatics Examples in Python
 =======================================
 
 The instructions to the computer how the analysis is going to
-be performed are specified using the `Python <http://python.org>`_
+be performed are specified using the `Python <http://python.org>`__
 programming language.
 The forthcoming examples are
 simple illustrations of the type of problem settings and corresponding
 Python implementations that are encountered in bioinformatics.
 However, the leading Python software for bioinformatics applications is
-`BioPython <http://biopython.org>`_ and for
+`BioPython <http://biopython.org>`__ and for
 real-world problem solving one should rather utilize BioPython instead
 of home-made solutions. The aim of
 the sections below is to illustrate the nature of bioinformatics analysis
 and introduce what is inside packages like BioPython.
-
-
-
 
 We shall start with some very simple examples on DNA analysis that
 bring together
@@ -71,21 +67,18 @@ List Iteration
 
 .. index:: list iteration
 
-
 The most straightforward solution is to loop over the letters
 in the string, test if the current letter equals the desired one,
 and if so, increase a counter. Looping over the letters is
 obvious if the letters are stored in a list. This is easily
 done by converting a string to a list:
 
-.. code-block:: text
-
+.. code-block:: python
 
         >>> list('ATGC')
         ['A', 'T', 'G', 'C']
 
 Our first solution becomes
-
 
 .. code-block:: python
 
@@ -97,18 +90,15 @@ Our first solution becomes
                     i += 1
             return i
 
-
 String Iteration
 ~~~~~~~~~~~~~~~~
 
 .. index:: string iteration
 
-
 Python allows us to iterate directly over a string without converting
 it to a list:
 
-.. code-block:: text
-
+.. code-block:: python
 
         >>> for c in 'ATGC':
         ...     print c
@@ -125,10 +115,8 @@ type ``for element in object``.
 
 .. lists, tuples, strings, arrays, files, dictionaries
 
-
 A slight improvement of our solution is therefore to iterate directly
 over the string:
-
 
 .. code-block:: python
 
@@ -150,11 +138,9 @@ over the string:
         print '{base} appears {n} times in {dna}'.format(
             base=base, n=n, dna=dna)
 
-
 We have here illustrated two alternative ways of writing out text
 where the value of variables are to be inserted in "slots" in the
 string.
-
 
 Program Flow
 ~~~~~~~~~~~~
@@ -169,12 +155,11 @@ a simulation by hand:
 
 2. using a debugger,
 
-3. using the `Online Python Tutor <http://www.pythontutor.com/>`_.
+3. using the `Online Python Tutor <http://www.pythontutor.com/>`__.
 
 Inserting ``print`` statements and examining the variables is the
 simplest approach to investigating
 what is going on:
-
 
 .. code-block:: python
 
@@ -191,10 +176,7 @@ what is going on:
         
         n = count_v2_demo('ATGCGGACCTAT', 'C')
 
-
-
 .. index:: using a debugger
-
 
 .. Note: do not use !bc pyshell for debugging sessions since
 
@@ -202,11 +184,10 @@ what is going on:
 
 .. drops any environment (it is automatically handled)
 
-
 An efficient way to explore this program is to run it in a
 debugger where we can step through each statement and see what
 is printed out. Start ``ipython`` in a terminal window and run the
-program `count_v2_demo.py <http://tinyurl.com/q4qpjbt/count_v2_demo.py>`_ with
+program `count_v2_demo.py <http://tinyurl.com/q4qpjbt/count_v2_demo.py>`__ with
 a debugger: ``run -d count_v2_demo.py``. Use ``s`` (for step) to
 step through each statement, or ``n`` (for next) for proceeding to the
 next statement without stepping through a function that is called.
@@ -234,19 +215,15 @@ print a variable explicitly inside the debugger:
         ipdb> print base
         C
 
-
-
 .. index:: Online Python Tutor
 
-
-The `Online Python Tutor <http://www.pythontutor.com/>`_
+The `Online Python Tutor <http://www.pythontutor.com/>`__
 is, at least for small programs, a splendid alternative to
 debuggers. Go to the web page, erase the sample code and paste in your
 own code. Press *Visual execution*, then *Forward* to execute
 statements one by one. The status of variables are
 explained to the right, and the text field below the program shows the output
 from ``print`` statements.  An example is shown in Figure :ref:`bioinf:fig:pot`.
-
 
 .. _bioinf:fig:pot:
 
@@ -255,12 +232,10 @@ from ``print`` statements.  An example is shown in Figure :ref:`bioinf:fig:pot`.
 
    *Visual execution of a program using the Online Python Tutor*
 
-
 Misunderstanding of the program flow is one of the most frequent
 sources of programming errors, so whenever in doubt about any program
 flow, use one of the three mentioned techniques to establish
 confidence!
-
 
 Index Iteration
 ~~~~~~~~~~~~~~~
@@ -271,7 +246,6 @@ with experience from other languages (Fortran, C and Java are
 examples) are used to ``for`` loops with an integer counter running over
 all indices in a string or array:
 
-
 .. code-block:: python
 
         def count_v3(dna, base):
@@ -280,7 +254,6 @@ all indices in a string or array:
                 if dna[j] == base:
                     i += 1
             return i
-
 
 Python indices always start at 0 so the legal indices for our
 string become ``0``, ``1``, ...,
@@ -294,7 +267,6 @@ While Loops
 
 The ``while`` loop equivalent to the last function reads
 
-
 .. code-block:: python
 
         def count_v4(dna, base):
@@ -305,7 +277,6 @@ The ``while`` loop equivalent to the last function reads
                     i += 1
                 j += 1
             return i
-
 
 Correct indentation is here crucial: a typical error is to fail
 indenting the ``j += 1`` line correctly.
@@ -322,7 +293,6 @@ automatically interprets ``True`` as ``1`` and ``False`` as ``0``.
 That is, ``sum(m)`` returns the number of ``True`` elements in ``m``.
 A possible function doing this is
 
-
 .. code-block:: python
 
         def count_v5(dna, base):
@@ -334,7 +304,6 @@ A possible function doing this is
                     m.append(False)
             return sum(m)
 
-
 Inline If Test
 ~~~~~~~~~~~~~~
 
@@ -343,7 +312,6 @@ enhances readability. The four-line ``if`` test in the previous
 function can be condensed to one line using the inline
 ``if`` construction: ``if condition value1 else value2``.
 
-
 .. code-block:: python
 
         def count_v6(dna, base):
@@ -351,7 +319,6 @@ function can be condensed to one line using the inline
             for c in dna:
                 m.append(True if c == base else False)
             return sum(m)
-
 
 Using Boolean Values Directly
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -362,7 +329,6 @@ directly: it has the value ``True`` or ``False``. This saves
 some typing and adds clarity, at least to Python programmers with
 some experience:
 
-
 .. code-block:: python
 
         def count_v7(dna, base):
@@ -371,8 +337,6 @@ some experience:
                 m.append(c == base)
             return sum(m)
 
-
-
 List Comprehensions
 ~~~~~~~~~~~~~~~~~~~
 
@@ -380,13 +344,11 @@ List Comprehensions
 
 .. index:: sum
 
-
 Building a list with the aid of a ``for`` loop can often be condensed to
 a single line by using list comprehensions: ``[expr for e in
 sequence]``, where ``expr`` is some expression normally involving the
 iteration variable ``e``. In our last example, we can introduce a list
 comprehension
-
 
 .. code-block:: python
 
@@ -394,22 +356,18 @@ comprehension
             m = [c == base for c in dna]
             return sum(m)
 
-
 Here it is tempting to get rid of the ``m`` variable and
 reduce the function body to a single line:
-
 
 .. code-block:: python
 
         def count_v9(dna, base):
             return sum([c == base for c in dna])
 
-
 Using a Sum Iterator
 ~~~~~~~~~~~~~~~~~~~~
 
 .. index:: sum iterator
-
 
 The DNA string is usually huge - 3 billion letters for the human
 species. Making a boolean array with ``True`` and ``False`` values
@@ -422,12 +380,10 @@ as ``x`` visits the elements of ``s`` one by one. Removing the brackets
 therefore avoids first making a list before applying ``sum`` to
 that list. This is a minor modification of the ``count_v9`` function:
 
-
 .. code-block:: python
 
         def count_v10(dna, base):
             return sum(c == base for c in dna)
-
 
 Below we shall measure the impact of the various program constructs
 on the CPU time.
@@ -440,21 +396,17 @@ a letter matches the given ``base`` or not, we may collect all
 the indices of the matches. This can be done by adding an ``if``
 test to the list comprehension:
 
-
 .. code-block:: python
 
         def count_v11(dna, base):
             return len([i for i in range(len(dna)) if dna[i] == base])
 
-
-The `Online Python Tutor <http://www.pythontutor.com/>`_ is
+The `Online Python Tutor <http://www.pythontutor.com/>`__ is
 really helpful to reach an understanding of this compact code.
 Alternatively, you may play with the constructions in an
 interactive Python shell:
 
-
-.. code-block:: text
-
+.. code-block:: python
 
         >>> dna = 'AATGCTTA'
         >>> base = 'A'
@@ -478,15 +430,12 @@ Counting how many times a letter (or substring) ``base`` appears in a
 string ``dna`` is obviously a very common task so Python supports
 it by the syntax ``dna.count(base)``:
 
-
 .. code-block:: python
 
         def count_v12(dna, base):
             return dna.count(base)
         
         def compare_efficiency():
-
-
 
 .. _bioinf:count:cpu:
 
@@ -502,7 +451,6 @@ Generating Random DNA Strings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. index:: random strings
-
 
 The simplest way of generating a long string is to repeat a
 character a large number of times:
@@ -537,7 +485,6 @@ list. In Python version 3.x, the ``range`` function is actually the
 statements, and wrapping the construction of a random DNA string in a
 function, gives
 
-
 .. code-block:: python
 
         import random
@@ -553,7 +500,6 @@ Measuring CPU Time
 ~~~~~~~~~~~~~~~~~~
 
 .. index:: CPU time measurements
-
 
 Our next goal is to see how much time the various ``count_v*``
 functions spend on counting letters in a huge string, which is to be
@@ -577,7 +523,6 @@ and writing files, ``time.time()`` is the appropriate function to call.
 Running through all our functions made so far and recording timings can be
 done by
 
-
 .. code-block:: python
 
         import time
@@ -593,20 +538,17 @@ done by
             cpu_time = t1 - t0
             timings.append(cpu_time)
 
-
 In Python, functions are ordinary objects so making a list of
 functions is no more special than making a list of strings or numbers.
 
 We can now iterate over ``timings`` and ``functions`` simultaneously via ``zip``
 to make a nice printout of the results:
 
-
 .. code-block:: python
 
         for cpu_time, function in zip(timings, functions):
             print '{f:<9s}: {cpu:.2f} s'.format(
                 f=function.func_name, cpu=cpu_time)
-
 
 Timings on a MacBook Air 11 running Ubuntu show that
 the functions using ``list.append`` require almost the double of
@@ -628,28 +570,21 @@ you can (easily) come up with.
 Verifying the Implementations
 -----------------------------
 
-
 .. index:: test function
-
 
 .. index:: nose tests
 
-
 .. index:: pytest tests
-
 
 .. index:: test_*() function
 
-
 .. index:: assert statement
-
 
 We end this section with showing how to make tests that verify our 12
 counting functions. To this end, we make a new function that first
 computes a certainly correct answer to a counting problem and then
 calls all the ``count_*`` functions, stored in the list ``functions``, to
 check that each call has the correct result:
-
 
 .. code-block:: python
 
@@ -663,8 +598,8 @@ check that each call has the correct result:
 Here, we believe in ``dna.count('A')`` as the correct answer.
 
 We might take this test function one step further and adopt the
-conventions in the `pytest <http://pytest.org>`_ and
-`nose <https://nose.readthedocs.org>`_
+conventions in the `pytest <http://pytest.org>`__ and
+`nose <https://nose.readthedocs.org>`__
 testing frameworks for Python code.
 
 These conventions say that the test function should
@@ -684,12 +619,10 @@ These conventions say that the test function should
 
 .. index:: f.__name__ (name of func. f)
 
-
 The pytest and nose test frameworks can search for all Python files in
 a folder tree, run all ``test_*()`` functions, and report how many of
 the tests that failed, if we adopt the conventions above.  Our revised
 test function becomes
-
 
 .. code-block:: python
 
@@ -710,22 +643,16 @@ of all tests in all files can be fully automated. Every time you to
 a change in some file you can with minimum effort rerun all tests.
 
 The entire suite of functions presented above, including the timings and tests,
-can be found in the file `count.py <http://tinyurl.com/q4qpjbt/count.py>`_.
+can be found in the file `count.py <http://tinyurl.com/q4qpjbt/count.py>`__.
 
 .. === Testing with Real Data ===
-
-
-
-
 
 .. _bioinf:freqm:
 
 Computing Frequencies
 ---------------------
 
-
 .. index:: frequency matrix
-
 
 Your genetic code is essentially the same from you are born until you
 die, and the same in your blood and your brain.  Which genes that are
@@ -744,14 +671,14 @@ many times the base appears in position j in the DNA sequence.
 For example, if our set of DNA sequences are
 TAG, GGT, and GGG, the table becomes
 
-====  ====  ====  ====  
-base   0     1     2    
-====  ====  ====  ====  
-A      0     1     0    
-C      0     0     0    
-G      2     2     2    
-T      1     0     1    
-====  ====  ====  ====  
+====  =  =  =  
+base  0  1  2  
+====  =  =  =  
+A     0  1  0  
+C     0  0  0  
+G     2  2  2  
+T     1  0  1  
+====  =  =  =  
 
 From this table we can read that base A appears once in index 1 in the
 DNA strings, base C does not appear at all, base G appears twice in
@@ -763,14 +690,12 @@ hold such a table and different ways of computing them.
 The table is known as a *frequency matrix* in bioinformatics
 and this is the term used here too.
 
-
 Separate Frequency Lists
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since we know that there are only four rows in the frequency matrix,
 an obvious data structure would be four lists, each holding
 a row. A function computing these lists may look like
-
 
 .. code-block:: python
 
@@ -792,7 +717,6 @@ a row. A function computing these lists may look like
                         T[index] += 1
             return A, C, G, T
 
-
 We need to initialize the lists with the right length and a zero
 for each element, since each list element is to be used as a counter.
 Creating a list of length ``n`` with object ``x`` in all positions
@@ -801,16 +725,13 @@ inspecting the length of the first element in ``dna_list``, the list of
 all DNA strings to be counted, assuming
 that all elements in this list have the same length.
 
-
 .. index:: enumerate
-
 
 In the ``for`` loop we apply the ``enumerate`` function, which is used
 to extract both the element value *and* the element index when
 iterating over a sequence. For example,
 
-.. code-block:: text
-
+.. code-block:: python
 
         >>> for index, base in enumerate(['t', 'e', 's', 't']):
         ...   print index, base
@@ -819,7 +740,6 @@ iterating over a sequence. For example,
         1 e
         2 s
         3 t
-
 
 Here is a test,
 
@@ -840,7 +760,6 @@ with output
         [0, 0, 0, 0, 2]
         [3, 3, 0, 1, 1]
         [0, 0, 3, 0, 0]
-
 
 Nested List
 ~~~~~~~~~~~
@@ -865,10 +784,8 @@ The simplest way to make a nested list is to insert the
         >>> G[3]  # same element
         2
 
-
 Alternatively, we can illustrate how to compute this type of nested
 list directly:
-
 
 .. code-block:: python
 
@@ -891,7 +808,6 @@ list directly:
         
             return frequency_matrix
 
-
 As in the case with individual lists we need to initialize all elements
 in the nested list to zero.
 
@@ -909,12 +825,10 @@ results in
 
         [[0, 0, 0, 2, 0], [0, 0, 0, 0, 2], [3, 3, 0, 1, 1], [0, 0, 3, 0, 0]]
 
-
 Dictionary for More Convenient Indexing
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. index:: dictionary
-
 
 The series of ``if`` tests in the Python function ``freq_list_of_lists_v1``
 are somewhat cumbersome,
@@ -923,8 +837,7 @@ where the alphabet is larger. What we want is a mapping from ``base``,
 which is a character, to the corresponding index 0, 1, 2, or 3.
 A Python dictionary may represent such mappings:
 
-.. code-block:: text
-
+.. code-block:: python
 
         >>> base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
         >>> base2index['G']
@@ -933,7 +846,6 @@ A Python dictionary may represent such mappings:
 With the ``base2index`` dictionary we do not need the series of
 ``if`` tests and the alphabet ``'ATGC'`` could be much larger
 without affecting the length of the code:
-
 
 .. code-block:: python
 
@@ -945,7 +857,6 @@ without affecting the length of the code:
                     frequency_matrix[base2index[base]][index] += 1
         
             return frequency_matrix
-
 
 Numerical Python Array
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -959,7 +870,6 @@ size, here 4 times ``len(dna_list[0])``. Only the first line in the function
 ``freq_list_of_lists_v2`` needs to be changed in order to utilize
 a ``numpy`` array:
 
-
 .. code-block:: python
 
         import numpy as np
@@ -972,7 +882,6 @@ a ``numpy`` array:
                     frequency_matrix[base2index[base]][index] += 1
         
             return frequency_matrix
-
 
 The resulting ``frequency_matrix`` object can be indexed as
 ``[b][i]`` or ``[b,i]``, with integers ``b`` and ``i``. Typically, ``b`` will
@@ -993,7 +902,6 @@ have DNA strings of different lengths. The lists in ``frequency_list``
 will have lengths equal to the longest DNA string.  A relevant
 function is
 
-
 .. code-block:: python
 
         def freq_dict_of_lists_v1(dna_list):
@@ -1010,9 +918,7 @@ function is
         
             return frequency_matrix
 
-
 Running the test code
-
 
 .. code-block:: python
 
@@ -1028,7 +934,6 @@ results in the output
          'C': [0, 0, 0, 0, 2],
          'G': [3, 3, 0, 1, 1],
          'T': [0, 0, 3, 0, 0]}
-
 
 The initialization of ``frequency_matrix`` in the above code can
 be made more compact by using a dictionary comprehension:
@@ -1046,7 +951,6 @@ In our example we set
 Adopting this construction in the ``freq_dict_of_lists_v1`` function
 leads to a slightly more compact version:
 
-
 .. code-block:: python
 
         def freq_dict_of_lists_v2(dna_list):
@@ -1058,10 +962,7 @@ leads to a slightly more compact version:
         
             return frequency_matrix
 
-
-
 .. index:: max function
-
 
 As an additional comment on computing the maximum length of the DNA
 strings can be made as there are several alternative ways of doing
@@ -1104,7 +1005,6 @@ list or dictionary.
 Our function working with ``frequency_matrix`` as a dict of dicts
 is written as
 
-
 .. code-block:: python
 
         def freq_dict_of_dicts_v1(dna_list):
@@ -1116,7 +1016,6 @@ is written as
                     frequency_matrix[base][index] += 1
         
             return frequency_matrix
-
 
 Using Dictionaries with Default Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1133,7 +1032,6 @@ key. The construction ``defaultdict(lambda: obj)``
 makes a dictionary with ``obj`` as default value.
 This construction simplifies the previous function a bit:
 
-
 .. code-block:: python
 
         from collections import defaultdict
@@ -1147,7 +1045,6 @@ This construction simplifies the previous function a bit:
                     frequency_matrix[base][index] += 1
         
             return frequency_matrix
-
 
 **Remark.**
 Dictionary comprehensions were new in Python 2.7 and 3.1, but can be
@@ -1164,14 +1061,12 @@ is then constructed as
 
         d = dict([(key, value) for key in sequence])
 
-
 Using Arrays and Vectorization
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``frequency_matrix`` dict of lists for can easily be
 changed to a dict of ``numpy`` arrays: just replace the initialization
 ``[0]*n`` by ``np.zeros(n, dtype=np.int)``. The indexing remains the same:
-
 
 .. code-block:: python
 
@@ -1184,7 +1079,6 @@ changed to a dict of ``numpy`` arrays: just replace the initialization
                     frequency_matrix[base][index] += 1
         
             return frequency_matrix
-
 
 Having ``frequency_matrix[base]`` as a ``numpy`` array instead of a list
 does not give any immediate advantage, as the storage and CPU time is
@@ -1238,7 +1132,6 @@ This recipe can be repeated for all bases:
                     i = np.asarray(b, dtype=np.int)
                     frequency_matrix[base] = frequency_matrix[base] + i
 
-
 It turns out that we do not need to convert the boolean array ``b``
 to an integer array ``i``, because doing arithmetics with ``b`` directly
 is possible: ``False`` is interpreted as 0 and ``True`` as 1 in arithmetic
@@ -1248,7 +1141,6 @@ directly, without first computing the sum of two arrays
 ``frequency_matrix[base] + i`` and then assigning this result to
 ``frequency_matrix[base]``.
 Collecting all these ideas in one function yields the code
-
 
 .. code-block:: python
 
@@ -1267,7 +1159,6 @@ This vectorized function runs almost 10 times as fast as the
 (scalar) counterpart ``freq_list_of_arrays_v1``!
 
 .. memory mapped files?
-
 
 .. _bioinf:freq:analysis:
 
@@ -1311,7 +1202,6 @@ string is therefore ACA.  Note that the consensus string does not need to be
 equal to any of the substrings that formed the basis of the frequency
 matrix (this is indeed the case for the above example).
 
-
 List of Lists Frequency Matrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1322,7 +1212,6 @@ more letters have the same frequency value we use a dash to
 indicate that this position in the consensus string is undetermined.
 
 The following function computes the consensus string:
-
 
 .. code-block:: python
 
@@ -1345,7 +1234,6 @@ The following function computes the consensus string:
                 consensus += max_freq_base  # add new base with max freq
             return consensus
 
-
 Since this code requires ``frequency_matrix`` to be a list of lists
 we should insert a test and raise an exception if the
 type is wrong:
@@ -1360,7 +1248,6 @@ type is wrong:
                 raise TypeError('frequency_matrix must be list of lists')
             ...
 
-
 Dict of Dicts Frequency Matrix
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1374,7 +1261,6 @@ is a dict of dicts?
     by ``frequency_matrix['A']``.
 
 The updated function becomes
-
 
 .. code-block:: python
 
@@ -1402,7 +1288,6 @@ The updated function becomes
                 consensus += max_freq_base  # add new base with max freq
             return consensus
 
-
 Here is a test:
 
 .. code-block:: python
@@ -1420,7 +1305,6 @@ with output
          'G': {0: 3, 1: 3, 2: 0, 3: 1, 4: 1},
          'T': {0: 0, 1: 0, 2: 3, 3: 0, 4: 0}}
         Consensus string: GGTAC
-
 
 Let us try ``find_consensus_v3`` with the dict of defaultdicts
 as input (``freq_dicts_of_dicts_v2``). The code runs fine, but
@@ -1451,21 +1335,17 @@ build as an extra argument:
         def find_consensus_v4(frequency_matrix, dna_length):
             ...
 
-
 :ref:`bioinf:exer:freq:fargs` suggests to make a unified
 ``find_consensus`` function which works with all of the different
 representations of ``frequency_matrix`` that we have used.
 
 The functions making and using the frequency matrix are found
-in the file `freq.py <http://tinyurl.com/q4qpjbt/freq.py>`_.
-
-
+in the file `freq.py <http://tinyurl.com/q4qpjbt/freq.py>`__.
 
 .. _bioinf:dotplot:
 
 Dot Plots from Pair of DNA Sequences
 ------------------------------------
-
 
 Dot plots are commonly used to visualize the similarity between two protein or
 nucleic acid sequences. They compare two sequences, say ``d1`` and ``d2``,
@@ -1517,7 +1397,6 @@ Since the plot is essentially a table, a list of lists is therefore
 a natural data structure. The following function creates the
 list of lists:
 
-
 .. code-block:: python
 
         def dotplot_list_of_lists(dna_x, dna_y):
@@ -1528,10 +1407,8 @@ list of lists:
                         dotplot_matrix[y_index][x_index] = '1'
             return dotplot_matrix
 
-
 To view the dot plot we need to print out the list of lists. Here
 is a possible way:
-
 
 .. code-block:: python
 
@@ -1543,7 +1420,6 @@ is a possible way:
             for column in row:
                 print column,
             print
-
 
 The output becomes
 
@@ -1561,7 +1437,6 @@ The output becomes
         0 1 1 0 0 0 0 0 0 1 1 0
         0 1 1 0 0 0 0 0 0 1 1 0
         1 0 0 1 0 0 0 1 0 0 0 1
-
 
 One can, alternatively, translate the list of lists to a multi-line string
 containing the whole plot as a string object.
@@ -1585,7 +1460,6 @@ newline as delimiter such that the rows appear on separate lines when
 printing the string.  To really understand what is going on, a more
 comprehensive code could be made so that each step can be examined:
 
-
 .. code-block:: python
 
         def make_string_expanded(dotplot_matrix):
@@ -1603,13 +1477,11 @@ comprehensive code could be made so that each step can be examined:
         
         s = make_string_expanded(M2)
 
-
 Unless the join operation as used here is well understood, it is highly
 recommended to paste the above code into the
-`Online Python Tutor <http://www.pythontutor.com/>`_,
+`Online Python Tutor <http://www.pythontutor.com/>`__,
 step through the code, and watch how variables change their content.
 Figure :ref:`bioinf:fig:pot2` shows a snapshot of this type of code investigation.
-
 
 .. _bioinf:fig:pot2:
 
@@ -1618,13 +1490,11 @@ Figure :ref:`bioinf:fig:pot2` shows a snapshot of this type of code investigatio
 
    *Illustration of how join operations work (using the Online Python Tutor)*
 
-
 Using Numerical Python Arrays
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A Numerical Python array, with integer elements that equal 0 or 1,
 is well suited as data structure to hold a dot plot.
-
 
 .. code-block:: python
 
@@ -1638,9 +1508,8 @@ is well suited as data structure to hold a dot plot.
         
         print dotplot_numpy(dna_x, dna_y)
 
-
 The two dot plot functions are available
-in the file `dotplot.py <http://tinyurl.com/q4qpjbt/dotplot.py>`_.
+in the file `dotplot.py <http://tinyurl.com/q4qpjbt/dotplot.py>`__.
 
 .. _bioinf:basefreq:
 
@@ -1674,7 +1543,6 @@ dictionaries such that we can index with the character and get the
 count or the frequency out.
 Counting is done by
 
-
 .. code-block:: python
 
         def get_base_counts(dna):
@@ -1684,7 +1552,6 @@ Counting is done by
             return counts
 
 This function can then be used to compute the base frequencies:
-
 
 .. code-block:: python
 
@@ -1698,7 +1565,6 @@ Since we learned at the end of the section :ref:`bioinf:count:cpu` that
 implementations of counting, we can write a faster and simpler
 function for computing all the base frequencies:
 
-
 .. code-block:: python
 
         def get_base_frequencies_v2(dna):
@@ -1706,7 +1572,6 @@ function for computing all the base frequencies:
                         for base in 'ATGC'}
 
 A little test,
-
 
 .. code-block:: python
 
@@ -1735,14 +1600,11 @@ inserted between the items in the result. Lazy programmers would
 probably just do a ``print frequencies`` and live with the
 curly braces in the output and (in general) 16 disturbing decimals.
 
-
 .. index:: urllib
-
 
 We can try the frequency computation on real data. The file
 
 .. code-block:: text
-
 
         http://hplgit.github.com/bioinf-py/data/yeast_chr1.txt
 
@@ -1763,7 +1625,6 @@ in the current working folder.
 
 The appropriate download code then becomes
 
-
 .. code-block:: python
 
         import urllib, os
@@ -1776,12 +1637,10 @@ The appropriate download code then becomes
 A copy of the file on the Internet is now in the current working folder
 under the name ``yeast_chr1.txt``.
 
-
 The ``yeast_chr1.txt`` files contains the DNA string split over many lines.
 We therefore need to read the lines in this file, strip each line to
 remove the trailing newline, and join all the stripped lines to
 recover the DNA string:
-
 
 .. code-block:: python
 
@@ -1791,9 +1650,7 @@ recover the DNA string:
             dna = ''.join([line.strip() for line in lines])
             return dna
 
-
 As usual, an alternative programming solution can be devised:
-
 
 .. code-block:: python
 
@@ -1815,7 +1672,6 @@ The output becomes
         Base frequencies of yeast DNA (length 230208):
         A: 0.30, C: 0.19, T: 0.30, G: 0.20
 
-
 The varying frequency of different nucleotides in DNA is referred to
 as nucleotide bias. The nucleotide bias varies between organisms, and
 have a range of biological implications. For many organisms the
@@ -1824,16 +1680,14 @@ reflects characteristics of the organisms and their environments, for
 instance the typical temperature the organism is adapted to.
 The
 interested reader can, e.g., find more details in
-`this article <http://www.nature.com/embor/journal/v6/n12/full/7400538.html>`_.
-
+`this article <http://www.nature.com/embor/journal/v6/n12/full/7400538.html>`__.
 
 .. This shows that A and T appears in the yeast DNA with 50 percent higher
 
 .. probability than C and G.
 
-
 The functions computing base frequencies are available
-in the file `basefreq.py <http://tinyurl.com/q4qpjbt/basefreq.py>`_.
+in the file `basefreq.py <http://tinyurl.com/q4qpjbt/basefreq.py>`__.
 
 .. _bioinf:gene2protein:
 
@@ -1863,7 +1717,6 @@ The file
 
 .. code-block:: text
 
-
         http://hplgit.github.com/bioinf-py/doc/src/data/genetic_code.tsv
 
 contains a mapping of genetic codes to amino acids.
@@ -1892,7 +1745,6 @@ a 1-letter symbol, a 3-letter name, and the full name.
 Downloading the ``genetic_code.tsv`` file can be done by
 this robust function:
 
-
 .. code-block:: python
 
         def download(urlbase, filename):
@@ -1908,10 +1760,8 @@ this robust function:
                 if 'DOCTYPE html' in f.readline():
                     raise IOError('URL %s does not exist' % url)
 
-
 We want to make a dictionary of this file that maps the code (first
 column) on to the 1-letter name (second column):
-
 
 .. code-block:: python
 
@@ -1923,10 +1773,8 @@ column) on to the 1-letter name (second column):
                 genetic_code[columns[0]] = columns[1]
             return genetic_code
 
-
 Downloading the file, reading it, and making the dictionary are done
 by
-
 
 .. code-block:: python
 
@@ -1935,24 +1783,20 @@ by
         download(urlbase, genetic_code_file)
         code = read_genetic_code_v1(genetic_code_file)
 
-
 Not surprisingly, the ``read_genetic_code_v1`` can be made much shorter
 by collecting the first two columns as list of 2-lists and then
 converting the 2-lists to key-value pairs in a dictionary:
-
 
 .. code-block:: python
 
         def read_genetic_code_v2(filename):
             return dict([line.split()[0:2] for line in open(filename, 'r')])
 
-
 Creating a mapping of the code onto all the three variants of the amino
 acid name is
 also of interest. For example, we would like to make look ups like
 ``['CUU']['3-letter']`` or ``['CUU']['amino acid']``. This requires
 a dictionary of dictionaries:
-
 
 .. code-block:: python
 
@@ -1968,7 +1812,6 @@ a dictionary of dictionaries:
 
 An alternative way of writing the last function is
 
-
 .. code-block:: python
 
         def read_genetic_code_v4(filename):
@@ -1978,7 +1821,6 @@ An alternative way of writing the last function is
                 genetic_code[c[0]] = {
                     '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
             return genetic_code
-
 
 To form mRNA, we need to grab the exon regions (the coding parts) of
 the lactase gene.  These regions are substrings of the lactase gene
@@ -2010,7 +1852,6 @@ an exon region:
 We want to have this information available in a list of (start, end)
 tuples. The following function does the job:
 
-
 .. code-block:: python
 
         def read_exon_regions_v1(filename):
@@ -2026,7 +1867,6 @@ tuples. The following function does the job:
 Readers favoring compact code will appreciate this alternative version
 of the function:
 
-
 .. code-block:: python
 
         def read_exon_regions_v2(filename):
@@ -2035,13 +1875,11 @@ of the function:
         
         lactase_exon_regions = read_exon_regions_v2(lactase_exon_file)
 
-
 For simplicity's sake, we shall consider mRNA as the concatenation of exons,
 although in reality, additional base pairs are added to each end.
 Having the lactase gene as a string and the exon regions as a list of
 (start, end) tuples, it is straightforward to extract the regions
 as substrings, replace T by U, and add all the substrings together:
-
 
 .. code-block:: python
 
@@ -2053,12 +1891,10 @@ as substrings, replace T by U, and add all the substrings together:
         
         mrna = create_mRNA(lactase_gene, lactase_exon_regions)
 
-
 We would like to store the mRNA string in a file, using the same
 format as ``lactase_gene.txt`` and ``yeast_chr1.txt``, i.e.,
 the string is split on multiple lines with, e.g., 70 characters per line.
 An appropriate function doing this is
-
 
 .. code-block:: python
 
@@ -2069,7 +1905,6 @@ An appropriate function doing this is
                 end = start + chars_per_line
                 outfile.write(text[start:end] + '\n')
             outfile.close()
-
 
 It might be convenient to have a separate folder for files that we create.
 Python has good support for testing if a folder exists, and if not,
@@ -2106,7 +1941,6 @@ per line, or have the string on just one long line. The latter version
 is specified through ``chars_per_line='inf'`` (for infinite number of
 characters per line).  The flexible file writing function then becomes
 
-
 .. code-block:: python
 
         def tofile_with_line_sep_v2(text, foldername, filename,
@@ -2125,11 +1959,9 @@ characters per line).  The flexible file writing function then becomes
                     outfile.write(text[start:end] + '\n')
             outfile.close()
 
-
 To create the protein, we replace the triplets of the mRNA strings
 by the corresponding 1-letter name as specified in the
 ``genetic_code.tsv`` file.
-
 
 .. code-block:: python
 
@@ -2145,14 +1977,11 @@ by the corresponding 1-letter name as specified in the
         protein = create_protein(mrna, genetic_code)
         tofile_with_line_sep_v2(protein, 'output',
 
-
-
 Unfortunately, this first try to simulate the translation process is
 incorrect. The problem is that the translation always begins with the
 amino acid Methionine, code AUG, and ends when one of the stop codons
 is met. We must thus check for the correct start and stop criteria.
 A fix is
-
 
 .. code-block:: python
 
@@ -2183,7 +2012,6 @@ The output, needed below for comparison, becomes
         10 last amino acids of the correct lactase protein:  QQELSPVSSF
         Lenght of the correct protein:  1927
 
-
 .. _bioinf:lactase:milk:
 
 Some Humans Can Drink Milk, While Others Cannot
@@ -2195,7 +2023,6 @@ and is particularly common in Finland. The disease is caused by a mutation of
 the base in position 30049 (0-based) of the lactase gene, a mutation from T to
 A. Our goal is to check what happens to the protein if this base is mutated.
 This is a simple task using the previously developed tools:
-
 
 .. code-block:: python
 
@@ -2234,7 +2061,6 @@ This is a simple task using the previously developed tools:
         print 'Lenght of the mutated lactase protein:', \ 
               len(mutated_protein)
 
-
 The output, to be compared with the non-mutated gene above, is now
 
 .. code-block:: text
@@ -2257,8 +2083,7 @@ lineages. The prevalence of lactose intolerance varies widely, from around 5%
 in northern Europe, to close to 100% in south-east Asia.
 
 The functions analyzing the lactase gene are found
-in the file `genes2proteins.py <http://tinyurl.com/q4qpjbt/genes2proteins.py>`_.
-
+in the file `genes2proteins.py <http://tinyurl.com/q4qpjbt/genes2proteins.py>`__.
 
 .. _bioinf:random:
 
@@ -2287,7 +2112,6 @@ changing a character in a Python string is impossible without
 constructing a new string. However, an element in a list can be
 changed in-place:
 
-
 .. code-block:: python
 
         import random
@@ -2298,11 +2122,9 @@ changed in-place:
             dna_list[mutation_site] = random.choice(list('ATCG'))
             return ''.join(dna_list)
 
-
 Using ``get_base_frequencies_v2`` and ``format_frequencies``
 from the section :ref:`bioinf:basefreq`, we can easily mutate a gene a number
 of times and see how the frequencies of the bases A, C, G, and T change:
-
 
 .. code-block:: python
 
@@ -2317,7 +2139,6 @@ of times and see how the frequencies of the bases A, C, G, and T change:
         print 'DNA after %d mutations:' % nmutations, dna
         print format_frequencies(get_base_frequencies_v2(dna))
 
-
 Here is the output from a run:
 
 .. code-block:: text
@@ -2326,7 +2147,6 @@ Here is the output from a run:
         A: 0.25, C: 0.15, T: 0.30, G: 0.30
         DNA after 10000 mutations: AACCAATCCGACGAGGAGTG
         A: 0.35, C: 0.25, T: 0.10, G: 0.30
-
 
 Vectorized Version
 ~~~~~~~~~~~~~~~~~~
@@ -2382,7 +2202,6 @@ and then joining the list elements: ``''.join(dna.tolist())``.
 
 The complete vectorized functions can now be expressed as follows:
 
-
 .. code-block:: python
 
         import numpy as np
@@ -2403,21 +2222,17 @@ The complete vectorized functions can now be expressed as follows:
             dna[mutation_sites] = new_bases_c
             return ''.join(dna.tolist())
 
-
 It is of interest to time ``mutate_v2`` versus ``mutate_v1``. For this purpose
 we need a long test string. A straightforward generation of random
 letters is
-
 
 .. code-block:: python
 
         def generate_string_v1(N, alphabet='ACGT'):
             return ''.join([random.choice(alphabet) for i in xrange(N)])
 
-
 A vectorized version of this function can also be made, using the
 ideas explored above for the ``mutate_v2`` function:
-
 
 .. code-block:: python
 
@@ -2430,8 +2245,7 @@ ideas explored above for the ``mutate_v2`` function:
                 dna[dna_i == i] = i2c[i]
             return ''.join(dna.tolist())
 
-
-The ``time_mutate`` function in the file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`_ performs
+The ``time_mutate`` function in the file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`__ performs
 timing of the generation of test strings and the mutations.  To
 generate a DNA string of length 100,000 the vectorized function is
 about 8 times faster. When performing 10,000 mutations on this string,
@@ -2440,7 +2254,6 @@ approximately the same also for larger strings and more mutations.
 Hence, this case study on vectorization is a striking example on the fact
 that a straightforward and convenient function like ``mutate_v1`` might
 occasionally be very slow for large-scale computations.
-
 
 A Markov Chain Mutation Model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2504,7 +2317,6 @@ which can be computed by
         markov_chain['A'] = {base: p for base, p in
                              zip('ACGT', transition_probabilities)}
 
-
 To select a transition, we need to draw a random letter
 (A, C, G, or T) according to the probabilities
 ``markov_chain[b]`` where ``b`` is the base at the current position.
@@ -2513,7 +2325,6 @@ random value from a *discrete probability distribution* (``markov_chain[b]``).
 The natural approach is therefore write a general function for
 drawing from any discrete probability distribution given as
 a dictionary:
-
 
 .. code-block:: python
 
@@ -2531,7 +2342,6 @@ a dictionary:
                 if r < limit:
                     return value
 
-
 Basically, the algorithm divides :math:`[0,1]` into intervals of lengths
 equal to the probabilities of the various outcomes and checks
 which interval is hit by a random variable in :math:`[0,1]`. The corresponding
@@ -2539,7 +2349,6 @@ value is the random choice.
 
 A complete function creating all the transition probabilities and
 storing them in a dictionary of dictionaries takes the form
-
 
 .. code-block:: python
 
@@ -2560,12 +2369,10 @@ storing them in a dictionary of dictionaries takes the form
         print mc
         print mc['A']['T'] # probability of transition from A to T
 
-
 It is natural to develop a function for checking that the generated
 probabilities are consistent. The transition from a particular base
 into one of the four bases happens with probability 1, which means that
 the probabilities in a row must sum up to 1:
-
 
 .. code-block:: python
 
@@ -2577,13 +2384,11 @@ the probabilities in a row must sum up to 1:
                     raise ValueError('Wrong sum: %s for "%s"' % \ 
                                      (s, from_base))
 
-
 Another test is to check that ``draw`` actually draws random values
 in accordance with the underlying probabilities. To this end, we draw
 a large number of values, ``N``, count the frequencies of the various values,
 divide by ``N`` and compare the empirical normalized frequencies
 with the probabilities:
-
 
 .. code-block:: python
 
@@ -2606,13 +2411,12 @@ This test is only approximate, but does bring evidence to the correctness
 of the implementation of the ``draw`` function.
 
 A vectorized version of ``draw`` can also be made. We refer to the
-source code file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`_
+source code file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`__
 for details (the function is relatively
 complicated).
 
 Now we have all the tools needed to run the Markov chain of
 transitions for a randomly selected position in a DNA sequence:
-
 
 .. code-block:: python
 
@@ -2629,7 +2433,6 @@ enhancements of simulating mutations via these functions.
 
 Here is a simulation of mutations using the method based on Markov chains:
 
-
 .. code-block:: python
 
         dna = 'TTACGGAGATTTCGGTATGCAT'
@@ -2645,7 +2448,6 @@ Here is a simulation of mutations using the method based on Markov chains:
         
         print 'DNA after %d mutations (Markov chain):' % nmutations, dna
         print format_frequencies(get_base_frequencies_v2(dna))
-
 
 The output will differ each time the program is run unless
 ``random.seed(i)`` is called in the beginning of the program for some
@@ -2708,7 +2510,6 @@ is then the sum of the probabilities in the column corresponding to
 :math:`b`, divided by 4. We can now compute :math:`P(Y=b)` for
 :math:`b` as A, C, G, and T:
 
-
 .. code-block:: python
 
         def transition_into_bases(markov_chain):
@@ -2717,7 +2518,6 @@ is then the sum of the probabilities in the column corresponding to
                     for to_base in 'ATGC'}
         
         print transition_into_bases(mc)
-
 
 The :math:`P(X=b)` probabilities corresponding to the example run above reads
 
@@ -2729,7 +2529,7 @@ Transition into T (:math:`P(Y=T)`) has greatest probability (0.3) and this is al
 confirmed by the greatest frequency (0.41).
 
 The various functions performing mutations are located
-in the file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`_.
+in the file `mutate.py <http://tinyurl.com/q4qpjbt/mutate.py>`__.
 
 .. _bioinf:oo:
 
@@ -2746,7 +2546,6 @@ Class for Regions
 -----------------
 
 The class for representing a region of a DNA string is quite simple:
-
 
 .. code-block:: python
 
@@ -2835,8 +2634,8 @@ The selection of functions include
  * ``create_protein_fixed`` for proper creation of a protein sequence (string)
 
 The set of plain functions for DNA analysis is found
-in the file `dna_functions.py <http://tinyurl.com/q4qpjbt/dna_functions.py>`_, while
-`dna_classes.py <http://tinyurl.com/q4qpjbt/dna_classes.py>`_ contains the implementations
+in the file `dna_functions.py <http://tinyurl.com/q4qpjbt/dna_functions.py>`__, while
+`dna_classes.py <http://tinyurl.com/q4qpjbt/dna_classes.py>`__ contains the implementations
 of classes ``Gene`` and ``Region``.
 
 Basic Features of class Gene
@@ -2866,7 +2665,6 @@ indicating the start and end of each region:
                     prev_end = end
                 self._introns.append(Region(dna, end, len(dna)))
 
-
 The methods in class ``Gene`` are trivial to implement when we already
 have the functionality in stand-alone functions.
 Here are a few examples on methods:
@@ -2894,8 +2692,6 @@ Here are a few examples on methods:
                 """Return base frequencies formatted with two decimals."""
                 return format_frequencies(self.get_base_frequencies())
 
-
-
 Flexible Constructor
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -2920,7 +2716,6 @@ than the first version. The implementation illustrates well how the concept of
 overloaded constructors in other languages, like C++ and Java, are
 dealt with in Python (overloaded constructors take different types
 of arguments to initialize an instance):
-
 
 .. code-block:: python
 
@@ -2983,7 +2778,6 @@ of arguments to initialize an instance):
                     if len(dna) - end > 0:
                         self._introns.append(Region(dna, end, len(dna)))
 
-
 Note that we perform quite detailed testing of the object type
 of the data structures supplied as the ``dna`` and ``exon_regions``
 arguments. This can well be done to ensure safe use also when there is only
@@ -2993,7 +2787,6 @@ Other Methods
 ~~~~~~~~~~~~~
 
 A ``create_mRNA`` method, returning the mRNA as a string, can be coded as
-
 
 .. code-block:: python
 
@@ -3005,12 +2798,10 @@ A ``create_mRNA`` method, returning the mRNA as a string, can be coded as
                     raise ValueError(
                         'Cannot create mRNA for gene with no exon regions')
 
-
 Also here we rely on calling an already implemented function, but include
 some testing whether asking for mRNA is appropriate.
 
 Methods for creating a mutated gene are also included:
-
 
 .. code-block:: python
 
@@ -3039,10 +2830,8 @@ Methods for creating a mutated gene are also included:
                     self._dna, markov_chain)
                 return Gene(mutated_dna, self._exon_regions)
 
-
 Some "get" methods that give access to the fundamental attributes
 of the class can be included:
-
 
 .. code-block:: python
 
@@ -3062,7 +2851,6 @@ attributes are considered "protected", i.e., not to be directly accessed
 by the user. The "protection" in "get" functions is more mental
 than actual since we anyway give the data structures in the hands of
 the user and she can do whatever she wants (even delete them).
-
 
 Special methods for the length of a gene, adding genes, checking if
 two genes are identical, and printing of compact gene information
@@ -3103,12 +2891,10 @@ are relevant to add:
                     s += ', %d exon regions' % len(self._exons)
                 return s
 
-
 Here is an interactive session demonstrating how we can work with
 class ``Gene`` objects:
 
-.. code-block:: text
-
+.. code-block:: python
 
         >>> from dna_classes import Gene
         >>> g1 = Gene('ATCCGTAATTGCGCA', [(2,4), (6,9)])
@@ -3130,8 +2916,6 @@ class ``Gene`` objects:
         >>> g3 = g1b + g2b
         >>> g3.format_base_frequencies()
         'A: 0.17, C: 0.23, T: 0.33, G: 0.27'
-
-
 
 Subclasses
 ----------
@@ -3159,7 +2943,6 @@ without implementing a subclass version of this method.
 
 The two subclasses of ``Gene`` may take this simple form:
 
-
 .. code-block:: python
 
         class RNACodingGene(Gene):
@@ -3179,10 +2962,8 @@ The two subclasses of ``Gene`` may take this simple form:
                 return create_protein_fixed(self.create_mRNA(),
                                             self.genetic_code)
 
-
 A demonstration of how to load the lactase gene and create the
 lactase protein is done with
-
 
 .. code-block:: python
 
@@ -3197,7 +2978,6 @@ lactase protein is done with
             protein = lactase_gene.get_product()
             tofile_with_line_sep(protein, 'output', 'lactase_protein.txt')
 
-
 Now, envision that the Lactase gene would instead have been an
 RNA-coding gene. The only necessary changes would have been to exchange
 ``ProteinCodingGene`` by ``RNACodingGene`` in the assignment to
@@ -3210,8 +2990,6 @@ and Kai Trengereid for contributing to the examples and their implementations.
 
 Exercises
 =========
-
-
 
 .. --- begin exercise ---
 
@@ -3228,11 +3006,7 @@ Filename: ``count_pairs.py``.
 
 .. Note: dna.count(pair) works!
 
-
 .. --- end exercise ---
-
-
-
 
 .. --- begin exercise ---
 
@@ -3261,9 +3035,6 @@ Filename: ``count_substr.py``.
 
 .. --- end exercise ---
 
-
-
-
 .. --- begin exercise ---
 
 .. _bioinf:exer:freq:fargs:
@@ -3281,9 +3052,6 @@ Filename: ``find_consensus.py``.
 
 .. --- end exercise ---
 
-
-
-
 .. --- begin exercise ---
 
 .. _bioinf:exer:get_base_counts2:
@@ -3295,7 +3063,6 @@ Consider the function ``get_base_counts(dna)``
 from the section :ref:`bioinf:basefreq`,
 which counts how many times ``A``, ``C``, ``G``, and
 ``T`` appears in the string ``dna``:
-
 
 .. code-block:: python
 
@@ -3312,11 +3079,7 @@ Filename: ``get_base_counts2.py``.
 
 .. Hints: defaultdict or test on if base in counts: ... else counts[base]=1
 
-
 .. --- end exercise ---
-
-
-
 
 .. --- begin exercise ---
 
@@ -3347,9 +3110,6 @@ Filename: ``prop_A_exons.py``.
 
 .. --- end exercise ---
 
-
-
-
 .. --- begin exercise ---
 
 .. _bioinf:exer:Markov:chain:eff:
@@ -3369,9 +3129,6 @@ versus the ``mutate_via_markov_chain`` function for 1 million mutations.
 Filename: ``markov_chain_mutation2.py``.
 
 .. --- end exercise ---
-
-
-
 
 .. --- begin exercise ---
 
