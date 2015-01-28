@@ -11,7 +11,8 @@ The documentation is available in various formats:
 
 ===== Citation =====
 
-The written material appears in a Springer book.
+The written material appears in Chapter 9 in the Springer book
+*A Primer on Scientific Programming with Python*.
 
 BibTeX format:
 
