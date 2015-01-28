@@ -1,5 +1,6 @@
-bioinf-py illustrates Python programming through a series of
+**bioinf-py** illustrates Python programming through a series of
 examples from bioinformatics.
+The text takes a tour of Python loops, if-tests, functions, strings, lists, dictionaries, numpy arrays, random numbers, classes, and object-oriented programming.
 
 ### Documentation
 
