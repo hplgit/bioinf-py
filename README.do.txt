@@ -5,9 +5,9 @@ examples from bioinformatics.
 
 The documentation is available in various formats:
 
- * "Bootstrap HTML": "http://hplgit/github.io/bioinf-py/doc/pub/bioinf-py.html"
- * "Sphinx HTML": "http://hplgit/github.io/bioinf-py/doc/pub/html/index.html"
- * "LaTeX PDF": "http://hplgit/github.io/bioinf-py/doc/pub/bioinf-py.pdf"
+ * "Bootstrap HTML": "http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.html"
+ * "Sphinx HTML": "http://hplgit.github.io/bioinf-py/doc/pub/html/index.html"
+ * "LaTeX PDF": "http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.pdf"
 
 ===== Citation =====
 
