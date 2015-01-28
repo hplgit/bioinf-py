@@ -1,22 +1,21 @@
 bioinf-py illustrates Python programming through a series of
 examples from bioinformatics.
 
-### Documentation
+===== Documentation =====
 
 The documentation is available in various formats:
 
- * [Bootstrap HTML](http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.html)
- * [Sphinx HTML](http://hplgit.github.io/bioinf-py/doc/pub/html/index.html)
- * [LaTeX PDF](http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.pdf)
+ * "Bootstrap HTML": "http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.html"
+ * "Sphinx HTML": "http://hplgit.github.io/bioinf-py/doc/pub/html/index.html"
+ * "LaTeX PDF": "http://hplgit.github.io/bioinf-py/doc/pub/bioinf-py.pdf"
 
-### Citation
+===== Citation =====
 
 The written material appears in a Springer book.
 
 BibTeX format:
 
-
-```
+!bc
 @book{Langtangen_2014,
   title = {A Primer on Scientific Programming With {P}ython},
   author = {H. P. Langtangen},
@@ -32,12 +31,11 @@ BibTeX format:
   key = {Pysketcher},
   note = {\url{https://github.com/hplgit/pysketcher}},
 }
-```
+!ec
 
 Publish format:
 
-
-```
+!bc
 * books
 ** A Primer on Scientific Programming With {P}ython
    key:       Langtangen_2014
@@ -55,5 +53,4 @@ Publish format:
    status:    published
    sortkey:   bioinfpy
    note:      \url{https://github.com/hplgit/bioinf-py}
-```
-
+!ec
