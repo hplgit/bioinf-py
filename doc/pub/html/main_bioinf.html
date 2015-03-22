@@ -83,7 +83,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Hans Petter Langtangen, Geir Kjetil Sandve</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Oct 18, 2014</td>
+<tr class="field-even field"><th class="field-name">Date:</th><td class="field-body">Mar 22, 2015</td>
 </tr>
 </tbody>
 </table>
@@ -572,9 +572,13 @@ the tests that failed, if we adopt the conventions above.  Our revised
 test function becomes</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">test_count_all</span><span class="p">():</span>
     <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ATTTGCGGTCCAAA&#39;</span>
-    <span class="n">exact</span> <span class="o">=</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+
+    <span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_v1</span><span class="p">,</span> <span class="n">count_v2</span><span class="p">,</span> <span class="n">count_v3</span><span class="p">,</span> <span class="n">count_v4</span><span class="p">,</span>
+                 <span class="n">count_v5</span><span class="p">,</span> <span class="n">count_v6</span><span class="p">,</span> <span class="n">count_v7</span><span class="p">,</span> <span class="n">count_v8</span><span class="p">,</span>
+                 <span class="n">count_v9</span><span class="p">,</span> <span class="n">count_v10</span><span class="p">,</span> <span class="n">count_v11</span><span class="p">,</span> <span class="n">count_v12</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
-        <span class="n">success</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">exact</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> failed&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span>
         <span class="k">assert</span> <span class="n">success</span><span class="p">,</span> <span class="n">msg</span>
 </pre></div>
@@ -2221,7 +2225,7 @@ exon or intron.</p>
 <div class="section" id="class-for-regions">
 <h3>Class for Regions<a class="headerlink" href="#class-for-regions" title="Permalink to this headline">¶</a></h3>
 <p>The class for representing a region of a DNA string is quite simple:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Region</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_region</span> <span class="o">=</span> <span class="n">dna</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
 
@@ -2305,7 +2309,7 @@ of classes <tt class="docutils literal"><span class="pre">Gene</span></tt> and <
 the associated exon regions. A simple constructor expects the
 exon regions to be specified as a list of (start, end) tuples
 indicating the start and end of each region:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dna</span> <span class="o">=</span> <span class="n">dna</span>
 
@@ -2328,7 +2332,7 @@ have the functionality in stand-alone functions.
 Here are a few examples on methods:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">dna_functions</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="o">...</span>
 
     <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">chars_per_line</span><span class="o">=</span><span class="mi">70</span><span class="p">):</span>
@@ -2370,7 +2374,7 @@ than the first version. The implementation illustrates well how the concept of
 overloaded constructors in other languages, like C++ and Java, are
 dealt with in Python (overloaded constructors take different types
 of arguments to initialize an instance):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        dna: string or (urlbase,filename) tuple</span>
@@ -2554,6 +2558,9 @@ class <tt class="docutils literal"><span class="pre">Gene</span></tt> objects:</
 <span class="gp">&gt;&gt;&gt; </span><span class="n">g3</span> <span class="o">=</span> <span class="n">g1b</span> <span class="o">+</span> <span class="n">g2b</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">g3</span><span class="o">.</span><span class="n">format_base_frequencies</span><span class="p">()</span>
 <span class="go">&#39;A: 0.17, C: 0.23, T: 0.33, G: 0.27&#39;</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">cannot do Gene += Gene with exon regions</span>
 </pre></div>
 </div>
 </div>

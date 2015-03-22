@@ -2,7 +2,7 @@
 
 from dna_functions import *
 
-class Region:
+class Region(object):
     def __init__(self, dna, start, end):
         self._region = dna[start:end]
 
@@ -25,7 +25,7 @@ class Region:
         self._region += other._region
         return self
 
-class Gene:
+class Gene(object):
     def __init__(self, dna, exon_regions):
         """
         dna: string or (urlbase,filename) tuple

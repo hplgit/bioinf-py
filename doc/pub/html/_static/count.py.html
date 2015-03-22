@@ -51,6 +51,7 @@ body .nt { color: #008000; font-weight: bold } /* Name.Tag */
 body .nv { color: #B8860B } /* Name.Variable */
 body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
 body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
 body .mf { color: #666666 } /* Literal.Number.Float */
 body .mh { color: #666666 } /* Literal.Number.Hex */
 body .mi { color: #666666 } /* Literal.Number.Integer */
@@ -206,9 +207,13 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="k">def</span> <span class="nf">test_count_all</span><span class="p">():</span>
     <span class="n">dna</span> <span class="o">=</span> <span class="s">&#39;ATTTGCGGTCCAAA&#39;</span>
-    <span class="n">exact</span> <span class="o">=</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">dna</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s">&#39;A&#39;</span><span class="p">)</span>
+
+    <span class="n">functions</span> <span class="o">=</span> <span class="p">[</span><span class="n">count_v1</span><span class="p">,</span> <span class="n">count_v2</span><span class="p">,</span> <span class="n">count_v3</span><span class="p">,</span> <span class="n">count_v4</span><span class="p">,</span>
+                 <span class="n">count_v5</span><span class="p">,</span> <span class="n">count_v6</span><span class="p">,</span> <span class="n">count_v7</span><span class="p">,</span> <span class="n">count_v8</span><span class="p">,</span>
+                 <span class="n">count_v9</span><span class="p">,</span> <span class="n">count_v10</span><span class="p">,</span> <span class="n">count_v11</span><span class="p">,</span> <span class="n">count_v12</span><span class="p">]</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">functions</span><span class="p">:</span>
-        <span class="n">success</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">exact</span>
+        <span class="n">success</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">dna</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">expected</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> failed&#39;</span> <span class="o">%</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span>
         <span class="k">assert</span> <span class="n">success</span><span class="p">,</span> <span class="n">msg</span>
 
