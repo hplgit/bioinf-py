@@ -71,7 +71,7 @@ the associated exon regions. A simple constructor expects the
 exon regions to be specified as a list of (start, end) tuples
 indicating the start and end of each region:
 !bc pycod
-class Gene:
+class Gene(object):
     def __init__(self, dna, exon_regions):
         self._dna = dna
 
@@ -95,7 +95,7 @@ Here are a few examples on methods:
 !bc pycod
 from dna_functions import *
 
-class Gene:
+class Gene(object):
     ...
 
     def write(self, filename, chars_per_line=70):

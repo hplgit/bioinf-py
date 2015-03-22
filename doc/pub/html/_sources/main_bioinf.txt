@@ -7,7 +7,7 @@ Illustrating Python via Bioinformatics Examples
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 :Authors: Hans Petter Langtangen, Geir Kjetil Sandve
-:Date: Oct 18, 2014
+:Date: Mar 22, 2015
 
 .. index:: bioinformatics
 
@@ -628,9 +628,13 @@ test function becomes
 
         def test_count_all():
             dna = 'ATTTGCGGTCCAAA'
-            exact = dna.count('A')
+            expected = dna.count('A')
+        
+            functions = [count_v1, count_v2, count_v3, count_v4,
+                         count_v5, count_v6, count_v7, count_v8,
+                         count_v9, count_v10, count_v11, count_v12]
             for f in functions:
-                success = f(dna, 'A') == exact
+                success = f(dna, 'A') == expected
                 msg = '%s failed' % f.__name__
                 assert success, msg
 
@@ -2549,7 +2553,7 @@ The class for representing a region of a DNA string is quite simple:
 
 .. code-block:: python
 
-        class Region:
+        class Region(object):
             def __init__(self, dna, start, end):
                 self._region = dna[start:end]
         
@@ -2648,7 +2652,7 @@ indicating the start and end of each region:
 
 .. code-block:: python
 
-        class Gene:
+        class Gene(object):
             def __init__(self, dna, exon_regions):
                 self._dna = dna
         
@@ -2673,7 +2677,7 @@ Here are a few examples on methods:
 
         from dna_functions import *
         
-        class Gene:
+        class Gene(object):
             ...
         
             def write(self, filename, chars_per_line=70):
@@ -2719,7 +2723,7 @@ of arguments to initialize an instance):
 
 .. code-block:: python
 
-        class Gene:
+        class Gene(object):
             def __init__(self, dna, exon_regions):
                 """
                 dna: string or (urlbase,filename) tuple

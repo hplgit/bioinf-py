@@ -51,6 +51,7 @@ body .nt { color: #008000; font-weight: bold } /* Name.Tag */
 body .nv { color: #B8860B } /* Name.Variable */
 body .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
 body .w { color: #bbbbbb } /* Text.Whitespace */
+body .mb { color: #666666 } /* Literal.Number.Bin */
 body .mf { color: #666666 } /* Literal.Number.Float */
 body .mh { color: #666666 } /* Literal.Number.Hex */
 body .mi { color: #666666 } /* Literal.Number.Integer */
@@ -81,7 +82,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 <span class="kn">from</span> <span class="nn">dna_functions</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="k">class</span> <span class="nc">Region</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Region</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_region</span> <span class="o">=</span> <span class="n">dna</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
 
@@ -104,7 +105,7 @@ body .il { color: #666666 } /* Literal.Number.Integer.Long */
         <span class="bp">self</span><span class="o">.</span><span class="n">_region</span> <span class="o">+=</span> <span class="n">other</span><span class="o">.</span><span class="n">_region</span>
         <span class="k">return</span> <span class="bp">self</span>
 
-<span class="k">class</span> <span class="nc">Gene</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">Gene</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dna</span><span class="p">,</span> <span class="n">exon_regions</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        dna: string or (urlbase,filename) tuple</span>
