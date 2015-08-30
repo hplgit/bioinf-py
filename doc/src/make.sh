@@ -32,7 +32,7 @@ doconce format html $name PRIMER_BOOK=False EBOOK=False $opt --html_style=bootsw
 
 doconce format sphinx $name PRIMER_BOOK=False EBOOK=False $opt
 rm -rf sphinx-rootdir
-doconce sphinx_dir author="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=cbc $name
+doconce sphinx_dir copyright="H. P. Langtangen and G. K. Sandve" title="Illustrating Python via Examples from Bioinformatics" version=0.9 theme=cbc $name
 python automake_sphinx.py
 # Note: duplicate links warnings occur, but that is okay (we use the
 # same repeated link text for local files)
@@ -51,6 +51,3 @@ cp -r sphinx-rootdir/_build/html $dest
 cp $name.pdf $dest/bioinf-py.pdf
 cp $name.html $dest/bioinf-py.html
 cp fig-bioinf/*.jpg $dest/fig-bioinf/
-
-
-
