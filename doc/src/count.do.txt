@@ -294,7 +294,7 @@ dna = 'A'*N
 !ec
 The resulting string is just `'AAA...A`, of length `N`, which is fine
 for testing the efficiency of Python functions. Nevertheless, it is
-more exciting to work with a DNA string with letters from the whole
+more exciting to work with a DNA string with letters from the entire
 alphabet A, C, G, and T. To make a DNA string with a random
 composition of the letters we can first make a list of random
 letters and then join all those letters to a string:
@@ -309,7 +309,7 @@ The `random.choice(x)` function selects an element in the list
 
 Note that `N` is very often a large number. In Python version 2.x,
 `range(N)` generates a list of `N` integers. We can avoid the list by
-using `xrange` which generates an integer at a time and not the whole
+using `xrange` which generates an integer at a time and not the entire
 list. In Python version 3.x, the `range` function is actually the
 `xrange` function in version 2.x.  Using `xrange`, combining the
 statements, and wrapping the construction of a random DNA string in a
@@ -448,11 +448,10 @@ is given by `f.__name__`, and we make use of this information to
 construct an informative message in case a test fails.
 
 It is a good habit to write such test functions since the execution
-of all tests in all files can be fully automated. Every time you to
+of all tests in all files can be fully automated. Every time you do
 a change in some file you can with minimum effort rerun all tests.
 
 The entire suite of functions presented above, including the timings and tests,
 can be found in the file "`count.py`": "${src_path}/count.py".
 
 #=== Testing with Real Data ===
-

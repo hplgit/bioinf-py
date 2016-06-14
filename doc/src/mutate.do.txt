@@ -85,7 +85,7 @@ The final step is to convert the `numpy` array of characters `dna`
 back to a standard string by first converting `dna` to a list
 and then joining the list elements: `''.join(dna.tolist())`.
 
-The complete vectorized functions can now be expressed as follows:
+The complete vectorized function can now be expressed as follows:
 
 @@@CODE src-bioinf/mutate.py fromto: import numpy as np@dna = mutate_v2\(dna
 

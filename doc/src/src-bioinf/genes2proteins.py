@@ -27,7 +27,8 @@ download(urlbase, genetic_code_file)
 code = read_genetic_code_v1(genetic_code_file)
 
 def read_genetic_code_v2(filename):
-    return dict([line.split()[0:2] for line in open(filename, 'r')])
+    return dict([line.split()[0:2]
+                 for line in open(filename, 'r')])
 
 code2 = read_genetic_code_v2('genetic_code.tsv')
 assert code == code2
@@ -47,7 +48,7 @@ def read_genetic_code_v4(filename):
     for line in open(filename, 'r'):
         c = line.split()
         genetic_code[c[0]] = {
-            '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
+        '1-letter': c[1], '3-letter': c[2], 'amino acid': c[3]}
     return genetic_code
 
 code = read_genetic_code_v3('genetic_code.tsv')

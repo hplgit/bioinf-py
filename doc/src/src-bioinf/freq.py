@@ -59,7 +59,7 @@ def freq_list_of_lists_v2(dna_list):
 import numpy as np
 
 def freq_numpy(dna_list):
-    frequency_matrix = np.zeros((4, len(dna_list[0])), dtype=np.int)
+    frequency_matrix = np.zeros((4, len(dna_list[0])), dtype=int)
     base2index = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
     for dna in dna_list:
         for index, base in enumerate(dna):
@@ -160,7 +160,8 @@ def find_consensus_v1(frequency_matrix):
             if frequency_matrix[base2index[base]][i] > max_freq:
                 max_freq = frequency_matrix[base2index[base]][i]
                 max_freq_base = base
-            elif frequency_matrix[base2index[base]][i] == max_freq:
+            elif frequency_matrix[base2index[base]][i] \
+                     == max_freq:
                 max_freq_base = '-' # more than one base as max
 
         consensus += max_freq_base  # add new base with max freq
